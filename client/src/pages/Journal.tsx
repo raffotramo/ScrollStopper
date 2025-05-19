@@ -1,13 +1,14 @@
 import React from 'react';
 import { format } from 'date-fns';
 import { it } from 'date-fns/locale';
-import { Calendar as CalendarIcon, ChevronRight } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronRight, BookOpen, BarChart, Clock, CheckCircle } from 'lucide-react';
 import TabNavigation from '@/components/TabNavigation';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { DayProgress } from '@/types';
 import { challenges } from '@/lib/challenges';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import logoPath from '../assets/logo.png';
 
 const Journal: React.FC = () => {
   const [progress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
@@ -42,15 +43,21 @@ const Journal: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       {/* Header */}
       <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-secondary">Diario</h1>
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="flex items-center">
+            <img src={logoPath} alt="Digital Detox Logo" className="h-10 mr-3" />
+            <h1 className="text-xl font-bold text-secondary">Diario</h1>
+          </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         <section className="mx-4 my-4">
-          <h2 className="text-lg font-semibold mb-4 text-white">Le tue riflessioni</h2>
+          <div className="flex items-center mb-4">
+            <BookOpen className="w-5 h-5 text-primary mr-2" />
+            <h2 className="text-lg font-semibold text-white">Le tue riflessioni</h2>
+          </div>
           
           {reflectionEntries.length === 0 ? (
             <div className="mb-4 bg-neutral-700 rounded-lg p-6 shadow-sm">
@@ -92,14 +99,23 @@ const Journal: React.FC = () => {
         
         {reflectionEntries.length > 0 && (
           <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6 mb-10">
-            <h2 className="text-lg font-semibold mb-3 text-white">Statistiche sul diario</h2>
+            <div className="flex items-center mb-3">
+              <BarChart className="w-5 h-5 text-primary mr-2" />
+              <h2 className="text-lg font-semibold text-white">Statistiche sul diario</h2>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-neutral-800 p-4 rounded-lg">
-                <p className="text-sm text-white/70">Riflessioni</p>
+                <div className="flex items-center mb-1">
+                  <BookOpen className="w-4 h-4 text-primary mr-1" />
+                  <p className="text-sm text-white/70">Riflessioni</p>
+                </div>
                 <p className="text-xl font-bold text-secondary">{reflectionEntries.length}</p>
               </div>
               <div className="bg-neutral-800 p-4 rounded-lg">
-                <p className="text-sm text-white/70">Completamento</p>
+                <div className="flex items-center mb-1">
+                  <CheckCircle className="w-4 h-4 text-primary mr-1" />
+                  <p className="text-sm text-white/70">Completamento</p>
+                </div>
                 <p className="text-xl font-bold text-secondary">
                   {Math.round((reflectionEntries.length / 30) * 100)}%
                 </p>

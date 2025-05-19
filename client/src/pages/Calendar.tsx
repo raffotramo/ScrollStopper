@@ -54,8 +54,11 @@ const Calendar: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       {/* Header */}
       <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-secondary">Calendario</h1>
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="flex items-center">
+            <img src={logoPath} alt="Digital Detox Logo" className="h-10 mr-3" />
+            <h1 className="text-xl font-bold text-secondary">Calendario</h1>
+          </div>
         </div>
       </header>
 
@@ -63,9 +66,12 @@ const Calendar: React.FC = () => {
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         {/* Current Challenge Overview */}
         <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-4">
-          <h2 className="text-lg font-semibold mb-4 text-white">
-            {format(today, 'MMMM yyyy', { locale: it })}
-          </h2>
+          <div className="flex items-center mb-4">
+            <CalendarIcon className="w-5 h-5 text-primary mr-2" />
+            <h2 className="text-lg font-semibold text-white">
+              {format(today, 'MMMM yyyy', { locale: it })}
+            </h2>
+          </div>
           
           {/* Days of week */}
           <div className="grid grid-cols-7 gap-1 mb-3">
@@ -121,7 +127,10 @@ const Calendar: React.FC = () => {
         
         {/* Challenge List */}
         <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-4">
-          <h2 className="text-lg font-semibold mb-4 text-white">Le tue sfide</h2>
+          <div className="flex items-center mb-4">
+            <Award className="w-5 h-5 text-primary mr-2" />
+            <h2 className="text-lg font-semibold text-white">Le tue sfide</h2>
+          </div>
           
           <div className="space-y-3">
             {challenges.map((challenge) => {
