@@ -6,22 +6,22 @@
   --background: 220 10% 15%; /* Dark gray background */
   --foreground: 0 0% 98%;
   --muted: 220 10% 20%;
-  --muted-foreground: 0 0% 80%;
+  --muted-foreground: 195 100% 65%; /* Bright azure for better readability */
   --popover: 220 10% 15%;
   --popover-foreground: 0 0% 98%;
   --card: 0 0% 100%; /* White cards */
   --card-foreground: 220 10% 15%;
   --border: 220 10% 25%;
   --input: 220 10% 25%;
-  --primary: 220 10% 15%; /* Dark background for primary */
+  --primary: 195 100% 50%; /* Bright azure */
   --primary-foreground: 0 0% 100%;
   --secondary: 142 70% 45%; /* Bright green */
   --secondary-foreground: 0 0% 100%;
-  --accent: 220 10% 20%;
+  --accent: 195 100% 40%; /* Azure accent */
   --accent-foreground: 0 0% 98%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 220 10% 25%;
+  --ring: 195 100% 50%;
   --radius: 0.5rem;
 }
 
@@ -29,22 +29,22 @@
   --background: 220 10% 15%;
   --foreground: 0 0% 98%;
   --muted: 220 10% 20%;
-  --muted-foreground: 0 0% 80%;
+  --muted-foreground: 195 100% 65%; /* Bright azure for better readability */
   --popover: 220 10% 15%;
   --popover-foreground: 0 0% 98%;
   --card: 0 0% 100%;
   --card-foreground: 220 10% 15%;
   --border: 220 10% 25%;
   --input: 220 10% 25%;
-  --primary: 220 10% 15%;
+  --primary: 195 100% 50%; /* Bright azure */
   --primary-foreground: 0 0% 100%;
   --secondary: 142 70% 45%;
   --secondary-foreground: 0 0% 100%;
-  --accent: 220 10% 20%;
+  --accent: 195 100% 40%; /* Azure accent */
   --accent-foreground: 0 0% 98%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 220 10% 25%;
+  --ring: 195 100% 50%;
   --radius: 0.5rem;
 }
 
