@@ -1,10 +1,12 @@
 import React from 'react';
 import { format, addDays, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth } from 'date-fns';
 import { it } from 'date-fns/locale';
+import { Calendar as CalendarIcon, Clock, Award } from 'lucide-react';
 import TabNavigation from '@/components/TabNavigation';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { DayProgress } from '@/types';
 import { challenges, getTodaysChallenge } from '@/lib/challenges';
+import logoPath from '../assets/logo.png';
 
 const TOTAL_DAYS = 30;
 

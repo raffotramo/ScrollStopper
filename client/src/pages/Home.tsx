@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Info, Clock, Award, BookOpen, Star, Lightbulb, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProgressCircle from '@/components/ProgressCircle';
 import DailyActivityModal from '@/components/DailyActivityModal';
@@ -9,6 +9,7 @@ import TabNavigation from '@/components/TabNavigation';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { challenges, getTodaysChallenge, getDailyTip } from '@/lib/challenges';
 import { DayProgress, CompletionStatus } from '@/types';
+import logoPath from '../assets/logo.png';
 
 const Home: React.FC = () => {
   const [progress, setProgress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
@@ -95,8 +96,11 @@ const Home: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       {/* Header */}
       <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-secondary">Digital Detox</h1>
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="flex items-center">
+            <img src={logoPath} alt="Digital Detox Logo" className="h-10 mr-3" />
+            <h1 className="text-xl font-bold text-secondary">Digital Detox</h1>
+          </div>
         </div>
       </header>
 
@@ -120,10 +124,16 @@ const Home: React.FC = () => {
 
         {/* Statistics */}
         <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6">
-          <h2 className="text-lg font-semibold mb-4 text-white">Il tuo progresso</h2>
+          <div className="flex items-center mb-4">
+            <Info className="w-5 h-5 text-primary mr-2" />
+            <h2 className="text-lg font-semibold text-white">Il tuo progresso</h2>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-neutral-800 p-4 rounded-lg">
-              <p className="text-sm text-white/70">Tempo recuperato</p>
+              <div className="flex items-center mb-1">
+                <Clock className="w-4 h-4 text-primary mr-1" />
+                <p className="text-sm text-white/70">Tempo recuperato</p>
+              </div>
               <p className="text-xl font-bold text-secondary">
                 {timeRecovered >= 60 
                   ? `${(timeRecovered / 60).toFixed(1)} ore` 
@@ -131,15 +141,24 @@ const Home: React.FC = () => {
               </p>
             </div>
             <div className="bg-neutral-800 p-4 rounded-lg">
-              <p className="text-sm text-white/70">Giorni completati</p>
+              <div className="flex items-center mb-1">
+                <Star className="w-4 h-4 text-primary mr-1" />
+                <p className="text-sm text-white/70">Giorni completati</p>
+              </div>
               <p className="text-xl font-bold text-secondary">{completedDays} / 30</p>
             </div>
             <div className="bg-neutral-800 p-4 rounded-lg">
-              <p className="text-sm text-white/70">Serie attuale</p>
+              <div className="flex items-center mb-1">
+                <Award className="w-4 h-4 text-primary mr-1" />
+                <p className="text-sm text-white/70">Serie attuale</p>
+              </div>
               <p className="text-xl font-bold text-secondary">{currentStreak} giorni</p>
             </div>
             <div className="bg-neutral-800 p-4 rounded-lg">
-              <p className="text-sm text-white/70">Riflessioni scritte</p>
+              <div className="flex items-center mb-1">
+                <BookOpen className="w-4 h-4 text-primary mr-1" />
+                <p className="text-sm text-white/70">Riflessioni scritte</p>
+              </div>
               <p className="text-xl font-bold text-secondary">{reflectionsCount}</p>
             </div>
           </div>
@@ -148,7 +167,10 @@ const Home: React.FC = () => {
         {/* Daily Challenges */}
         <section className="mx-4 my-4 mb-10">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-white">Il tuo percorso</h2>
+            <div className="flex items-center">
+              <Zap className="w-5 h-5 text-primary mr-2" />
+              <h2 className="text-lg font-semibold text-white">Il tuo percorso</h2>
+            </div>
             <Button variant="link" className="text-secondary p-0">
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -197,7 +219,10 @@ const Home: React.FC = () => {
 
         {/* Tips */}
         <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 mb-10 p-6">
-          <h2 className="text-lg font-semibold mb-3 text-white">Consiglio del giorno</h2>
+          <div className="flex items-center mb-3">
+            <Lightbulb className="w-5 h-5 text-primary mr-2" />
+            <h2 className="text-lg font-semibold text-white">Consiglio del giorno</h2>
+          </div>
           <div className="bg-secondary/20 p-4 rounded-lg">
             <p className="text-white">{tip}</p>
           </div>
