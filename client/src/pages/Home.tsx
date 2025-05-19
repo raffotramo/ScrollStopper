@@ -94,9 +94,9 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="sticky top-0 bg-white shadow-sm z-10">
+      <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-neutral-900">Digital Detox</h1>
+          <h1 className="text-xl font-bold text-secondary">Digital Detox</h1>
         </div>
       </header>
 
@@ -110,7 +110,7 @@ const Home: React.FC = () => {
             <p className="text-sm text-neutral-600 text-center mb-4">{todayChallenge.description}</p>
             <Button 
               variant={isCurrentDayCompleted ? "outline" : "default"} 
-              className={isCurrentDayCompleted ? "border-secondary text-secondary" : ""}
+              className={isCurrentDayCompleted ? "border-secondary text-secondary" : "bg-secondary hover:bg-secondary/90"}
               onClick={() => setModalOpen(true)}
             >
               {isCurrentDayCompleted ? "Rivedi Attività" : "Inizia Attività di Oggi"}
@@ -124,7 +124,7 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-neutral-50 p-4 rounded-lg">
               <p className="text-sm text-neutral-500">Tempo recuperato</p>
-              <p className="text-xl font-bold text-neutral-800">
+              <p className="text-xl font-bold text-secondary">
                 {timeRecovered >= 60 
                   ? `${(timeRecovered / 60).toFixed(1)} ore` 
                   : `${timeRecovered} min`}
@@ -132,31 +132,18 @@ const Home: React.FC = () => {
             </div>
             <div className="bg-neutral-50 p-4 rounded-lg">
               <p className="text-sm text-neutral-500">Giorni completati</p>
-              <p className="text-xl font-bold text-neutral-800">{completedDays} / 30</p>
+              <p className="text-xl font-bold text-secondary">{completedDays} / 30</p>
             </div>
             <div className="bg-neutral-50 p-4 rounded-lg">
               <p className="text-sm text-neutral-500">Serie attuale</p>
-              <p className="text-xl font-bold text-neutral-800">{currentStreak} giorni</p>
+              <p className="text-xl font-bold text-secondary">{currentStreak} giorni</p>
             </div>
             <div className="bg-neutral-50 p-4 rounded-lg">
               <p className="text-sm text-neutral-500">Riflessioni scritte</p>
-              <p className="text-xl font-bold text-neutral-800">{reflectionsCount}</p>
+              <p className="text-xl font-bold text-secondary">{reflectionsCount}</p>
             </div>
           </div>
         </section>
-
-        {/* Image Feature */}
-        <div className="mx-4 my-6 rounded-xl overflow-hidden shadow-sm">
-          <img 
-            src="https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" 
-            alt="Person reading a book, taking time away from screens" 
-            className="w-full h-40 object-cover" 
-          />
-          <div className="bg-white p-4">
-            <h3 className="font-semibold text-neutral-800">Mindfulness quotidiana</h3>
-            <p className="text-sm text-neutral-600">Riscopri il piacere delle attività senza schermi e riconnettiti con te stesso.</p>
-          </div>
-        </div>
 
         {/* Daily Challenges */}
         <section className="mx-4 my-4 mb-10">
@@ -211,7 +198,7 @@ const Home: React.FC = () => {
         {/* Tips */}
         <section className="bg-white rounded-lg shadow-sm mx-4 my-4 mb-10 p-6">
           <h2 className="text-lg font-semibold mb-3">Consiglio del giorno</h2>
-          <div className="bg-blue-50 p-4 rounded-lg">
+          <div className="bg-secondary/10 p-4 rounded-lg">
             <p className="text-neutral-700">{tip}</p>
           </div>
         </section>
