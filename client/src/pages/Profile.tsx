@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings, FileText, Clock, Award, BookOpen, CalendarDays, FilePlus, Moon, LogOut } from 'lucide-react';
+import { Settings, FileText, Clock, Award, BookOpen, CalendarDays, FilePlus, Moon, LogOut, User, BarChart, UserCog } from 'lucide-react';
 import TabNavigation from '@/components/TabNavigation';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { DayProgress } from '@/types';
@@ -8,6 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
+import logoPath from '../assets/logo.png';
 
 const Profile: React.FC = () => {
   const [progress, setProgress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
@@ -45,8 +46,11 @@ const Profile: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       {/* Header */}
       <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-secondary">Profilo</h1>
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="flex items-center">
+            <img src={logoPath} alt="Digital Detox Logo" className="h-10 mr-3" />
+            <h1 className="text-xl font-bold text-secondary">Profilo</h1>
+          </div>
         </div>
       </header>
 
@@ -76,7 +80,10 @@ const Profile: React.FC = () => {
         
         {/* Stats */}
         <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6">
-          <h2 className="text-lg font-semibold mb-4 text-white">Le tue statistiche</h2>
+          <div className="flex items-center mb-4">
+            <BarChart className="w-5 h-5 text-primary mr-2" />
+            <h2 className="text-lg font-semibold text-white">Le tue statistiche</h2>
+          </div>
           
           <div className="space-y-4">
             <div className="flex items-center">
@@ -135,7 +142,10 @@ const Profile: React.FC = () => {
         
         {/* Settings */}
         <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6 mb-10">
-          <h2 className="text-lg font-semibold mb-4 text-white">Impostazioni</h2>
+          <div className="flex items-center mb-4">
+            <UserCog className="w-5 h-5 text-primary mr-2" />
+            <h2 className="text-lg font-semibold text-white">Impostazioni</h2>
+          </div>
           
           <div className="space-y-4">
             <div className="flex items-center justify-between">
