@@ -51,24 +51,24 @@ const Calendar: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="sticky top-0 bg-white shadow-sm z-10">
+      <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-neutral-900">Calendario</h1>
+          <h1 className="text-xl font-bold text-secondary">Calendario</h1>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         {/* Current Challenge Overview */}
-        <section className="bg-white rounded-lg shadow-sm mx-4 my-4 p-4">
-          <h2 className="text-lg font-semibold mb-4">
+        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-4">
+          <h2 className="text-lg font-semibold mb-4 text-white">
             {format(today, 'MMMM yyyy', { locale: it })}
           </h2>
           
           {/* Days of week */}
           <div className="grid grid-cols-7 gap-1 mb-3">
             {['L', 'M', 'M', 'G', 'V', 'S', 'D'].map((day, i) => (
-              <div key={i} className="text-center text-xs text-neutral-500">{day}</div>
+              <div key={i} className="text-center text-xs text-white/70">{day}</div>
             ))}
           </div>
           

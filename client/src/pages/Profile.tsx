@@ -44,9 +44,9 @@ const Profile: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="sticky top-0 bg-white shadow-sm z-10">
+      <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-neutral-900">Profilo</h1>
+          <h1 className="text-xl font-bold text-secondary">Profilo</h1>
         </div>
       </header>
 

@@ -9,31 +9,31 @@ interface DailyChallengeProps {
 }
 
 const DailyChallenge: React.FC<DailyChallengeProps> = ({ challenge, status, onClick }) => {
-  let borderClass = 'border-neutral-200';
+  let borderClass = 'border-neutral-600';
   let statusLabel = '';
   let statusClass = '';
   let dayTextClass = 'text-neutral-400';
   let titleClass = 'text-neutral-400';
   
   if (status === 'today') {
-    borderClass = 'border-primary';
+    borderClass = 'border-secondary';
     statusLabel = 'Oggi';
-    statusClass = 'bg-primary bg-opacity-10 text-primary';
-    dayTextClass = 'text-primary';
-    titleClass = 'text-neutral-900';
+    statusClass = 'bg-secondary bg-opacity-20 text-secondary';
+    dayTextClass = 'text-secondary';
+    titleClass = 'text-white';
   } else if (status === 'completed') {
     borderClass = 'border-secondary';
     statusLabel = 'Completato';
     statusClass = 'bg-secondary bg-opacity-10 text-secondary';
-    dayTextClass = 'text-neutral-700';
-    titleClass = 'text-neutral-900';
+    dayTextClass = 'text-white';
+    titleClass = 'text-white';
   } else if (status === 'locked') {
     statusLabel = status === 'locked' ? 'Bloccato' : 'Domani';
-    statusClass = 'bg-neutral-100 text-neutral-500';
+    statusClass = 'bg-neutral-700 text-neutral-300';
   }
 
   return (
-    <div className={`bg-white rounded-lg shadow-sm p-4 mb-3 border-l-4 ${borderClass}`}>
+    <div className={`bg-neutral-700 rounded-lg shadow-md p-4 mb-3 border-l-4 ${borderClass}`}>
       <div className="flex justify-between items-start">
         <div>
           <div className="flex items-center">
@@ -43,14 +43,14 @@ const DailyChallenge: React.FC<DailyChallengeProps> = ({ challenge, status, onCl
           <h3 className={`font-medium mt-1 ${titleClass}`}>{challenge.title}</h3>
         </div>
         <button 
-          className="text-neutral-400 hover:text-neutral-600" 
+          className="text-neutral-300 hover:text-white" 
           onClick={onClick}
           disabled={status === 'locked'}
         >
           {status === 'locked' ? (
-            <Lock className="w-5 h-5 text-neutral-300" />
+            <Lock className="w-5 h-5 text-neutral-500" />
           ) : (
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-5 h-5 text-secondary" />
           )}
         </button>
       </div>

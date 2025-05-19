@@ -103,11 +103,11 @@ const Home: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         {/* Progress Overview */}
-        <section className="bg-white rounded-lg shadow-sm mx-4 my-4 p-6">
+        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6">
           <div className="flex flex-col items-center">
             <ProgressCircle currentDay={currentDay} totalDays={30} className="mb-4" />
-            <h2 className="text-lg font-semibold text-neutral-800 mb-1">{todayChallenge.title}</h2>
-            <p className="text-sm text-neutral-600 text-center mb-4">{todayChallenge.description}</p>
+            <h2 className="text-lg font-semibold text-white mb-1">{todayChallenge.title}</h2>
+            <p className="text-sm text-white/80 text-center mb-4">{todayChallenge.description}</p>
             <Button 
               variant={isCurrentDayCompleted ? "outline" : "default"} 
               className={isCurrentDayCompleted ? "border-secondary text-secondary" : "bg-secondary hover:bg-secondary/90"}
@@ -119,27 +119,27 @@ const Home: React.FC = () => {
         </section>
 
         {/* Statistics */}
-        <section className="bg-white rounded-lg shadow-sm mx-4 my-4 p-6">
-          <h2 className="text-lg font-semibold mb-4">Il tuo progresso</h2>
+        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6">
+          <h2 className="text-lg font-semibold mb-4 text-white">Il tuo progresso</h2>
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-neutral-50 p-4 rounded-lg">
-              <p className="text-sm text-neutral-500">Tempo recuperato</p>
+            <div className="bg-neutral-800 p-4 rounded-lg">
+              <p className="text-sm text-white/70">Tempo recuperato</p>
               <p className="text-xl font-bold text-secondary">
                 {timeRecovered >= 60 
                   ? `${(timeRecovered / 60).toFixed(1)} ore` 
                   : `${timeRecovered} min`}
               </p>
             </div>
-            <div className="bg-neutral-50 p-4 rounded-lg">
-              <p className="text-sm text-neutral-500">Giorni completati</p>
+            <div className="bg-neutral-800 p-4 rounded-lg">
+              <p className="text-sm text-white/70">Giorni completati</p>
               <p className="text-xl font-bold text-secondary">{completedDays} / 30</p>
             </div>
-            <div className="bg-neutral-50 p-4 rounded-lg">
-              <p className="text-sm text-neutral-500">Serie attuale</p>
+            <div className="bg-neutral-800 p-4 rounded-lg">
+              <p className="text-sm text-white/70">Serie attuale</p>
               <p className="text-xl font-bold text-secondary">{currentStreak} giorni</p>
             </div>
-            <div className="bg-neutral-50 p-4 rounded-lg">
-              <p className="text-sm text-neutral-500">Riflessioni scritte</p>
+            <div className="bg-neutral-800 p-4 rounded-lg">
+              <p className="text-sm text-white/70">Riflessioni scritte</p>
               <p className="text-xl font-bold text-secondary">{reflectionsCount}</p>
             </div>
           </div>
@@ -148,8 +148,8 @@ const Home: React.FC = () => {
         {/* Daily Challenges */}
         <section className="mx-4 my-4 mb-10">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">Il tuo percorso</h2>
-            <Button variant="link" className="text-primary p-0">
+            <h2 className="text-lg font-semibold text-white">Il tuo percorso</h2>
+            <Button variant="link" className="text-secondary p-0">
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
@@ -196,10 +196,10 @@ const Home: React.FC = () => {
         </section>
 
         {/* Tips */}
-        <section className="bg-white rounded-lg shadow-sm mx-4 my-4 mb-10 p-6">
-          <h2 className="text-lg font-semibold mb-3">Consiglio del giorno</h2>
-          <div className="bg-secondary/10 p-4 rounded-lg">
-            <p className="text-neutral-700">{tip}</p>
+        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 mb-10 p-6">
+          <h2 className="text-lg font-semibold mb-3 text-white">Consiglio del giorno</h2>
+          <div className="bg-secondary/20 p-4 rounded-lg">
+            <p className="text-white">{tip}</p>
           </div>
         </section>
       </main>
