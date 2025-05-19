@@ -118,8 +118,8 @@ const Calendar: React.FC = () => {
         </section>
         
         {/* Challenge List */}
-        <section className="bg-white rounded-lg shadow-sm mx-4 my-4 p-4">
-          <h2 className="text-lg font-semibold mb-4">Le tue sfide</h2>
+        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-4">
+          <h2 className="text-lg font-semibold mb-4 text-white">Le tue sfide</h2>
           
           <div className="space-y-3">
             {challenges.map((challenge) => {
@@ -148,11 +148,11 @@ const Calendar: React.FC = () => {
               return (
                 <div 
                   key={challenge.day} 
-                  className={`p-3 border-l-2 ${isCompleted ? 'border-secondary' : isMissed ? 'border-destructive' : isCurrent ? 'border-primary' : 'border-neutral-200'}`}
+                  className={`p-3 border-l-2 ${isCompleted ? 'border-secondary' : isMissed ? 'border-destructive' : isCurrent ? 'border-secondary' : 'border-neutral-600'} bg-neutral-800 rounded-md`}
                 >
                   <div className="flex justify-between">
                     <div className="flex items-center">
-                      <span className={`text-sm font-medium ${isCompleted ? 'text-secondary' : isMissed ? 'text-destructive' : isCurrent ? 'text-primary' : 'text-neutral-400'}`}>
+                      <span className={`text-sm font-medium ${isCompleted ? 'text-secondary' : isMissed ? 'text-destructive' : isCurrent ? 'text-secondary' : 'text-white/70'}`}>
                         Giorno {challenge.day}
                       </span>
                       <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${statusClass}`}>
@@ -160,7 +160,7 @@ const Calendar: React.FC = () => {
                       </span>
                     </div>
                   </div>
-                  <p className={`mt-1 ${isFuture && !isCurrent ? 'text-neutral-400' : 'text-neutral-800'}`}>{challenge.title}</p>
+                  <p className={`mt-1 ${isFuture && !isCurrent ? 'text-white/50' : 'text-white'}`}>{challenge.title}</p>
                 </div>
               );
             })}

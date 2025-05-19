@@ -50,61 +50,57 @@ const Journal: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         <section className="mx-4 my-4">
-          <h2 className="text-lg font-semibold mb-4">Le tue riflessioni</h2>
+          <h2 className="text-lg font-semibold mb-4 text-white">Le tue riflessioni</h2>
           
           {reflectionEntries.length === 0 ? (
-            <Card className="mb-4">
-              <CardContent className="pt-6">
-                <div className="text-center py-8">
-                  <CalendarIcon className="h-12 w-12 text-neutral-300 mx-auto mb-3" />
-                  <h3 className="text-lg font-medium text-neutral-800 mb-1">Nessuna riflessione</h3>
-                  <p className="text-neutral-500">
-                    Completa le sfide giornaliere e scrivi le tue riflessioni per vederle qui.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="mb-4 bg-neutral-700 rounded-lg p-6 shadow-sm">
+              <div className="text-center py-8">
+                <CalendarIcon className="h-12 w-12 text-neutral-300 mx-auto mb-3" />
+                <h3 className="text-lg font-medium text-white mb-1">Nessuna riflessione</h3>
+                <p className="text-white/70">
+                  Completa le sfide giornaliere e scrivi le tue riflessioni per vederle qui.
+                </p>
+              </div>
+            </div>
           ) : (
             <div className="space-y-4">
               {reflectionEntries.map((entry, index) => (
-                <Card key={index} className="mb-4">
-                  <CardContent className="pt-5">
-                    <div className="flex items-center justify-between mb-3">
-                      <div>
-                        <h3 className="text-lg font-semibold text-neutral-800">
-                          Giorno {entry.day}: {getChallengeTitle(entry.day)}
-                        </h3>
-                        <div className="flex items-center mt-1 text-sm text-neutral-500">
-                          <CalendarIcon className="h-3 w-3 mr-1" />
-                          <span>{formatDate(entry.completedAt)}</span>
-                        </div>
-                      </div>
-                      <div>
-                        {getCompletionBadge(entry.completionStatus)}
+                <div key={index} className="mb-4 bg-neutral-700 rounded-lg p-5 shadow-sm">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">
+                        Giorno {entry.day}: {getChallengeTitle(entry.day)}
+                      </h3>
+                      <div className="flex items-center mt-1 text-sm text-white/70">
+                        <CalendarIcon className="h-3 w-3 mr-1" />
+                        <span>{formatDate(entry.completedAt)}</span>
                       </div>
                     </div>
-                    
-                    <div className="mt-3 pt-3 border-t border-neutral-100">
-                      <p className="text-neutral-700 whitespace-pre-line">{entry.reflectionText}</p>
+                    <div>
+                      {getCompletionBadge(entry.completionStatus)}
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                  
+                  <div className="mt-3 pt-3 border-t border-neutral-600">
+                    <p className="text-white whitespace-pre-line">{entry.reflectionText}</p>
+                  </div>
+                </div>
               ))}
             </div>
           )}
         </section>
         
         {reflectionEntries.length > 0 && (
-          <section className="bg-white rounded-lg shadow-sm mx-4 my-4 p-6 mb-10">
-            <h2 className="text-lg font-semibold mb-3">Statistiche sul diario</h2>
+          <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6 mb-10">
+            <h2 className="text-lg font-semibold mb-3 text-white">Statistiche sul diario</h2>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-neutral-50 p-4 rounded-lg">
-                <p className="text-sm text-neutral-500">Riflessioni</p>
-                <p className="text-xl font-bold text-neutral-800">{reflectionEntries.length}</p>
+              <div className="bg-neutral-800 p-4 rounded-lg">
+                <p className="text-sm text-white/70">Riflessioni</p>
+                <p className="text-xl font-bold text-secondary">{reflectionEntries.length}</p>
               </div>
-              <div className="bg-neutral-50 p-4 rounded-lg">
-                <p className="text-sm text-neutral-500">Completamento</p>
-                <p className="text-xl font-bold text-neutral-800">
+              <div className="bg-neutral-800 p-4 rounded-lg">
+                <p className="text-sm text-white/70">Completamento</p>
+                <p className="text-xl font-bold text-secondary">
                   {Math.round((reflectionEntries.length / 30) * 100)}%
                 </p>
               </div>

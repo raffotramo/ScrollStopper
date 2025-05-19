@@ -53,21 +53,21 @@ const Profile: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         {/* Profile Header */}
-        <section className="bg-white rounded-lg shadow-sm mx-4 my-4 p-6 text-center">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 text-primary mb-3">
+        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6 text-center">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-secondary/20 text-secondary mb-3">
             <Award className="h-10 w-10" />
           </div>
-          <h2 className="text-xl font-bold text-neutral-800 mb-1">Digital Detox</h2>
-          <p className="text-neutral-500">Sfida di 30 giorni</p>
+          <h2 className="text-xl font-bold text-white mb-1">Digital Detox</h2>
+          <p className="text-white/70">Sfida di 30 giorni</p>
           
-          <div className="mt-4 py-4 px-6 bg-neutral-50 rounded-lg mx-auto max-w-xs">
+          <div className="mt-4 py-4 px-6 bg-neutral-800 rounded-lg mx-auto max-w-xs">
             <div className="flex justify-between items-center">
-              <span className="text-neutral-700">Progresso</span>
-              <span className="font-medium">{percentComplete}%</span>
+              <span className="text-white">Progresso</span>
+              <span className="font-medium text-secondary">{percentComplete}%</span>
             </div>
-            <div className="w-full h-2 bg-neutral-200 rounded-full mt-2">
+            <div className="w-full h-2 bg-neutral-600 rounded-full mt-2">
               <div 
-                className="h-full bg-primary rounded-full" 
+                className="h-full bg-secondary rounded-full" 
                 style={{ width: `${percentComplete}%` }}
               ></div>
             </div>
@@ -75,42 +75,42 @@ const Profile: React.FC = () => {
         </section>
         
         {/* Stats */}
-        <section className="bg-white rounded-lg shadow-sm mx-4 my-4 p-6">
-          <h2 className="text-lg font-semibold mb-4">Le tue statistiche</h2>
+        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6">
+          <h2 className="text-lg font-semibold mb-4 text-white">Le tue statistiche</h2>
           
           <div className="space-y-4">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center mr-3">
-                <CalendarDays className="h-5 w-5 text-primary" />
+              <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center mr-3">
+                <CalendarDays className="h-5 w-5 text-secondary" />
               </div>
               <div className="flex-1">
                 <div className="flex justify-between">
-                  <p className="text-neutral-700">Giorni completati</p>
-                  <p className="font-medium">{completedDays} / 30</p>
+                  <p className="text-white">Giorni completati</p>
+                  <p className="font-medium text-secondary">{completedDays} / 30</p>
                 </div>
               </div>
             </div>
             
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center mr-3">
+              <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center mr-3">
                 <Award className="h-5 w-5 text-secondary" />
               </div>
               <div className="flex-1">
                 <div className="flex justify-between">
-                  <p className="text-neutral-700">Serie corrente</p>
-                  <p className="font-medium">{currentStreak} giorni</p>
+                  <p className="text-white">Serie corrente</p>
+                  <p className="font-medium text-secondary">{currentStreak} giorni</p>
                 </div>
               </div>
             </div>
             
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center mr-3">
-                <Clock className="h-5 w-5 text-purple-500" />
+              <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center mr-3">
+                <Clock className="h-5 w-5 text-secondary" />
               </div>
               <div className="flex-1">
                 <div className="flex justify-between">
-                  <p className="text-neutral-700">Tempo recuperato</p>
-                  <p className="font-medium">
+                  <p className="text-white">Tempo recuperato</p>
+                  <p className="font-medium text-secondary">
                     {timeRecovered >= 60 
                       ? `${(timeRecovered / 60).toFixed(1)} ore` 
                       : `${timeRecovered} min`}
@@ -120,13 +120,13 @@ const Profile: React.FC = () => {
             </div>
             
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center mr-3">
-                <BookOpen className="h-5 w-5 text-amber-500" />
+              <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center mr-3">
+                <BookOpen className="h-5 w-5 text-secondary" />
               </div>
               <div className="flex-1">
                 <div className="flex justify-between">
-                  <p className="text-neutral-700">Riflessioni</p>
-                  <p className="font-medium">{reflectionsCount}</p>
+                  <p className="text-white">Riflessioni</p>
+                  <p className="font-medium text-secondary">{reflectionsCount}</p>
                 </div>
               </div>
             </div>
@@ -134,26 +134,26 @@ const Profile: React.FC = () => {
         </section>
         
         {/* Settings */}
-        <section className="bg-white rounded-lg shadow-sm mx-4 my-4 p-6 mb-10">
-          <h2 className="text-lg font-semibold mb-4">Impostazioni</h2>
+        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6 mb-10">
+          <h2 className="text-lg font-semibold mb-4 text-white">Impostazioni</h2>
           
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center mr-3">
-                  <Moon className="h-5 w-5 text-neutral-600" />
+                <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center mr-3">
+                  <Moon className="h-5 w-5 text-white" />
                 </div>
-                <Label htmlFor="dark-mode">Tema scuro</Label>
+                <Label htmlFor="dark-mode" className="text-white">Tema scuro</Label>
               </div>
               <Switch id="dark-mode" />
             </div>
             
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center mr-3">
-                  <FilePlus className="h-5 w-5 text-neutral-600" />
+                <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center mr-3">
+                  <FilePlus className="h-5 w-5 text-white" />
                 </div>
-                <Label htmlFor="notifications">Notifiche</Label>
+                <Label htmlFor="notifications" className="text-white">Notifiche</Label>
               </div>
               <Switch id="notifications" defaultChecked />
             </div>
