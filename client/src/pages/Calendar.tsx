@@ -89,18 +89,18 @@ const Calendar: React.FC = () => {
               if (challengeDay) {
                 // Challenge days styling
                 if (isToday) {
-                  className += "rounded-full bg-primary text-white font-bold border-2 border-blue-400";
+                  className += "rounded-full bg-secondary text-white font-bold border-2 border-primary";
                 } else if (isDayCompleted(challengeDay)) {
                   className += "rounded-full bg-secondary text-white";
                 } else if (isDayMissed(challengeDay)) {
-                  className += "rounded-full bg-destructive bg-opacity-10 text-destructive";
+                  className += "rounded-full bg-destructive bg-opacity-20 text-destructive";
                 } else {
                   // Future challenge days
-                  className += "text-neutral-400";
+                  className += "text-primary";
                 }
               } else {
                 // Non-challenge days
-                className += isToday ? "font-semibold text-neutral-800" : "text-neutral-400";
+                className += isToday ? "font-semibold text-white" : "text-primary/60";
               }
               
               return (

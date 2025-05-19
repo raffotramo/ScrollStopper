@@ -55,30 +55,30 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md mx-auto max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-md mx-auto max-h-[90vh] overflow-y-auto bg-neutral-800 border-neutral-700">
         <DialogHeader>
           <div className="flex justify-between items-center">
-            <DialogTitle className="text-xl font-bold">Giorno {challenge.day}: {challenge.title}</DialogTitle>
-            <Button variant="ghost" size="icon" onClick={() => onOpenChange(false)}>
+            <DialogTitle className="text-xl font-bold text-secondary">Giorno {challenge.day}: {challenge.title}</DialogTitle>
+            <Button variant="ghost" size="icon" onClick={() => onOpenChange(false)} className="text-white hover:text-white/80">
               <X className="h-4 w-4" />
             </Button>
           </div>
         </DialogHeader>
         
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">Obiettivo di oggi</h3>
-          <p className="text-neutral-700 mb-4">{challenge.description}</p>
+          <h3 className="font-semibold mb-2 text-white">Obiettivo di oggi</h3>
+          <p className="text-primary mb-4">{challenge.description}</p>
           
-          <h3 className="font-semibold mb-2">Perché è importante</h3>
-          <p className="text-neutral-700 mb-4">
+          <h3 className="font-semibold mb-2 text-white">Perché è importante</h3>
+          <p className="text-primary mb-4">
             {tip || "Questo esercizio ti aiuta a riconnetterti con attività che ti davano gioia e soddisfazione reale, invece che la gratificazione immediata ma vuota dello scrolling."}
           </p>
         </div>
         
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">Scrivi le tue riflessioni</h3>
+          <h3 className="font-semibold mb-2 text-white">Scrivi le tue riflessioni</h3>
           <Textarea
-            className="h-36"
+            className="h-36 bg-neutral-700 border-neutral-600 text-white placeholder:text-white/50"
             placeholder="Come ti sei sentito/a durante questa attività? Cosa hai imparato? Quali differenze hai notato rispetto allo scrolling?"
             value={reflectionText}
             onChange={(e) => setReflectionText(e.target.value)}
@@ -86,22 +86,22 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
         </div>
         
         <div className="space-y-2 mb-6">
-          <h3 className="font-semibold mb-2">Hai completato l'attività?</h3>
+          <h3 className="font-semibold mb-2 text-white">Hai completato l'attività?</h3>
           <RadioGroup 
             value={completionStatus} 
             onValueChange={(val) => setCompletionStatus(val as CompletionStatus)}
           >
             <div className="flex flex-col space-y-2">
-              <Label className="flex items-center space-x-2 p-3 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-50">
-                <RadioGroupItem value="yes" />
+              <Label className="flex items-center space-x-2 p-3 border border-neutral-600 rounded-lg cursor-pointer hover:bg-neutral-700 bg-neutral-700 text-white">
+                <RadioGroupItem value="yes" className="text-secondary border-secondary" />
                 <span>Sì, ho completato l'attività con successo</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-50">
-                <RadioGroupItem value="partial" />
+              <Label className="flex items-center space-x-2 p-3 border border-neutral-600 rounded-lg cursor-pointer hover:bg-neutral-700 bg-neutral-700 text-white">
+                <RadioGroupItem value="partial" className="text-secondary border-secondary" />
                 <span>Ho provato ma non sono riuscito/a completamente</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-50">
-                <RadioGroupItem value="no" />
+              <Label className="flex items-center space-x-2 p-3 border border-neutral-600 rounded-lg cursor-pointer hover:bg-neutral-700 bg-neutral-700 text-white">
+                <RadioGroupItem value="no" className="text-secondary border-secondary" />
                 <span>No, riproverò domani</span>
               </Label>
             </div>
@@ -109,7 +109,7 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
         </div>
         
         <Button 
-          className="w-full" 
+          className="w-full bg-secondary hover:bg-secondary/90 text-white" 
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
