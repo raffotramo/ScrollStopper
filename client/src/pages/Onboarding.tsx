@@ -46,7 +46,7 @@ const Onboarding: React.FC = () => {
   });
 
   const onSubmit = (data: FormValues) => {
-    setUserProfile(() => data);
+    setUserProfile(data);
     setLocation('/');
   };
 

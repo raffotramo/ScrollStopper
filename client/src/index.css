@@ -3,49 +3,49 @@
 @tailwind utilities;
 
 :root {
-  --background: 220 10% 15%; /* Dark gray background */
+  --background: 220 15% 18%; /* Dark gradient background */
   --foreground: 0 0% 98%;
   --muted: 220 10% 20%;
-  --muted-foreground: 195 100% 65%; /* Bright azure for better readability */
-  --popover: 220 10% 15%;
-  --popover-foreground: 0 0% 98%;
+  --muted-foreground: 8 82% 65%; /* Coral color for text */
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 15% 18%;
   --card: 0 0% 100%; /* White cards */
-  --card-foreground: 220 10% 15%;
-  --border: 220 10% 25%;
-  --input: 220 10% 25%;
-  --primary: 195 100% 50%; /* Bright azure */
+  --card-foreground: 220 15% 18%;
+  --border: 0 0% 89%;
+  --input: 0 0% 95%;
+  --primary: 8 82% 65%; /* Coral/salmon color */
   --primary-foreground: 0 0% 100%;
-  --secondary: 142 70% 45%; /* Bright green */
+  --secondary: 8 82% 65%; /* Same coral color */
   --secondary-foreground: 0 0% 100%;
-  --accent: 195 100% 40%; /* Azure accent */
+  --accent: 8 82% 65%; /* Coral accent */
   --accent-foreground: 0 0% 98%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 195 100% 50%;
-  --radius: 0.5rem;
+  --ring: 8 82% 65%;
+  --radius: 1rem;
 }
 
 .dark {
-  --background: 220 10% 15%;
+  --background: 220 15% 18%;
   --foreground: 0 0% 98%;
   --muted: 220 10% 20%;
-  --muted-foreground: 195 100% 65%; /* Bright azure for better readability */
-  --popover: 220 10% 15%;
-  --popover-foreground: 0 0% 98%;
+  --muted-foreground: 8 82% 65%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 15% 18%;
   --card: 0 0% 100%;
-  --card-foreground: 220 10% 15%;
-  --border: 220 10% 25%;
-  --input: 220 10% 25%;
-  --primary: 195 100% 50%; /* Bright azure */
+  --card-foreground: 220 15% 18%;
+  --border: 0 0% 89%;
+  --input: 0 0% 95%;
+  --primary: 8 82% 65%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 142 70% 45%;
+  --secondary: 8 82% 65%;
   --secondary-foreground: 0 0% 100%;
-  --accent: 195 100% 40%; /* Azure accent */
+  --accent: 8 82% 65%;
   --accent-foreground: 0 0% 98%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 195 100% 50%;
-  --radius: 0.5rem;
+  --ring: 8 82% 65%;
+  --radius: 1rem;
 }
 
 @layer base {
@@ -54,7 +54,14 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased text-foreground;
+    background: linear-gradient(135deg, #2C3E50 0%, #34495E 30%, #2C3E50 70%, #1a252f 100%);
+    min-height: 100vh;
+  }
+
+  #root {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2C3E50 0%, #34495E 30%, #2C3E50 70%, #1a252f 100%);
   }
 }
 

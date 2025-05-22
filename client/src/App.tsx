@@ -13,7 +13,7 @@ import Onboarding from "@/pages/Onboarding";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 function Router() {
-  const [userProfile] = useLocalStorage<any | null>('digital-detox-profile', null);
+  const [userProfile] = useLocalStorage<any>('digital-detox-profile', null);
   const [location, setLocation] = useLocation();
   
   // Reindirizza alla pagina di onboarding se non c'è un profilo
