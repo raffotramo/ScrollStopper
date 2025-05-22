@@ -3,12 +3,12 @@ import { format } from 'date-fns';
 import { it } from 'date-fns/locale';
 import { Calendar as CalendarIcon, ChevronRight, BookOpen, BarChart, Clock, CheckCircle } from 'lucide-react';
 import TabNavigation from '@/components/TabNavigation';
+import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { DayProgress } from '@/types';
 import { challenges } from '@/lib/challenges';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import logoPath from '../assets/logo.png';
 
 const Journal: React.FC = () => {
   const [progress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
@@ -41,15 +41,8 @@ const Journal: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center">
-            <img src={logoPath} alt="Digital Detox Logo" className="h-10 mr-3" />
-            <h1 className="text-xl font-bold text-secondary">Diario</h1>
-          </div>
-        </div>
-      </header>
+      {/* Header with ScrollStop Logo */}
+      <Header />
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">

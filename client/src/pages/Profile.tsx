@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Settings, FileText, Clock, Award, BookOpen, CalendarDays, FilePlus, Moon, LogOut, User, BarChart, UserCog } from 'lucide-react';
 import TabNavigation from '@/components/TabNavigation';
+import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { DayProgress } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -8,7 +9,6 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import logoPath from '../assets/logo.png';
 
 const Profile: React.FC = () => {
   const [progress, setProgress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
@@ -44,15 +44,8 @@ const Profile: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center">
-            <img src={logoPath} alt="Digital Detox Logo" className="h-10 mr-3" />
-            <h1 className="text-xl font-bold text-secondary">Profilo</h1>
-          </div>
-        </div>
-      </header>
+      {/* Header with ScrollStop Logo */}
+      <Header />
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
