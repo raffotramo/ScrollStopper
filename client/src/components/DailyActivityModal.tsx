@@ -69,15 +69,15 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
         
         <div className="space-y-4">
           {/* Activity Description */}
-          <div className="white-card p-4">
-            <h3 className="font-semibold mb-2 text-card-foreground">Attività di oggi</h3>
-            <p className="text-card-foreground">{challenge.description}</p>
+          <div className="border border-gray-300 rounded-lg p-4 bg-transparent">
+            <h3 className="font-semibold mb-2 text-white">Attività di oggi</h3>
+            <p className="text-gray-200">{challenge.description}</p>
           </div>
 
-          {/* Timer Section - More Compact */}
+          {/* Timer Section - Compact */}
           {challenge.timeRequired && challenge.timeRequired > 0 && (
-            <div className="white-card p-4">
-              <h3 className="font-semibold mb-3 text-card-foreground">Timer ({challenge.timeRequired} min)</h3>
+            <div className="border border-gray-300 rounded-lg p-3 bg-transparent">
+              <h3 className="font-medium mb-2 text-white text-sm">Timer ({challenge.timeRequired} min)</h3>
               <Timer 
                 timeRequired={challenge.timeRequired} 
                 onComplete={() => {
@@ -93,41 +93,41 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
 
           {/* Reflection Section */}
           {challenge.reflection && (
-            <div className="white-card p-4">
-              <h3 className="font-semibold mb-2 text-card-foreground">Domanda di riflessione</h3>
-              <p className="text-card-foreground italic">"{challenge.reflection}"</p>
+            <div className="border border-gray-300 rounded-lg p-4 bg-transparent">
+              <h3 className="font-semibold mb-2 text-white">Domanda di riflessione</h3>
+              <p className="text-gray-200 italic">"{challenge.reflection}"</p>
             </div>
           )}
         </div>
         
         {/* Reflection Input */}
-        <div className="white-card p-4 mb-4">
-          <h3 className="font-semibold mb-3 text-card-foreground">Le tue riflessioni</h3>
+        <div className="border border-gray-300 rounded-lg p-4 mb-4 bg-transparent">
+          <h3 className="font-semibold mb-3 text-white">Le tue riflessioni</h3>
           <Textarea
-            className="min-h-32 bg-white border-gray-200 text-card-foreground placeholder:text-gray-500"
-            placeholder={challenge.reflection ? `Rifletti su: ${challenge.reflection}` : "Come ti sei sentito/a durante questa attività? Cosa hai imparato? Quali differenze hai notato rispetto allo scrolling?"}
+            className="min-h-24 bg-neutral-700 border-gray-500 text-white placeholder:text-gray-400"
+            placeholder={challenge.reflection ? `Rifletti su: ${challenge.reflection}` : "Come ti sei sentito/a durante questa attività? Cosa hai imparato?"}
             value={reflectionText}
             onChange={(e) => setReflectionText(e.target.value)}
           />
         </div>
         
         {/* Completion Status */}
-        <div className="white-card p-4 mb-4">
-          <h3 className="font-semibold mb-3 text-card-foreground">Hai completato l'attività?</h3>
+        <div className="border border-gray-300 rounded-lg p-4 mb-4 bg-transparent">
+          <h3 className="font-semibold mb-3 text-white">Hai completato l'attività?</h3>
           <RadioGroup 
             value={completionStatus} 
             onValueChange={(val) => setCompletionStatus(val as CompletionStatus)}
           >
             <div className="flex flex-col space-y-2">
-              <Label className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 bg-white text-card-foreground">
+              <Label className="flex items-center space-x-3 p-2 border border-gray-500 rounded-lg cursor-pointer hover:border-primary bg-transparent text-white">
                 <RadioGroupItem value="yes" className="text-primary border-primary" />
-                <span>Sì, ho completato l'attività con successo</span>
+                <span>Sì, completato con successo</span>
               </Label>
-              <Label className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 bg-white text-card-foreground">
+              <Label className="flex items-center space-x-3 p-2 border border-gray-500 rounded-lg cursor-pointer hover:border-primary bg-transparent text-white">
                 <RadioGroupItem value="partial" className="text-primary border-primary" />
-                <span>Ho provato ma non sono riuscito/a completamente</span>
+                <span>Provato ma non completato</span>
               </Label>
-              <Label className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 bg-white text-card-foreground">
+              <Label className="flex items-center space-x-3 p-2 border border-gray-500 rounded-lg cursor-pointer hover:border-primary bg-transparent text-white">
                 <RadioGroupItem value="no" className="text-primary border-primary" />
                 <span>No, riproverò domani</span>
               </Label>

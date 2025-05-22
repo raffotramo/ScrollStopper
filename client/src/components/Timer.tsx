@@ -55,61 +55,62 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
   const progress = ((timeRequired * 60 - timeLeft) / (timeRequired * 60)) * 100;
 
   return (
-    <div className="text-center">
-      {/* Compact Circular Progress */}
-      <div className="relative w-24 h-24 mx-auto mb-4">
-        <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 120 120">
-          <circle
-            cx="60"
-            cy="60"
-            r="54"
-            stroke="currentColor"
-            strokeWidth="6"
-            fill="transparent"
-            className="text-gray-200"
-          />
-          <circle
-            cx="60"
-            cy="60"
-            r="54"
-            stroke="currentColor"
-            strokeWidth="6"
-            fill="transparent"
-            strokeDasharray={339.292}
-            strokeDashoffset={339.292 - (progress / 100) * 339.292}
-            className="text-primary transition-all duration-300 ease-in-out"
-            strokeLinecap="round"
-          />
-        </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-lg font-bold text-card-foreground">
-            {formatTime(timeLeft)}
-          </span>
+    <div className="flex items-center justify-between gap-3">
+      {/* Mini Timer Display */}
+      <div className="flex items-center gap-2">
+        <div className="relative w-8 h-8">
+          <svg className="w-8 h-8 transform -rotate-90" viewBox="0 0 32 32">
+            <circle
+              cx="16"
+              cy="16"
+              r="14"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="transparent"
+              className="text-gray-500"
+            />
+            <circle
+              cx="16"
+              cy="16"
+              r="14"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="transparent"
+              strokeDasharray={87.96}
+              strokeDashoffset={87.96 - (progress / 100) * 87.96}
+              className="text-primary transition-all duration-300"
+              strokeLinecap="round"
+            />
+          </svg>
         </div>
+        <span className="text-sm font-medium text-white">
+          {formatTime(timeLeft)}
+        </span>
       </div>
 
       {/* Status */}
       {isCompleted && (
-        <div className="mb-3 p-2 bg-green-100 text-green-800 rounded-lg text-sm">
-          Attività completata! 🎉
-        </div>
+        <span className="text-xs text-green-400">✓ Fatto!</span>
       )}
 
       {/* Compact Controls */}
-      <div className="flex gap-2 justify-center">
+      <div className="flex gap-1">
         <Button
           onClick={handlePlayPause}
-          className="flex items-center gap-1 px-3 py-2"
-          variant={isRunning ? "secondary" : "default"}
+          variant="outline"
           size="sm"
+          className="h-7 w-7 p-0 border-gray-500 text-white hover:border-primary"
         >
           {isRunning ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-          {isRunning ? 'Pausa' : 'Inizia'}
         </Button>
         
-        <Button onClick={handleReset} variant="outline" size="sm" className="flex items-center gap-1 px-3 py-2">
+        <Button 
+          onClick={handleReset} 
+          variant="outline" 
+          size="sm" 
+          className="h-7 w-7 p-0 border-gray-500 text-white hover:border-primary"
+        >
           <RotateCcw className="w-3 h-3" />
-          Reset
         </Button>
       </div>
     </div>

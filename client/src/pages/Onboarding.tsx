@@ -31,7 +31,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const Onboarding: React.FC = () => {
-  const [, setUserProfile] = useLocalStorage('user-profile', null);
+  const [, setUserProfile] = useLocalStorage('user-profile', {});
   const [, setLocation] = useLocation();
   
   const form = useForm<FormValues>({
