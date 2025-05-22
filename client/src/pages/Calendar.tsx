@@ -3,10 +3,10 @@ import { format, addDays, startOfMonth, endOfMonth, eachDayOfInterval, isSameMon
 import { it } from 'date-fns/locale';
 import { Calendar as CalendarIcon, Clock, Award } from 'lucide-react';
 import TabNavigation from '@/components/TabNavigation';
+import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { DayProgress } from '@/types';
 import { challenges, getTodaysChallenge } from '@/lib/challenges';
-import logoPath from '../assets/logo.png';
 
 const TOTAL_DAYS = 30;
 
@@ -52,15 +52,8 @@ const Calendar: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center">
-            <img src={logoPath} alt="Digital Detox Logo" className="h-10 mr-3" />
-            <h1 className="text-xl font-bold text-secondary">Calendario</h1>
-          </div>
-        </div>
-      </header>
+      {/* Header with ScrollStop Logo */}
+      <Header />
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">

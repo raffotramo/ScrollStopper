@@ -6,10 +6,10 @@ import ProgressCircle from '@/components/ProgressCircle';
 import DailyActivityModal from '@/components/DailyActivityModal';
 import DailyChallenge from '@/components/DailyChallenge';
 import TabNavigation from '@/components/TabNavigation';
+import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { challenges, getTodaysChallenge, getDailyTip } from '@/lib/challenges';
 import { DayProgress, CompletionStatus } from '@/types';
-import logoPath from '../assets/logo.png';
 
 const Home: React.FC = () => {
   const [progress, setProgress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
@@ -94,15 +94,8 @@ const Home: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 bg-neutral-800 shadow-sm z-10">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center">
-            <img src={logoPath} alt="Digital Detox Logo" className="h-10 mr-3" />
-            <h1 className="text-xl font-bold text-secondary">Digital Detox</h1>
-          </div>
-        </div>
-      </header>
+      {/* Header with ScrollStop Logo */}
+      <Header />
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
