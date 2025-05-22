@@ -67,56 +67,44 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
           </div>
         </DialogHeader>
         
-        <div className="space-y-6">
+        <div className="space-y-4">
           {/* Activity Description */}
           <div className="white-card p-4">
-            <div className="flex items-start gap-3">
-              <Target className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="font-semibold mb-2 text-card-foreground">🛠 Attività pratica</h3>
-                <p className="text-card-foreground">{challenge.description}</p>
-              </div>
-            </div>
+            <h3 className="font-semibold mb-2 text-card-foreground">Attività di oggi</h3>
+            <p className="text-card-foreground">{challenge.description}</p>
           </div>
 
-          {/* Timer Section */}
+          {/* Timer Section - More Compact */}
           {challenge.timeRequired && challenge.timeRequired > 0 && (
-            <Timer 
-              timeRequired={challenge.timeRequired} 
-              onComplete={() => {
-                toast({
-                  title: "Timer completato!",
-                  description: "Ora puoi completare la tua riflessione.",
-                  variant: "default"
-                });
-              }}
-            />
+            <div className="white-card p-4">
+              <h3 className="font-semibold mb-3 text-card-foreground">Timer ({challenge.timeRequired} min)</h3>
+              <Timer 
+                timeRequired={challenge.timeRequired} 
+                onComplete={() => {
+                  toast({
+                    title: "Timer completato!",
+                    description: "Ora puoi completare la tua riflessione.",
+                    variant: "default"
+                  });
+                }}
+              />
+            </div>
           )}
 
           {/* Reflection Section */}
           {challenge.reflection && (
             <div className="white-card p-4">
-              <div className="flex items-start gap-3">
-                <Lightbulb className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="font-semibold mb-2 text-card-foreground">🧠 Riflessione</h3>
-                  <p className="text-card-foreground italic">"{challenge.reflection}"</p>
-                </div>
-              </div>
+              <h3 className="font-semibold mb-2 text-card-foreground">Domanda di riflessione</h3>
+              <p className="text-card-foreground italic">"{challenge.reflection}"</p>
             </div>
           )}
-
-          <Separator />
         </div>
         
         {/* Reflection Input */}
-        <div className="white-card p-4 mb-6">
-          <div className="flex items-start gap-3 mb-3">
-            <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-            <h3 className="font-semibold text-card-foreground">📝 Le tue riflessioni</h3>
-          </div>
+        <div className="white-card p-4 mb-4">
+          <h3 className="font-semibold mb-3 text-card-foreground">Le tue riflessioni</h3>
           <Textarea
-            className="min-h-36 bg-white border-gray-200 text-card-foreground placeholder:text-gray-500"
+            className="min-h-32 bg-white border-gray-200 text-card-foreground placeholder:text-gray-500"
             placeholder={challenge.reflection ? `Rifletti su: ${challenge.reflection}` : "Come ti sei sentito/a durante questa attività? Cosa hai imparato? Quali differenze hai notato rispetto allo scrolling?"}
             value={reflectionText}
             onChange={(e) => setReflectionText(e.target.value)}
@@ -124,24 +112,24 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
         </div>
         
         {/* Completion Status */}
-        <div className="white-card p-4 mb-6">
-          <h3 className="font-semibold mb-4 text-card-foreground">Hai completato l'attività?</h3>
+        <div className="white-card p-4 mb-4">
+          <h3 className="font-semibold mb-3 text-card-foreground">Hai completato l'attività?</h3>
           <RadioGroup 
             value={completionStatus} 
             onValueChange={(val) => setCompletionStatus(val as CompletionStatus)}
           >
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-2">
               <Label className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 bg-white text-card-foreground">
                 <RadioGroupItem value="yes" className="text-primary border-primary" />
-                <span>✅ Sì, ho completato l'attività con successo</span>
+                <span>Sì, ho completato l'attività con successo</span>
               </Label>
               <Label className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 bg-white text-card-foreground">
                 <RadioGroupItem value="partial" className="text-primary border-primary" />
-                <span>⚡ Ho provato ma non sono riuscito/a completamente</span>
+                <span>Ho provato ma non sono riuscito/a completamente</span>
               </Label>
               <Label className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 bg-white text-card-foreground">
                 <RadioGroupItem value="no" className="text-primary border-primary" />
-                <span>⏰ No, riproverò domani</span>
+                <span>No, riproverò domani</span>
               </Label>
             </div>
           </RadioGroup>

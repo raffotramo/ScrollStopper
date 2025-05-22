@@ -55,23 +55,16 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
   const progress = ((timeRequired * 60 - timeLeft) / (timeRequired * 60)) * 100;
 
   return (
-    <div className="white-card p-6 text-center">
-      <div className="flex items-center justify-center mb-4">
-        <Clock className="w-5 h-5 text-primary mr-2" />
-        <h3 className="text-lg font-semibold text-card-foreground">
-          Timer Attività ({timeRequired} min)
-        </h3>
-      </div>
-      
-      {/* Circular Progress */}
-      <div className="relative w-32 h-32 mx-auto mb-6">
-        <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
+    <div className="text-center">
+      {/* Compact Circular Progress */}
+      <div className="relative w-24 h-24 mx-auto mb-4">
+        <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 120 120">
           <circle
             cx="60"
             cy="60"
             r="54"
             stroke="currentColor"
-            strokeWidth="8"
+            strokeWidth="6"
             fill="transparent"
             className="text-gray-200"
           />
@@ -80,7 +73,7 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
             cy="60"
             r="54"
             stroke="currentColor"
-            strokeWidth="8"
+            strokeWidth="6"
             fill="transparent"
             strokeDasharray={339.292}
             strokeDashoffset={339.292 - (progress / 100) * 339.292}
@@ -89,7 +82,7 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-bold text-card-foreground">
+          <span className="text-lg font-bold text-card-foreground">
             {formatTime(timeLeft)}
           </span>
         </div>
@@ -97,24 +90,25 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
 
       {/* Status */}
       {isCompleted && (
-        <div className="mb-4 p-3 bg-green-100 text-green-800 rounded-lg">
-          🎉 Attività completata! Ottimo lavoro!
+        <div className="mb-3 p-2 bg-green-100 text-green-800 rounded-lg text-sm">
+          Attività completata! 🎉
         </div>
       )}
 
-      {/* Controls */}
-      <div className="flex gap-3 justify-center">
+      {/* Compact Controls */}
+      <div className="flex gap-2 justify-center">
         <Button
           onClick={handlePlayPause}
-          className="flex items-center gap-2"
+          className="flex items-center gap-1 px-3 py-2"
           variant={isRunning ? "secondary" : "default"}
+          size="sm"
         >
-          {isRunning ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+          {isRunning ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
           {isRunning ? 'Pausa' : 'Inizia'}
         </Button>
         
-        <Button onClick={handleReset} variant="outline" className="flex items-center gap-2">
-          <RotateCcw className="w-4 h-4" />
+        <Button onClick={handleReset} variant="outline" size="sm" className="flex items-center gap-1 px-3 py-2">
+          <RotateCcw className="w-3 h-3" />
           Reset
         </Button>
       </div>
