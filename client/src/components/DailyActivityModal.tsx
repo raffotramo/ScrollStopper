@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Clock, CheckCircle, Lightbulb, Target } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { ChallengeDay, CompletionStatus } from '../types';
 import { useToast } from '@/hooks/use-toast';
+import Timer from './Timer';
 
 interface DailyActivityModalProps {
   open: boolean;
@@ -65,14 +67,46 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
           </div>
         </DialogHeader>
         
-        <div className="mb-6">
-          <h3 className="font-semibold mb-2 text-white">Obiettivo di oggi</h3>
-          <p className="text-primary mb-4">{challenge.description}</p>
-          
-          <h3 className="font-semibold mb-2 text-white">Perché è importante</h3>
-          <p className="text-primary mb-4">
-            {tip || "Questo esercizio ti aiuta a riconnetterti con attività che ti davano gioia e soddisfazione reale, invece che la gratificazione immediata ma vuota dello scrolling."}
-          </p>
+        <div className="space-y-6">
+          {/* Activity Description */}
+          <div className="white-card p-4">
+            <div className="flex items-start gap-3">
+              <Target className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold mb-2 text-card-foreground">🛠 Attività pratica</h3>
+                <p className="text-card-foreground">{challenge.description}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Timer Section */}
+          {challenge.timeRequired && challenge.timeRequired > 0 && (
+            <Timer 
+              timeRequired={challenge.timeRequired} 
+              onComplete={() => {
+                toast({
+                  title: "Timer completato!",
+                  description: "Ora puoi completare la tua riflessione.",
+                  variant: "default"
+                });
+              }}
+            />
+          )}
+
+          {/* Reflection Section */}
+          {challenge.reflection && (
+            <div className="white-card p-4">
+              <div className="flex items-start gap-3">
+                <Lightbulb className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold mb-2 text-card-foreground">🧠 Riflessione</h3>
+                  <p className="text-card-foreground italic">"{challenge.reflection}"</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <Separator />
         </div>
         
         <div className="mb-6">

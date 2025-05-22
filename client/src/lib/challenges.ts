@@ -1,16 +1,76 @@
 import { ChallengeDay } from "../types";
 
 export const challenges: ChallengeDay[] = [
-  { day: 1, title: "Scopri la verità", description: "Controlla quanto tempo passi sullo schermo e su quali app. Il primo passo è misurare." },
-  { day: 2, title: "Quando scrolli?", description: "Annota i momenti in cui apri i social senza pensarci. Osservati." },
-  { day: 3, title: "Come ti senti dopo?", description: "Rifletti su come ti senti subito dopo aver scrollato. Energia o svuotamento?" },
-  { day: 4, title: "Trova i tuoi trigger", description: "Identifica i 3 momenti della giornata in cui scrolli di più. E preparati ad agire." },
-  { day: 5, title: "Cosa stai evitando?", description: "Scrivi cosa stai rimandando grazie allo scroll. Affronta una piccola cosa oggi." },
-  { day: 6, title: "Capisci la dopamina", description: "Scopri perché i social sono progettati per catturarti. La consapevolezza è potere." },
-  { day: 7, title: "Fai pulizia digitale", description: "Disinstalla 1 app tossica e silenzia le notifiche che non ti servono." },
-  { day: 8, title: "Imposta limiti", description: "Configura un timer giornaliero sulle app che usi di più. Metti un confine." },
-  { day: 9, title: "Sostituisci lo scroll", description: "Prepara una lista di 10 attività da fare al posto di scrollare." },
-  { day: 10, title: "Crea uno spazio detox", description: "Trova un angolo della casa senza schermo. Rendilo il tuo rifugio." },
+  { 
+    day: 1, 
+    title: "Quanto tempo stai perdendo?", 
+    description: "Controlla le statistiche del tuo telefono (tempo schermo, app più usate, sblocchi). Annota i dati su carta o nelle note.",
+    timeRequired: 10,
+    reflection: "Se avessi indietro anche solo 1 ora al giorno, come la userei davvero?"
+  },
+  { 
+    day: 2, 
+    title: "L'impulso sotto osservazione", 
+    description: "Ogni volta che stai per scrollare, fermati e scrivi: 'Dove sono? Cosa sento? Perché voglio scrollare?'",
+    timeRequired: 5,
+    reflection: "Lo faccio per scelta o per abitudine?"
+  },
+  { 
+    day: 3, 
+    title: "Cammina invece di scrollare", 
+    description: "Ogni volta che senti l'impulso a scrollare → fai una camminata breve, anche in casa. Cammina per 15 minuti con il telefono in modalità aereo.",
+    timeRequired: 15,
+    reflection: "Dopo aver camminato, sento ancora il bisogno di scrollare?"
+  },
+  { 
+    day: 4, 
+    title: "10 respiri prima di toccare lo schermo", 
+    description: "Quando prendi in mano il telefono per scrollare → chiudi gli occhi e fai 10 respiri profondi. Poi chiediti: ne ho ancora voglia?",
+    timeRequired: 3,
+    reflection: "Come cambia la mia mente con un piccolo spazio di silenzio?"
+  },
+  { 
+    day: 5, 
+    title: "Ordina un micro-spazio reale", 
+    description: "Dedica 10 minuti a sistemare un cassetto, una borsa o una mensola. Senza telefono. Solo tu, ordine e silenzio.",
+    timeRequired: 10,
+    reflection: "Riordinare fuori mi ha aiutato a riordinare anche dentro?"
+  },
+  { 
+    day: 6, 
+    title: "Costruisci la tua lista 'anti-noia'", 
+    description: "Scrivi una lista di 20 cose che puoi fare al posto dello scroll. Dividile in: 5 minuti, 10 minuti, 30 minuti.",
+    timeRequired: 20,
+    reflection: "So cosa fare… ma riesco a scegliere davvero qualcosa di diverso?"
+  },
+  { 
+    day: 7, 
+    title: "Telefono lontano per 2 ore", 
+    description: "Metti fisicamente il telefono in un'altra stanza per 2 ore. Imposta una sveglia analogica o chiedi a qualcuno di 'custodirlo'.",
+    timeRequired: 0,
+    reflection: "Chi sono io senza il mio telefono in mano?"
+  },
+  { 
+    day: 8, 
+    title: "Voce vera, connessione vera", 
+    description: "Invece di scrollare → invia un messaggio vocale o una nota affettuosa a una persona che non senti da un po'.",
+    timeRequired: 15,
+    reflection: "Mi sento più connesso dopo un reel… o dopo una voce vera?"
+  },
+  { 
+    day: 9, 
+    title: "Osserva il mondo reale", 
+    description: "Siediti fuori, in un luogo qualunque. Guarda intorno per 10 minuti senza telefono. Solo osservazione.",
+    timeRequired: 10,
+    reflection: "Cosa vedo che normalmente mi perdo?"
+  },
+  { 
+    day: 10, 
+    title: "Riprogramma la tua home screen", 
+    description: "Sposta tutte le app social nella pagina finale. Rinomina la cartella: 'Ne ho davvero bisogno?' Metti al centro app che migliorano la tua giornata.",
+    timeRequired: 8,
+    reflection: "Quanto influisce il design del mio telefono sulle mie abitudini?"
+  },
   { day: 11, title: "Organizza la settimana", description: "Prepara un planner con orari in cui NON userai i social. Fallo realistico." },
   { day: 12, title: "Allenati alla noia", description: "Resta 10 minuti in silenzio, senza telefono. Guarda cosa succede dentro." },
   { day: 13, title: "Ferma lo scroll in 5 secondi", description: "Appena senti l'impulso, conta 5-4-3-2-1 e fai un'azione alternativa." },
