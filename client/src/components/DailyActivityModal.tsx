@@ -109,45 +109,50 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
           <Separator />
         </div>
         
-        <div className="mb-6">
-          <h3 className="font-semibold mb-2 text-white">Scrivi le tue riflessioni</h3>
+        {/* Reflection Input */}
+        <div className="white-card p-4 mb-6">
+          <div className="flex items-start gap-3 mb-3">
+            <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+            <h3 className="font-semibold text-card-foreground">📝 Le tue riflessioni</h3>
+          </div>
           <Textarea
-            className="h-36 bg-neutral-700 border-neutral-600 text-white placeholder:text-white/50"
-            placeholder="Come ti sei sentito/a durante questa attività? Cosa hai imparato? Quali differenze hai notato rispetto allo scrolling?"
+            className="min-h-36 bg-white border-gray-200 text-card-foreground placeholder:text-gray-500"
+            placeholder={challenge.reflection ? `Rifletti su: ${challenge.reflection}` : "Come ti sei sentito/a durante questa attività? Cosa hai imparato? Quali differenze hai notato rispetto allo scrolling?"}
             value={reflectionText}
             onChange={(e) => setReflectionText(e.target.value)}
           />
         </div>
         
-        <div className="space-y-2 mb-6">
-          <h3 className="font-semibold mb-2 text-white">Hai completato l'attività?</h3>
+        {/* Completion Status */}
+        <div className="white-card p-4 mb-6">
+          <h3 className="font-semibold mb-4 text-card-foreground">Hai completato l'attività?</h3>
           <RadioGroup 
             value={completionStatus} 
             onValueChange={(val) => setCompletionStatus(val as CompletionStatus)}
           >
-            <div className="flex flex-col space-y-2">
-              <Label className="flex items-center space-x-2 p-3 border border-neutral-600 rounded-lg cursor-pointer hover:bg-neutral-700 bg-neutral-700 text-white">
-                <RadioGroupItem value="yes" className="text-secondary border-secondary" />
-                <span>Sì, ho completato l'attività con successo</span>
+            <div className="flex flex-col space-y-3">
+              <Label className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 bg-white text-card-foreground">
+                <RadioGroupItem value="yes" className="text-primary border-primary" />
+                <span>✅ Sì, ho completato l'attività con successo</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-neutral-600 rounded-lg cursor-pointer hover:bg-neutral-700 bg-neutral-700 text-white">
-                <RadioGroupItem value="partial" className="text-secondary border-secondary" />
-                <span>Ho provato ma non sono riuscito/a completamente</span>
+              <Label className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 bg-white text-card-foreground">
+                <RadioGroupItem value="partial" className="text-primary border-primary" />
+                <span>⚡ Ho provato ma non sono riuscito/a completamente</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-neutral-600 rounded-lg cursor-pointer hover:bg-neutral-700 bg-neutral-700 text-white">
-                <RadioGroupItem value="no" className="text-secondary border-secondary" />
-                <span>No, riproverò domani</span>
+              <Label className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 bg-white text-card-foreground">
+                <RadioGroupItem value="no" className="text-primary border-primary" />
+                <span>⏰ No, riproverò domani</span>
               </Label>
             </div>
           </RadioGroup>
         </div>
         
         <Button 
-          className="w-full bg-secondary hover:bg-secondary/90 text-white" 
+          className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 text-lg" 
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Salvataggio...' : `Completa Giorno ${challenge.day}`}
+          {isSubmitting ? '💾 Salvataggio...' : `🎯 Completa Giorno ${challenge.day}`}
         </Button>
       </DialogContent>
     </Dialog>
