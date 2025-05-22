@@ -9,6 +9,7 @@ import Home from "@/pages/Home";
 import Calendar from "@/pages/Calendar";
 import Journal from "@/pages/Journal";
 import Profile from "@/pages/Profile";
+import Progress from "@/pages/Progress";
 import Onboarding from "@/pages/Onboarding";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
@@ -29,6 +30,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/calendar" component={Calendar} />
       <Route path="/journal" component={Journal} />
+      <Route path="/progress" component={Progress} />
       <Route path="/profile" component={Profile} />
       <Route component={NotFound} />
     </Switch>
