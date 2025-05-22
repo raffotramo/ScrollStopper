@@ -46,8 +46,14 @@ const Onboarding: React.FC = () => {
   });
 
   const onSubmit = (data: FormValues) => {
-    setUserProfile(data);
-    setLocation('/');
+    console.log('Form submitted with data:', data);
+    try {
+      setUserProfile(data);
+      console.log('Profile saved, redirecting...');
+      setLocation('/');
+    } catch (error) {
+      console.error('Error saving profile:', error);
+    }
   };
 
   return (
@@ -185,7 +191,15 @@ const Onboarding: React.FC = () => {
                   )}
                 />
                 
-                <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90">
+                <Button 
+                  type="submit" 
+                  className="w-full bg-secondary hover:bg-secondary/90"
+                  onClick={() => {
+                    console.log('Button clicked');
+                    console.log('Form errors:', form.formState.errors);
+                    console.log('Form is valid:', form.formState.isValid);
+                  }}
+                >
                   Inizia la sfida
                 </Button>
               </form>
