@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, Link } from 'wouter';
-import { Home, Calendar, BookOpen, TrendingUp, User } from 'lucide-react';
+import { Home, Zap, BookOpen, TrendingUp, User } from 'lucide-react';
 
 const TabNavigation: React.FC = () => {
   const [location] = useLocation();
@@ -17,13 +17,13 @@ const TabNavigation: React.FC = () => {
             <Home className="w-6 h-6" />
           </div>
         </Link>
-        <Link href="/calendar">
+        <Link href="/emergency">
           <div className={`py-4 px-4 flex items-center justify-center cursor-pointer transition-all duration-200 ${
-            location === '/calendar' 
+            location === '/emergency' 
               ? 'text-primary' 
               : 'text-muted-foreground/60 hover:text-foreground'
           }`}>
-            <Calendar className="w-6 h-6" />
+            <Zap className="w-6 h-6" />
           </div>
         </Link>
         <Link href="/progress">

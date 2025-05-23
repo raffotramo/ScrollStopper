@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
-import Calendar from "@/pages/Calendar";
+import EmergencyAntiScroll from "@/pages/EmergencyAntiScroll";
 import Journal from "@/pages/Journal";
 import Profile from "@/pages/Profile";
 import Progress from "@/pages/Progress";
@@ -28,7 +28,7 @@ function Router() {
     <Switch>
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/" component={Home} />
-      <Route path="/calendar" component={Calendar} />
+      <Route path="/emergency" component={EmergencyAntiScroll} />
       <Route path="/journal" component={Journal} />
       <Route path="/progress" component={Progress} />
       <Route path="/profile" component={Profile} />
