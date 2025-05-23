@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { ChevronRight, Info, Clock, Award, BookOpen, Star, Lightbulb, Zap, Lock as LockIcon } from 'lucide-react';
+import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import ProgressCircle from '@/components/ProgressCircle';
 import DailyActivityModal from '@/components/DailyActivityModal';
@@ -163,6 +164,26 @@ const Home: React.FC = () => {
               <p className="text-xl font-bold text-foreground">{reflectionsCount}</p>
             </div>
           </div>
+        </section>
+
+        {/* Emergency Anti-Scroll Button */}
+        <section className="mx-4 my-4">
+          <Link href="/emergency">
+            <div className="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-2xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-all duration-200 hover:scale-[1.02] cursor-pointer">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className="w-12 h-12 bg-primary/15 rounded-full flex items-center justify-center mr-4">
+                    <Zap className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-foreground">Pronto Soccorso Anti-Scroll</h3>
+                    <p className="text-sm text-muted-foreground">Interrompi il ciclo automatico</p>
+                  </div>
+                </div>
+                <div className="text-2xl">💥</div>
+              </div>
+            </div>
+          </Link>
         </section>
 
         {/* Daily Challenges Calendar Grid */}
