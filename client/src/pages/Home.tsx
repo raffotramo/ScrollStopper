@@ -100,7 +100,7 @@ const Home: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         {/* Main Challenge Card */}
-        <section className="bg-card rounded-2xl shadow-sm mx-4 my-4 p-6 border border-border">
+        <section className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] mx-4 my-4 p-6 border border-border/30">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold text-foreground">Giorno {currentDay}</h1>
             <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
@@ -205,10 +205,10 @@ const Home: React.FC = () => {
                   onClick={handleClick}
                   className={`aspect-square rounded-2xl p-3 flex flex-col items-center justify-center text-center transition-all duration-200 border ${
                     isCompleted 
-                      ? 'bg-primary/10 border-primary/30 text-primary shadow-sm hover:bg-primary/15' 
+                      ? 'bg-primary/10 border-primary/30 text-primary shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:bg-primary/15' 
                       : isToday 
-                      ? 'bg-primary text-primary-foreground border-primary shadow-md hover:shadow-lg transform hover:scale-105' 
-                      : 'bg-card border-border/50 text-muted-foreground/60 hover:border-border'
+                      ? 'bg-primary text-primary-foreground border-primary shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.12)] transform hover:scale-105' 
+                      : 'bg-card border-border/50 text-muted-foreground/60 hover:border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
                   } ${isLocked ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
                 >
                   <div className={`text-lg font-bold mb-1 ${
