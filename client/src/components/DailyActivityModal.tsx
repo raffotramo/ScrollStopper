@@ -93,18 +93,18 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
 
           {/* Reflection Section */}
           {challenge.reflection && (
-            <div className="border border-gray-300 rounded-lg p-4 bg-transparent">
-              <h3 className="font-semibold mb-2 text-white">Domanda di riflessione</h3>
-              <p className="text-gray-200 italic">"{challenge.reflection}"</p>
+            <div className="border border-border/30 rounded-xl p-4 bg-card">
+              <h3 className="font-semibold mb-2 text-foreground">Domanda di riflessione</h3>
+              <p className="text-muted-foreground italic">"{challenge.reflection}"</p>
             </div>
           )}
         </div>
         
         {/* Reflection Input */}
-        <div className="border border-gray-300 rounded-lg p-4 mb-4 bg-transparent">
-          <h3 className="font-semibold mb-3 text-white">Le tue riflessioni</h3>
+        <div className="border border-border/30 rounded-xl p-4 mb-4 bg-card">
+          <h3 className="font-semibold mb-3 text-foreground">Le tue riflessioni</h3>
           <Textarea
-            className="min-h-24 bg-neutral-700 border-gray-500 text-white placeholder:text-gray-400"
+            className="min-h-24 bg-background border-border/50 text-foreground placeholder:text-muted-foreground/60"
             placeholder={challenge.reflection ? `Rifletti su: ${challenge.reflection}` : "Come ti sei sentito/a durante questa attività? Cosa hai imparato?"}
             value={reflectionText}
             onChange={(e) => setReflectionText(e.target.value)}
@@ -112,22 +112,22 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
         </div>
         
         {/* Completion Status */}
-        <div className="border border-gray-300 rounded-lg p-4 mb-4 bg-transparent">
-          <h3 className="font-semibold mb-3 text-white">Hai completato l'attività?</h3>
+        <div className="border border-border/30 rounded-xl p-4 mb-4 bg-card">
+          <h3 className="font-semibold mb-3 text-foreground">Hai completato l'attività?</h3>
           <RadioGroup 
             value={completionStatus} 
             onValueChange={(val) => setCompletionStatus(val as CompletionStatus)}
           >
             <div className="flex flex-col space-y-2">
-              <Label className="flex items-center space-x-3 p-2 border border-gray-500 rounded-lg cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-3 p-3 border border-border/50 rounded-xl cursor-pointer hover:border-primary/50 bg-background text-foreground transition-colors">
                 <RadioGroupItem value="yes" className="text-primary border-primary" />
                 <span>Sì, completato con successo</span>
               </Label>
-              <Label className="flex items-center space-x-3 p-2 border border-gray-500 rounded-lg cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-3 p-3 border border-border/50 rounded-xl cursor-pointer hover:border-primary/50 bg-background text-foreground transition-colors">
                 <RadioGroupItem value="partial" className="text-primary border-primary" />
                 <span>Provato ma non completato</span>
               </Label>
-              <Label className="flex items-center space-x-3 p-2 border border-gray-500 rounded-lg cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-3 p-3 border border-border/50 rounded-xl cursor-pointer hover:border-primary/50 bg-background text-foreground transition-colors">
                 <RadioGroupItem value="no" className="text-primary border-primary" />
                 <span>No, riproverò domani</span>
               </Label>
@@ -136,7 +136,7 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
         </div>
         
         <Button 
-          className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 text-lg" 
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 text-lg rounded-full h-12 shadow-sm" 
           onClick={handleSubmit}
           disabled={isSubmitting}
         >

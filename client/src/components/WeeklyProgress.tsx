@@ -207,12 +207,14 @@ const WeeklyProgress: React.FC<WeeklyProgressProps> = ({ currentDay, completedDa
               {Array.from({ length: 30 }, (_, i) => i + 1).map((day) => (
                 <div
                   key={day}
-                  className={`w-6 h-6 rounded text-xs flex items-center justify-center font-medium ${
+                  className={`w-6 h-6 rounded text-xs flex items-center justify-center font-medium transition-colors ${
                     completedDays.includes(day)
-                      ? 'bg-primary text-white'
+                      ? 'bg-primary text-primary-foreground shadow-sm'
                       : day === currentDay
-                        ? 'border-2 border-primary text-primary bg-primary/10'
-                        : 'bg-secondary text-foreground border border-border'
+                        ? 'border border-primary text-primary bg-primary/10'
+                        : day < currentDay
+                          ? 'bg-card text-muted-foreground/60 border border-border/30'
+                          : 'bg-background text-muted-foreground/50 border border-border/20'
                   }`}
                 >
                   {day}
