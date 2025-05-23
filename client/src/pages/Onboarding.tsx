@@ -76,15 +76,12 @@ const Onboarding: React.FC = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white flex items-center">
-                        <User className="w-4 h-4 text-primary mr-2" />
-                        Come ti chiami?
-                      </FormLabel>
+                      <FormLabel className="text-foreground text-sm font-medium">Nome utente</FormLabel>
                       <FormControl>
                         <Input 
-                          placeholder="Il tuo nome" 
+                          placeholder="Inserisci il tuo nome" 
                           {...field} 
-                          className="bg-neutral-700 border-gray-500 text-white placeholder:text-gray-400"
+                          className="bg-secondary border-border text-foreground placeholder:text-muted-foreground h-12 rounded-xl"
                         />
                       </FormControl>
                       <FormMessage />
@@ -97,16 +94,13 @@ const Onboarding: React.FC = () => {
                   name="age"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white flex items-center">
-                        <User className="w-4 h-4 text-primary mr-2" />
-                        Quanti anni hai?
-                      </FormLabel>
+                      <FormLabel className="text-foreground text-sm font-medium">Età</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
                           placeholder="La tua età" 
                           {...field} 
-                          className="bg-neutral-700 border-gray-500 text-white placeholder:text-gray-400"
+                          className="bg-secondary border-border text-foreground placeholder:text-muted-foreground h-12 rounded-xl"
                         />
                       </FormControl>
                       <FormMessage />
@@ -119,15 +113,12 @@ const Onboarding: React.FC = () => {
                   name="goal"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white flex items-center">
-                        <Target className="w-4 h-4 text-primary mr-2" />
-                        Qual è il tuo obiettivo alla fine dei 30 giorni?
-                      </FormLabel>
+                      <FormLabel className="text-foreground text-sm font-medium">Obiettivo</FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder="Descrivi cosa vuoi ottenere..." 
+                          placeholder="Qual è il tuo obiettivo alla fine dei 30 giorni?" 
                           {...field}
-                          className="bg-neutral-700 border-gray-500 text-white placeholder:text-gray-400 min-h-20"
+                          className="bg-secondary border-border text-foreground placeholder:text-muted-foreground min-h-20 rounded-xl resize-none"
                         />
                       </FormControl>
                       <FormMessage />
@@ -137,9 +128,9 @@ const Onboarding: React.FC = () => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 mt-6"
+                  className="w-full bg-foreground text-background hover:bg-foreground/90 font-semibold h-12 rounded-full mt-6"
                 >
-                  Inizia la sfida
+                  Avanti
                 </Button>
               </form>
             </Form>
