@@ -49,25 +49,25 @@ const Onboarding: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       {/* Header with ScrollStop Logo */}
       <Header />
       
       <div className="flex-1 flex flex-col items-center justify-center p-4">
         <div className="max-w-md w-full">
-          {/* New Titles */}
+          {/* Welcome Title */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-primary mb-3">
-              Il tuo tempo vale più di uno scroll.
+            <h1 className="text-3xl font-bold text-foreground mb-3">
+              Creiamo il tuo profilo
             </h1>
-            <p className="text-lg text-gray-500 mb-6">
-              Hai più potere di quanto pensi.
+            <p className="text-muted-foreground mb-6">
+              Questi dati sono necessari per calcolare i tuoi progressi.
             </p>
           </div>
         
-          <div className="border border-gray-300 rounded-lg p-6 bg-transparent">
-            <h2 className="text-xl font-semibold text-white mb-2">Iniziamo insieme</h2>
-            <p className="text-gray-300 mb-6">Solo 3 informazioni per personalizzare la tua esperienza</p>
+          <div className="bg-card rounded-2xl shadow-sm p-6 border border-border">
+            <h2 className="text-xl font-bold text-foreground mb-2">Iniziamo insieme</h2>
+            <p className="text-muted-foreground mb-6">Solo 3 informazioni per personalizzare la tua esperienza</p>
             
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">

@@ -3,48 +3,48 @@
 @tailwind utilities;
 
 :root {
-  --background: 220 15% 18%; /* Dark gradient background */
-  --foreground: 0 0% 98%;
-  --muted: 220 10% 20%;
-  --muted-foreground: 142 76% 45%; /* Green color for text */
+  --background: 36 39% 88%; /* Light beige/gray background */
+  --foreground: 0 0% 9%;
+  --muted: 36 39% 82%;
+  --muted-foreground: 0 0% 45%;
   --popover: 0 0% 100%;
-  --popover-foreground: 220 15% 18%;
+  --popover-foreground: 0 0% 9%;
   --card: 0 0% 100%; /* White cards */
-  --card-foreground: 220 15% 18%;
+  --card-foreground: 0 0% 9%;
   --border: 0 0% 89%;
   --input: 0 0% 95%;
-  --primary: 142 76% 45%; /* Relaxing green color */
+  --primary: 15 91% 64%; /* Orange accent color */
   --primary-foreground: 0 0% 100%;
-  --secondary: 142 76% 45%; /* Same green color */
-  --secondary-foreground: 0 0% 100%;
-  --accent: 142 76% 45%; /* Green accent */
-  --accent-foreground: 0 0% 98%;
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 9%;
+  --accent: 15 91% 64%; /* Orange accent */
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 142 76% 45%;
+  --ring: 15 91% 64%;
   --radius: 1rem;
 }
 
 .dark {
-  --background: 220 15% 18%;
-  --foreground: 0 0% 98%;
-  --muted: 220 10% 20%;
-  --muted-foreground: 142 76% 45%;
+  --background: 36 39% 88%;
+  --foreground: 0 0% 9%;
+  --muted: 36 39% 82%;
+  --muted-foreground: 0 0% 45%;
   --popover: 0 0% 100%;
-  --popover-foreground: 220 15% 18%;
+  --popover-foreground: 0 0% 9%;
   --card: 0 0% 100%;
-  --card-foreground: 220 15% 18%;
+  --card-foreground: 0 0% 9%;
   --border: 0 0% 89%;
   --input: 0 0% 95%;
-  --primary: 142 76% 45%;
+  --primary: 15 91% 64%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 142 76% 45%;
-  --secondary-foreground: 0 0% 100%;
-  --accent: 142 76% 45%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 9%;
+  --accent: 15 91% 64%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 142 76% 45%;
+  --ring: 15 91% 64%;
   --radius: 1rem;
 }
 
@@ -54,14 +54,13 @@
   }
 
   body {
-    @apply font-sans antialiased text-foreground;
-    background: linear-gradient(135deg, #2C3E50 0%, #34495E 30%, #2C3E50 70%, #1a252f 100%);
+    @apply font-sans antialiased text-foreground bg-background;
     min-height: 100vh;
   }
 
   #root {
     min-height: 100vh;
-    background: linear-gradient(135deg, #2C3E50 0%, #34495E 30%, #2C3E50 70%, #1a252f 100%);
+    @apply bg-background;
   }
 }
 

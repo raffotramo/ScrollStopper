@@ -99,60 +99,68 @@ const Home: React.FC = () => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
-        {/* Progress Overview */}
-        <section className="border border-gray-300 rounded-lg mx-4 my-4 p-6 bg-transparent">
-          <div className="flex flex-col items-center">
-            <ProgressCircle currentDay={currentDay} totalDays={30} className="mb-4" />
-            <h2 className="text-lg font-semibold text-white mb-1">{todayChallenge.title}</h2>
-            <p className="text-sm text-gray-300 text-center mb-4">{todayChallenge.description}</p>
-            <Button 
-              variant={isCurrentDayCompleted ? "outline" : "default"} 
-              className={isCurrentDayCompleted ? "border-primary text-primary hover:border-primary/80" : "bg-primary hover:bg-primary/90"}
-              onClick={() => setModalOpen(true)}
-            >
-              {isCurrentDayCompleted ? "Rivedi Attività" : "Inizia Attività di Oggi"}
-            </Button>
+        {/* Main Challenge Card */}
+        <section className="bg-card rounded-2xl shadow-sm mx-4 my-4 p-6 border border-border">
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-2xl font-bold text-foreground">Giorno {currentDay}</h1>
+            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-lg">{currentDay}</span>
+            </div>
           </div>
+          <h2 className="text-xl font-bold text-foreground mb-2">{todayChallenge.title}</h2>
+          <p className="text-muted-foreground text-sm mb-6">{todayChallenge.description}</p>
+          <Button 
+            className={`w-full rounded-full h-12 font-semibold ${
+              isCurrentDayCompleted 
+                ? "bg-secondary text-secondary-foreground hover:bg-secondary/80" 
+                : "bg-foreground text-background hover:bg-foreground/90"
+            }`}
+            onClick={() => setModalOpen(true)}
+          >
+            {isCurrentDayCompleted ? "Rivedi Attività" : "Inizia"}
+          </Button>
         </section>
 
-        {/* Statistics */}
-        <section className="border border-gray-300 rounded-lg mx-4 my-4 p-6 bg-transparent">
+        {/* Statistics Grid */}
+        <section className="mx-4 my-4">
           <div className="flex items-center mb-4">
-            <Info className="w-5 h-5 text-primary mr-2" />
-            <h2 className="text-lg font-semibold text-white">Il tuo progresso</h2>
+            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
+              <Info className="w-4 h-4 text-primary-foreground" />
+            </div>
+            <h2 className="text-lg font-bold text-foreground">Il tuo progresso</h2>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="border border-gray-500 p-4 rounded-lg bg-transparent">
-              <div className="flex items-center mb-1">
-                <Clock className="w-4 h-4 text-primary mr-1" />
-                <p className="text-sm text-gray-300">Tempo recuperato</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
+                <Clock className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-xl font-bold text-primary">
+              <p className="text-xs text-muted-foreground mb-1">Tempo recuperato</p>
+              <p className="text-xl font-bold text-foreground">
                 {timeRecovered >= 60 
-                  ? `${(timeRecovered / 60).toFixed(1)} ore` 
-                  : `${timeRecovered} min`}
+                  ? `${(timeRecovered / 60).toFixed(1)}h` 
+                  : `${timeRecovered}m`}
               </p>
             </div>
-            <div className="border border-gray-500 p-4 rounded-lg bg-transparent">
-              <div className="flex items-center mb-1">
-                <Star className="w-4 h-4 text-primary mr-1" />
-                <p className="text-sm text-gray-300">Giorni completati</p>
+            <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
+                <Star className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-xl font-bold text-primary">{completedDays} / 30</p>
+              <p className="text-xs text-muted-foreground mb-1">Giorni completati</p>
+              <p className="text-xl font-bold text-foreground">{completedDays}/30</p>
             </div>
-            <div className="border border-gray-500 p-4 rounded-lg bg-transparent">
-              <div className="flex items-center mb-1">
-                <Award className="w-4 h-4 text-primary mr-1" />
-                <p className="text-sm text-gray-300">Serie attuale</p>
+            <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
+                <Award className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-xl font-bold text-primary">{currentStreak} giorni</p>
+              <p className="text-xs text-muted-foreground mb-1">Serie attuale</p>
+              <p className="text-xl font-bold text-foreground">{currentStreak}</p>
             </div>
-            <div className="border border-gray-500 p-4 rounded-lg bg-transparent">
-              <div className="flex items-center mb-1">
-                <BookOpen className="w-4 h-4 text-primary mr-1" />
-                <p className="text-sm text-gray-300">Riflessioni scritte</p>
+            <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
+                <BookOpen className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-xl font-bold text-primary">{reflectionsCount}</p>
+              <p className="text-xs text-muted-foreground mb-1">Riflessioni</p>
+              <p className="text-xl font-bold text-foreground">{reflectionsCount}</p>
             </div>
           </div>
         </section>
