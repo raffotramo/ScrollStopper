@@ -210,8 +210,8 @@ const Progress: React.FC = () => {
                       <span className="text-foreground font-semibold">{completedDays.length}/30</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Giorno corrente</span>
-                      <span className="text-white">{currentDay}</span>
+                      <span className="text-muted-foreground">Giorno corrente</span>
+                      <span className="text-foreground font-semibold">{currentDay}</span>
                     </div>
                   </div>
                 </CardContent>
