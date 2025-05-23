@@ -124,19 +124,21 @@ const Progress: React.FC = () => {
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center mb-6">
-            <TrendingUp className="w-6 h-6 text-primary mr-2" />
-            <h1 className="text-2xl font-bold text-white">Il tuo progresso</h1>
+            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
+              <TrendingUp className="w-4 h-4 text-primary-foreground" />
+            </div>
+            <h1 className="text-2xl font-bold text-foreground">Il tuo progresso</h1>
           </div>
 
           <Tabs defaultValue="today" className="space-y-4">
-            <TabsList className="grid w-full grid-cols-3 bg-neutral-800">
-              <TabsTrigger value="today" className="text-white data-[state=active]:bg-primary">
+            <TabsList className="grid w-full grid-cols-3 bg-card border border-border rounded-xl">
+              <TabsTrigger value="today" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg">
                 Oggi
               </TabsTrigger>
-              <TabsTrigger value="weekly" className="text-white data-[state=active]:bg-primary">
+              <TabsTrigger value="weekly" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg">
                 Settimane
               </TabsTrigger>
-              <TabsTrigger value="stats" className="text-white data-[state=active]:bg-primary">
+              <TabsTrigger value="stats" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg">
                 Statistiche
               </TabsTrigger>
             </TabsList>
@@ -144,19 +146,21 @@ const Progress: React.FC = () => {
             <TabsContent value="today" className="space-y-4">
               {!todayQuizCompleted ? (
                 <div>
-                  <h2 className="text-lg font-semibold text-white mb-4">
+                  <h2 className="text-lg font-semibold text-foreground mb-4">
                     Check-in giornaliero - Giorno {currentDay}
                   </h2>
                   <DailyProgressQuiz day={currentDay} onComplete={handleQuizComplete} />
                 </div>
               ) : (
-                <Card className="border border-gray-300 bg-transparent">
+                <Card className="bg-card border border-border rounded-2xl shadow-sm">
                   <CardContent className="p-6 text-center">
-                    <Award className="w-12 h-12 text-primary mx-auto mb-3" />
-                    <h3 className="text-lg font-semibold text-white mb-2">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Award className="w-8 h-8 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">
                       Check-in completato! 🎉
                     </h3>
-                    <p className="text-gray-300">
+                    <p className="text-muted-foreground">
                       Hai già registrato il tuo progresso per oggi. Torna domani per il prossimo check-in!
                     </p>
                   </CardContent>
@@ -170,15 +174,17 @@ const Progress: React.FC = () => {
 
             <TabsContent value="stats" className="space-y-4">
               {/* Punteggio Benessere Digitale */}
-              <Card className="border border-gray-300 bg-transparent">
+              <Card className="bg-card border border-border rounded-2xl shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-white flex items-center gap-2">
-                    <BarChart className="w-5 h-5 text-primary" />
+                  <CardTitle className="text-foreground flex items-center gap-2">
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                      <BarChart className="w-4 h-4 text-primary" />
+                    </div>
                     Punteggio Benessere Digitale
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center mb-4">
+                  <div className="text-center mb-6">
                     <div className="text-4xl font-bold text-primary mb-2">
                       {wellnessScore.score}%
                     </div>
@@ -187,23 +193,23 @@ const Progress: React.FC = () => {
                         wellnessScore.trend === 'up' ? 'text-green-500' : 
                         wellnessScore.trend === 'down' ? 'text-red-500' : 'text-gray-500'
                       }`} />
-                      <span className="text-gray-300">
+                      <span className="text-muted-foreground">
                         {wellnessScore.trend === 'up' ? 'In miglioramento' : 
                          wellnessScore.trend === 'down' ? 'In calo' : 'Stabile'}
                       </span>
                     </div>
                   </div>
                   
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Check-in completati</span>
-                      <span className="text-white">{quizProgress.length}</span>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Check-in completati</span>
+                      <span className="text-foreground font-semibold">{quizProgress.length}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Sfide completate</span>
-                      <span className="text-white">{completedDays.length}/30</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Sfide completate</span>
+                      <span className="text-foreground font-semibold">{completedDays.length}/30</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center">
                       <span className="text-gray-300">Giorno corrente</span>
                       <span className="text-white">{currentDay}</span>
                     </div>

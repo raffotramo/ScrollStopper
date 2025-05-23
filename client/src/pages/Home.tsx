@@ -112,8 +112,8 @@ const Home: React.FC = () => {
           <Button 
             className={`w-full rounded-full h-12 font-semibold ${
               isCurrentDayCompleted 
-                ? "bg-secondary text-secondary-foreground hover:bg-secondary/80" 
-                : "bg-foreground text-background hover:bg-foreground/90"
+                ? "bg-primary/20 text-primary border border-primary hover:bg-primary/30" 
+                : "bg-primary text-primary-foreground hover:bg-primary/90"
             }`}
             onClick={() => setModalOpen(true)}
           >
