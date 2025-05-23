@@ -211,8 +211,8 @@ const WeeklyProgress: React.FC<WeeklyProgressProps> = ({ currentDay, completedDa
                     completedDays.includes(day)
                       ? 'bg-primary text-white'
                       : day === currentDay
-                        ? 'border-2 border-primary text-primary'
-                        : 'bg-gray-600 text-gray-400'
+                        ? 'border-2 border-primary text-primary bg-primary/10'
+                        : 'bg-secondary text-foreground border border-border'
                   }`}
                 >
                   {day}

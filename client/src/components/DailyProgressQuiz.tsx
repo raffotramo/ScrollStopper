@@ -58,21 +58,23 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
   };
 
   return (
-    <Card className="border border-gray-300 bg-transparent">
+    <Card className="bg-card border border-border rounded-2xl shadow-sm">
       <CardHeader className="pb-3">
-        <CardTitle className="text-white flex items-center gap-2">
-          <Brain className="w-5 h-5 text-primary" />
+        <CardTitle className="text-foreground flex items-center gap-2">
+          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+            <Brain className="w-4 h-4 text-primary" />
+          </div>
           Check-in Giorno {day}
         </CardTitle>
-        <p className="text-gray-300 text-sm flex items-center gap-1">
+        <p className="text-muted-foreground text-sm flex items-center gap-1">
           <Clock className="w-4 h-4" />
           Meno di 1 minuto
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Domanda 1 */}
-        <div className="space-y-2">
-          <Label className="text-white font-medium">
+        <div className="space-y-3">
+          <Label className="text-foreground font-medium text-sm">
             Quante volte hai preso il telefono senza un vero motivo?
           </Label>
           <RadioGroup 
@@ -80,19 +82,19 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
             onValueChange={(value) => setAnswers(prev => ({ ...prev, phoneChecks: value }))}
           >
             <div className="grid grid-cols-2 gap-2">
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="0-2" className="text-primary" />
                 <span>0-2</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="3-5" className="text-primary" />
                 <span>3-5</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="6-10" className="text-primary" />
                 <span>6-10</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="10+" className="text-primary" />
                 <span>+10</span>
               </Label>
@@ -101,8 +103,8 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
         </div>
 
         {/* Domanda 2 */}
-        <div className="space-y-2">
-          <Label className="text-white font-medium">
+        <div className="space-y-3">
+          <Label className="text-foreground font-medium text-sm">
             Quanto tempo stimato hai passato oggi sui social?
           </Label>
           <RadioGroup 
@@ -110,11 +112,11 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
             onValueChange={(value) => setAnswers(prev => ({ ...prev, socialTime: value }))}
           >
             <div className="grid grid-cols-2 gap-2">
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="meno-30" className="text-primary" />
                 <span>&lt; 30 min</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="30-60" className="text-primary" />
                 <span>30-60 min</span>
               </Label>
