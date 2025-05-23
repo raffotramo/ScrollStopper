@@ -13,17 +13,11 @@ import { User, Clock, Compass, Target } from 'lucide-react';
 import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
-// Schema per il form
+// Schema per il form semplificato
 const formSchema = z.object({
   name: z.string().min(2, { message: "Il nome deve avere almeno 2 caratteri" }),
   age: z.string().refine((val) => !isNaN(parseInt(val)) && parseInt(val) > 0, {
     message: "L'età deve essere un numero positivo",
-  }),
-  socialTime: z.string({
-    required_error: "Seleziona la quantità di tempo",
-  }),
-  favoriteApp: z.string({
-    required_error: "Seleziona un'applicazione",
   }),
   goal: z.string().min(5, { message: "Inserisci un obiettivo di almeno 5 caratteri" })
 });
@@ -39,8 +33,6 @@ const Onboarding: React.FC = () => {
     defaultValues: {
       name: "",
       age: "",
-      socialTime: "",
-      favoriteApp: "",
       goal: ""
     }
   });
@@ -73,146 +65,85 @@ const Onboarding: React.FC = () => {
             </p>
           </div>
         
-          <Card className="bg-neutral-800 border-neutral-700">
-            <CardHeader>
-              <CardTitle className="text-white">Crea il tuo profilo</CardTitle>
-              <CardDescription className="text-white/70">
-                Fornisci alcune informazioni per personalizzare la tua esperienza
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-white flex items-center">
-                          <User className="w-4 h-4 text-primary mr-2" />
-                          Come ti chiami?
-                        </FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="Il tuo nome" 
-                            {...field} 
-                            className="bg-neutral-700 border-neutral-600 text-white"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="age"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-white flex items-center">
-                          <User className="w-4 h-4 text-primary mr-2" />
-                          Quanti anni hai?
-                        </FormLabel>
-                        <FormControl>
-                          <Input 
-                            type="number" 
-                            placeholder="La tua età" 
-                            {...field} 
-                            className="bg-neutral-700 border-neutral-600 text-white"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="socialTime"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-white flex items-center">
-                          <Clock className="w-4 h-4 text-primary mr-2" />
-                          Quanto tempo passi sui social ogni giorno?
-                        </FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white">
-                              <SelectValue placeholder="Seleziona il tempo" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="1-2 ore">1-2 ore</SelectItem>
-                            <SelectItem value="3-4 ore">3-4 ore</SelectItem>
-                            <SelectItem value="5-6 ore">5-6 ore</SelectItem>
-                            <SelectItem value="7+ ore">7+ ore</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="favoriteApp"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-white flex items-center">
-                          <Compass className="w-4 h-4 text-primary mr-2" />
-                          Su quale app passi più tempo?
-                        </FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white">
-                              <SelectValue placeholder="Seleziona l'app" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="instagram">Instagram</SelectItem>
-                            <SelectItem value="tiktok">TikTok</SelectItem>
-                            <SelectItem value="twitter">Twitter/X</SelectItem>
-                            <SelectItem value="facebook">Facebook</SelectItem>
-                            <SelectItem value="youtube">YouTube</SelectItem>
-                            <SelectItem value="altro">Altro</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="goal"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-white flex items-center">
-                          <Target className="w-4 h-4 text-primary mr-2" />
-                          Qual è il tuo obiettivo alla fine dei 30 giorni?
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="Descrivi cosa vuoi ottenere..." 
-                            {...field}
-                            className="bg-neutral-700 border-neutral-600 text-white"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3"
-                  >
-                    Inizia la sfida
-                  </Button>
-                </form>
-              </Form>
-            </CardContent>
-          </Card>
+          <div className="border border-gray-300 rounded-lg p-6 bg-transparent">
+            <h2 className="text-xl font-semibold text-white mb-2">Iniziamo insieme</h2>
+            <p className="text-gray-300 mb-6">Solo 3 informazioni per personalizzare la tua esperienza</p>
+            
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white flex items-center">
+                        <User className="w-4 h-4 text-primary mr-2" />
+                        Come ti chiami?
+                      </FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder="Il tuo nome" 
+                          {...field} 
+                          className="bg-neutral-700 border-gray-500 text-white placeholder:text-gray-400"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="age"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white flex items-center">
+                        <User className="w-4 h-4 text-primary mr-2" />
+                        Quanti anni hai?
+                      </FormLabel>
+                      <FormControl>
+                        <Input 
+                          type="number" 
+                          placeholder="La tua età" 
+                          {...field} 
+                          className="bg-neutral-700 border-gray-500 text-white placeholder:text-gray-400"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="goal"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white flex items-center">
+                        <Target className="w-4 h-4 text-primary mr-2" />
+                        Qual è il tuo obiettivo alla fine dei 30 giorni?
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder="Descrivi cosa vuoi ottenere..." 
+                          {...field}
+                          className="bg-neutral-700 border-gray-500 text-white placeholder:text-gray-400 min-h-20"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <Button 
+                  type="submit" 
+                  className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 mt-6"
+                >
+                  Inizia la sfida
+                </Button>
+              </form>
+            </Form>
+          </div>
         </div>
       </div>
     </div>

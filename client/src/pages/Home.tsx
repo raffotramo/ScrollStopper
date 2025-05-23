@@ -100,14 +100,14 @@ const Home: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         {/* Progress Overview */}
-        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6">
+        <section className="border border-gray-300 rounded-lg mx-4 my-4 p-6 bg-transparent">
           <div className="flex flex-col items-center">
             <ProgressCircle currentDay={currentDay} totalDays={30} className="mb-4" />
             <h2 className="text-lg font-semibold text-white mb-1">{todayChallenge.title}</h2>
-            <p className="text-sm text-white/80 text-center mb-4">{todayChallenge.description}</p>
+            <p className="text-sm text-gray-300 text-center mb-4">{todayChallenge.description}</p>
             <Button 
               variant={isCurrentDayCompleted ? "outline" : "default"} 
-              className={isCurrentDayCompleted ? "border-secondary text-secondary" : "bg-secondary hover:bg-secondary/90"}
+              className={isCurrentDayCompleted ? "border-primary text-primary hover:border-primary/80" : "bg-primary hover:bg-primary/90"}
               onClick={() => setModalOpen(true)}
             >
               {isCurrentDayCompleted ? "Rivedi Attività" : "Inizia Attività di Oggi"}
@@ -116,43 +116,43 @@ const Home: React.FC = () => {
         </section>
 
         {/* Statistics */}
-        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-6">
+        <section className="border border-gray-300 rounded-lg mx-4 my-4 p-6 bg-transparent">
           <div className="flex items-center mb-4">
             <Info className="w-5 h-5 text-primary mr-2" />
             <h2 className="text-lg font-semibold text-white">Il tuo progresso</h2>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-neutral-800 p-4 rounded-lg">
+            <div className="border border-gray-500 p-4 rounded-lg bg-transparent">
               <div className="flex items-center mb-1">
                 <Clock className="w-4 h-4 text-primary mr-1" />
-                <p className="text-sm text-white/70">Tempo recuperato</p>
+                <p className="text-sm text-gray-300">Tempo recuperato</p>
               </div>
-              <p className="text-xl font-bold text-secondary">
+              <p className="text-xl font-bold text-primary">
                 {timeRecovered >= 60 
                   ? `${(timeRecovered / 60).toFixed(1)} ore` 
                   : `${timeRecovered} min`}
               </p>
             </div>
-            <div className="bg-neutral-800 p-4 rounded-lg">
+            <div className="border border-gray-500 p-4 rounded-lg bg-transparent">
               <div className="flex items-center mb-1">
                 <Star className="w-4 h-4 text-primary mr-1" />
-                <p className="text-sm text-white/70">Giorni completati</p>
+                <p className="text-sm text-gray-300">Giorni completati</p>
               </div>
-              <p className="text-xl font-bold text-secondary">{completedDays} / 30</p>
+              <p className="text-xl font-bold text-primary">{completedDays} / 30</p>
             </div>
-            <div className="bg-neutral-800 p-4 rounded-lg">
+            <div className="border border-gray-500 p-4 rounded-lg bg-transparent">
               <div className="flex items-center mb-1">
                 <Award className="w-4 h-4 text-primary mr-1" />
-                <p className="text-sm text-white/70">Serie attuale</p>
+                <p className="text-sm text-gray-300">Serie attuale</p>
               </div>
-              <p className="text-xl font-bold text-secondary">{currentStreak} giorni</p>
+              <p className="text-xl font-bold text-primary">{currentStreak} giorni</p>
             </div>
-            <div className="bg-neutral-800 p-4 rounded-lg">
+            <div className="border border-gray-500 p-4 rounded-lg bg-transparent">
               <div className="flex items-center mb-1">
                 <BookOpen className="w-4 h-4 text-primary mr-1" />
-                <p className="text-sm text-white/70">Riflessioni scritte</p>
+                <p className="text-sm text-gray-300">Riflessioni scritte</p>
               </div>
-              <p className="text-xl font-bold text-secondary">{reflectionsCount}</p>
+              <p className="text-xl font-bold text-primary">{reflectionsCount}</p>
             </div>
           </div>
         </section>
