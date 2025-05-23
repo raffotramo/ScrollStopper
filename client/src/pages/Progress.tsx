@@ -131,14 +131,14 @@ const Progress: React.FC = () => {
           </div>
 
           <Tabs defaultValue="today" className="space-y-4">
-            <TabsList className="grid w-full grid-cols-3 bg-card border border-border rounded-xl">
-              <TabsTrigger value="today" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg">
+            <TabsList className="grid w-full grid-cols-3 bg-background border border-border/30 rounded-xl">
+              <TabsTrigger value="today" className="text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm rounded-lg transition-all">
                 Oggi
               </TabsTrigger>
-              <TabsTrigger value="weekly" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg">
+              <TabsTrigger value="weekly" className="text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm rounded-lg transition-all">
                 Settimane
               </TabsTrigger>
-              <TabsTrigger value="stats" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg">
+              <TabsTrigger value="stats" className="text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm rounded-lg transition-all">
                 Statistiche
               </TabsTrigger>
             </TabsList>

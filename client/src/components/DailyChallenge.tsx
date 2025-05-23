@@ -46,9 +46,9 @@ const DailyChallenge: React.FC<DailyChallengeProps> = ({ challenge, status, onCl
               'text-muted-foreground'
             }`}>Giorno {challenge.day}</span>
             <span className={`text-xs px-2 py-1 rounded-full ${
-              status === 'today' ? 'bg-primary/20 text-primary' :
+              status === 'today' ? 'bg-primary/15 text-primary' :
               status === 'completed' ? 'bg-primary/10 text-primary' :
-              'bg-secondary text-muted-foreground'
+              'bg-background border border-border/50 text-muted-foreground/70'
             }`}>{statusLabel}</span>
           </div>
           <h3 className={`font-medium mt-1 ${
