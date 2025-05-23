@@ -58,23 +58,25 @@ const Calendar: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         {/* Current Challenge Overview */}
-        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-4">
+        <section className="bg-card border border-border/30 rounded-2xl shadow-sm mx-4 my-4 p-6">
           <div className="flex items-center mb-4">
-            <CalendarIcon className="w-5 h-5 text-primary mr-2" />
-            <h2 className="text-lg font-semibold text-white">
+            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+              <CalendarIcon className="w-4 h-4 text-primary" />
+            </div>
+            <h2 className="text-lg font-semibold text-foreground">
               {format(today, 'MMMM yyyy', { locale: it })}
             </h2>
           </div>
           
           {/* Days of week */}
-          <div className="grid grid-cols-7 gap-1 mb-3">
+          <div className="grid grid-cols-7 gap-2 mb-4">
             {['L', 'M', 'M', 'G', 'V', 'S', 'D'].map((day, i) => (
-              <div key={i} className="text-center text-xs text-white/70">{day}</div>
+              <div key={i} className="text-center text-xs text-muted-foreground font-medium">{day}</div>
             ))}
           </div>
           
           {/* Calendar grid */}
-          <div className="grid grid-cols-7 gap-1">
+          <div className="grid grid-cols-7 gap-2">
             {/* Fill in empty spaces for first week */}
             {Array.from({ length: monthStart.getDay() === 0 ? 6 : monthStart.getDay() - 1 }).map((_, index) => (
               <div key={`empty-start-${index}`} className="aspect-square"></div>
@@ -85,23 +87,23 @@ const Calendar: React.FC = () => {
               const challengeDay = getChallengeDay(date);
               const isToday = date.toDateString() === today.toDateString();
               
-              let className = "aspect-square flex items-center justify-center text-sm ";
+              let className = "aspect-square flex items-center justify-center text-sm font-medium rounded-xl transition-all duration-200 ";
               
               if (challengeDay) {
                 // Challenge days styling
                 if (isToday) {
-                  className += "rounded-full bg-secondary text-white font-bold border-2 border-primary";
+                  className += "bg-primary text-primary-foreground shadow-md hover:shadow-lg transform hover:scale-105";
                 } else if (isDayCompleted(challengeDay)) {
-                  className += "rounded-full bg-secondary text-white";
+                  className += "bg-primary/15 text-primary border border-primary/30 shadow-sm";
                 } else if (isDayMissed(challengeDay)) {
-                  className += "rounded-full bg-destructive bg-opacity-20 text-destructive";
+                  className += "bg-destructive/10 text-destructive border border-destructive/30";
                 } else {
                   // Future challenge days
-                  className += "text-primary";
+                  className += "bg-card text-primary border border-border/50 hover:border-primary/30";
                 }
               } else {
                 // Non-challenge days
-                className += isToday ? "font-semibold text-white" : "text-primary/60";
+                className += isToday ? "bg-background text-foreground font-semibold border border-border" : "text-muted-foreground/60";
               }
               
               return (
@@ -119,10 +121,12 @@ const Calendar: React.FC = () => {
         </section>
         
         {/* Challenge List */}
-        <section className="bg-neutral-700 rounded-lg shadow-sm mx-4 my-4 p-4">
+        <section className="bg-card border border-border/30 rounded-2xl shadow-sm mx-4 my-4 p-6">
           <div className="flex items-center mb-4">
-            <Award className="w-5 h-5 text-primary mr-2" />
-            <h2 className="text-lg font-semibold text-white">Le tue sfide</h2>
+            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+              <Award className="w-4 h-4 text-primary" />
+            </div>
+            <h2 className="text-lg font-semibold text-foreground">Le tue sfide</h2>
           </div>
           
           <div className="space-y-3">
@@ -134,37 +138,42 @@ const Calendar: React.FC = () => {
               
               let statusClass = "";
               let statusText = "";
+              let borderClass = "";
               
               if (isCompleted) {
-                statusClass = "bg-secondary bg-opacity-10 text-secondary";
+                statusClass = "bg-primary/15 text-primary border border-primary/30";
                 statusText = "Completato";
+                borderClass = "border-l-primary";
               } else if (isMissed) {
-                statusClass = "bg-destructive bg-opacity-10 text-destructive";
+                statusClass = "bg-destructive/15 text-destructive border border-destructive/30";
                 statusText = "Mancato";
+                borderClass = "border-l-destructive";
               } else if (isCurrent) {
-                statusClass = "bg-primary bg-opacity-10 text-primary";
+                statusClass = "bg-primary/15 text-primary border border-primary/30";
                 statusText = "Oggi";
+                borderClass = "border-l-primary";
               } else if (isFuture) {
-                statusClass = "bg-neutral-100 text-neutral-500";
+                statusClass = "bg-background text-muted-foreground/70 border border-border/50";
                 statusText = "In arrivo";
+                borderClass = "border-l-border";
               }
               
               return (
                 <div 
                   key={challenge.day} 
-                  className={`p-3 border-l-2 ${isCompleted ? 'border-secondary' : isMissed ? 'border-destructive' : isCurrent ? 'border-secondary' : 'border-neutral-600'} bg-neutral-800 rounded-md`}
+                  className={`p-4 border-l-4 ${borderClass} bg-background rounded-xl border border-border/30 transition-colors`}
                 >
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-start">
                     <div className="flex items-center">
-                      <span className={`text-sm font-medium ${isCompleted ? 'text-secondary' : isMissed ? 'text-destructive' : isCurrent ? 'text-secondary' : 'text-white/70'}`}>
+                      <span className={`text-sm font-medium ${isCompleted ? 'text-primary' : isMissed ? 'text-destructive' : isCurrent ? 'text-primary' : 'text-muted-foreground'}`}>
                         Giorno {challenge.day}
                       </span>
-                      <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${statusClass}`}>
+                      <span className={`ml-3 text-xs px-2 py-1 rounded-full ${statusClass}`}>
                         {statusText}
                       </span>
                     </div>
                   </div>
-                  <p className={`mt-1 ${isFuture && !isCurrent ? 'text-white/50' : 'text-white'}`}>{challenge.title}</p>
+                  <p className={`mt-2 text-sm ${isFuture && !isCurrent ? 'text-muted-foreground/60' : 'text-foreground'}`}>{challenge.title}</p>
                 </div>
               );
             })}
