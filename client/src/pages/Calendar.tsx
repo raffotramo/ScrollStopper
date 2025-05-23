@@ -58,7 +58,7 @@ const Calendar: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         {/* Current Challenge Overview */}
-        <section className="bg-card border border-border/30 rounded-2xl shadow-sm mx-4 my-4 p-6">
+        <section className="mx-4 my-4">
           <div className="flex items-center mb-4">
             <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
               <CalendarIcon className="w-4 h-4 text-primary" />
@@ -68,60 +68,61 @@ const Calendar: React.FC = () => {
             </h2>
           </div>
           
-          {/* Days of week */}
-          <div className="grid grid-cols-7 gap-2 mb-4">
-            {['L', 'M', 'M', 'G', 'V', 'S', 'D'].map((day, i) => (
-              <div key={i} className="text-center text-xs text-muted-foreground font-medium">{day}</div>
-            ))}
-          </div>
-          
-          {/* Calendar grid */}
-          <div className="grid grid-cols-7 gap-2">
-            {/* Fill in empty spaces for first week */}
-            {Array.from({ length: monthStart.getDay() === 0 ? 6 : monthStart.getDay() - 1 }).map((_, index) => (
-              <div key={`empty-start-${index}`} className="aspect-square"></div>
-            ))}
-            
-            {/* Calendar days */}
-            {daysInMonth.map((date, index) => {
-              const challengeDay = getChallengeDay(date);
-              const isToday = date.toDateString() === today.toDateString();
-              
-              let className = "aspect-square flex items-center justify-center text-sm font-medium rounded-xl transition-all duration-200 ";
-              
-              if (challengeDay) {
-                // Challenge days styling
-                if (isToday) {
-                  className += "bg-primary text-primary-foreground shadow-md hover:shadow-lg transform hover:scale-105";
-                } else if (isDayCompleted(challengeDay)) {
-                  className += "bg-primary/15 text-primary border border-primary/30 shadow-sm";
-                } else if (isDayMissed(challengeDay)) {
-                  className += "bg-destructive/10 text-destructive border border-destructive/30";
-                } else {
-                  // Future challenge days
-                  className += "bg-card text-primary border border-border/50 hover:border-primary/30";
-                }
-              } else {
-                // Non-challenge days
-                className += isToday ? "bg-background text-foreground font-semibold border border-border" : "text-muted-foreground/60";
-              }
+          {/* Challenge Days Grid - 3 columns like home page */}
+          <div className="grid grid-cols-3 gap-3">
+            {challenges.map(challenge => {
+              const isCompleted = isDayCompleted(challenge.day);
+              const isCurrent = challenge.day === currentDay;
+              const isFuture = challenge.day > currentDay;
+              const isMissed = isDayMissed(challenge.day);
               
               return (
-                <div key={`day-${index}`} className={className}>
-                  {date.getDate()}
-                </div>
+                <button
+                  key={challenge.day}
+                  className={`aspect-square rounded-2xl p-3 flex flex-col items-center justify-center text-center transition-all duration-200 border ${
+                    isCompleted 
+                      ? 'bg-primary/10 border-primary/30 text-primary shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:bg-primary/15' 
+                      : isCurrent 
+                      ? 'bg-primary text-primary-foreground border-primary shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.12)] transform hover:scale-105' 
+                      : isMissed
+                      ? 'bg-destructive/10 text-destructive border-destructive/30 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
+                      : 'bg-card border-border/50 text-muted-foreground/60 hover:border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
+                  } ${isFuture ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
+                >
+                  <div className={`text-lg font-bold mb-1 ${
+                    isCompleted ? 'text-primary' : 
+                    isCurrent ? 'text-primary-foreground' : 
+                    isMissed ? 'text-destructive' :
+                    'text-muted-foreground/50'
+                  }`}>
+                    {challenge.day}
+                  </div>
+                  <div className={`text-xs leading-tight ${
+                    isCompleted ? 'text-primary/80' : 
+                    isCurrent ? 'text-primary-foreground/90' : 
+                    isMissed ? 'text-destructive/80' :
+                    'text-muted-foreground/40'
+                  }`}>
+                    {challenge.title.split(' ').slice(0, 2).join(' ')}
+                  </div>
+                  {isCompleted && (
+                    <div className="mt-1">
+                      <div className="w-3 h-3 bg-primary rounded-full"></div>
+                    </div>
+                  )}
+                  {isMissed && !isCurrent && (
+                    <div className="mt-1">
+                      <div className="w-3 h-3 bg-destructive rounded-full"></div>
+                    </div>
+                  )}
+                </button>
               );
             })}
-            
-            {/* Fill in empty spaces for last week */}
-            {Array.from({ length: monthEnd.getDay() === 0 ? 0 : 7 - monthEnd.getDay() }).map((_, index) => (
-              <div key={`empty-end-${index}`} className="aspect-square"></div>
-            ))}
           </div>
         </section>
         
         {/* Challenge List */}
-        <section className="bg-card border border-border/30 rounded-2xl shadow-sm mx-4 my-4 p-6">
+        <section className="bg-card border border-border/30 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] mx-4 my-4 p-6">
           <div className="flex items-center mb-4">
             <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
               <Award className="w-4 h-4 text-primary" />
