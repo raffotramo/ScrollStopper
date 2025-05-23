@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { ChevronRight, Info, Clock, Award, BookOpen, Star, Lightbulb, Zap } from 'lucide-react';
+import { ChevronRight, Info, Clock, Award, BookOpen, Star, Lightbulb, Zap, Lock as LockIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProgressCircle from '@/components/ProgressCircle';
 import DailyActivityModal from '@/components/DailyActivityModal';
@@ -165,57 +165,80 @@ const Home: React.FC = () => {
           </div>
         </section>
 
-        {/* Daily Challenges */}
+        {/* Daily Challenges Calendar Grid */}
         <section className="mx-4 my-4 mb-10">
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center">
               <Zap className="w-5 h-5 text-primary mr-2" />
-              <h2 className="text-lg font-semibold text-white">Il tuo percorso</h2>
+              <h2 className="text-lg font-semibold text-foreground">Il tuo percorso</h2>
             </div>
-            <Button variant="link" className="text-secondary p-0">
-              <ChevronRight className="h-4 w-4" />
-            </Button>
           </div>
           
-          {/* Today's challenge */}
-          <DailyChallenge 
-            challenge={todayChallenge} 
-            status={isCurrentDayCompleted ? "completed" : "today"} 
-            onClick={() => setModalOpen(true)} 
-          />
-          
-          {/* Upcoming challenges */}
-          {upcomingChallenges.map(challenge => (
-            <DailyChallenge 
-              key={`upcoming-${challenge.day}`}
-              challenge={challenge}
-              status="locked"
-              onClick={() => {
-                toast({
-                  title: "Sfida non disponibile",
-                  description: "Questa sfida sarà disponibile nei prossimi giorni.",
-                  variant: "default"
-                });
-              }}
-            />
-          ))}
-          
-          {/* Completed challenges */}
-          {completedChallenges.map(challenge => (
-            <DailyChallenge 
-              key={`completed-${challenge.day}`}
-              challenge={challenge}
-              status="completed"
-              onClick={() => {
-                // Code to view completed challenge details
-                toast({
-                  title: "Sfida completata",
-                  description: `Hai già completato la sfida del giorno ${challenge.day}.`,
-                  variant: "default"
-                });
-              }}
-            />
-          ))}
+          {/* Calendar Grid - 3 columns */}
+          <div className="grid grid-cols-3 gap-3">
+            {challenges.slice(0, 15).map(challenge => {
+              const isCompleted = progress.some(p => p.day === challenge.day && p.completed);
+              const isToday = challenge.day === currentDay;
+              const isLocked = challenge.day > currentDay;
+              
+              const getStatus = () => {
+                if (isCompleted) return 'completed';
+                if (isToday) return 'today';
+                return 'locked';
+              };
+              
+              const handleClick = () => {
+                if (isToday || isCompleted) {
+                  setModalOpen(true);
+                } else {
+                  toast({
+                    title: "Sfida non disponibile",
+                    description: "Questa sfida sarà disponibile nei prossimi giorni.",
+                    variant: "default"
+                  });
+                }
+              };
+              
+              return (
+                <button
+                  key={challenge.day}
+                  onClick={handleClick}
+                  className={`aspect-square rounded-2xl p-3 flex flex-col items-center justify-center text-center transition-all duration-200 border ${
+                    isCompleted 
+                      ? 'bg-primary/10 border-primary/30 text-primary shadow-sm hover:bg-primary/15' 
+                      : isToday 
+                      ? 'bg-primary text-primary-foreground border-primary shadow-md hover:shadow-lg transform hover:scale-105' 
+                      : 'bg-card border-border/50 text-muted-foreground/60 hover:border-border'
+                  } ${isLocked ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}
+                >
+                  <div className={`text-lg font-bold mb-1 ${
+                    isCompleted ? 'text-primary' : 
+                    isToday ? 'text-primary-foreground' : 
+                    'text-muted-foreground/50'
+                  }`}>
+                    {challenge.day}
+                  </div>
+                  <div className={`text-xs leading-tight ${
+                    isCompleted ? 'text-primary/80' : 
+                    isToday ? 'text-primary-foreground/90' : 
+                    'text-muted-foreground/40'
+                  }`}>
+                    {challenge.title.split(' ').slice(0, 2).join(' ')}
+                  </div>
+                  {isCompleted && (
+                    <div className="mt-1">
+                      <div className="w-3 h-3 bg-primary rounded-full"></div>
+                    </div>
+                  )}
+                  {isLocked && (
+                    <div className="mt-1">
+                      <LockIcon className="w-3 h-3 text-muted-foreground/40" />
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </section>
 
         {/* Tips */}
