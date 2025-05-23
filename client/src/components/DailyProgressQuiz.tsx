@@ -120,11 +120,11 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
                 <RadioGroupItem value="30-60" className="text-primary" />
                 <span>30-60 min</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="1-2h" className="text-primary" />
                 <span>1-2h</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="2h+" className="text-primary" />
                 <span>+2h</span>
               </Label>
@@ -133,8 +133,8 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
         </div>
 
         {/* Domanda 3 */}
-        <div className="space-y-2">
-          <Label className="text-white font-medium">
+        <div className="space-y-3">
+          <Label className="text-foreground font-medium text-sm">
             Come ti senti ora rispetto a stamattina?
           </Label>
           <RadioGroup 
@@ -142,15 +142,15 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
             onValueChange={(value) => setAnswers(prev => ({ ...prev, moodChange: value }))}
           >
             <div className="space-y-2">
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="calmo" className="text-primary" />
                 <span>Più calmo/a</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="uguale" className="text-primary" />
                 <span>Uguale</span>
               </Label>
-              <Label className="flex items-center space-x-2 p-2 border border-gray-500 rounded cursor-pointer hover:border-primary bg-transparent text-white">
+              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
                 <RadioGroupItem value="nervoso" className="text-primary" />
                 <span>Più nervoso/a</span>
               </Label>
@@ -160,7 +160,7 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
 
         <Button 
           onClick={handleSubmit}
-          className="w-full bg-primary hover:bg-primary/90 text-white font-semibold"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-12 rounded-full mt-6"
           disabled={!answers.phoneChecks || !answers.socialTime || !answers.moodChange}
         >
           <CheckCircle className="w-4 h-4 mr-2" />
