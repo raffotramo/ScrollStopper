@@ -107,10 +107,12 @@ const WeeklyProgress: React.FC<WeeklyProgressProps> = ({ currentDay, completedDa
   return (
     <div className="space-y-4">
       {/* Missione Settimanale Corrente */}
-      <Card className="border border-gray-300 bg-transparent">
+      <Card className="bg-card border border-border rounded-2xl shadow-sm">
         <CardHeader className="pb-3">
-          <CardTitle className="text-white flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-primary" />
+          <CardTitle className="text-foreground flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+              <Calendar className="w-4 h-4 text-primary" />
+            </div>
             Missione Settimana {currentWeek}
           </CardTitle>
         </CardHeader>
@@ -137,16 +139,16 @@ const WeeklyProgress: React.FC<WeeklyProgressProps> = ({ currentDay, completedDa
                     <Icon className="w-4 h-4 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-white">{mission.title}</h4>
-                    <p className="text-sm text-gray-300">{mission.description}</p>
+                    <h4 className="font-semibold text-foreground">{mission.title}</h4>
+                    <p className="text-sm text-muted-foreground">{mission.description}</p>
                   </div>
                   {isCompleted && <Trophy className="w-5 h-5 text-yellow-500" />}
                 </div>
                 
                 <div className="space-y-1">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-300">Progresso</span>
-                    <span className="text-white">{weekProgress.completed}/7 giorni</span>
+                    <span className="text-muted-foreground">Progresso</span>
+                    <span className="text-foreground font-semibold">{weekProgress.completed}/7 giorni</span>
                   </div>
                   <Progress value={weekProgress.percentage} className="h-2" />
                 </div>
@@ -158,10 +160,12 @@ const WeeklyProgress: React.FC<WeeklyProgressProps> = ({ currentDay, completedDa
 
       {/* Badge Motivazionali */}
       {badges.length > 0 && (
-        <Card className="border border-gray-300 bg-transparent">
+        <Card className="bg-card border border-border rounded-2xl shadow-sm">
           <CardHeader className="pb-3">
-            <CardTitle className="text-white flex items-center gap-2">
-              <Trophy className="w-5 h-5 text-primary" />
+            <CardTitle className="text-foreground flex items-center gap-2">
+              <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                <Trophy className="w-4 h-4 text-primary" />
+              </div>
               I tuoi badge
             </CardTitle>
           </CardHeader>
@@ -181,18 +185,20 @@ const WeeklyProgress: React.FC<WeeklyProgressProps> = ({ currentDay, completedDa
       )}
 
       {/* Progress Bar Generale */}
-      <Card className="border border-gray-300 bg-transparent">
+      <Card className="bg-card border border-border rounded-2xl shadow-sm">
         <CardHeader className="pb-3">
-          <CardTitle className="text-white flex items-center gap-2">
-            <Target className="w-5 h-5 text-primary" />
+          <CardTitle className="text-foreground flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+              <Target className="w-4 h-4 text-primary" />
+            </div>
             Progresso totale
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-300">Giorni completati</span>
-              <span className="text-white">{completedDays.length}/30</span>
+              <span className="text-muted-foreground">Giorni completati</span>
+              <span className="text-foreground font-semibold">{completedDays.length}/30</span>
             </div>
             <Progress value={(completedDays.length / 30) * 100} className="h-3" />
             

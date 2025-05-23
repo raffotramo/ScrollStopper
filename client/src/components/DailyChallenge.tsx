@@ -33,24 +33,39 @@ const DailyChallenge: React.FC<DailyChallengeProps> = ({ challenge, status, onCl
   }
 
   return (
-    <div className={`bg-neutral-700 rounded-lg shadow-md p-4 mb-3 border-l-4 ${borderClass}`}>
+    <div className={`bg-card rounded-2xl shadow-sm p-4 mb-3 border border-border ${
+      status === 'today' ? 'border-l-4 border-l-primary' : 
+      status === 'completed' ? 'border-l-4 border-l-primary' : ''
+    }`}>
       <div className="flex justify-between items-start">
         <div>
           <div className="flex items-center">
-            <span className={`font-bold mr-2 ${dayTextClass}`}>Giorno {challenge.day}</span>
-            <span className={`text-xs px-2 py-1 rounded-full ${statusClass}`}>{statusLabel}</span>
+            <span className={`font-bold mr-2 ${
+              status === 'today' ? 'text-primary' :
+              status === 'completed' ? 'text-foreground' :
+              'text-muted-foreground'
+            }`}>Giorno {challenge.day}</span>
+            <span className={`text-xs px-2 py-1 rounded-full ${
+              status === 'today' ? 'bg-primary/20 text-primary' :
+              status === 'completed' ? 'bg-primary/10 text-primary' :
+              'bg-secondary text-muted-foreground'
+            }`}>{statusLabel}</span>
           </div>
-          <h3 className={`font-medium mt-1 ${titleClass}`}>{challenge.title}</h3>
+          <h3 className={`font-medium mt-1 ${
+            status === 'locked' ? 'text-muted-foreground' : 'text-foreground'
+          }`}>{challenge.title}</h3>
         </div>
         <button 
-          className="text-neutral-300 hover:text-white" 
+          className={`${
+            status === 'locked' ? 'text-muted-foreground' : 'text-primary hover:text-primary/80'
+          } transition-colors`}
           onClick={onClick}
           disabled={status === 'locked'}
         >
           {status === 'locked' ? (
-            <Lock className="w-5 h-5 text-neutral-500" />
+            <Lock className="w-5 h-5" />
           ) : (
-            <ChevronRight className="w-5 h-5 text-secondary" />
+            <ChevronRight className="w-5 h-5" />
           )}
         </button>
       </div>
