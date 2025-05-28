@@ -99,13 +99,10 @@ const Home: React.FC = () => {
       {/* Header */}
       <section className="mx-4 mt-6 mb-2">
         <div className="text-center">
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Star className="w-8 h-8 text-primary" />
-          </div>
-          <h1 className="text-2xl font-bold text-primary mb-2">
+          <h1 className="text-3xl font-bold text-primary mb-2">
             ScrollStop
           </h1>
-          <p className="text-foreground text-xs font-bold mb-3">
+          <p className="text-foreground text-sm font-bold mb-3">
             Riprenditi il tuo tempo, riconnettiti con la vita
           </p>
           <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
