@@ -202,8 +202,8 @@ const EmergencyAntiScroll: React.FC = () => {
         <section className="mx-4 mt-8 mb-8">
           <div className="text-center mb-10">
             <div className="mb-6">
-              <h1 className="text-4xl font-black text-foreground mb-3 tracking-tight">
-                🚨 PRONTO SOCCORSO
+              <h1 className="text-3xl font-black text-foreground mb-2 tracking-tight">
+                PRONTO SOCCORSO
               </h1>
               <h2 className="text-2xl font-bold text-primary mb-4">
                 Anti-Scroll
