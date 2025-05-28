@@ -97,13 +97,19 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <section className="flex justify-center pt-6 pb-2">
-        <img 
-          src={scrollStopLogo} 
-          alt="ScrollStop - Riprenditi il tuo tempo, riconnettiti con la vita" 
-          className="h-14 w-auto brightness-0"
-          style={{ filter: 'brightness(0)' }}
-        />
+      <section className="mx-4 mt-6 mb-2">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Star className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-2xl font-bold text-primary mb-2">
+            ScrollStop
+          </h1>
+          <p className="text-foreground text-xs font-bold mb-3">
+            Riprenditi il tuo tempo, riconnettiti con la vita
+          </p>
+          <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+        </div>
       </section>
 
       {/* Main Content */}
