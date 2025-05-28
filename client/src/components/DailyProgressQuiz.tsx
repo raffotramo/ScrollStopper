@@ -3,13 +3,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { CheckCircle, Clock, Brain } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { CheckCircle, Clock, Smartphone, Shield, Heart } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface QuizData {
-  phoneChecks: string;
-  socialTime: string;
-  moodChange: string;
+  [key: string]: string;
 }
 
 interface DailyProgressQuizProps {
@@ -18,18 +17,135 @@ interface DailyProgressQuizProps {
 }
 
 const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }) => {
-  const [answers, setAnswers] = useState<QuizData>({
-    phoneChecks: '',
-    socialTime: '',
-    moodChange: ''
-  });
+  const [answers, setAnswers] = useState<QuizData>({});
   const { toast } = useToast();
 
+  // Determina quale blocco usare in base al giorno (ciclo di 3)
+  const getBlockType = (day: number): 'time' | 'control' | 'emotion' => {
+    const blockIndex = (day - 1) % 3;
+    return ['time', 'control', 'emotion'][blockIndex] as 'time' | 'control' | 'emotion';
+  };
+
+  const blockType = getBlockType(day);
+
+  const getBlockConfig = () => {
+    switch (blockType) {
+      case 'time':
+        return {
+          title: 'Tempo & Scroll Consapevole',
+          icon: Smartphone,
+          color: '🟦',
+          questions: [
+            {
+              id: 'phoneTime',
+              text: 'Quanto tempo hai trascorso oggi con il telefono in mano?',
+              options: ['Meno di 1h', '1–2h', '2–3h', 'Più di 3h']
+            },
+            {
+              id: 'phoneChecks',
+              text: 'Quante volte hai preso il telefono senza sapere perché?',
+              options: ['0–2', '3–5', '6+']
+            },
+            {
+              id: 'socialTime',
+              text: 'Quanto tempo hai passato oggi sui social (stimato)?',
+              options: ['Meno di 15 min', '15–30 min', '30–60 min', 'Oltre 1h']
+            },
+            {
+              id: 'ignoredNotifications',
+              text: 'Hai ignorato una notifica invece di aprirla subito?',
+              options: ['Sì', 'No']
+            },
+            {
+              id: 'timeUsed',
+              text: 'Come hai usato il tempo che hai risparmiato evitando lo scroll?',
+              type: 'textarea',
+              placeholder: 'Esempio: ho letto, ho camminato, ho parlato con qualcuno'
+            }
+          ]
+        };
+      case 'control':
+        return {
+          title: 'Autocontrollo & Impulsi Digitali',
+          icon: Shield,
+          color: '🟩',
+          questions: [
+            {
+              id: 'scrollImpulse',
+              text: 'Hai sentito l\'impulso di scrollare senza motivo oggi?',
+              options: ['Mai', 'Una volta', 'Più volte']
+            },
+            {
+              id: 'resistedImpulse',
+              text: 'Hai resistito almeno una volta all\'impulso di aprire un social?',
+              options: ['Sì', 'No']
+            },
+            {
+              id: 'completedActivity',
+              text: 'Hai completato l\'attività anti-scroll del giorno proposta dall\'app?',
+              options: ['Sì', 'No', 'In parte']
+            },
+            {
+              id: 'difficulty',
+              text: 'Quanto è stato difficile non prendere il telefono nei momenti "vuoti"?',
+              options: ['Per niente', 'Un po\'', 'Molto']
+            },
+            {
+              id: 'presence',
+              text: 'Ti sei sentito più presente durante la giornata rispetto a ieri?',
+              options: ['Sì', 'No', 'Non saprei']
+            }
+          ]
+        };
+      case 'emotion':
+        return {
+          title: 'Emozioni & Soddisfazione Personale',
+          icon: Heart,
+          color: '🟥',
+          questions: [
+            {
+              id: 'dailyFeeling',
+              text: 'Come ti sei sentitə durante la maggior parte del tempo oggi?',
+              options: ['Calmo/a e concentrato/a', 'Neutro/a', 'Distratto/a o ansioso/a']
+            },
+            {
+              id: 'realEnergy',
+              text: 'Hai fatto qualcosa oggi che ti ha dato energia reale (non digitale)?',
+              options: ['Sì', 'No', 'Non ricordo']
+            },
+            {
+              id: 'timeSatisfaction',
+              text: 'Quanto sei soddisfattə di come hai usato il tuo tempo oggi?',
+              options: ['Molto', 'Abbastanza', 'Poco']
+            },
+            {
+              id: 'missing',
+              text: 'Cosa ti è mancato di più nel non scrollare (se qualcosa)?',
+              type: 'textarea',
+              placeholder: 'Esempio: aggiornamenti, "staccare la testa", noia...'
+            },
+            {
+              id: 'phoneRelationship',
+              text: 'Come definiresti oggi la tua relazione con il telefono?',
+              options: ['Equilibrata', 'In miglioramento', 'Troppo presente']
+            }
+          ]
+        };
+      default:
+        return getBlockConfig();
+    }
+  };
+
+  const config = getBlockConfig();
+
   const handleSubmit = () => {
-    if (!answers.phoneChecks || !answers.socialTime || !answers.moodChange) {
+    const requiredQuestions = config.questions.filter(q => q.type !== 'textarea');
+    const missingAnswers = requiredQuestions.some(q => !answers[q.id]);
+
+    if (missingAnswers) {
       toast({
-        title: "Quiz incompleto",
-        description: "Rispondi a tutte le domande per continuare",
+        title: "Check-in incompleto",
+        description: "Rispondi a tutte le domande obbligatorie per continuare",
         variant: "destructive"
       });
       return;
@@ -37,134 +153,70 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
 
     onComplete(answers);
     toast({
-      title: "Quiz completato! 🎉",
+      title: "Check-in completato! 🎉",
       description: "Il tuo progresso è stato registrato",
       variant: "default"
     });
   };
 
-  const getScoreEmoji = () => {
-    const scores = {
-      phoneChecks: answers.phoneChecks === '0-2' ? 3 : answers.phoneChecks === '3-5' ? 2 : answers.phoneChecks === '6-10' ? 1 : 0,
-      socialTime: answers.socialTime === 'meno-30' ? 3 : answers.socialTime === '30-60' ? 2 : answers.socialTime === '1-2h' ? 1 : 0,
-      moodChange: answers.moodChange === 'calmo' ? 3 : answers.moodChange === 'uguale' ? 2 : 1
-    };
-    
-    const total = scores.phoneChecks + scores.socialTime + scores.moodChange;
-    if (total >= 8) return '🌟';
-    if (total >= 6) return '💪';
-    if (total >= 4) return '👍';
-    return '🌱';
-  };
+  const IconComponent = config.icon;
 
   return (
     <Card className="bg-card border border-border rounded-2xl shadow-sm">
       <CardHeader className="pb-3">
         <CardTitle className="text-foreground flex items-center gap-2">
           <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-            <Brain className="w-4 h-4 text-primary" />
+            <IconComponent className="w-4 h-4 text-primary" />
           </div>
-          Check-in Giorno {day}
+          {config.color} {config.title}
         </CardTitle>
         <p className="text-muted-foreground text-sm flex items-center gap-1">
           <Clock className="w-4 h-4" />
-          Meno di 1 minuto
+          Check-in Giorno {day}
         </p>
       </CardHeader>
-      <CardContent className="space-y-4">
-        {/* Domanda 1 */}
-        <div className="space-y-3">
-          <Label className="text-foreground font-medium text-sm">
-            Quante volte hai preso il telefono senza un vero motivo?
-          </Label>
-          <RadioGroup 
-            value={answers.phoneChecks} 
-            onValueChange={(value) => setAnswers(prev => ({ ...prev, phoneChecks: value }))}
-          >
-            <div className="grid grid-cols-2 gap-2">
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="0-2" className="text-primary" />
-                <span>0-2</span>
-              </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="3-5" className="text-primary" />
-                <span>3-5</span>
-              </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="6-10" className="text-primary" />
-                <span>6-10</span>
-              </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="10+" className="text-primary" />
-                <span>+10</span>
-              </Label>
-            </div>
-          </RadioGroup>
-        </div>
-
-        {/* Domanda 2 */}
-        <div className="space-y-3">
-          <Label className="text-foreground font-medium text-sm">
-            Quanto tempo stimato hai passato oggi sui social?
-          </Label>
-          <RadioGroup 
-            value={answers.socialTime} 
-            onValueChange={(value) => setAnswers(prev => ({ ...prev, socialTime: value }))}
-          >
-            <div className="grid grid-cols-2 gap-2">
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="meno-30" className="text-primary" />
-                <span>&lt; 30 min</span>
-              </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="30-60" className="text-primary" />
-                <span>30-60 min</span>
-              </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="1-2h" className="text-primary" />
-                <span>1-2h</span>
-              </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="2h+" className="text-primary" />
-                <span>+2h</span>
-              </Label>
-            </div>
-          </RadioGroup>
-        </div>
-
-        {/* Domanda 3 */}
-        <div className="space-y-3">
-          <Label className="text-foreground font-medium text-sm">
-            Come ti senti ora rispetto a stamattina?
-          </Label>
-          <RadioGroup 
-            value={answers.moodChange} 
-            onValueChange={(value) => setAnswers(prev => ({ ...prev, moodChange: value }))}
-          >
-            <div className="space-y-2">
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="calmo" className="text-primary" />
-                <span>Più calmo/a</span>
-              </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="uguale" className="text-primary" />
-                <span>Uguale</span>
-              </Label>
-              <Label className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors">
-                <RadioGroupItem value="nervoso" className="text-primary" />
-                <span>Più nervoso/a</span>
-              </Label>
-            </div>
-          </RadioGroup>
-        </div>
+      <CardContent className="space-y-5">
+        {config.questions.map((question, index) => (
+          <div key={question.id} className="space-y-3">
+            <Label className="text-foreground font-medium text-sm">
+              {question.text}
+            </Label>
+            
+            {question.type === 'textarea' ? (
+              <Textarea
+                placeholder={question.placeholder}
+                value={answers[question.id] || ''}
+                onChange={(e) => setAnswers(prev => ({ ...prev, [question.id]: e.target.value }))}
+                className="min-h-[80px] bg-background border-border rounded-xl resize-none"
+              />
+            ) : (
+              <RadioGroup 
+                value={answers[question.id] || ''} 
+                onValueChange={(value) => setAnswers(prev => ({ ...prev, [question.id]: value }))}
+              >
+                <div className={`grid gap-2 ${question.options && question.options.length > 3 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                  {question.options?.map((option) => (
+                    <Label 
+                      key={option}
+                      className="flex items-center space-x-2 p-3 border border-border rounded-xl cursor-pointer hover:border-primary bg-card text-foreground transition-colors"
+                    >
+                      <RadioGroupItem value={option} className="text-primary" />
+                      <span>{option}</span>
+                    </Label>
+                  ))}
+                </div>
+              </RadioGroup>
+            )}
+          </div>
+        ))}
 
         <Button 
           onClick={handleSubmit}
           className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-12 rounded-full mt-6"
-          disabled={!answers.phoneChecks || !answers.socialTime || !answers.moodChange}
+          disabled={config.questions.filter(q => q.type !== 'textarea').some(q => !answers[q.id])}
         >
           <CheckCircle className="w-4 h-4 mr-2" />
-          Completa Check-in {getScoreEmoji()}
+          Completa Check-in
         </Button>
       </CardContent>
     </Card>
