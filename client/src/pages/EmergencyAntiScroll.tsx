@@ -201,19 +201,16 @@ const EmergencyAntiScroll: React.FC = () => {
         {/* Hero Section */}
         <section className="mx-4 mt-8 mb-8">
           <div className="text-center mb-10">
-            <div className="mb-6">
+            <div className="mb-4">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-8 h-8 text-primary" />
               </div>
-              <h1 className="text-2xl font-black text-foreground mb-2 tracking-tight">
-                PRONTO SOCCORSO
-              </h1>
-              <h2 className="text-xl font-bold text-primary mb-4">
+              <h1 className="text-2xl font-bold text-primary mb-4">
                 Anti-Scroll
-              </h2>
+              </h1>
               <div className="w-20 h-1 bg-primary rounded-full mx-auto mb-4"></div>
             </div>
-            <p className="text-foreground text-xs font-bold">
+            <p className="text-foreground text-sm font-bold mb-4">
               Interrompi il ciclo automatico con un'azione consapevole
             </p>
           </div>
