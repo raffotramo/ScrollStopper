@@ -119,16 +119,21 @@ const Progress: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+      {/* Header */}
+      <section className="mx-4 mt-8 mb-6">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <TrendingUp className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-2xl font-bold text-primary mb-4">
+            Il tuo progresso
+          </h1>
+          <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+        </div>
+      </section>
       
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center mb-6">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
-              <TrendingUp className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <h1 className="text-2xl font-bold text-foreground">Il tuo progresso</h1>
-          </div>
 
           <Tabs defaultValue="today" className="space-y-4">
             <TabsList className="grid w-full grid-cols-3 bg-background border border-border/30 rounded-xl">
