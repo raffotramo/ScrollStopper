@@ -134,7 +134,7 @@ const Home: React.FC = () => {
             }`}
             onClick={() => setModalOpen(true)}
           >
-            {isCurrentDayCompleted ? "✓ Rivedi Attività" : "🚀 Inizia Oggi"}
+            {isCurrentDayCompleted ? "✓ Rivedi Attività" : "Inizia Oggi"}
           </Button>
         </section>
 
