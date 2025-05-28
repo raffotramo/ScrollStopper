@@ -205,13 +205,16 @@ const EmergencyAntiScroll: React.FC = () => {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-8 h-8 text-primary" />
               </div>
-              <h1 className="text-3xl font-black text-primary mb-4 tracking-tight">
-                Anti-Scroll
+              <h1 className="text-2xl font-black text-foreground mb-2 tracking-tight">
+                PRONTO SOCCORSO
               </h1>
+              <h2 className="text-xl font-bold text-primary mb-4">
+                Anti-Scroll
+              </h2>
               <div className="w-20 h-1 bg-primary rounded-full mx-auto mb-4"></div>
             </div>
-            <p className="text-foreground text-sm font-bold">
-              Interrompi il ciclo automatico
+            <p className="text-foreground text-xs font-bold">
+              Interrompi il ciclo automatico con un'azione consapevole
             </p>
           </div>
 
