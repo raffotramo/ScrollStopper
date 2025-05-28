@@ -34,7 +34,6 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
         return {
           title: 'Tempo & Scroll Consapevole',
           icon: Smartphone,
-          color: '🟦',
           questions: [
             {
               id: 'phoneTime',
@@ -68,7 +67,6 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
         return {
           title: 'Autocontrollo & Impulsi Digitali',
           icon: Shield,
-          color: '🟩',
           questions: [
             {
               id: 'scrollImpulse',
@@ -101,7 +99,6 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
         return {
           title: 'Emozioni & Soddisfazione Personale',
           icon: Heart,
-          color: '🟥',
           questions: [
             {
               id: 'dailyFeeling',
@@ -168,7 +165,7 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
           <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
             <IconComponent className="w-4 h-4 text-primary" />
           </div>
-          {config.color} {config.title}
+          {config.title}
         </CardTitle>
         <p className="text-muted-foreground text-sm flex items-center gap-1">
           <Clock className="w-4 h-4" />
