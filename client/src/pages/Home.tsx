@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { ChevronRight, Info, Clock, Award, BookOpen, Star, Lightbulb, Zap, Lock as LockIcon } from 'lucide-react';
+import { ChevronRight, Info, Clock, Award, BookOpen, Star, Lightbulb, Zap, Lock as LockIcon, Calendar } from 'lucide-react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import ProgressCircle from '@/components/ProgressCircle';
@@ -112,24 +112,29 @@ const Home: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         {/* Main Challenge Card */}
-        <section className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] mx-4 my-4 p-6 border border-border/30">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold text-foreground">Giorno {currentDay}</h1>
+        <section className="bg-card rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] mx-4 my-4 p-8 border-2 border-primary/20 ring-1 ring-primary/10">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                <Calendar className="w-5 h-5 text-primary" />
+              </div>
+              <h1 className="text-2xl font-bold text-foreground">Giorno {currentDay}</h1>
+            </div>
             <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">{currentDay}</span>
             </div>
           </div>
-          <h2 className="text-xl font-bold text-foreground mb-2">{todayChallenge.title}</h2>
-          <p className="text-muted-foreground text-sm mb-6">{todayChallenge.description}</p>
+          <h2 className="text-xl font-bold text-foreground mb-3">{todayChallenge.title}</h2>
+          <p className="text-muted-foreground text-base mb-8">{todayChallenge.description}</p>
           <Button 
-            className={`w-full rounded-full h-12 font-semibold ${
+            className={`w-full rounded-full h-14 font-bold text-lg shadow-lg transition-all duration-200 ${
               isCurrentDayCompleted 
-                ? "bg-primary/20 text-primary border border-primary hover:bg-primary/30" 
-                : "bg-primary text-primary-foreground hover:bg-primary/90"
+                ? "bg-primary/20 text-primary border-2 border-primary hover:bg-primary/30 hover:scale-[1.02]" 
+                : "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-[1.02] hover:shadow-xl"
             }`}
             onClick={() => setModalOpen(true)}
           >
-            {isCurrentDayCompleted ? "Rivedi Attività" : "Inizia"}
+            {isCurrentDayCompleted ? "✓ Rivedi Attività" : "🚀 Inizia Oggi"}
           </Button>
         </section>
 
