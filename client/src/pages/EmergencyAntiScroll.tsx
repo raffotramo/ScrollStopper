@@ -210,8 +210,8 @@ const EmergencyAntiScroll: React.FC = () => {
               </h1>
               <div className="w-20 h-1 bg-primary rounded-full mx-auto mb-4"></div>
             </div>
-            <p className="text-foreground text-sm font-bold mb-4">
-              Interrompi il ciclo automatico con un'azione consapevole
+            <p className="text-foreground text-base font-bold mb-2">
+              Interrompi il ciclo automatico<br />con un'azione consapevole
             </p>
           </div>
 
