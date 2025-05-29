@@ -9,18 +9,18 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { User, Clock, Compass, Target, Zap } from 'lucide-react';
+import { User, Clock, Compass, Target, Zap, Smartphone, ArrowRight } from 'lucide-react';
 import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import logoImage from '@assets/Progetto senza titolo (4).png';
 
-// Schema per il form semplificato
+// Schema per il form multi-step
 const formSchema = z.object({
   name: z.string().min(2, { message: "Il nome deve avere almeno 2 caratteri" }),
   age: z.string().refine((val) => !isNaN(parseInt(val)) && parseInt(val) > 0, {
     message: "L'età deve essere un numero positivo",
   }),
-  goal: z.string().min(5, { message: "Inserisci un obiettivo di almeno 5 caratteri" })
+  screenTime: z.string().min(1, { message: "Seleziona un'opzione" })
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -32,13 +32,14 @@ const Onboarding: React.FC = () => {
   const [showLogo, setShowLogo] = useState(false);
   const [showClaim, setShowClaim] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       age: "",
-      goal: ""
+      screenTime: ""
     }
   });
 
@@ -65,6 +66,32 @@ const Onboarding: React.FC = () => {
       setLocation('/');
     } catch (error) {
       console.error('Error saving profile:', error);
+    }
+  };
+
+  const nextStep = () => {
+    if (currentStep === 1) {
+      const name = form.getValues('name');
+      if (name.length >= 2) {
+        setCurrentStep(2);
+      } else {
+        form.trigger('name');
+      }
+    } else if (currentStep === 2) {
+      const age = form.getValues('age');
+      if (age && !isNaN(parseInt(age)) && parseInt(age) > 0) {
+        setCurrentStep(3);
+      } else {
+        form.trigger('age');
+      }
+    } else if (currentStep === 3) {
+      form.handleSubmit(onSubmit)();
+    }
+  };
+
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
     }
   };
 
@@ -125,111 +152,184 @@ const Onboarding: React.FC = () => {
         </div>
       </section>
 
-      {/* Header */}
-      <section className="mx-4 mb-2">
-        <div className="text-center">
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <User className="w-8 h-8 text-primary" />
+      {/* Barra di progresso */}
+      <section className="mx-4 mb-6">
+        <div className="max-w-md mx-auto">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm text-muted-foreground">Passo {currentStep} di 3</span>
+            <span className="text-sm text-muted-foreground">{Math.round((currentStep / 3) * 100)}%</span>
           </div>
-          <h1 className="text-2xl font-bold text-primary mb-4">
-            Inizia il tuo percorso
-          </h1>
-          <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+          <div className="w-full bg-secondary rounded-full h-2">
+            <div 
+              className="bg-primary h-2 rounded-full transition-all duration-500" 
+              style={{ width: `${(currentStep / 3) * 100}%` }}
+            ></div>
+          </div>
         </div>
       </section>
       
       <div className="flex-1 flex flex-col items-center justify-start p-4">
-        <div className="max-w-md w-full space-y-4">
-          {/* Intro Card */}
-          <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30 text-center">
-            <h2 className="text-xl font-bold text-foreground mb-2">Iniziamo insieme</h2>
-            <p className="text-muted-foreground">Solo 3 informazioni per personalizzare la tua esperienza</p>
-          </div>
-            
+        <div className="max-w-md w-full">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              {/* Nome Card */}
-              <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
-                <div className="flex items-center mb-4">
-                  <User className="w-5 h-5 text-primary mr-2" />
-                  <h3 className="text-lg font-semibold text-foreground">Il tuo nome</h3>
-                </div>
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input 
-                          placeholder="Inserisci il tuo nome" 
-                          {...field} 
-                          className="bg-secondary border-border text-foreground placeholder:text-muted-foreground h-12 rounded-xl"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+            <form className="space-y-6">
+              
+              {/* Step 1: Nome */}
+              {currentStep === 1 && (
+                <div className="space-y-6">
+                  <section className="text-center">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <User className="w-8 h-8 text-primary" />
+                    </div>
+                    <h1 className="text-2xl font-bold text-primary mb-4">
+                      Inizia il tuo percorso
+                    </h1>
+                    <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+                  </section>
 
-              {/* Età Card */}
-              <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
-                <div className="flex items-center mb-4">
-                  <Clock className="w-5 h-5 text-primary mr-2" />
-                  <h3 className="text-lg font-semibold text-foreground">La tua età</h3>
-                </div>
-                <FormField
-                  control={form.control}
-                  name="age"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input 
-                          type="number" 
-                          placeholder="Inserisci la tua età" 
-                          {...field} 
-                          className="bg-secondary border-border text-foreground placeholder:text-muted-foreground h-12 rounded-xl"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+                  <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground text-lg font-semibold">Come ti chiami?</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="Inserisci il tuo nome" 
+                              {...field} 
+                              className="bg-secondary border-border text-foreground placeholder:text-muted-foreground h-12 rounded-xl mt-4"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
 
-              {/* Obiettivo Card */}
-              <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
-                <div className="flex items-center mb-4">
-                  <Target className="w-5 h-5 text-primary mr-2" />
-                  <h3 className="text-lg font-semibold text-foreground">Il tuo obiettivo</h3>
+                  <Button 
+                    type="button"
+                    onClick={nextStep}
+                    className="w-full bg-primary text-white hover:bg-primary/90 font-semibold h-12 rounded-xl"
+                  >
+                    Continua <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
                 </div>
-                <FormField
-                  control={form.control}
-                  name="goal"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="Cosa vuoi ottenere alla fine dei 30 giorni?" 
-                          {...field}
-                          className="bg-secondary border-border text-foreground placeholder:text-muted-foreground min-h-20 rounded-xl resize-none"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              )}
 
-              {/* Submit Button Card */}
-              <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
-                <Button 
-                  type="submit" 
-                  className="w-full bg-primary text-white hover:bg-primary/90 font-semibold h-12 rounded-xl"
-                >
-                  Inizia il percorso
-                </Button>
-              </div>
+              {/* Step 2: Età */}
+              {currentStep === 2 && (
+                <div className="space-y-6">
+                  <section className="text-center">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Clock className="w-8 h-8 text-primary" />
+                    </div>
+                    <h1 className="text-2xl font-bold text-primary mb-2">
+                      Il tempo è prezioso
+                    </h1>
+                    <p className="text-muted-foreground mb-4">Ogni momento conta per il tuo benessere digitale</p>
+                    <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+                  </section>
+
+                  <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
+                    <FormField
+                      control={form.control}
+                      name="age"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground text-lg font-semibold">Quanti anni hai?</FormLabel>
+                          <FormControl>
+                            <Input 
+                              type="number" 
+                              placeholder="La tua età" 
+                              {...field} 
+                              className="bg-secondary border-border text-foreground placeholder:text-muted-foreground h-12 rounded-xl mt-4"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="flex gap-3">
+                    <Button 
+                      type="button"
+                      onClick={prevStep}
+                      variant="outline"
+                      className="flex-1 h-12 rounded-xl"
+                    >
+                      Indietro
+                    </Button>
+                    <Button 
+                      type="button"
+                      onClick={nextStep}
+                      className="flex-1 bg-primary text-white hover:bg-primary/90 font-semibold h-12 rounded-xl"
+                    >
+                      Continua <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Tempo schermo */}
+              {currentStep === 3 && (
+                <div className="space-y-6">
+                  <section className="text-center">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Smartphone className="w-8 h-8 text-primary" />
+                    </div>
+                    <h1 className="text-2xl font-bold text-primary mb-2">
+                      Scopri la verità
+                    </h1>
+                    <p className="text-muted-foreground mb-4">La consapevolezza è il primo passo verso il cambiamento</p>
+                    <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+                  </section>
+
+                  <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
+                    <FormField
+                      control={form.control}
+                      name="screenTime"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-foreground text-lg font-semibold">Quanto tempo passi scrollando il telefono?</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="bg-secondary border-border h-12 rounded-xl mt-4">
+                                <SelectValue placeholder="Seleziona un'opzione" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="1-2 ore">1-2 ore al giorno</SelectItem>
+                              <SelectItem value="3-4 ore">3-4 ore al giorno</SelectItem>
+                              <SelectItem value="5+ ore">5+ ore al giorno</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="flex gap-3">
+                    <Button 
+                      type="button"
+                      onClick={prevStep}
+                      variant="outline"
+                      className="flex-1 h-12 rounded-xl"
+                    >
+                      Indietro
+                    </Button>
+                    <Button 
+                      type="button"
+                      onClick={nextStep}
+                      className="flex-1 bg-primary text-white hover:bg-primary/90 font-semibold h-12 rounded-xl"
+                    >
+                      Inizia il percorso <Target className="w-5 h-5 ml-2" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+
             </form>
           </Form>
         </div>
