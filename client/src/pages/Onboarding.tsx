@@ -71,7 +71,7 @@ const Onboarding: React.FC = () => {
   // Schermata animazione introduttiva
   if (showIntro) {
     return (
-      <div className="min-h-screen flex flex-col bg-background items-center justify-center pt-16">
+      <div className="min-h-screen flex flex-col bg-background items-center justify-start pt-32">
         <div className="text-center">
           {/* Logo animato */}
           <div className={`transition-opacity duration-1000 ${showLogo ? 'opacity-100' : 'opacity-0'}`}>
@@ -114,8 +114,19 @@ const Onboarding: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Logo nero in alto */}
+      <section className="mx-4 mt-6 mb-6">
+        <div className="text-center">
+          <img 
+            src={logoImage} 
+            alt="ScrollStop" 
+            className="w-64 h-auto mx-auto filter invert"
+          />
+        </div>
+      </section>
+
       {/* Header */}
-      <section className="mx-4 mt-8 mb-2">
+      <section className="mx-4 mb-2">
         <div className="text-center">
           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <User className="w-8 h-8 text-primary" />
