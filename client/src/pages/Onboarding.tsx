@@ -51,7 +51,7 @@ const Onboarding: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Header */}
-      <section className="mx-4 mt-8 mb-6">
+      <section className="mx-4 mt-8 mb-2">
         <div className="text-center">
           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <User className="w-8 h-8 text-primary" />
@@ -63,20 +63,27 @@ const Onboarding: React.FC = () => {
         </div>
       </section>
       
-      <div className="flex-1 flex flex-col items-center justify-center p-4">
-        <div className="max-w-md w-full">
-          <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
+      <div className="flex-1 flex flex-col items-center justify-start p-4">
+        <div className="max-w-md w-full space-y-4">
+          {/* Intro Card */}
+          <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30 text-center">
             <h2 className="text-xl font-bold text-foreground mb-2">Iniziamo insieme</h2>
-            <p className="text-muted-foreground mb-6">Solo 3 informazioni per personalizzare la tua esperienza</p>
+            <p className="text-muted-foreground">Solo 3 informazioni per personalizzare la tua esperienza</p>
+          </div>
             
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              {/* Nome Card */}
+              <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
+                <div className="flex items-center mb-4">
+                  <User className="w-5 h-5 text-primary mr-2" />
+                  <h3 className="text-lg font-semibold text-foreground">Il tuo nome</h3>
+                </div>
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground text-sm font-medium">Nome utente</FormLabel>
                       <FormControl>
                         <Input 
                           placeholder="Inserisci il tuo nome" 
@@ -88,17 +95,23 @@ const Onboarding: React.FC = () => {
                     </FormItem>
                   )}
                 />
-                
+              </div>
+
+              {/* Età Card */}
+              <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
+                <div className="flex items-center mb-4">
+                  <Clock className="w-5 h-5 text-primary mr-2" />
+                  <h3 className="text-lg font-semibold text-foreground">La tua età</h3>
+                </div>
                 <FormField
                   control={form.control}
                   name="age"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground text-sm font-medium">Età</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
-                          placeholder="La tua età" 
+                          placeholder="Inserisci la tua età" 
                           {...field} 
                           className="bg-secondary border-border text-foreground placeholder:text-muted-foreground h-12 rounded-xl"
                         />
@@ -107,16 +120,22 @@ const Onboarding: React.FC = () => {
                     </FormItem>
                   )}
                 />
-                
+              </div>
+
+              {/* Obiettivo Card */}
+              <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
+                <div className="flex items-center mb-4">
+                  <Target className="w-5 h-5 text-primary mr-2" />
+                  <h3 className="text-lg font-semibold text-foreground">Il tuo obiettivo</h3>
+                </div>
                 <FormField
                   control={form.control}
                   name="goal"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground text-sm font-medium">Obiettivo</FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder="Qual è il tuo obiettivo alla fine dei 30 giorni?" 
+                          placeholder="Cosa vuoi ottenere alla fine dei 30 giorni?" 
                           {...field}
                           className="bg-secondary border-border text-foreground placeholder:text-muted-foreground min-h-20 rounded-xl resize-none"
                         />
@@ -125,16 +144,19 @@ const Onboarding: React.FC = () => {
                     </FormItem>
                   )}
                 />
-                
+              </div>
+
+              {/* Submit Button Card */}
+              <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
                 <Button 
                   type="submit" 
-                  className="w-full bg-foreground text-background hover:bg-foreground/90 font-semibold h-12 rounded-full mt-6"
+                  className="w-full bg-primary text-white hover:bg-primary/90 font-semibold h-12 rounded-xl"
                 >
-                  Avanti
+                  Inizia il percorso
                 </Button>
-              </form>
-            </Form>
-          </div>
+              </div>
+            </form>
+          </Form>
         </div>
       </div>
     </div>
