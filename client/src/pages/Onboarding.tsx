@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { User, Clock, Compass, Target } from 'lucide-react';
+import { User, Clock, Compass, Target, Zap } from 'lucide-react';
 import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import logoImage from '@assets/Progetto senza titolo (4).png';
@@ -31,6 +31,7 @@ const Onboarding: React.FC = () => {
   const [showIntro, setShowIntro] = useState(true);
   const [showLogo, setShowLogo] = useState(false);
   const [showClaim, setShowClaim] = useState(false);
+  const [showButton, setShowButton] = useState(false);
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -44,12 +45,9 @@ const Onboarding: React.FC = () => {
   useEffect(() => {
     // Sequenza animazioni
     const timer1 = setTimeout(() => setShowLogo(true), 300);
-    const timer2 = setTimeout(() => setShowClaim(true), 1500);
-    const timer3 = setTimeout(() => {
-      setShowLogo(false);
-      setShowClaim(false);
-    }, 3500);
-    const timer4 = setTimeout(() => setShowIntro(false), 4000);
+    const timer2 = setTimeout(() => setShowLogo(false), 2500);
+    const timer3 = setTimeout(() => setShowClaim(true), 3000);
+    const timer4 = setTimeout(() => setShowButton(true), 3500);
 
     return () => {
       clearTimeout(timer1);
@@ -86,12 +84,30 @@ const Onboarding: React.FC = () => {
             </div>
           </div>
           
-          {/* Claim animato */}
+          {/* Claim animato con icona */}
           <div className={`transition-opacity duration-1000 ${showClaim ? 'opacity-100' : 'opacity-0'}`}>
-            <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed font-medium">
-              Trasforma le tue abitudini<br />
-              digitali in 30 giorni
-            </p>
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <Zap className="w-8 h-8 text-primary" />
+              </div>
+              <h2 className="text-2xl font-bold text-primary mb-4">
+                Trasforma le tue abitudini
+              </h2>
+              <div className="w-20 h-1 bg-primary rounded-full mb-6"></div>
+              <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed">
+                digitali in 30 giorni
+              </p>
+            </div>
+          </div>
+          
+          {/* Bottone animato */}
+          <div className={`transition-opacity duration-1000 ${showButton ? 'opacity-100' : 'opacity-0'} mt-8`}>
+            <Button 
+              onClick={() => setShowIntro(false)}
+              className="bg-primary text-white hover:bg-primary/90 font-semibold h-12 px-8 rounded-xl"
+            >
+              Inizia la tua sfida
+            </Button>
           </div>
         </div>
       </div>
