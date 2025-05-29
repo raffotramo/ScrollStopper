@@ -71,7 +71,7 @@ const Onboarding: React.FC = () => {
   // Schermata animazione introduttiva
   if (showIntro) {
     return (
-      <div className="min-h-screen flex flex-col bg-background items-center justify-start pt-32">
+      <div className="min-h-screen flex flex-col bg-background items-center justify-center">
         <div className="text-center">
           {/* Logo animato */}
           <div className={`transition-opacity duration-1000 ${showLogo ? 'opacity-100' : 'opacity-0'}`}>
