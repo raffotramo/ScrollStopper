@@ -81,16 +81,16 @@ const Onboarding: React.FC = () => {
               <img 
                 src={logoImage} 
                 alt="ScrollStop" 
-                className="w-80 h-auto mx-auto"
+                className="w-80 h-auto mx-auto filter invert"
               />
             </div>
           </div>
           
           {/* Claim animato */}
           <div className={`transition-opacity duration-1000 ${showClaim ? 'opacity-100' : 'opacity-0'}`}>
-            <p className="text-2xl text-muted-foreground max-w-lg mx-auto leading-relaxed font-medium">
-              Trasforma le tue abitudini digitali<br />
-              in 30 giorni
+            <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed font-medium">
+              Trasforma le tue abitudini<br />
+              digitali in 30 giorni
             </p>
           </div>
         </div>
