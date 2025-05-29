@@ -50,22 +50,22 @@ const Onboarding: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* Header with ScrollStop Logo */}
-      <Header />
+      {/* Header */}
+      <section className="mx-4 mt-8 mb-6">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <User className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-2xl font-bold text-primary mb-4">
+            Inizia il tuo percorso
+          </h1>
+          <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+        </div>
+      </section>
       
       <div className="flex-1 flex flex-col items-center justify-center p-4">
         <div className="max-w-md w-full">
-          {/* Welcome Title */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-3">
-              Creiamo il tuo profilo
-            </h1>
-            <p className="text-muted-foreground mb-6">
-              Questi dati sono necessari per calcolare i tuoi progressi.
-            </p>
-          </div>
-        
-          <div className="bg-card rounded-2xl shadow-sm p-6 border border-border">
+          <div className="bg-card rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-6 border border-border/30">
             <h2 className="text-xl font-bold text-foreground mb-2">Iniziamo insieme</h2>
             <p className="text-muted-foreground mb-6">Solo 3 informazioni per personalizzare la tua esperienza</p>
             
