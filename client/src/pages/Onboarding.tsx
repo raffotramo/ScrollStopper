@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -27,6 +27,9 @@ type FormValues = z.infer<typeof formSchema>;
 const Onboarding: React.FC = () => {
   const [, setUserProfile] = useLocalStorage('user-profile', {});
   const [, setLocation] = useLocation();
+  const [showIntro, setShowIntro] = useState(true);
+  const [showLogo, setShowLogo] = useState(false);
+  const [showClaim, setShowClaim] = useState(false);
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -36,6 +39,24 @@ const Onboarding: React.FC = () => {
       goal: ""
     }
   });
+
+  useEffect(() => {
+    // Sequenza animazioni
+    const timer1 = setTimeout(() => setShowLogo(true), 300);
+    const timer2 = setTimeout(() => setShowClaim(true), 1500);
+    const timer3 = setTimeout(() => {
+      setShowLogo(false);
+      setShowClaim(false);
+    }, 3500);
+    const timer4 = setTimeout(() => setShowIntro(false), 4000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+      clearTimeout(timer4);
+    };
+  }, []);
 
   const onSubmit = (data: FormValues) => {
     console.log('Form submitted with data:', data);
@@ -47,6 +68,30 @@ const Onboarding: React.FC = () => {
       console.error('Error saving profile:', error);
     }
   };
+
+  // Schermata animazione introduttiva
+  if (showIntro) {
+    return (
+      <div className="min-h-screen flex flex-col bg-background items-center justify-center">
+        <div className="text-center">
+          {/* Logo animato */}
+          <div className={`transition-opacity duration-1000 ${showLogo ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="w-24 h-24 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg">
+              <span className="text-white text-3xl font-bold">S</span>
+            </div>
+            <h1 className="text-3xl font-bold text-primary mb-8">ScrollStop</h1>
+          </div>
+          
+          {/* Claim animato */}
+          <div className={`transition-opacity duration-1000 ${showClaim ? 'opacity-100' : 'opacity-0'}`}>
+            <p className="text-xl text-muted-foreground max-w-md mx-auto leading-relaxed">
+              Trasforma le tue abitudini digitali in 30 giorni
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
