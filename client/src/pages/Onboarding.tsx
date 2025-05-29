@@ -74,35 +74,35 @@ const Onboarding: React.FC = () => {
       <div className="min-h-screen flex flex-col bg-background items-center justify-center">
         <div className="text-center">
           {/* Logo animato */}
-          <div className={`transition-all duration-1000 ${showLogo ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-75 translate-y-8'}`}>
+          <div className={`transition-all duration-1200 ${showLogo ? 'opacity-100 scale-100 translate-y-0 rotate-0' : 'opacity-0 scale-50 translate-y-16 -rotate-12'}`}>
             <div className="mb-8">
               <img 
                 src={logoImage} 
                 alt="ScrollStop" 
-                className={`w-80 h-auto mx-auto filter invert transition-all duration-1000 ${showLogo ? 'animate-pulse' : ''}`}
+                className={`w-80 h-auto mx-auto filter invert transition-all duration-1200 ${showLogo ? 'animate-logo-entrance' : ''}`}
               />
             </div>
           </div>
           
           {/* Claim animato con icona */}
-          <div className={`transition-all duration-1000 ${showClaim ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-4'}`}>
+          <div className={`transition-all duration-1000 ${showClaim ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-75 translate-y-8'}`}>
             <div className="flex flex-col items-center">
-              <div className={`w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 transition-all duration-700 ${showClaim ? 'animate-bounce' : ''}`}>
-                <Zap className={`w-8 h-8 text-primary transition-all duration-500 ${showClaim ? 'animate-pulse' : ''}`} />
+              <div className={`w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 transition-all duration-1000 ${showClaim ? 'animate-icon-zoom' : 'scale-0 rotate-180'}`}>
+                <Zap className={`w-8 h-8 text-primary transition-all duration-800 ${showClaim ? 'animate-lightning' : ''}`} />
               </div>
-              <h2 className={`text-2xl font-bold text-primary mb-4 transition-all duration-800 ${showClaim ? 'animate-fade-in-up' : ''}`}>
+              <h2 className={`text-2xl font-bold text-primary mb-4 transition-all duration-1200 ${showClaim ? 'animate-text-wave' : 'opacity-0 translate-x-8'}`}>
                 Trasforma le tue abitudini<br />
                 digitali in 30 giorni
               </h2>
-              <div className={`w-20 h-1 bg-primary rounded-full transition-all duration-1000 ${showClaim ? 'animate-expand' : 'w-0'}`}></div>
+              <div className={`h-1 bg-primary rounded-full transition-all duration-1500 ${showClaim ? 'w-20 animate-line-draw' : 'w-0'}`}></div>
             </div>
           </div>
           
           {/* Bottone animato */}
-          <div className={`transition-all duration-1000 ${showButton ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'} mt-8`}>
+          <div className={`transition-all duration-1000 ${showButton ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-50 translate-y-8'} mt-8`}>
             <Button 
               onClick={() => setShowIntro(false)}
-              className={`bg-primary text-white hover:bg-primary/90 font-semibold h-12 px-8 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${showButton ? 'animate-gentle-bounce' : ''}`}
+              className={`bg-primary text-white hover:bg-primary/90 font-semibold h-12 px-8 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:-translate-y-1 ${showButton ? 'animate-button-glow' : ''}`}
             >
               Inizia la tua sfida
             </Button>
