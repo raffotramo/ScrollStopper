@@ -12,6 +12,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { User, Clock, Compass, Target } from 'lucide-react';
 import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import logoImage from '@assets/Progetto senza titolo (4).png';
 
 // Schema per il form semplificato
 const formSchema = z.object({
@@ -76,16 +77,20 @@ const Onboarding: React.FC = () => {
         <div className="text-center">
           {/* Logo animato */}
           <div className={`transition-opacity duration-1000 ${showLogo ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="w-24 h-24 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg">
-              <span className="text-white text-3xl font-bold">S</span>
+            <div className="mb-8">
+              <img 
+                src={logoImage} 
+                alt="ScrollStop" 
+                className="w-80 h-auto mx-auto"
+              />
             </div>
-            <h1 className="text-3xl font-bold text-primary mb-8">ScrollStop</h1>
           </div>
           
           {/* Claim animato */}
           <div className={`transition-opacity duration-1000 ${showClaim ? 'opacity-100' : 'opacity-0'}`}>
-            <p className="text-xl text-muted-foreground max-w-md mx-auto leading-relaxed">
-              Trasforma le tue abitudini digitali in 30 giorni
+            <p className="text-2xl text-muted-foreground max-w-lg mx-auto leading-relaxed font-medium">
+              Trasforma le tue abitudini digitali<br />
+              in 30 giorni
             </p>
           </div>
         </div>
