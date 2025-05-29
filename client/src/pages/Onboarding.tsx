@@ -74,12 +74,12 @@ const Onboarding: React.FC = () => {
       <div className="min-h-screen flex flex-col bg-background items-center justify-center">
         <div className="text-center">
           {/* Logo animato */}
-          <div className={`transition-all duration-1200 ${showLogo ? 'opacity-100 scale-100 translate-y-0 rotate-0' : 'opacity-0 scale-50 translate-y-16 -rotate-12'}`}>
+          <div className={`transition-all duration-1000 ${showLogo ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <div className="mb-8">
               <img 
                 src={logoImage} 
                 alt="ScrollStop" 
-                className={`w-80 h-auto mx-auto filter invert transition-all duration-1200 ${showLogo ? 'animate-logo-entrance' : ''}`}
+                className="w-80 h-auto mx-auto filter invert transition-all duration-1000"
               />
             </div>
           </div>
