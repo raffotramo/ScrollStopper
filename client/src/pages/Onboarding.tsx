@@ -71,7 +71,7 @@ const Onboarding: React.FC = () => {
   // Schermata animazione introduttiva
   if (showIntro) {
     return (
-      <div className="min-h-screen flex flex-col bg-background items-center justify-center">
+      <div className="min-h-screen flex flex-col bg-background items-center justify-center pt-16">
         <div className="text-center">
           {/* Logo animato */}
           <div className={`transition-opacity duration-1000 ${showLogo ? 'opacity-100' : 'opacity-0'}`}>
@@ -91,12 +91,10 @@ const Onboarding: React.FC = () => {
                 <Zap className="w-8 h-8 text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-primary mb-4">
-                Trasforma le tue abitudini
-              </h2>
-              <div className="w-20 h-1 bg-primary rounded-full mb-6"></div>
-              <p className="text-lg text-muted-foreground max-w-md mx-auto leading-relaxed">
+                Trasforma le tue abitudini<br />
                 digitali in 30 giorni
-              </p>
+              </h2>
+              <div className="w-20 h-1 bg-primary rounded-full"></div>
             </div>
           </div>
           
