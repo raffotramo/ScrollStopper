@@ -1,5 +1,5 @@
 import { Switch, Route, useLocation } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -17,9 +17,9 @@ function Router() {
   const [userProfile] = useLocalStorage<any>('digital-detox-profile', null);
   const [location, setLocation] = useLocation();
   
-  // Reindirizza alla pagina di onboarding se non c'è un profilo
+  // Reindirizza alla pagina di onboarding se non c'è un profilo, ma solo la prima volta
   useEffect(() => {
-    if (!userProfile && location !== '/onboarding') {
+    if (!userProfile && location === '/') {
       setLocation('/onboarding');
     }
   }, [userProfile, location, setLocation]);
