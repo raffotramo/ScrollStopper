@@ -31,6 +31,7 @@ function Router() {
         <Route path="/onboarding" component={Onboarding} />
         <Route path="/" component={Home} />
         <Route path="/emergency" component={EmergencyAntiScroll} />
+        <Route path="/anti-scrolling" component={AntiScrollingTools} />
         <Route path="/journal" component={Journal} />
         <Route path="/progress" component={Progress} />
         <Route path="/profile" component={Profile} />
@@ -46,6 +47,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <Router />
+        <AntiScrollingSystem />
       </TooltipProvider>
     </QueryClientProvider>
   );
