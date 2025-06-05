@@ -263,6 +263,62 @@ const EmergencyAntiScroll: React.FC = () => {
     }
   };
 
+  // Show premium upgrade modal if user reached limit
+  if (showPremiumUpgrade) {
+    return (
+      <div className="min-h-screen bg-[#eeeded]">
+        <Header />
+        <div className="p-4">
+          <div className="bg-card rounded-2xl p-6 border border-border shadow-sm max-w-md mx-auto mt-8">
+            <div className="text-center mb-6">
+              <Crown className="w-12 h-12 text-primary mx-auto mb-4" />
+              <h2 className="text-xl font-bold text-foreground mb-2">
+                Limite Raggiunto
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                Hai utilizzato tutte le 5 azioni di emergenza gratuite. 
+                Sblocca l'accesso illimitato con la versione premium.
+              </p>
+            </div>
+            
+            <div className="space-y-3 mb-6">
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-600" />
+                <span>Azioni di emergenza illimitate</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-600" />
+                <span>Strumenti anti-scrolling avanzati</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-600" />
+                <span>Analisi dettagliate del progresso</span>
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Button 
+                onClick={handlePremiumSelect}
+                className="w-full bg-primary hover:bg-primary/90"
+              >
+                <Crown className="w-4 h-4 mr-2" />
+                Sblocca Premium - €14.90
+              </Button>
+              
+              <Button 
+                onClick={() => setShowPremiumUpgrade(false)}
+                variant="outline"
+                className="w-full"
+              >
+                Torna Indietro
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#eeeded] pb-20">
       <Header />
@@ -281,6 +337,13 @@ const EmergencyAntiScroll: React.FC = () => {
           <p className="text-center text-sm text-muted-foreground mt-2">
             Premi quando senti il bisogno compulsivo di scrollare
           </p>
+          {!userProfile.hasPremium && (
+            <div className="mt-3 text-center">
+              <p className="text-xs text-muted-foreground">
+                Utilizzi gratuiti rimasti: <span className="font-medium">{Math.max(0, 5 - emergencyUsageCount)}/5</span>
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Azione corrente */}
