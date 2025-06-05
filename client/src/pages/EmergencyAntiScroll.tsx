@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { Zap, CheckCircle, RotateCcw, Brain, Heart, Shield, Activity, Settings, Star } from 'lucide-react';
+import { Zap, CheckCircle, RotateCcw, Brain, Heart, Shield, Activity, Settings, Star, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,6 +8,7 @@ import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
 import Timer from '@/components/Timer';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import PricingChoice from '@/components/PricingChoice';
 
 interface EmergencyAction {
   id: string;
@@ -31,6 +32,9 @@ const EmergencyAntiScroll: React.FC = () => {
   const [timerActive, setTimerActive] = useState(false);
   const [emergencyLogs, setEmergencyLogs] = useLocalStorage<EmergencyLog[]>('emergency-anti-scroll-logs', []);
   const [emergencyScore, setEmergencyScore] = useLocalStorage<number>('emergency-score', 0);
+  const [emergencyUsageCount, setEmergencyUsageCount] = useLocalStorage<number>('emergency-usage-count', 0);
+  const [showPremiumUpgrade, setShowPremiumUpgrade] = useState(false);
+  const [userProfile] = useLocalStorage('userProfile', { hasPremium: false });
   
   const [interventionStats, setInterventionStats] = useLocalStorage('intervention-stats', {
     scrollInterruptions: 0,
@@ -173,10 +177,21 @@ const EmergencyAntiScroll: React.FC = () => {
   };
 
   const handleEmergencyClick = () => {
+    // Check if user has premium or is within free usage limit
+    if (!userProfile.hasPremium && emergencyUsageCount >= 5) {
+      setShowPremiumUpgrade(true);
+      return;
+    }
+
     const action = getRandomAction();
     setCurrentAction(action);
     setIsActionCompleted(false);
     setTimerActive(true);
+    
+    // Increment usage count only for non-premium users
+    if (!userProfile.hasPremium) {
+      setEmergencyUsageCount(prev => prev + 1);
+    }
   };
 
   const handleTimerComplete = () => {
@@ -218,6 +233,16 @@ const EmergencyAntiScroll: React.FC = () => {
     setCurrentAction(null);
     setIsActionCompleted(false);
     setTimerActive(false);
+  };
+
+  const handleTrialSelect = () => {
+    // Navigate to trial signup - this would integrate with your auth system
+    window.location.href = '/pricing';
+  };
+
+  const handlePremiumSelect = () => {
+    // Navigate to premium payment - this would integrate with Stripe
+    window.location.href = '/pricing';
   };
 
   const getCategoryIcon = (category: string) => {
