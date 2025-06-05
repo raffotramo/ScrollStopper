@@ -349,13 +349,6 @@ const EmergencyAntiScroll: React.FC = () => {
           <p className="text-center text-sm text-muted-foreground mt-2">
             Premi quando senti il bisogno compulsivo di scrollare
           </p>
-          {!userProfile.hasPremium && (
-            <div className="mt-3 text-center">
-              <p className="text-xs text-muted-foreground">
-                Utilizzi gratuiti rimasti: <span className="font-medium">{Math.max(0, 5 - emergencyUsageCount)}/5</span>
-              </p>
-            </div>
-          )}
         </div>
 
         {/* Azione corrente */}
