@@ -4,181 +4,181 @@ export const challenges: ChallengeDay[] = [
   {
     day: 1,
     title: "Passeggiata Detox",
-    description: "Cammina attorno a casa o all'isolato senza telefono. Solo cammino, respiro e osservazione.",
+    description: "Scopri cosa succede quando esci senza il tuo compagno digitale. Un'esperienza che cambierà la tua prospettiva.",
     timeRequired: 10
   },
   {
     day: 2,
     title: "Cassetto Zen",
-    description: "Riordina un cassetto disordinato. Trova almeno 1 cosa da eliminare o donare.",
+    description: "Un piccolo spazio nascosto della tua casa diventerà il simbolo di un nuovo inizio. Pronto alla trasformazione?",
     timeRequired: 10
   },
   {
     day: 3,
     title: "Pensiero Libero",
-    description: "Scrivi un pensiero che ti gira in testa. Non giudicare, lascia uscire ciò che c'è.",
+    description: "Dai voce ai pensieri che ronzano nella tua testa. Un esercizio liberatorio che ti sorprenderà.",
     timeRequired: 10
   },
   {
     day: 4,
     title: "Snack Consapevole",
-    description: "Prepara uno snack sano e gustalo lentamente, prestando attenzione a ogni sapore.",
+    description: "Riscopri il piacere autentico del cibo attraverso un approccio che hai dimenticato di avere.",
     timeRequired: 10
   },
   {
     day: 5,
     title: "Sfoglia & Inspira",
-    description: "Prendi un libro o una rivista e sfoglialo per il gusto di farlo. Nessuna meta, solo ispirazione.",
+    description: "Torna al piacere della scoperta casuale. Un momento di pura ispirazione ti aspetta.",
     timeRequired: 10
   },
   {
     day: 6,
     title: "Mini Meditazione",
-    description: "Ascolta una meditazione guidata offline oppure medita in silenzio. Concentrati sul respiro.",
+    description: "Un viaggio verso l'interno che richiede solo 10 minuti ma può cambiare l'intera giornata.",
     timeRequired: 10
   },
   {
     day: 7,
     title: "Lettera a Me",
-    description: "Scrivi una lettera al tuo io futuro o passato. Racconta come ti senti oggi.",
+    description: "Scrivi al te stesso del futuro o del passato. Un dialogo intimo che rivelerà cose inaspettate.",
     timeRequired: 10
   },
   {
     day: 8,
     title: "Routine Viso",
-    description: "Lavati il viso, applica la crema e massaggia con cura. Trasforma il gesto in un rituale.",
+    description: "Trasforma un gesto quotidiano in un rituale di cura personale. Scopri il potere del presente.",
     timeRequired: 10
   },
   {
     day: 9,
     title: "Pulizia Digitale",
-    description: "Cancella 10 file, foto o app inutili dal telefono o dal computer.",
+    description: "Libera spazio nella tua vita digitale e scopri quanto peso stavi portando senza accorgertene.",
     timeRequired: 10
   },
   {
     day: 10,
     title: "Flash Workout",
-    description: "Fai 5 esercizi fisici a corpo libero (squat, plank, jumping jack…) per riattivarti.",
+    description: "Riconnettiti al tuo corpo con un'energia esplosiva. Bastano pochi movimenti per sentirti rinato.",
     timeRequired: 10
   },
   {
     day: 11,
     title: "Disegno Libero",
-    description: "Disegna qualsiasi cosa ti venga in mente, senza giudizio. Sperimenta.",
+    description: "Lascia che la tua creatività prenda il controllo. Non serve essere artisti per creare qualcosa di bello.",
     timeRequired: 15
   },
   {
     day: 12,
     title: "Journaling Mentale",
-    description: "Scrivi tutto quello che ti passa per la testa. Poi sottolinea le frasi importanti.",
+    description: "Svuota la mente su carta e scopri pensieri nascosti che non sapevi di avere. Un'esperienza illuminante.",
     timeRequired: 15
   },
   {
     day: 13,
     title: "Pianifica Domani",
-    description: "Organizza la tua giornata di domani con orari, priorità e pause.",
+    description: "Trasforma il caos di domani in una giornata perfetta. Un esercizio che cambierà il tuo rapporto con il tempo.",
     timeRequired: 15
   },
   {
     day: 14,
     title: "Lista dei Desideri",
-    description: "Scrivi 10 cose che sogni di fare nella tua vita. Anche le più pazze.",
+    description: "Dai forma ai tuoi sogni più profondi. Alcuni ti sorprenderanno, altri ti ispireranno ad agire.",
     timeRequired: 15
   },
   {
     day: 15,
     title: "Silenzio Visivo",
-    description: "Guarda il cielo o un punto naturale per 15 minuti, in completo silenzio.",
+    description: "Immergiti in un'esperienza di contemplazione pura. Il silenzio ha molto da insegnarti.",
     timeRequired: 15
   },
   {
     day: 16,
     title: "Cammina & Ascolta",
-    description: "Fai una camminata ascoltando i suoni dell'ambiente, non musica.",
+    description: "Riscopri il mondo attraverso i suoni che hai dimenticato di sentire. Un viaggio sensoriale inaspettato.",
     timeRequired: 15
   },
   {
     day: 17,
     title: "Mini Documentario",
-    description: "Guarda un video ispirante già scaricato. Prendi nota di cosa ti ha colpito.",
+    description: "Immergiti in contenuti di qualità che nutrono davvero la mente. Scopri cosa cambia quando scegli consapevolmente.",
     timeRequired: 15
   },
   {
     day: 18,
     title: "Bevanda & Coperta",
-    description: "Prepara una tisana, siediti con una coperta e rilassati senza schermo.",
+    description: "Crea il tuo momento di comfort perfetto. Un rituale che trasformerà il tuo rapporto con il relax.",
     timeRequired: 15
   },
   {
     day: 19,
     title: "Organizza la Settimana",
-    description: "Pianifica i prossimi 7 giorni con obiettivi realistici, pause e tempo per te.",
+    description: "Diventa l'architetto della tua settimana ideale. Un esercizio di controllo che ti darà una nuova energia.",
     timeRequired: 15
   },
   {
     day: 20,
     title: "Scrivi la tua bio",
-    description: "Descriviti come se fossi su un libro o in un documentario. Chi sei davvero?",
+    description: "Racconta chi sei davvero, come se il mondo intero dovesse conoscerti. Un esercizio di autoconsapevolezza profonda.",
     timeRequired: 15
   },
   {
     day: 21,
     title: "Sistema le tue finanze",
-    description: "Controlla le spese recenti e annota quanto hai risparmiato evitando lo scroll.",
+    description: "Scopri quanto valore hai già guadagnato cambiando le tue abitudini. I numeri ti sorprenderanno.",
     timeRequired: 15
   },
   {
     day: 22,
     title: "Mini yoga flow",
-    description: "Esegui una sequenza semplice di yoga per sciogliere tensioni e ritrovare centratura.",
+    description: "Riconnetti corpo e mente attraverso movimenti fluidi. Una pratica che cambierà la tua energia quotidiana.",
     timeRequired: 15
   },
   {
     day: 23,
     title: "Crea la tua routine mattutina",
-    description: "Scrivi una sequenza di 3-4 azioni per iniziare meglio la giornata. Provala domani.",
+    description: "Progetta il perfetto inizio di giornata. Una sequenza che trasformerà ogni tuo risveglio.",
     timeRequired: 15
   },
   {
     day: 24,
     title: "Racconta un ricordo",
-    description: "Scrivi un ricordo intenso della tua infanzia. Focalizzati sui dettagli sensoriali.",
+    description: "Rivivi un momento speciale del passato attraverso i sensi. Un viaggio nel tempo che ti emozionerà.",
     timeRequired: 15
   },
   {
     day: 25,
     title: "Lettera di gratitudine",
-    description: "Scrivi una lettera (vera o simbolica) a qualcuno che ha influenzato positivamente la tua vita.",
+    description: "Esprimi un sentimento che non hai mai condiviso. Un gesto che potrebbe cambiare una relazione importante.",
     timeRequired: 15
   },
   {
     day: 26,
     title: "Decluttering armadio",
-    description: "Svuota una mensola del tuo armadio e tieni solo ciò che ti fa stare bene.",
+    description: "Libera spazio fisico e mentale eliminando ciò che non ti rappresenta più. Una pulizia che va oltre i vestiti.",
     timeRequired: 20
   },
   {
     day: 27,
     title: "Esci senza meta",
-    description: "Vai a fare una camminata senza destinazione precisa. Segui solo la curiosità.",
+    description: "Segui solo la curiosità e lascia che i tuoi passi ti guidino. Un'avventura inaspettata ti aspetta dietro l'angolo.",
     timeRequired: 20
   },
   {
     day: 28,
     title: "Pulisci la scrivania",
-    description: "Riordina e rinnova la tua area di lavoro. Aggiungi un oggetto che ti ispira.",
+    description: "Trasforma il tuo spazio di lavoro in un luogo che ispira produttività e creatività. L'ambiente influenza tutto.",
     timeRequired: 20
   },
   {
     day: 29,
     title: "Organizza i tuoi file digitali",
-    description: "Sistema le cartelle del desktop, cloud o telefono. Ordine mentale = ordine digitale.",
+    description: "Porta ordine nel caos digitale e scopri quanto tempo hai perso cercando cose che non trovavi.",
     timeRequired: 20
   },
   {
     day: 30,
     title: "Crea un collage ispirazionale",
-    description: "Ritaglia immagini da riviste e crea una moodboard su come vuoi sentirti nei prossimi 30 giorni.",
+    description: "Visualizza la versione migliore di te stesso attraverso immagini e colori. Il finale perfetto per il tuo viaggio.",
     timeRequired: 20
   }
 ];
