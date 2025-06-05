@@ -222,135 +222,122 @@ const EmergencyAntiScroll: React.FC = () => {
       
       <main className="p-4 space-y-6">
         {/* Pulsante principale di emergenza */}
-        <Card>
-          <CardContent className="p-4">
-            <Button 
-              onClick={handleEmergencyClick}
-              className="w-full bg-red-500 hover:bg-red-600 text-white"
-              size="default"
-            >
-              <Zap className="w-4 h-4 mr-2" />
-              STO PER SCROLLARE
-            </Button>
-            <p className="text-center text-sm text-gray-600 mt-2">
-              Premi quando senti il bisogno compulsivo di scrollare
-            </p>
-          </CardContent>
-        </Card>
+        <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
+          <Button 
+            onClick={handleEmergencyClick}
+            className="w-full bg-red-500 hover:bg-red-600 text-white"
+            size="default"
+          >
+            <Zap className="w-4 h-4 mr-2" />
+            STO PER SCROLLARE
+          </Button>
+          <p className="text-center text-sm text-muted-foreground mt-2">
+            Premi quando senti il bisogno compulsivo di scrollare
+          </p>
+        </div>
 
         {/* Azione corrente */}
         {currentAction && (
-          <Card className="border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-yellow-50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                {getCategoryIcon(currentAction.category)}
-                Azione di Emergenza
-                <Badge className={getCategoryColor(currentAction.category)}>
-                  {currentAction.category === 'physical' ? 'Fisico' :
-                   currentAction.category === 'mental' ? 'Mentale' : 'Dopamina'}
-                </Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center mb-6">
-                <div className="text-4xl mb-3">{currentAction.icon}</div>
-                <h3 className="text-lg font-semibold mb-2">{currentAction.action}</h3>
-                <p className="text-gray-600 text-sm">{currentAction.description}</p>
-              </div>
-              
-              <div className="flex gap-2">
-                {!isActionCompleted ? (
-                  <Button 
-                    onClick={handleActionComplete}
-                    className="flex-1 bg-green-500 hover:bg-green-600"
-                  >
-                    <CheckCircle className="w-4 h-4 mr-2" />
-                    Completata
-                  </Button>
-                ) : (
-                  <div className="flex-1 text-center py-2 bg-green-100 text-green-700 rounded-md font-medium">
-                    ✅ Azione completata!
-                  </div>
-                )}
-                
+          <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              {getCategoryIcon(currentAction.category)}
+              <h3 className="font-semibold text-foreground">Azione di Emergenza</h3>
+              <Badge className={getCategoryColor(currentAction.category)}>
+                {currentAction.category === 'physical' ? 'Fisico' :
+                 currentAction.category === 'mental' ? 'Mentale' : 'Dopamina'}
+              </Badge>
+            </div>
+            
+            <div className="text-center mb-6">
+              <div className="text-4xl mb-3">{currentAction.icon}</div>
+              <h4 className="text-lg font-semibold mb-2 text-foreground">{currentAction.action}</h4>
+              <p className="text-muted-foreground text-sm">{currentAction.description}</p>
+            </div>
+            
+            <div className="flex gap-2">
+              {!isActionCompleted ? (
                 <Button 
-                  onClick={handleReset}
-                  variant="outline"
-                  className="flex-shrink-0"
+                  onClick={handleActionComplete}
+                  className="flex-1 bg-green-500 hover:bg-green-600"
                 >
-                  <RotateCcw className="w-4 h-4 mr-2" />
-                  Nuova Azione
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  Completata
                 </Button>
-              </div>
-            </CardContent>
-          </Card>
+              ) : (
+                <div className="flex-1 text-center py-2 bg-green-100 text-green-700 rounded-md font-medium">
+                  ✅ Azione completata!
+                </div>
+              )}
+              
+              <Button 
+                onClick={handleReset}
+                variant="outline"
+                className="flex-shrink-0"
+              >
+                <RotateCcw className="w-4 h-4 mr-2" />
+                Nuova Azione
+              </Button>
+            </div>
+          </div>
         )}
 
         {/* Statistiche integrate */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Activity className="w-5 h-5" />
-              Statistiche Anti-Scroll
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">
-                  {interventionStats.totalInterventions}
-                </div>
-                <div className="text-sm text-gray-600">Interventi Totali</div>
+        <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <Activity className="w-5 h-5 text-foreground" />
+            <h3 className="font-semibold text-foreground">Statistiche Anti-Scroll</h3>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-blue-600">
+                {interventionStats.totalInterventions}
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">
-                  {interventionStats.emergencyActionsCompleted}
-                </div>
-                <div className="text-sm text-gray-600">Azioni Completate</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600">
-                  {interventionStats.scrollInterruptions}
-                </div>
-                <div className="text-sm text-gray-600">Scroll Bloccati</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-orange-600">
-                  {emergencyScore}
-                </div>
-                <div className="text-sm text-gray-600">Punti Totali</div>
-              </div>
+              <div className="text-sm text-muted-foreground">Interventi Totali</div>
             </div>
-          </CardContent>
-        </Card>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600">
+                {interventionStats.emergencyActionsCompleted}
+              </div>
+              <div className="text-sm text-muted-foreground">Azioni Completate</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-purple-600">
+                {interventionStats.scrollInterruptions}
+              </div>
+              <div className="text-sm text-muted-foreground">Scroll Bloccati</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-orange-600">
+                {emergencyScore}
+              </div>
+              <div className="text-sm text-muted-foreground">Punti Totali</div>
+            </div>
+          </div>
+        </div>
 
 
 
         {/* Log delle azioni recenti */}
         {emergencyLogs.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5" />
-                Azioni Recenti
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {emergencyLogs.slice(0, 5).map((log, index) => (
-                  <div 
-                    key={index}
-                    className="flex justify-between items-center p-2 bg-gray-50 rounded-md text-sm"
-                  >
-                    <span className="text-gray-700">{log.action}</span>
-                    <Badge variant="outline" className="text-xs">
-                      {log.date}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <CheckCircle className="w-5 h-5 text-foreground" />
+              <h3 className="font-semibold text-foreground">Azioni Recenti</h3>
+            </div>
+            <div className="space-y-2">
+              {emergencyLogs.slice(0, 5).map((log, index) => (
+                <div 
+                  key={index}
+                  className="flex justify-between items-center p-2 bg-muted rounded-md text-sm"
+                >
+                  <span className="text-foreground">{log.action}</span>
+                  <Badge variant="outline" className="text-xs">
+                    {log.date}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </main>
 
