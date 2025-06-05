@@ -159,31 +159,17 @@ const Progress: React.FC = () => {
                     Come funziona?
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <Clock className="w-4 h-4 text-primary" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-foreground mb-2">Check-in giornaliero</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Torna ogni giorno in <strong>tarda serata (22:00-23:00)</strong> e compila il tuo check-in giornaliero per monitorare i tuoi progressi nel digital detox.
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 gap-3 text-sm">
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      <span>Monitora il tuo utilizzo dello smartphone</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      <span>Traccia il tempo sui social media</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      <span>Valuta i cambiamenti nel tuo umore</span>
+                <CardContent>
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <h4 className="font-medium text-foreground mb-3">Check-in giornaliero</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                      Torna ogni giorno in <strong>tarda serata (22:00-23:00)</strong> e compila il tuo check-in giornaliero per monitorare i tuoi progressi nel digital detox.
+                    </p>
+                    
+                    <div className="space-y-2 text-sm text-muted-foreground">
+                      <p>Monitora il tuo utilizzo dello smartphone</p>
+                      <p>Traccia il tempo sui social media</p>
+                      <p>Valuta i cambiamenti nel tuo umore</p>
                     </div>
                   </div>
                 </CardContent>
@@ -199,13 +185,13 @@ const Progress: React.FC = () => {
               ) : (
                 <Card className="bg-card border border-border rounded-2xl shadow-sm">
                   <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                       <Award className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
+                    <h3 className="text-lg font-bold text-foreground mb-4">
                       Check-in completato!
                     </h3>
-                    <p className="text-muted-foreground">
+                    <p className="text-muted-foreground leading-relaxed">
                       Hai già registrato il tuo progresso per oggi. Torna domani per il prossimo check-in!
                     </p>
                   </CardContent>
