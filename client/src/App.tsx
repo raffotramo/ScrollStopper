@@ -15,20 +15,11 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 
 function Router() {
   const [userProfile] = useLocalStorage<any>('digital-detox-profile', null);
-  const [location, setLocation] = useLocation();
+  const [location] = useLocation();
   
-  // Controlla se l'onboarding è stato completato
-  const isOnboardingComplete = userProfile && userProfile.name && userProfile.age && userProfile.screenTime;
-  
-  // Se non siamo in onboarding e non c'è un profilo completo, vai all'onboarding
-  if (!isOnboardingComplete && location !== '/onboarding') {
+  // Se non c'è un profilo e non siamo già in onboarding, mostra onboarding
+  if (!userProfile && location !== '/onboarding') {
     return <Onboarding />;
-  }
-  
-  // Se siamo in onboarding ma il profilo è completo, vai alla home
-  if (isOnboardingComplete && location === '/onboarding') {
-    setLocation('/');
-    return null;
   }
 
   return (
