@@ -10,7 +10,7 @@ interface PricingChoiceProps {
 
 const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumSelect }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#eeeded] flex items-center justify-center p-4">
       <div className="w-full max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -46,15 +46,15 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span>Tutte le 30 sfide giornaliere</span>
+                  <span>Strumenti anti scrolling</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span>Strumenti anti-scrolling</span>
+                  <span>Tracking di progresso</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span>Tracking del progresso</span>
+                  <span>Aiuti motivazionali</span>
                 </li>
               </ul>
               
@@ -98,27 +98,23 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
               <ul className="space-y-3">
                 <li className="flex items-center gap-3">
                   <Star className="w-5 h-5 text-yellow-500" />
-                  <span>Accesso illimitato a vita</span>
+                  <span>Accesso alla sfida completa</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Star className="w-5 h-5 text-yellow-500" />
-                  <span>30 giorni di sfide complete</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Star className="w-5 h-5 text-yellow-500" />
-                  <span>Strumenti avanzati anti-scrolling</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Star className="w-5 h-5 text-yellow-500" />
-                  <span>Analisi dettagliate progresso</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Zap className="w-5 h-5 text-blue-500" />
                   <span>Nessun limite di tempo</span>
                 </li>
                 <li className="flex items-center gap-3">
+                  <Star className="w-5 h-5 text-yellow-500" />
+                  <span>Strumenti anti scrolling avanzati</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Star className="w-5 h-5 text-yellow-500" />
+                  <span>Analisi dettagliate di progresso</span>
+                </li>
+                <li className="flex items-center gap-3">
                   <Zap className="w-5 h-5 text-blue-500" />
-                  <span>Supporto prioritario</span>
+                  <span>Aiuti motivazionali</span>
                 </li>
               </ul>
               

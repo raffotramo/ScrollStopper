@@ -110,7 +110,7 @@ const StripeCheckout: React.FC<StripeCheckoutProps> = ({ onSuccess, onBack }) =>
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-[#eeeded] flex items-center justify-center">
         <Card className="w-full max-w-md">
           <CardContent className="flex items-center justify-center p-8">
             <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
@@ -123,7 +123,7 @@ const StripeCheckout: React.FC<StripeCheckoutProps> = ({ onSuccess, onBack }) =>
 
   if (!clientSecret) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-[#eeeded] flex items-center justify-center">
         <Card className="w-full max-w-md">
           <CardContent className="text-center p-8">
             <p className="text-red-600">Errore nella preparazione del pagamento. Riprova più tardi.</p>
@@ -137,7 +137,7 @@ const StripeCheckout: React.FC<StripeCheckoutProps> = ({ onSuccess, onBack }) =>
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#eeeded] flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
           <Button
