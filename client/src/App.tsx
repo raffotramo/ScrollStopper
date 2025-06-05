@@ -7,7 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import EmergencyAntiScroll from "@/pages/EmergencyAntiScroll";
-
+import Pricing from "@/pages/Pricing";
 import Journal from "@/pages/Journal";
 import Profile from "@/pages/Profile";
 import Progress from "@/pages/Progress";
@@ -37,7 +37,7 @@ function Router() {
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/" component={Home} />
       <Route path="/emergency" component={EmergencyAntiScroll} />
-
+      <Route path="/pricing" component={Pricing} />
       <Route path="/journal" component={Journal} />
       <Route path="/progress" component={Progress} />
       <Route path="/profile" component={Profile} />
