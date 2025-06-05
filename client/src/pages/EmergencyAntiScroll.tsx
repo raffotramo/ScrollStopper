@@ -6,10 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
-import MindfulGestures from '@/components/MindfulGestures';
-import ScrollInterceptor from '@/components/ScrollInterceptor';
-import ScrollFeedback from '@/components/ScrollFeedback';
-import HapticFeedback from '@/components/HapticFeedback';
+import ManualAntiScrolling from '@/components/ManualAntiScrolling';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface EmergencyAction {
@@ -33,10 +30,8 @@ const EmergencyAntiScroll: React.FC = () => {
   const [emergencyLogs, setEmergencyLogs] = useLocalStorage<EmergencyLog[]>('emergency-anti-scroll-logs', []);
   const [emergencyScore, setEmergencyScore] = useLocalStorage<number>('emergency-score', 0);
   
-  // Stati per micro-interazioni integrate
-  const [showMindfulGestures, setShowMindfulGestures] = useState(false);
-  const [scrollProtectionActive, setScrollProtectionActive] = useState(true);
-  const [triggerHaptic, setTriggerHaptic] = useState(false);
+  // Sistema anti-scrolling manuale
+  const [antiScrollingActive, setAntiScrollingActive] = useState(false);
   const [interventionStats, setInterventionStats] = useLocalStorage('intervention-stats', {
     scrollInterruptions: 0,
     gesturesCompleted: 0,
@@ -451,19 +446,14 @@ const EmergencyAntiScroll: React.FC = () => {
 
       <TabNavigation />
 
-      {/* Integrated Micro-interactions */}
+      {/* Integrated Micro-interactions - Only when manually activated */}
       {scrollProtectionActive && (
         <ScrollInterceptor
-          isActive={true}
+          isActive={scrollProtectionActive}
           sensitivity={3}
           onScrollDetected={handleScrollDetected}
         />
       )}
-
-      <ScrollFeedback
-        isActive={true}
-        onScrollBehaviorChange={handleScrollBehaviorChange}
-      />
 
       <HapticFeedback
         trigger={triggerHaptic}

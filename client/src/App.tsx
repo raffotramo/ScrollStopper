@@ -52,7 +52,6 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <Router />
-        <AntiScrollingSystem />
       </TooltipProvider>
     </QueryClientProvider>
   );
