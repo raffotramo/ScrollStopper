@@ -284,15 +284,27 @@ const EmergencyAntiScroll: React.FC = () => {
             <div className="space-y-3 mb-6">
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle className="w-4 h-4 text-green-600" />
+                <span>Accesso alla sfida completa</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-600" />
+                <span>Nessun limite di tempo</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-600" />
+                <span>Strumenti anti scrolling avanzati</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="w-4 h-4 text-green-600" />
                 <span>Azioni di emergenza illimitate</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle className="w-4 h-4 text-green-600" />
-                <span>Strumenti anti-scrolling avanzati</span>
+                <span>Analisi dettagliate di progresso</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle className="w-4 h-4 text-green-600" />
-                <span>Analisi dettagliate del progresso</span>
+                <span>Aiuti motivazionali</span>
               </div>
             </div>
             
