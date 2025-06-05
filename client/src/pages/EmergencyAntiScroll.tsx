@@ -332,14 +332,16 @@ const EmergencyAntiScroll: React.FC = () => {
               <CheckCircle className="w-5 h-5 text-foreground" />
               <h3 className="font-semibold text-foreground">Azioni Recenti</h3>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {emergencyLogs.slice(0, 5).map((log, index) => (
                 <div 
                   key={index}
-                  className="flex justify-between items-center p-2 bg-muted rounded-md text-sm"
+                  className="flex justify-between items-start gap-4 p-3 bg-muted rounded-lg"
                 >
-                  <span className="text-foreground">{log.action}</span>
-                  <Badge variant="outline" className="text-xs">
+                  <span className="text-foreground text-sm font-medium leading-relaxed flex-1">
+                    {log.action}
+                  </span>
+                  <Badge variant="outline" className="text-xs shrink-0 mt-0.5">
                     {log.date}
                   </Badge>
                 </div>
