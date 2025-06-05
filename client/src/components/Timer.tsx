@@ -78,12 +78,12 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
               fill="transparent"
               strokeDasharray={87.96}
               strokeDashoffset={87.96 - (progress / 100) * 87.96}
-              className="text-primary transition-all duration-300"
+              className="text-white transition-all duration-300"
               strokeLinecap="round"
             />
           </svg>
         </div>
-        <span className="text-base font-bold text-gray-900 bg-white/90 px-2 py-1 rounded">
+        <span className="text-base font-bold text-white">
           {formatTime(timeLeft)}
         </span>
       </div>
@@ -99,7 +99,7 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
           onClick={handlePlayPause}
           variant="outline"
           size="sm"
-          className="h-7 w-7 p-0 border-gray-700 text-gray-700 bg-white/90 hover:border-primary hover:bg-primary/10"
+          className="h-7 w-7 p-0 border-white text-white hover:border-white/80 hover:bg-white/20"
         >
           {isRunning ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
         </Button>
@@ -108,7 +108,7 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
           onClick={handleReset} 
           variant="outline" 
           size="sm" 
-          className="h-7 w-7 p-0 border-gray-700 text-gray-700 bg-white/90 hover:border-primary hover:bg-primary/10"
+          className="h-7 w-7 p-0 border-white text-white hover:border-white/80 hover:bg-white/20"
         >
           <RotateCcw className="w-3 h-3" />
         </Button>
