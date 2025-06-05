@@ -63,7 +63,10 @@ const Onboarding: React.FC = () => {
     try {
       setUserProfile(data);
       console.log('Profile saved, redirecting...');
-      setLocation('/');
+      // Usa un piccolo delay per assicurarsi che il localStorage sia aggiornato
+      setTimeout(() => {
+        setLocation('/');
+      }, 100);
     } catch (error) {
       console.error('Error saving profile:', error);
     }

@@ -17,12 +17,19 @@ function Router() {
   const [userProfile] = useLocalStorage<any>('digital-detox-profile', null);
   const [location, setLocation] = useLocation();
   
-  // Reindirizza alla pagina di onboarding se non c'è un profilo, ma solo la prima volta
+  // Debug per capire lo stato del profilo
+  console.log('Router - userProfile:', userProfile, 'location:', location);
+  
+  // Controlla se c'è un profilo valido
+  const hasValidProfile = userProfile && userProfile.name && userProfile.age && userProfile.screenTime;
+  
+  // Reindirizza alla pagina di onboarding se non c'è un profilo valido
   useEffect(() => {
-    if (!userProfile && location === '/') {
+    if (!hasValidProfile && location === '/') {
+      console.log('Redirecting to onboarding - no valid profile');
       setLocation('/onboarding');
     }
-  }, [userProfile, location, setLocation]);
+  }, [hasValidProfile, location, setLocation]);
 
   return (
     <Switch>
