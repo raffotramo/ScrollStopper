@@ -450,6 +450,43 @@ const EmergencyAntiScroll: React.FC = () => {
       </main>
 
       <TabNavigation />
+
+      {/* Integrated Micro-interactions */}
+      {scrollProtectionActive && (
+        <ScrollInterceptor
+          isActive={true}
+          sensitivity={3}
+          onScrollDetected={handleScrollDetected}
+        />
+      )}
+
+      <ScrollFeedback
+        isActive={true}
+        onScrollBehaviorChange={handleScrollBehaviorChange}
+      />
+
+      <HapticFeedback
+        trigger={triggerHaptic}
+        intensity="medium"
+        pattern={[200, 100, 200]}
+        onComplete={() => setTriggerHaptic(false)}
+      />
+
+      {showMindfulGestures && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-6 max-w-md w-full">
+            <h3 className="text-lg font-bold mb-4 text-center">Gesti Mindful</h3>
+            <MindfulGestures onGestureComplete={handleGestureComplete} />
+            <Button
+              onClick={() => setShowMindfulGestures(false)}
+              variant="outline"
+              className="w-full mt-4"
+            >
+              Chiudi
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
