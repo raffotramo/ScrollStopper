@@ -17,29 +17,19 @@ function Router() {
   const [userProfile] = useLocalStorage<any>('digital-detox-profile', null);
   const [location, setLocation] = useLocation();
   
-  // Debug per capire lo stato del profilo
-  console.log('Router - userProfile:', userProfile, 'location:', location);
+  // Controlla se l'onboarding è stato completato
+  const isOnboardingComplete = userProfile && userProfile.name && userProfile.age && userProfile.screenTime;
   
-  // Controlla se c'è un profilo valido (più flessibile per gestire versioni diverse)
-  const hasValidProfile = userProfile && userProfile.name && userProfile.age && 
-    (userProfile.screenTime || userProfile.socialTime);
+  // Se non siamo in onboarding e non c'è un profilo completo, vai all'onboarding
+  if (!isOnboardingComplete && location !== '/onboarding') {
+    return <Onboarding />;
+  }
   
-  // Pulisce profili vecchi se non hanno la struttura corretta
-  useEffect(() => {
-    if (userProfile && userProfile.socialTime && !userProfile.screenTime) {
-      console.log('Cleaning old profile structure');
-      localStorage.removeItem('digital-detox-profile');
-      window.location.reload();
-    }
-  }, [userProfile]);
-  
-  // Reindirizza alla pagina di onboarding se non c'è un profilo valido
-  useEffect(() => {
-    if (!hasValidProfile && location === '/') {
-      console.log('Redirecting to onboarding - no valid profile');
-      setLocation('/onboarding');
-    }
-  }, [hasValidProfile, location, setLocation]);
+  // Se siamo in onboarding ma il profilo è completo, vai alla home
+  if (isOnboardingComplete && location === '/onboarding') {
+    setLocation('/');
+    return null;
+  }
 
   return (
     <Switch>
