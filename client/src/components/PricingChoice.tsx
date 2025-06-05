@@ -13,7 +13,7 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
     <div className="min-h-screen bg-[#eeeded] flex items-center justify-center p-4">
       <div className="w-full max-w-4xl">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-black mb-2">
+          <h1 className="text-xl font-bold text-black mb-2">
             Scegli la tua versione di ScrollStop
           </h1>
           <p className="text-gray-700">
