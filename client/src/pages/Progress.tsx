@@ -162,7 +162,7 @@ const Progress: React.FC = () => {
                 <CardContent>
                   <div className="p-4 bg-muted/30 rounded-lg">
                     <h4 className="font-medium text-foreground mb-3">Check-in giornaliero</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    <p className="text-base text-foreground leading-relaxed mb-4">
                       Torna ogni giorno in <strong>tarda serata (22:00-23:00)</strong> e compila il tuo check-in giornaliero per monitorare i tuoi progressi nel digital detox.
                     </p>
                     
@@ -176,12 +176,16 @@ const Progress: React.FC = () => {
               </Card>
 
               {!todayQuizCompleted ? (
-                <div>
-                  <h2 className="text-lg font-semibold text-foreground mb-4">
-                    Check-in giornaliero - Giorno {currentDay}
-                  </h2>
-                  <DailyProgressQuiz day={currentDay} onComplete={handleQuizComplete} />
-                </div>
+                <Card className="bg-card border border-border rounded-2xl shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="text-foreground">
+                      Check-in giornaliero - Giorno {currentDay}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <DailyProgressQuiz day={currentDay} onComplete={handleQuizComplete} />
+                  </CardContent>
+                </Card>
               ) : (
                 <Card className="bg-card border border-border rounded-2xl shadow-sm">
                   <CardContent className="p-6 text-center">
