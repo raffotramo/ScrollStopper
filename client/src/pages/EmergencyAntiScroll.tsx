@@ -281,7 +281,16 @@ const EmergencyAntiScroll: React.FC = () => {
             <div className="text-center mb-6">
               <div className="text-3xl mb-3">{currentAction.icon}</div>
               <h4 className="text-base font-medium mb-2 text-foreground">{currentAction.action}</h4>
-              <p className="text-muted-foreground text-sm">{currentAction.description}</p>
+              <p className="text-muted-foreground text-sm mb-4">{currentAction.description}</p>
+              
+              {timerActive && (
+                <div className="bg-primary/10 rounded-lg p-3 mb-4">
+                  <Timer 
+                    timeRequired={currentAction.timeMinutes} 
+                    onComplete={handleTimerComplete}
+                  />
+                </div>
+              )}
             </div>
             
             <div className="flex gap-2">
