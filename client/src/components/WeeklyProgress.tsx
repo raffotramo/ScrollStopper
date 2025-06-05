@@ -33,7 +33,7 @@ const WeeklyProgress: React.FC<WeeklyProgressProps> = ({ currentDay, completedDa
       title: "Sostituisci lo scroll", 
       icon: Zap, 
       description: "Trova attività alternative più gratificanti",
-      color: "bg-orange-500"
+      color: "bg-muted"
     },
     { 
       week: 4, 
