@@ -97,18 +97,18 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
       <div className="flex gap-1">
         <Button
           onClick={handlePlayPause}
-          variant="outline"
+          variant="ghost"
           size="sm"
-          className="h-7 w-7 p-0 border-white text-white hover:border-white/80 hover:bg-white/20"
+          className="h-7 w-7 p-0 hover:bg-white/20"
         >
           {isRunning ? <Pause className="w-3 h-3" fill="none" stroke="white" strokeWidth="2" /> : <Play className="w-3 h-3" fill="none" stroke="white" strokeWidth="2" />}
         </Button>
         
         <Button 
           onClick={handleReset} 
-          variant="outline" 
+          variant="ghost" 
           size="sm" 
-          className="h-7 w-7 p-0 border-white text-white hover:border-white/80 hover:bg-white/20"
+          className="h-7 w-7 p-0 hover:bg-white/20"
         >
           <RotateCcw className="w-3 h-3" fill="none" stroke="white" strokeWidth="2" />
         </Button>
