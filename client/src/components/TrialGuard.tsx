@@ -103,7 +103,19 @@ const TrialGuard: React.FC<TrialGuardProps> = ({ children, userProfile }) => {
               </ul>
             </div>
 
-            <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
+            <Button 
+              onClick={() => {
+                const premiumProfile = {
+                  ...userProfile,
+                  isPremium: true,
+                  purchaseDate: new Date().toISOString(),
+                  isTrialActive: false
+                };
+                localStorage.setItem('digital-detox-profile', JSON.stringify(premiumProfile));
+                window.location.reload();
+              }}
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+            >
               Acquista Versione Completa
             </Button>
             
