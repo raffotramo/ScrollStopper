@@ -13,6 +13,8 @@ import { User, Clock, Compass, Target, Zap, Smartphone, ArrowRight } from 'lucid
 import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import logoImage from '@assets/Progetto senza titolo (4).png';
+import PricingChoice from '@/components/PricingChoice';
+import StripeCheckout from '@/components/StripeCheckout';
 
 // Schema per il form multi-step
 const formSchema = z.object({
@@ -33,6 +35,8 @@ const Onboarding: React.FC = () => {
   const [showClaim, setShowClaim] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const [showPricing, setShowPricing] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
