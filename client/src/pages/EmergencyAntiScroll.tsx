@@ -375,6 +375,7 @@ const EmergencyAntiScroll: React.FC = () => {
                   <Timer 
                     timeRequired={currentAction.timeMinutes} 
                     onComplete={handleTimerComplete}
+                    variant="emergency"
                   />
                 </div>
               )}

@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 interface TimerProps {
   timeRequired: number; // in minutes
   onComplete?: () => void;
+  variant?: 'default' | 'emergency';
 }
 
-const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
+const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete, variant = 'default' }) => {
   const [timeLeft, setTimeLeft] = useState(timeRequired * 60); // convert to seconds
   const [isRunning, setIsRunning] = useState(true); // Start automatically
   const [isCompleted, setIsCompleted] = useState(false);
@@ -54,6 +55,28 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
 
   const progress = ((timeRequired * 60 - timeLeft) / (timeRequired * 60)) * 100;
 
+  const getStyles = () => {
+    if (variant === 'emergency') {
+      return {
+        backgroundCircle: 'text-gray-400',
+        progressCircle: 'text-orange-500',
+        textColor: 'text-black',
+        buttonStyle: 'border-gray-700 text-gray-700 hover:border-orange-500 hover:bg-orange-50',
+        iconProps: { fill: "none", stroke: "black", strokeWidth: "2" }
+      };
+    }
+    // default variant
+    return {
+      backgroundCircle: 'text-gray-500',
+      progressCircle: 'text-white',
+      textColor: 'text-white',
+      buttonStyle: 'hover:bg-white/20',
+      iconProps: { fill: "none", stroke: "white", strokeWidth: "2" }
+    };
+  };
+
+  const styles = getStyles();
+
   return (
     <div className="flex items-center justify-between gap-3">
       {/* Mini Timer Display */}
@@ -67,7 +90,7 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
               stroke="currentColor"
               strokeWidth="2"
               fill="transparent"
-              className="text-gray-500"
+              className={styles.backgroundCircle}
             />
             <circle
               cx="16"
@@ -78,12 +101,12 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
               fill="transparent"
               strokeDasharray={87.96}
               strokeDashoffset={87.96 - (progress / 100) * 87.96}
-              className="text-white transition-all duration-300"
+              className={`${styles.progressCircle} transition-all duration-300`}
               strokeLinecap="round"
             />
           </svg>
         </div>
-        <span className="text-base font-bold text-white">
+        <span className={`text-base font-bold ${styles.textColor}`}>
           {formatTime(timeLeft)}
         </span>
       </div>
@@ -97,20 +120,23 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
       <div className="flex gap-1">
         <Button
           onClick={handlePlayPause}
-          variant="ghost"
+          variant={variant === 'emergency' ? 'outline' : 'ghost'}
           size="sm"
-          className="h-7 w-7 p-0 hover:bg-white/20"
+          className={`h-7 w-7 p-0 ${variant === 'emergency' ? styles.buttonStyle : styles.buttonStyle}`}
         >
-          {isRunning ? <Pause className="w-3 h-3" fill="none" stroke="white" strokeWidth="2" /> : <Play className="w-3 h-3" fill="none" stroke="white" strokeWidth="2" />}
+          {isRunning ? 
+            <Pause className="w-3 h-3" {...styles.iconProps} /> : 
+            <Play className="w-3 h-3" {...styles.iconProps} />
+          }
         </Button>
         
         <Button 
           onClick={handleReset} 
-          variant="ghost" 
+          variant={variant === 'emergency' ? 'outline' : 'ghost'}
           size="sm" 
-          className="h-7 w-7 p-0 hover:bg-white/20"
+          className={`h-7 w-7 p-0 ${variant === 'emergency' ? styles.buttonStyle : styles.buttonStyle}`}
         >
-          <RotateCcw className="w-3 h-3" fill="none" stroke="white" strokeWidth="2" />
+          <RotateCcw className="w-3 h-3" {...styles.iconProps} />
         </Button>
       </div>
     </div>
