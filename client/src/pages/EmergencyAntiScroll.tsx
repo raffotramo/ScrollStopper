@@ -297,25 +297,16 @@ const EmergencyAntiScroll: React.FC = () => {
               {!isActionCompleted ? (
                 <Button 
                   onClick={handleActionComplete}
-                  className="flex-1"
+                  className="w-full"
                 >
                   <CheckCircle className="w-4 h-4 mr-2" />
                   Completata
                 </Button>
               ) : (
-                <div className="flex-1 text-center py-2 bg-primary/10 text-primary rounded-md font-medium">
+                <div className="w-full text-center py-2 bg-primary/10 text-primary rounded-md font-medium">
                   ✅ Azione completata!
                 </div>
               )}
-              
-              <Button 
-                onClick={handleReset}
-                variant="outline"
-                className="flex-shrink-0"
-              >
-                <RotateCcw className="w-4 h-4 mr-2" />
-                Nuova
-              </Button>
             </div>
           </div>
         )}
