@@ -177,12 +177,6 @@ const EmergencyAntiScroll: React.FC = () => {
     setCurrentAction(action);
     setIsActionCompleted(false);
     setTimerActive(true);
-    
-    toast({
-      title: "Azione di emergenza!",
-      description: `${action.action} - Timer di ${action.timeMinutes} min avviato`,
-      duration: 5000,
-    });
   };
 
   const handleTimerComplete = () => {
