@@ -44,8 +44,8 @@ const gestures: Gesture[] = [
     title: 'Rifletti',
     instruction: 'Chiediti: "Cosa sto cercando?"',
     pattern: [8],
-    color: 'text-orange-600',
-    bgColor: 'bg-orange-50'
+    color: 'text-muted-foreground',
+    bgColor: 'bg-muted'
   },
   {
     id: 'reset',

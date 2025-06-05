@@ -27,7 +27,7 @@ const Journal: React.FC = () => {
     if (status === 'yes') {
       return <Badge className="bg-secondary hover:bg-secondary/90">Completato</Badge>;
     } else if (status === 'partial') {
-      return <Badge className="bg-amber-500 hover:bg-amber-500/90">Parziale</Badge>;
+      return <Badge className="bg-muted hover:bg-muted/90 text-muted-foreground">Parziale</Badge>;
     } else if (status === 'no') {
       return <Badge variant="destructive">Non completato</Badge>;
     }
