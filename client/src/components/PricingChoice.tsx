@@ -132,12 +132,6 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
             </CardContent>
           </Card>
         </div>
-        
-        <div className="text-center mt-8">
-          <p className="text-sm text-gray-500">
-            Entrambe le opzioni includono tutte le funzionalità dell'app
-          </p>
-        </div>
       </div>
     </div>
   );
