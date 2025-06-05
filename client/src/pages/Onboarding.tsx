@@ -61,8 +61,13 @@ const Onboarding: React.FC = () => {
   const onSubmit = (data: FormValues) => {
     console.log('Form submitted with data:', data);
     try {
-      setUserProfile(data);
-      console.log('Profile saved, redirecting...');
+      const profileWithTrial = {
+        ...data,
+        trialStartDate: new Date().toISOString(),
+        isTrialActive: true
+      };
+      setUserProfile(profileWithTrial);
+      console.log('Profile saved with trial info, redirecting...');
       window.location.href = '/';
     } catch (error) {
       console.error('Error saving profile:', error);

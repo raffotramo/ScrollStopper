@@ -11,6 +11,7 @@ import Journal from "@/pages/Journal";
 import Profile from "@/pages/Profile";
 import Progress from "@/pages/Progress";
 import Onboarding from "@/pages/Onboarding";
+import TrialGuard from "@/components/TrialGuard";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 function Router() {
@@ -23,15 +24,17 @@ function Router() {
   }
 
   return (
-    <Switch>
-      <Route path="/onboarding" component={Onboarding} />
-      <Route path="/" component={Home} />
-      <Route path="/emergency" component={EmergencyAntiScroll} />
-      <Route path="/journal" component={Journal} />
-      <Route path="/progress" component={Progress} />
-      <Route path="/profile" component={Profile} />
-      <Route component={NotFound} />
-    </Switch>
+    <TrialGuard userProfile={userProfile}>
+      <Switch>
+        <Route path="/onboarding" component={Onboarding} />
+        <Route path="/" component={Home} />
+        <Route path="/emergency" component={EmergencyAntiScroll} />
+        <Route path="/journal" component={Journal} />
+        <Route path="/progress" component={Progress} />
+        <Route path="/profile" component={Profile} />
+        <Route component={NotFound} />
+      </Switch>
+    </TrialGuard>
   );
 }
 
