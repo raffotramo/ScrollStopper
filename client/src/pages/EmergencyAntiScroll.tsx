@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
-import ManualAntiScrolling from '@/components/ManualAntiScrolling';
+
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface EmergencyAction {
@@ -30,23 +30,12 @@ const EmergencyAntiScroll: React.FC = () => {
   const [emergencyLogs, setEmergencyLogs] = useLocalStorage<EmergencyLog[]>('emergency-anti-scroll-logs', []);
   const [emergencyScore, setEmergencyScore] = useLocalStorage<number>('emergency-score', 0);
   
-  // Sistema anti-scrolling manuale
-  const [antiScrollingActive, setAntiScrollingActive] = useState(false);
   const [interventionStats, setInterventionStats] = useLocalStorage('intervention-stats', {
     scrollInterruptions: 0,
     gesturesCompleted: 0,
     emergencyActionsCompleted: 0,
     totalInterventions: 0
   });
-
-  // Gestione sistema anti-scrolling manuale
-  const handleAntiScrollingStatsUpdate = (stats: any) => {
-    setInterventionStats(prev => ({
-      ...prev,
-      ...stats,
-      totalInterventions: prev.totalInterventions + 1
-    }));
-  };
 
   const emergencyActions: EmergencyAction[] = [
     // Azioni fisiche immediate
@@ -233,26 +222,19 @@ const EmergencyAntiScroll: React.FC = () => {
       
       <main className="p-4 space-y-6">
         {/* Pulsante principale di emergenza */}
-        <Card className="border-2 border-red-200 bg-gradient-to-br from-red-50 to-orange-50">
-          <CardContent className="p-6 text-center">
-            <div className="mb-4">
-              <Zap className="w-12 h-12 mx-auto text-red-500 mb-2" />
-              <h2 className="text-xl font-bold text-red-700 mb-2">
-                STO PER SCROLLARE
-              </h2>
-              <p className="text-red-600 text-sm">
-                Premi quando senti il bisogno compulsivo di scrollare
-              </p>
-            </div>
-            
+        <Card>
+          <CardContent className="p-4">
             <Button 
               onClick={handleEmergencyClick}
-              className="w-full bg-red-500 hover:bg-red-600 text-white text-lg py-6"
-              size="lg"
+              className="w-full bg-red-500 hover:bg-red-600 text-white"
+              size="default"
             >
-              <Zap className="w-5 h-5 mr-2" />
-              AZIONE IMMEDIATA
+              <Zap className="w-4 h-4 mr-2" />
+              STO PER SCROLLARE
             </Button>
+            <p className="text-center text-sm text-gray-600 mt-2">
+              Premi quando senti il bisogno compulsivo di scrollare
+            </p>
           </CardContent>
         </Card>
 
@@ -342,12 +324,7 @@ const EmergencyAntiScroll: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Sistema Anti-Scrolling Manuale */}
-        <ManualAntiScrolling
-          isActive={antiScrollingActive}
-          onToggle={() => setAntiScrollingActive(!antiScrollingActive)}
-          onStatsUpdate={handleAntiScrollingStatsUpdate}
-        />
+
 
         {/* Log delle azioni recenti */}
         {emergencyLogs.length > 0 && (
