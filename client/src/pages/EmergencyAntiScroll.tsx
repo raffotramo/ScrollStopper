@@ -310,8 +310,10 @@ const EmergencyAntiScroll: React.FC = () => {
               <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mb-2">
                 <Shield className="w-4 h-4 text-primary" />
               </div>
-              <p className="text-xs text-muted-foreground mb-1">Scroll Bloccati</p>
-              <p className="text-lg font-bold text-foreground">{interventionStats.scrollInterruptions}</p>
+              <p className="text-xs text-muted-foreground mb-1">Tempo Risparmiato</p>
+              <p className="text-lg font-bold text-foreground">
+                {Math.floor((interventionStats.emergencyActionsCompleted * 5 + interventionStats.scrollInterruptions * 2) / 60)}h {((interventionStats.emergencyActionsCompleted * 5 + interventionStats.scrollInterruptions * 2) % 60)}m
+              </p>
             </div>
             <div className="bg-muted rounded-lg p-3">
               <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mb-2">
@@ -338,10 +340,10 @@ const EmergencyAntiScroll: React.FC = () => {
                   key={index}
                   className="flex justify-between items-start gap-4 p-3 bg-muted rounded-lg"
                 >
-                  <span className="text-foreground text-sm font-medium leading-relaxed flex-1">
+                  <span className="text-foreground text-sm leading-relaxed flex-1 pr-6">
                     {log.action}
                   </span>
-                  <Badge variant="outline" className="text-xs shrink-0 mt-0.5">
+                  <Badge variant="outline" className="text-xs shrink-0 ml-4">
                     {log.date}
                   </Badge>
                 </div>
