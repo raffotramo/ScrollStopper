@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { Zap, CheckCircle, RotateCcw, Brain, Heart, Shield, Activity, Settings } from 'lucide-react';
+import { Zap, CheckCircle, RotateCcw, Brain, Heart, Shield, Activity, Settings, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -240,17 +240,19 @@ const EmergencyAntiScroll: React.FC = () => {
         {currentAction && (
           <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
             <div className="flex items-center gap-2 mb-4">
-              {getCategoryIcon(currentAction.category)}
+              <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                {getCategoryIcon(currentAction.category)}
+              </div>
               <h3 className="font-semibold text-foreground">Azione di Emergenza</h3>
-              <Badge className={getCategoryColor(currentAction.category)}>
+              <Badge variant="outline" className="text-xs">
                 {currentAction.category === 'physical' ? 'Fisico' :
                  currentAction.category === 'mental' ? 'Mentale' : 'Dopamina'}
               </Badge>
             </div>
             
             <div className="text-center mb-6">
-              <div className="text-4xl mb-3">{currentAction.icon}</div>
-              <h4 className="text-lg font-semibold mb-2 text-foreground">{currentAction.action}</h4>
+              <div className="text-3xl mb-3">{currentAction.icon}</div>
+              <h4 className="text-base font-medium mb-2 text-foreground">{currentAction.action}</h4>
               <p className="text-muted-foreground text-sm">{currentAction.description}</p>
             </div>
             
@@ -258,13 +260,13 @@ const EmergencyAntiScroll: React.FC = () => {
               {!isActionCompleted ? (
                 <Button 
                   onClick={handleActionComplete}
-                  className="flex-1 bg-green-500 hover:bg-green-600"
+                  className="flex-1"
                 >
                   <CheckCircle className="w-4 h-4 mr-2" />
                   Completata
                 </Button>
               ) : (
-                <div className="flex-1 text-center py-2 bg-green-100 text-green-700 rounded-md font-medium">
+                <div className="flex-1 text-center py-2 bg-primary/10 text-primary rounded-md font-medium">
                   ✅ Azione completata!
                 </div>
               )}
@@ -275,7 +277,7 @@ const EmergencyAntiScroll: React.FC = () => {
                 className="flex-shrink-0"
               >
                 <RotateCcw className="w-4 h-4 mr-2" />
-                Nuova Azione
+                Nuova
               </Button>
             </div>
           </div>
@@ -284,33 +286,39 @@ const EmergencyAntiScroll: React.FC = () => {
         {/* Statistiche integrate */}
         <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
           <div className="flex items-center gap-2 mb-4">
-            <Activity className="w-5 h-5 text-foreground" />
+            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+              <Activity className="w-4 h-4 text-primary" />
+            </div>
             <h3 className="font-semibold text-foreground">Statistiche Anti-Scroll</h3>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">
-                {interventionStats.totalInterventions}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-muted rounded-lg p-3">
+              <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+                <Zap className="w-4 h-4 text-primary" />
               </div>
-              <div className="text-sm text-muted-foreground">Interventi Totali</div>
+              <p className="text-xs text-muted-foreground mb-1">Interventi Totali</p>
+              <p className="text-lg font-bold text-foreground">{interventionStats.totalInterventions}</p>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">
-                {interventionStats.emergencyActionsCompleted}
+            <div className="bg-muted rounded-lg p-3">
+              <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+                <CheckCircle className="w-4 h-4 text-primary" />
               </div>
-              <div className="text-sm text-muted-foreground">Azioni Completate</div>
+              <p className="text-xs text-muted-foreground mb-1">Azioni Completate</p>
+              <p className="text-lg font-bold text-foreground">{interventionStats.emergencyActionsCompleted}</p>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">
-                {interventionStats.scrollInterruptions}
+            <div className="bg-muted rounded-lg p-3">
+              <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+                <Shield className="w-4 h-4 text-primary" />
               </div>
-              <div className="text-sm text-muted-foreground">Scroll Bloccati</div>
+              <p className="text-xs text-muted-foreground mb-1">Scroll Bloccati</p>
+              <p className="text-lg font-bold text-foreground">{interventionStats.scrollInterruptions}</p>
             </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">
-                {emergencyScore}
+            <div className="bg-muted rounded-lg p-3">
+              <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+                <Star className="w-4 h-4 text-primary" />
               </div>
-              <div className="text-sm text-muted-foreground">Punti Totali</div>
+              <p className="text-xs text-muted-foreground mb-1">Punti Totali</p>
+              <p className="text-lg font-bold text-foreground">{emergencyScore}</p>
             </div>
           </div>
         </div>
