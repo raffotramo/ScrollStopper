@@ -9,7 +9,7 @@ interface TimerProps {
 
 const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
   const [timeLeft, setTimeLeft] = useState(timeRequired * 60); // convert to seconds
-  const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(true); // Start automatically
   const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
@@ -83,14 +83,14 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
             />
           </svg>
         </div>
-        <span className="text-sm font-medium text-white">
+        <span className="text-sm font-medium text-foreground">
           {formatTime(timeLeft)}
         </span>
       </div>
 
       {/* Status */}
       {isCompleted && (
-        <span className="text-xs text-green-400">✓ Fatto!</span>
+        <span className="text-xs text-green-600">✓ Fatto!</span>
       )}
 
       {/* Compact Controls */}
@@ -99,7 +99,7 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
           onClick={handlePlayPause}
           variant="outline"
           size="sm"
-          className="h-7 w-7 p-0 border-gray-500 text-white hover:border-primary"
+          className="h-7 w-7 p-0 border-muted-foreground text-foreground hover:border-primary"
         >
           {isRunning ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
         </Button>
@@ -108,7 +108,7 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
           onClick={handleReset} 
           variant="outline" 
           size="sm" 
-          className="h-7 w-7 p-0 border-gray-500 text-white hover:border-primary"
+          className="h-7 w-7 p-0 border-muted-foreground text-foreground hover:border-primary"
         >
           <RotateCcw className="w-3 h-3" />
         </Button>
