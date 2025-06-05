@@ -176,7 +176,10 @@ const Progress: React.FC = () => {
                       <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
                         <Calendar className="w-4 h-4 text-primary" />
                       </div>
-                      Check-in giornaliero
+                      <div>
+                        <div>Check-in giornaliero</div>
+                        <div className="text-sm font-normal text-muted-foreground">Giorno {currentDay}</div>
+                      </div>
                     </CardTitle>
                   </CardHeader>
                   <CardContent>

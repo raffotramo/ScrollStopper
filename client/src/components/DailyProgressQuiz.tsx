@@ -159,20 +159,7 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
   const IconComponent = config.icon;
 
   return (
-    <Card className="bg-card border border-border rounded-2xl shadow-sm">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-foreground flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-            <IconComponent className="w-4 h-4 text-primary" />
-          </div>
-          {config.title}
-        </CardTitle>
-        <p className="text-muted-foreground text-sm flex items-center gap-1">
-          <Clock className="w-4 h-4" />
-          Check-in Giorno {day}
-        </p>
-      </CardHeader>
-      <CardContent className="space-y-5">
+    <div className="space-y-5">
         {config.questions.map((question, index) => (
           <div key={question.id} className="space-y-3">
             <Label className="text-foreground font-medium text-sm">
@@ -215,8 +202,7 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
           <CheckCircle className="w-4 h-4 mr-2" />
           Completa Check-in
         </Button>
-      </CardContent>
-    </Card>
+    </div>
   );
 };
 
