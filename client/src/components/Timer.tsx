@@ -101,7 +101,7 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
           size="sm"
           className="h-7 w-7 p-0 border-white text-white hover:border-white/80 hover:bg-white/20"
         >
-          {isRunning ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+          {isRunning ? <Pause className="w-3 h-3 fill-none stroke-2" /> : <Play className="w-3 h-3 fill-none stroke-2" />}
         </Button>
         
         <Button 
@@ -110,7 +110,7 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete }) => {
           size="sm" 
           className="h-7 w-7 p-0 border-white text-white hover:border-white/80 hover:bg-white/20"
         >
-          <RotateCcw className="w-3 h-3" />
+          <RotateCcw className="w-3 h-3 fill-none stroke-2" />
         </Button>
       </div>
     </div>
