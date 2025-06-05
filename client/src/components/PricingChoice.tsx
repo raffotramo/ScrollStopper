@@ -73,21 +73,15 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
           </Card>
 
           {/* Versione Premium */}
-          <Card className="relative bg-white border border-gray-200 hover:border-gray-300 transition-colors shadow-sm">
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-              <div className="bg-black text-white px-4 py-1 rounded-full text-sm font-semibold">
-                Consigliato
-              </div>
-            </div>
-            
-            <CardHeader className="text-center pt-8">
-              <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                <Crown className="w-8 h-8 text-black" />
+          <Card className="relative bg-white border border-blue-200 hover:border-blue-300 transition-colors shadow-sm">
+            <CardHeader className="text-center">
+              <div className="mx-auto w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+                <Crown className="w-8 h-8 text-blue-600" />
               </div>
               <CardTitle className="text-xl font-bold text-black">
                 Versione Premium
               </CardTitle>
-              <div className="text-2xl font-bold text-black">
+              <div className="text-2xl font-bold text-blue-600">
                 €14,90
               </div>
               <p className="text-gray-700">
