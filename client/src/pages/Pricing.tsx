@@ -47,15 +47,15 @@ const Pricing: React.FC = () => {
   }
 
   const premiumFeatures = [
-    "Utilizzi illimitati del Pronto Soccorso Scroll",
-    "Accesso completo a tutti gli strumenti anti-scrolling",
-    "Statistiche dettagliate di progresso",
-    "Analisi personalizzate del comportamento",
-    "Gesti mindful con feedback aptico",
-    "Timer personalizzabili",
-    "Cronologia completa delle attività",
-    "Supporto prioritario",
-    "Aggiornamenti anticipati delle funzionalità"
+    "• Utilizzi illimitati del Pronto Soccorso Scroll",
+    "• Accesso completo a tutti gli strumenti anti-scrolling", 
+    "• Statistiche dettagliate di progresso",
+    "• Analisi personalizzate del comportamento",
+    "• Gesti mindful con feedback aptico",
+    "• Timer personalizzabili",
+    "• Cronologia completa delle attività",
+    "• Supporto prioritario",
+    "• Aggiornamenti anticipati delle funzionalità"
   ];
 
   return (
@@ -116,15 +116,14 @@ const Pricing: React.FC = () => {
             </div>
             <div className="text-4xl font-bold">€14.90</div>
             <p className="text-orange-100 text-sm">
-              Accesso completo e illimitato per sempre
+              Accesso completo a tutte le funzionalità
             </p>
           </CardHeader>
           <CardContent className="space-y-4 pt-6">
             <div className="space-y-3">
               {premiumFeatures.map((feature, index) => (
-                <div key={index} className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-green-600" />
-                  <span>{feature}</span>
+                <div key={index} className="text-sm">
+                  {feature}
                 </div>
               ))}
             </div>
