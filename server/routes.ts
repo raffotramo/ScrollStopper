@@ -105,7 +105,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           await storage.updateUserStats({
             userId: progressData.userId,
             currentStreak: newStreak,
-            lastActivityDate: today
+            lastActivityDate: today.toISOString()
           });
         }
       }

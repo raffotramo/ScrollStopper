@@ -64,18 +64,44 @@ const Onboarding: React.FC = () => {
 
   const onSubmit = (data: FormValues) => {
     console.log('Form submitted with data:', data);
-    try {
-      const profileWithTrial = {
-        ...data,
-        trialStartDate: new Date().toISOString(),
-        isTrialActive: true
-      };
-      setUserProfile(profileWithTrial);
-      console.log('Profile saved with trial info, redirecting...');
-      window.location.href = '/';
-    } catch (error) {
-      console.error('Error saving profile:', error);
-    }
+    // Salva temporaneamente i dati del form
+    localStorage.setItem('temp-onboarding-data', JSON.stringify(data));
+    // Mostra la schermata di pricing
+    setShowPricing(true);
+  };
+
+  const handleTrialSelect = () => {
+    const tempData = JSON.parse(localStorage.getItem('temp-onboarding-data') || '{}');
+    const profileWithTrial = {
+      ...tempData,
+      trialStartDate: new Date().toISOString(),
+      isTrialActive: true,
+      isPremium: false
+    };
+    setUserProfile(profileWithTrial);
+    localStorage.removeItem('temp-onboarding-data');
+    window.location.href = '/';
+  };
+
+  const handlePremiumSelect = () => {
+    setShowCheckout(true);
+  };
+
+  const handlePaymentSuccess = () => {
+    const tempData = JSON.parse(localStorage.getItem('temp-onboarding-data') || '{}');
+    const profileWithPremium = {
+      ...tempData,
+      isPremium: true,
+      purchaseDate: new Date().toISOString(),
+      isTrialActive: false
+    };
+    setUserProfile(profileWithPremium);
+    localStorage.removeItem('temp-onboarding-data');
+    window.location.href = '/';
+  };
+
+  const handleBackFromCheckout = () => {
+    setShowCheckout(false);
   };
 
   const nextStep = () => {
@@ -103,6 +129,26 @@ const Onboarding: React.FC = () => {
       setCurrentStep(currentStep - 1);
     }
   };
+
+  // Mostra il checkout di Stripe
+  if (showCheckout) {
+    return (
+      <StripeCheckout
+        onSuccess={handlePaymentSuccess}
+        onBack={handleBackFromCheckout}
+      />
+    );
+  }
+
+  // Mostra la scelta tra prova gratuita e premium
+  if (showPricing) {
+    return (
+      <PricingChoice
+        onTrialSelect={handleTrialSelect}
+        onPremiumSelect={handlePremiumSelect}
+      />
+    );
+  }
 
   // Schermata animazione introduttiva
   if (showIntro) {
