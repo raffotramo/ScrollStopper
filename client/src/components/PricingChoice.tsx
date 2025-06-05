@@ -21,110 +21,104 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-4 mx-4">
           {/* Prova Gratuita */}
-          <Card className="relative bg-white border border-gray-200 hover:border-gray-300 transition-colors shadow-sm">
-            <CardHeader className="text-center">
-              <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                <Clock className="w-8 h-8 text-black" />
+          <div className="bg-card rounded-2xl shadow-sm p-4 border border-border">
+            <div className="flex justify-between items-start mb-3">
+              <div>
+                <div className="flex items-center">
+                  <span className="font-bold text-foreground mr-2">Prova Gratuita</span>
+                  <span className="text-xs px-2 py-1 rounded-full bg-background border border-border/50 text-muted-foreground/70">
+                    48 ore
+                  </span>
+                </div>
+                <h3 className="font-medium mt-1 text-foreground">Testa tutte le funzionalità</h3>
               </div>
-              <CardTitle className="text-xl font-bold text-black">
-                Prova Gratuita
-              </CardTitle>
-              <div className="text-2xl font-bold text-black">
-                48 ore
+              <Clock className="w-5 h-5 text-muted-foreground" />
+            </div>
+            
+            <div className="space-y-2 mb-4">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Check className="w-4 h-4" />
+                <span>Accesso completo per 2 giorni</span>
               </div>
-              <p className="text-gray-700">
-                Testa tutte le funzionalità
-              </p>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Accesso completo per 2 giorni</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Strumenti anti scrolling</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Tracking di progresso</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Aiuti motivazionali</span>
-                </li>
-              </ul>
-              
-              <Button 
-                onClick={onTrialSelect}
-                className="w-full bg-black hover:bg-gray-800 text-white"
-                size="lg"
-              >
-                Inizia Prova Gratuita
-              </Button>
-              
-              <p className="text-xs text-gray-600 text-center">
-                Nessun pagamento richiesto
-              </p>
-            </CardContent>
-          </Card>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Check className="w-4 h-4" />
+                <span>Strumenti anti scrolling</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Check className="w-4 h-4" />
+                <span>Tracking di progresso</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Check className="w-4 h-4" />
+                <span>Aiuti motivazionali</span>
+              </div>
+            </div>
+            
+            <Button 
+              onClick={onTrialSelect}
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+              size="sm"
+            >
+              Inizia Prova Gratuita
+            </Button>
+            
+            <p className="text-xs text-muted-foreground text-center mt-2">
+              Nessun pagamento richiesto
+            </p>
+          </div>
 
           {/* Versione Premium */}
-          <Card className="relative bg-white border border-blue-200 hover:border-blue-300 transition-colors shadow-sm">
-            <CardHeader className="text-center">
-              <div className="mx-auto w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
-                <Crown className="w-8 h-8 text-blue-600" />
+          <div className="bg-card rounded-2xl shadow-sm p-4 border border-border border-l-4 border-l-primary">
+            <div className="flex justify-between items-start mb-3">
+              <div>
+                <div className="flex items-center">
+                  <span className="font-bold text-primary mr-2">Versione Premium</span>
+                  <span className="text-xs px-2 py-1 rounded-full bg-primary/15 text-primary">
+                    €14,90
+                  </span>
+                </div>
+                <h3 className="font-medium mt-1 text-foreground">Accesso illimitato per sempre</h3>
               </div>
-              <CardTitle className="text-xl font-bold text-black">
-                Versione Premium
-              </CardTitle>
-              <div className="text-2xl font-bold text-blue-600">
-                €14,90
+              <Crown className="w-5 h-5 text-primary" />
+            </div>
+            
+            <div className="space-y-2 mb-4">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Star className="w-4 h-4" />
+                <span>Accesso alla sfida completa</span>
               </div>
-              <p className="text-gray-700">
-                Accesso illimitato per sempre
-              </p>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3">
-                  <Star className="w-5 h-5 text-yellow-500" />
-                  <span>Accesso alla sfida completa</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Star className="w-5 h-5 text-yellow-500" />
-                  <span>Nessun limite di tempo</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Star className="w-5 h-5 text-yellow-500" />
-                  <span>Strumenti anti scrolling avanzati</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Star className="w-5 h-5 text-yellow-500" />
-                  <span>Analisi dettagliate di progresso</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Zap className="w-5 h-5 text-blue-500" />
-                  <span>Aiuti motivazionali</span>
-                </li>
-              </ul>
-              
-              <Button 
-                onClick={onPremiumSelect}
-                className="w-full bg-black hover:bg-gray-800 text-white"
-                size="lg"
-              >
-                Sblocca Versione Premium
-              </Button>
-              
-              <p className="text-xs text-gray-600 text-center">
-                Pagamento sicuro con Stripe
-              </p>
-            </CardContent>
-          </Card>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Star className="w-4 h-4" />
+                <span>Nessun limite di tempo</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Star className="w-4 h-4" />
+                <span>Strumenti anti scrolling avanzati</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Star className="w-4 h-4" />
+                <span>Analisi dettagliate di progresso</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Zap className="w-4 h-4" />
+                <span>Aiuti motivazionali</span>
+              </div>
+            </div>
+            
+            <Button 
+              onClick={onPremiumSelect}
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+              size="sm"
+            >
+              Sblocca Versione Premium
+            </Button>
+            
+            <p className="text-xs text-muted-foreground text-center mt-2">
+              Pagamento sicuro con Stripe
+            </p>
+          </div>
         </div>
       </div>
     </div>
