@@ -178,7 +178,7 @@ const Progress: React.FC = () => {
                       </div>
                       <div>
                         <div>Check-in giornaliero</div>
-                        <div className="text-sm font-normal text-muted-foreground">Giorno {currentDay}</div>
+                        <div className="text-sm font-semibold text-orange-500">Giorno {currentDay}</div>
                       </div>
                     </CardTitle>
                   </CardHeader>
