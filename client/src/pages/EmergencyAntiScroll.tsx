@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { Zap, CheckCircle, RotateCcw, Brain, Heart } from 'lucide-react';
+import { Zap, CheckCircle, RotateCcw, Brain, Heart, Shield, Activity, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
+import MindfulGestures from '@/components/MindfulGestures';
+import ScrollInterceptor from '@/components/ScrollInterceptor';
+import ScrollFeedback from '@/components/ScrollFeedback';
+import HapticFeedback from '@/components/HapticFeedback';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface EmergencyAction {
@@ -26,6 +32,17 @@ const EmergencyAntiScroll: React.FC = () => {
   const [isActionCompleted, setIsActionCompleted] = useState(false);
   const [emergencyLogs, setEmergencyLogs] = useLocalStorage<EmergencyLog[]>('emergency-anti-scroll-logs', []);
   const [emergencyScore, setEmergencyScore] = useLocalStorage<number>('emergency-score', 0);
+  
+  // Stati per micro-interazioni integrate
+  const [showMindfulGestures, setShowMindfulGestures] = useState(false);
+  const [scrollProtectionActive, setScrollProtectionActive] = useState(true);
+  const [triggerHaptic, setTriggerHaptic] = useState(false);
+  const [interventionStats, setInterventionStats] = useLocalStorage('intervention-stats', {
+    scrollInterruptions: 0,
+    gesturesCompleted: 0,
+    emergencyActionsCompleted: 0,
+    totalInterventions: 0
+  });
 
   const emergencyActions: EmergencyAction[] = [
     // Azioni fisiche immediate
@@ -143,6 +160,42 @@ const EmergencyAntiScroll: React.FC = () => {
   const getRandomAction = (): EmergencyAction => {
     const randomIndex = Math.floor(Math.random() * emergencyActions.length);
     return emergencyActions[randomIndex];
+  };
+
+  // Gestori per micro-interazioni integrate
+  const handleScrollDetected = () => {
+    setInterventionStats(prev => ({
+      ...prev,
+      scrollInterruptions: prev.scrollInterruptions + 1,
+      totalInterventions: prev.totalInterventions + 1
+    }));
+    
+    setTriggerHaptic(true);
+    toast({
+      title: "Scrolling veloce rilevato",
+      description: "Prova un'azione di emergenza per ritrovare il controllo",
+      variant: "destructive"
+    });
+  };
+
+  const handleGestureComplete = (gesture: string) => {
+    setInterventionStats(prev => ({
+      ...prev,
+      gesturesCompleted: prev.gesturesCompleted + 1,
+      totalInterventions: prev.totalInterventions + 1
+    }));
+    
+    setShowMindfulGestures(false);
+    toast({
+      title: "Ottimo lavoro!",
+      description: `Hai completato l'esercizio: ${gesture}`,
+    });
+  };
+
+  const handleScrollBehaviorChange = (behavior: 'mindful' | 'compulsive' | 'excessive') => {
+    if (behavior === 'excessive') {
+      setShowMindfulGestures(true);
+    }
   };
 
   const handleEmergencyClick = () => {
@@ -269,29 +322,107 @@ const EmergencyAntiScroll: React.FC = () => {
 
         {/* Stats Section */}
         <section className="mx-4 my-6">
+          <Card className="mb-4">
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Activity className="w-5 h-5" />
+                Statistiche Interventi
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-foreground">{interventionStats.totalInterventions}</div>
+                  <div className="text-xs text-muted-foreground">Totale Interventi</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-600">{interventionStats.scrollInterruptions}</div>
+                  <div className="text-xs text-muted-foreground">Scroll Bloccati</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-600">{interventionStats.gesturesCompleted}</div>
+                  <div className="text-xs text-muted-foreground">Gesti Mindful</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-primary">{interventionStats.emergencyActionsCompleted}</div>
+                  <div className="text-xs text-muted-foreground">Azioni d'Emergenza</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-card rounded-2xl p-4 border border-border/30 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
               <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
                 <Zap className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-xs text-muted-foreground mb-1">Interruzioni</p>
+              <p className="text-xs text-muted-foreground mb-1">Punteggio</p>
               <p className="text-xl font-bold text-foreground">{emergencyScore}</p>
             </div>
             <div className="bg-card rounded-2xl p-4 border border-border/30 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
               <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <Shield className={`w-5 h-5 ${scrollProtectionActive ? 'text-green-600' : 'text-gray-400'}`} />
               </div>
-              <p className="text-xs text-muted-foreground mb-1">Questa settimana</p>
-              <p className="text-xl font-bold text-foreground">
-                {emergencyLogs.filter(log => {
-                  const logDate = new Date(log.timestamp);
-                  const weekAgo = new Date();
-                  weekAgo.setDate(weekAgo.getDate() - 7);
-                  return logDate > weekAgo;
-                }).length}
+              <p className="text-xs text-muted-foreground mb-1">Protezione</p>
+              <p className="text-sm font-bold text-foreground">
+                {scrollProtectionActive ? 'Attiva' : 'Inattiva'}
               </p>
             </div>
           </div>
+        </section>
+
+        {/* Micro-interactions Controls */}
+        <section className="mx-4 my-6">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Settings className="w-5 h-5" />
+                Controlli Avanzati
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium">Protezione Scroll</p>
+                  <p className="text-xs text-muted-foreground">Blocca scrolling veloce</p>
+                </div>
+                <button
+                  onClick={() => setScrollProtectionActive(!scrollProtectionActive)}
+                  className={`w-12 h-6 rounded-full transition-colors ${
+                    scrollProtectionActive ? 'bg-primary' : 'bg-gray-300'
+                  } relative`}
+                >
+                  <div
+                    className={`w-5 h-5 bg-white rounded-full absolute top-0.5 transition-transform ${
+                      scrollProtectionActive ? 'translate-x-6' : 'translate-x-0.5'
+                    }`}
+                  />
+                </button>
+              </div>
+
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => setShowMindfulGestures(true)}
+                  size="sm"
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Gesti Mindful
+                </Button>
+                <Button
+                  onClick={() => {
+                    setTriggerHaptic(true);
+                    toast({ title: "Test vibrazione", description: "Feedback tattile attivato" });
+                  }}
+                  size="sm"
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Test Vibrazione
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </section>
 
         {/* Recent Actions Log */}
