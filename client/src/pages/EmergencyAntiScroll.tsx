@@ -284,7 +284,7 @@ const EmergencyAntiScroll: React.FC = () => {
               <p className="text-muted-foreground text-sm mb-4">{currentAction.description}</p>
               
               {timerActive && (
-                <div className="bg-primary/10 rounded-lg p-3 mb-4">
+                <div className="border border-gray-300 rounded-lg p-4 mb-4">
                   <Timer 
                     timeRequired={currentAction.timeMinutes} 
                     onComplete={handleTimerComplete}
