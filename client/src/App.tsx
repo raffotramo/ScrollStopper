@@ -17,7 +17,14 @@ import AntiScrollingSystem from "@/components/AntiScrollingSystem";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 function Router() {
-  const [userProfile] = useLocalStorage<any>('digital-detox-profile', null);
+  const [userProfile] = useLocalStorage<any>('digital-detox-profile', {
+    name: 'Utente Premium',
+    age: '30',
+    screenTime: '3-4 ore',
+    isPremium: true,
+    purchaseDate: new Date().toISOString(),
+    isTrialActive: false
+  });
   const [location] = useLocation();
   
   // Se non c'è un profilo e non siamo già in onboarding, mostra onboarding
@@ -26,18 +33,16 @@ function Router() {
   }
 
   return (
-    <TrialGuard userProfile={userProfile}>
-      <Switch>
-        <Route path="/onboarding" component={Onboarding} />
-        <Route path="/" component={Home} />
-        <Route path="/emergency" component={EmergencyAntiScroll} />
-        <Route path="/anti-scrolling" component={AntiScrollingTools} />
-        <Route path="/journal" component={Journal} />
-        <Route path="/progress" component={Progress} />
-        <Route path="/profile" component={Profile} />
-        <Route component={NotFound} />
-      </Switch>
-    </TrialGuard>
+    <Switch>
+      <Route path="/onboarding" component={Onboarding} />
+      <Route path="/" component={Home} />
+      <Route path="/emergency" component={EmergencyAntiScroll} />
+      <Route path="/anti-scrolling" component={AntiScrollingTools} />
+      <Route path="/journal" component={Journal} />
+      <Route path="/progress" component={Progress} />
+      <Route path="/profile" component={Profile} />
+      <Route component={NotFound} />
+    </Switch>
   );
 }
 
