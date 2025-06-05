@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
-
+import Timer from '@/components/Timer';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface EmergencyAction {
@@ -15,6 +15,7 @@ interface EmergencyAction {
   action: string;
   icon: string;
   description: string;
+  timeMinutes: number;
 }
 
 interface EmergencyLog {
@@ -27,6 +28,7 @@ const EmergencyAntiScroll: React.FC = () => {
   const { toast } = useToast();
   const [currentAction, setCurrentAction] = useState<EmergencyAction | null>(null);
   const [isActionCompleted, setIsActionCompleted] = useState(false);
+  const [timerActive, setTimerActive] = useState(false);
   const [emergencyLogs, setEmergencyLogs] = useLocalStorage<EmergencyLog[]>('emergency-anti-scroll-logs', []);
   const [emergencyScore, setEmergencyScore] = useLocalStorage<number>('emergency-score', 0);
   
@@ -44,35 +46,40 @@ const EmergencyAntiScroll: React.FC = () => {
       category: 'physical',
       action: 'Alzati e fai 10 jumping jacks',
       icon: '🏃‍♂️',
-      description: 'Riattiva il corpo e spezza il pattern automatico'
+      description: 'Riattiva il corpo e spezza il pattern automatico',
+      timeMinutes: 2
     },
     {
       id: 'physical-2',
       category: 'physical',
       action: 'Bevi un bicchiere d\'acqua lentamente',
       icon: '💧',
-      description: 'Idrata il corpo e rallenta il ritmo'
+      description: 'Idrata il corpo e rallenta il ritmo',
+      timeMinutes: 3
     },
     {
       id: 'physical-3',
       category: 'physical',
       action: 'Guarda fuori dalla finestra per 30 secondi',
       icon: '👀',
-      description: 'Cambia ambiente e prospettiva'
+      description: 'Cambia ambiente e prospettiva',
+      timeMinutes: 1
     },
     {
       id: 'physical-4',
       category: 'physical',
       action: 'Stira le braccia sopra la testa per 30 secondi',
       icon: '🙆‍♀️',
-      description: 'Attiva il corpo per spezzare l\'automatismo'
+      description: 'Attiva il corpo per spezzare l\'automatismo',
+      timeMinutes: 1
     },
     {
       id: 'physical-5',
       category: 'physical',
       action: 'Fai 5 respiri profondi con le mani sul petto',
       icon: '🫁',
-      description: 'Connetti corpo e mente'
+      description: 'Connetti corpo e mente',
+      timeMinutes: 2
     },
 
     // Mini-esercizi mentali
@@ -81,35 +88,40 @@ const EmergencyAntiScroll: React.FC = () => {
       category: 'mental',
       action: 'Elenca 5 cose che puoi vedere intorno a te',
       icon: '👁️',
-      description: 'Riporta l\'attenzione al presente'
+      description: 'Riporta l\'attenzione al presente',
+      timeMinutes: 2
     },
     {
       id: 'mental-2',
       category: 'mental',
       action: 'Conta all\'indietro da 20 a 1',
       icon: '🔢',
-      description: 'Focalizza la mente su un compito semplice'
+      description: 'Focalizza la mente su un compito semplice',
+      timeMinutes: 1
     },
     {
       id: 'mental-3',
       category: 'mental',
       action: 'Pensa a 3 cose per cui sei grato oggi',
       icon: '🙏',
-      description: 'Sposta il focus verso il positivo'
+      description: 'Sposta il focus verso il positivo',
+      timeMinutes: 3
     },
     {
       id: 'mental-4',
       category: 'mental',
       action: 'Visualizza il tuo obiettivo principale per oggi',
       icon: '🎯',
-      description: 'Riconnettiti alle tue priorità'
+      description: 'Riconnettiti alle tue priorità',
+      timeMinutes: 2
     },
     {
       id: 'mental-5',
       category: 'mental',
       action: 'Ripeti un mantra personale 5 volte',
       icon: '🧘‍♀️',
-      description: 'Centra la mente con intenzione'
+      description: 'Centra la mente con intenzione',
+      timeMinutes: 2
     },
 
     // Alternative salutari per la dopamina
@@ -118,35 +130,40 @@ const EmergencyAntiScroll: React.FC = () => {
       category: 'dopamine',
       action: 'Chiama o scrivi a qualcuno che ti fa stare bene',
       icon: '📞',
-      description: 'Connessione umana reale'
+      description: 'Connessione umana reale',
+      timeMinutes: 5
     },
     {
       id: 'dopamine-2',
       category: 'dopamine',
       action: 'Scrivi 3 righe nel tuo diario',
       icon: '✍️',
-      description: 'Espressione creativa e riflessione'
+      description: 'Espressione creativa e riflessione',
+      timeMinutes: 3
     },
     {
       id: 'dopamine-3',
       category: 'dopamine',
       action: 'Ascolta la tua canzone preferita per 2 minuti',
       icon: '🎵',
-      description: 'Dopamina naturale attraverso la musica'
+      description: 'Dopamina naturale attraverso la musica',
+      timeMinutes: 2
     },
     {
       id: 'dopamine-4',
       category: 'dopamine',
       action: 'Fai una foto di qualcosa di bello che hai vicino',
       icon: '📷',
-      description: 'Creatività invece di consumo passivo'
+      description: 'Creatività invece di consumo passivo',
+      timeMinutes: 2
     },
     {
       id: 'dopamine-5',
       category: 'dopamine',
       action: 'Leggi una frase motivazionale ad alta voce',
       icon: '📖',
-      description: 'Nutrimento mentale positivo'
+      description: 'Nutrimento mentale positivo',
+      timeMinutes: 1
     }
   ];
 
@@ -159,11 +176,20 @@ const EmergencyAntiScroll: React.FC = () => {
     const action = getRandomAction();
     setCurrentAction(action);
     setIsActionCompleted(false);
+    setTimerActive(true);
     
     toast({
       title: "Azione di emergenza!",
-      description: action.action,
+      description: `${action.action} - Timer di ${action.timeMinutes} min avviato`,
       duration: 5000,
+    });
+  };
+
+  const handleTimerComplete = () => {
+    setTimerActive(false);
+    toast({
+      title: "Timer completato!",
+      description: "Tempo scaduto. Hai completato l'attività?",
     });
   };
 
@@ -171,6 +197,7 @@ const EmergencyAntiScroll: React.FC = () => {
     if (!currentAction) return;
     
     setIsActionCompleted(true);
+    setTimerActive(false);
     setEmergencyScore(prev => prev + 10);
     
     const newLog: EmergencyLog = {
@@ -196,6 +223,7 @@ const EmergencyAntiScroll: React.FC = () => {
   const handleReset = () => {
     setCurrentAction(null);
     setIsActionCompleted(false);
+    setTimerActive(false);
   };
 
   const getCategoryIcon = (category: string) => {
