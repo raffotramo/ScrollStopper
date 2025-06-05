@@ -20,8 +20,18 @@ function Router() {
   // Debug per capire lo stato del profilo
   console.log('Router - userProfile:', userProfile, 'location:', location);
   
-  // Controlla se c'è un profilo valido
-  const hasValidProfile = userProfile && userProfile.name && userProfile.age && userProfile.screenTime;
+  // Controlla se c'è un profilo valido (più flessibile per gestire versioni diverse)
+  const hasValidProfile = userProfile && userProfile.name && userProfile.age && 
+    (userProfile.screenTime || userProfile.socialTime);
+  
+  // Pulisce profili vecchi se non hanno la struttura corretta
+  useEffect(() => {
+    if (userProfile && userProfile.socialTime && !userProfile.screenTime) {
+      console.log('Cleaning old profile structure');
+      localStorage.removeItem('digital-detox-profile');
+      window.location.reload();
+    }
+  }, [userProfile]);
   
   // Reindirizza alla pagina di onboarding se non c'è un profilo valido
   useEffect(() => {
