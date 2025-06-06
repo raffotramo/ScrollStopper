@@ -356,18 +356,18 @@ const EmergencyAntiScroll: React.FC = () => {
           </p>
         </div>
 
-        {/* Blocco Notifiche per Focus di Emergenza */}
+        {/* Assistente Focus per Emergenza */}
         <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <Bell className="w-5 h-5 text-indigo-600" />
-            <h3 className="text-lg font-semibold">Modalità Focus di Emergenza</h3>
+            <h3 className="text-lg font-semibold">Preparazione Focus di Emergenza</h3>
           </div>
           <p className="text-sm text-muted-foreground mb-4">
-            Blocca le notifiche per eliminare distrazioni durante la sessione di emergenza
+            Prepara rapidamente l'ambiente per eliminare distrazioni durante la sessione di emergenza
           </p>
-          <NotificationBlocker
-            isActive={notificationBlockerActive}
-            onToggle={setNotificationBlockerActive}
+          <FocusHelper
+            isActive={focusHelperActive}
+            onToggle={setFocusHelperActive}
           />
         </div>
 
