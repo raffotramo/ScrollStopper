@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { Zap, CheckCircle, RotateCcw, Brain, Heart, Shield, Activity, Settings, Star, Crown, Bell } from 'lucide-react';
+import { Zap, CheckCircle, RotateCcw, Brain, Heart, Shield, Activity, Settings, Star, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
 import Timer from '@/components/Timer';
-import FocusHelper from '@/components/FocusHelper';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import PricingChoice from '@/components/PricingChoice';
 
@@ -29,7 +28,7 @@ interface EmergencyLog {
 const EmergencyAntiScroll: React.FC = () => {
   const { toast } = useToast();
   const [currentAction, setCurrentAction] = useState<EmergencyAction | null>(null);
-  const [focusHelperActive, setFocusHelperActive] = useLocalStorage<boolean>('focus-helper-active', false);
+
   const [isActionCompleted, setIsActionCompleted] = useState(false);
   const [timerActive, setTimerActive] = useState(false);
   const [emergencyTimeSpent, setEmergencyTimeSpent] = useState<number>(0);
@@ -356,20 +355,7 @@ const EmergencyAntiScroll: React.FC = () => {
           </p>
         </div>
 
-        {/* Assistente Focus per Emergenza */}
-        <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
-          <div className="flex items-center gap-2 mb-3">
-            <Bell className="w-5 h-5 text-indigo-600" />
-            <h3 className="text-lg font-semibold">Preparazione Focus di Emergenza</h3>
-          </div>
-          <p className="text-sm text-muted-foreground mb-4">
-            Prepara rapidamente l'ambiente per eliminare distrazioni durante la sessione di emergenza
-          </p>
-          <FocusHelper
-            isActive={focusHelperActive}
-            onToggle={setFocusHelperActive}
-          />
-        </div>
+
 
         {/* Azione corrente */}
         {currentAction && (
