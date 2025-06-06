@@ -26,8 +26,10 @@ const Home: React.FC = () => {
   // Get today's challenge
   const todayChallenge = getTodaysChallenge(currentDay);
   
-  // Calculate stats
-  const timeRecovered = completedDays * 30; // Estimate 30 minutes per day
+  // Calculate stats based on actual time spent
+  const timeRecovered = progress
+    .filter(day => day.completed && day.timeSpent)
+    .reduce((total, day) => total + (day.timeSpent || 0), 0);
   
   // Determine current streak
   let currentStreak = 0;
@@ -45,8 +47,11 @@ const Home: React.FC = () => {
   // Get daily tip
   const tip = getDailyTip(currentDay);
   
-  const handleCompleteChallenge = (reflectionText: string, status: CompletionStatus) => {
+  const handleCompleteChallenge = (reflectionText: string, status: CompletionStatus, timeSpent?: number) => {
     const isCompleted = status === 'yes' || status === 'partial';
+    
+    // Calculate actual time spent, fallback to challenge requirement if not provided
+    const actualTimeSpent = timeSpent || (isCompleted ? todayChallenge.timeRequired || 0 : 0);
     
     // Update progress for this day
     const existingProgress = progress.find(p => p.day === currentDay);
@@ -55,7 +60,14 @@ const Home: React.FC = () => {
       setProgress(
         progress.map(p => 
           p.day === currentDay 
-            ? { ...p, completed: isCompleted, reflectionText, completionStatus: status, completedAt: isCompleted ? new Date() : null } 
+            ? { 
+                ...p, 
+                completed: isCompleted, 
+                reflectionText, 
+                completionStatus: status, 
+                completedAt: isCompleted ? new Date() : null,
+                timeSpent: actualTimeSpent
+              } 
             : p
         )
       );
@@ -67,7 +79,8 @@ const Home: React.FC = () => {
           completed: isCompleted, 
           reflectionText, 
           completionStatus: status, 
-          completedAt: isCompleted ? new Date() : null 
+          completedAt: isCompleted ? new Date() : null,
+          timeSpent: actualTimeSpent
         }
       ]);
     }

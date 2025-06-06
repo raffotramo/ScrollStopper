@@ -8,10 +8,12 @@ import { DayProgress } from '@/types';
 const Profile: React.FC = () => {
   const [progress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
   
-  // Calculate stats
+  // Calculate stats based on actual time spent
   const completedDays = progress.filter(day => day.completed).length;
   const percentComplete = Math.round((completedDays / 30) * 100);
-  const timeRecovered = completedDays * 30; // Estimate 30 minutes per day
+  const timeRecovered = progress
+    .filter(day => day.completed && day.timeSpent)
+    .reduce((total, day) => total + (day.timeSpent || 0), 0);
   const reflectionsCount = progress.filter(day => day.reflectionText && day.reflectionText.trim() !== '').length;
   
   // Determine current streak

@@ -30,6 +30,7 @@ const EmergencyAntiScroll: React.FC = () => {
   const [currentAction, setCurrentAction] = useState<EmergencyAction | null>(null);
   const [isActionCompleted, setIsActionCompleted] = useState(false);
   const [timerActive, setTimerActive] = useState(false);
+  const [emergencyTimeSpent, setEmergencyTimeSpent] = useState<number>(0);
   const [emergencyLogs, setEmergencyLogs] = useLocalStorage<EmergencyLog[]>('emergency-anti-scroll-logs', []);
   const [emergencyScore, setEmergencyScore] = useLocalStorage<number>('emergency-score', 0);
   const [emergencyUsageCount, setEmergencyUsageCount] = useLocalStorage<number>('emergency-usage-count', 0);
@@ -194,8 +195,9 @@ const EmergencyAntiScroll: React.FC = () => {
     }
   };
 
-  const handleTimerComplete = () => {
+  const handleTimerComplete = (timeSpentMinutes: number) => {
     setTimerActive(false);
+    setEmergencyTimeSpent(timeSpentMinutes);
     toast({
       title: "Timer completato!",
       description: "Tempo scaduto. Hai completato l'attività?",
@@ -233,6 +235,7 @@ const EmergencyAntiScroll: React.FC = () => {
     setCurrentAction(null);
     setIsActionCompleted(false);
     setTimerActive(false);
+    setEmergencyTimeSpent(0);
   };
 
   const handleTrialSelect = () => {
