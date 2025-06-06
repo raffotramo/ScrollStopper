@@ -227,7 +227,7 @@ const Home: React.FC = () => {
             lastAccessDate={lastAccessDate}
             isDayCompleted={isDayCompleted || isCurrentDayCompleted}
             onReset={resetDay}
-            showResetButton={process.env.NODE_ENV === 'development'}
+            showResetButton={import.meta.env.DEV}
           />
         </section>
 
