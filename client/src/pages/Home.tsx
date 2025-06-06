@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { ChevronRight, Info, Clock, Award, BookOpen, Star, Lightbulb, Zap, Lock as LockIcon, Calendar } from 'lucide-react';
+import { ChevronRight, Info, Clock, Award, BookOpen, Star, Lightbulb, Zap, Lock as LockIcon, Calendar, Trophy, Crown } from 'lucide-react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import ProgressCircle from '@/components/ProgressCircle';
 import DailyActivityModal from '@/components/DailyActivityModal';
 import DailyChallenge from '@/components/DailyChallenge';
@@ -11,11 +12,22 @@ import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import scrollStopLogo from "@assets/Progetto senza titolo (4).png";
 import { challenges, getTodaysChallenge, getDailyTip } from '@/lib/challenges';
-import { DayProgress, CompletionStatus } from '@/types';
+import { DayProgress, CompletionStatus, UserStats } from '@/types';
+import { ALL_ACHIEVEMENTS, checkAchievements, calculateLevel, getLevelTitle } from '@/lib/achievements';
 
 const Home: React.FC = () => {
   const [progress, setProgress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
   const [modalOpen, setModalOpen] = useState(false);
+  const [userStats, setUserStats] = useLocalStorage<UserStats>('user-stats', {
+    totalTimeRecovered: 0,
+    daysCompleted: 0,
+    currentStreak: 0,
+    totalReflections: 0,
+    totalStars: 0,
+    level: 1,
+    pointsToNextLevel: 20,
+    achievements: ALL_ACHIEVEMENTS.map(a => ({ ...a, unlocked: false }))
+  });
   const { toast } = useToast();
   
   // Calculate current day based on completed challenges
@@ -46,6 +58,61 @@ const Home: React.FC = () => {
   
   // Get daily tip
   const tip = getDailyTip(currentDay);
+
+  // Update achievement stats when progress changes
+  useEffect(() => {
+    const currentTimeRecovered = progress
+      .filter(day => day.completed && day.timeSpent)
+      .reduce((total, day) => total + (day.timeSpent || 0), 0);
+    
+    let currentStreak = 0;
+    const progressSorted = [...progress].sort((a, b) => b.day - a.day);
+    for (const day of progressSorted) {
+      if (day.completed) {
+        currentStreak++;
+      } else {
+        break;
+      }
+    }
+    
+    const totalReflections = progress.filter(day => day.reflectionText && day.reflectionText.trim() !== '').length;
+
+    // Check for new achievements
+    const { newAchievements, updatedAchievements } = checkAchievements(
+      progress,
+      currentTimeRecovered,
+      currentStreak,
+      userStats.achievements
+    );
+
+    // Calculate total stars and level
+    const totalStars = updatedAchievements
+      .filter(a => a.unlocked)
+      .reduce((total, a) => total + a.stars, 0);
+
+    const { level, pointsToNext } = calculateLevel(totalStars);
+
+    // Show achievement notifications
+    newAchievements.forEach(achievement => {
+      toast({
+        title: "🎉 Nuovo Achievement!",
+        description: `Hai sbloccato "${achievement.name}" (+${achievement.stars} stelle)`,
+        duration: 5000,
+      });
+    });
+
+    // Update user stats
+    setUserStats({
+      totalTimeRecovered: currentTimeRecovered,
+      daysCompleted: completedDays,
+      currentStreak,
+      totalReflections,
+      totalStars,
+      level,
+      pointsToNextLevel: pointsToNext,
+      achievements: updatedAchievements
+    });
+  }, [progress, completedDays, setUserStats, toast]);
   
   const handleCompleteChallenge = (reflectionText: string, status: CompletionStatus, timeSpent?: number) => {
     const isCompleted = status === 'yes' || status === 'partial';
@@ -149,6 +216,51 @@ const Home: React.FC = () => {
           >
             {isCurrentDayCompleted ? "✓ Rivedi Attività" : "Inizia Oggi"}
           </Button>
+        </section>
+
+        {/* Gamification Widget */}
+        <section className="mx-4 my-4">
+          <Link href="/achievements">
+            <Card className="bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200 cursor-pointer hover:shadow-md transition-all">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                      <Crown className="w-5 h-5 text-amber-600" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-amber-800">
+                        Livello {userStats.level} - {getLevelTitle(userStats.level)}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                        <span className="text-xs text-amber-700">{userStats.totalStars} stelle</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Trophy className="w-4 h-4 text-amber-600" />
+                    <ChevronRight className="w-4 h-4 text-amber-600" />
+                  </div>
+                </div>
+                {userStats.pointsToNextLevel > 0 && (
+                  <div className="mt-3">
+                    <div className="w-full bg-amber-100 rounded-full h-2">
+                      <div 
+                        className="bg-gradient-to-r from-amber-400 to-amber-600 h-2 rounded-full transition-all duration-500"
+                        style={{ 
+                          width: `${((userStats.totalStars) / (userStats.totalStars + userStats.pointsToNextLevel)) * 100}%` 
+                        }}
+                      />
+                    </div>
+                    <div className="text-xs text-amber-600 mt-1">
+                      {userStats.pointsToNextLevel} stelle al livello successivo
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
         </section>
 
         {/* Statistics Grid */}
