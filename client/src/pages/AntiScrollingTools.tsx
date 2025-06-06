@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Shield, Eye, Hand, Zap, Activity, Settings } from 'lucide-react';
+import { ArrowLeft, Shield, Eye, Hand, Zap, Activity, Settings, Bell } from 'lucide-react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,6 +11,8 @@ import ScrollInterceptor from '@/components/ScrollInterceptor';
 import ScrollFeedback from '@/components/ScrollFeedback';
 import MindfulGestures from '@/components/MindfulGestures';
 import HapticFeedback from '@/components/HapticFeedback';
+import NotificationBlocker from '@/components/NotificationBlocker';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 const AntiScrollingTools: React.FC = () => {
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
@@ -19,6 +21,7 @@ const AntiScrollingTools: React.FC = () => {
     gesturesCompleted: 0,
     mindfulMoments: 0
   });
+  const [notificationBlockerActive, setNotificationBlockerActive] = useLocalStorage<boolean>('notification-blocker-active', false);
 
   const tools = [
     {
@@ -56,6 +59,15 @@ const AntiScrollingTools: React.FC = () => {
       color: 'bg-purple-50 text-purple-600 border-purple-200',
       features: ['Vibrazione personalizzata', 'Pattern intensità', 'Avvisi discreti'],
       demo: true
+    },
+    {
+      id: 'notifications',
+      title: 'Blocco Notifiche',
+      description: 'Blocca le notifiche del telefono durante le sessioni focus',
+      icon: Bell,
+      color: 'bg-indigo-50 text-indigo-600 border-indigo-200',
+      features: ['Modalità focus', 'Blocco schermo attivo', 'Interruzioni minimizzate'],
+      demo: false
     }
   ];
 
@@ -302,6 +314,18 @@ const AntiScrollingTools: React.FC = () => {
           onComplete={handleDemoEnd}
         />
       )}
+
+      {/* Notification Blocker Section */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 mb-4">
+          <Bell className="w-5 h-5 text-indigo-600" />
+          <h3 className="text-lg font-semibold">Blocco Notifiche</h3>
+        </div>
+        <NotificationBlocker
+          isActive={notificationBlockerActive}
+          onToggle={setNotificationBlockerActive}
+        />
+      </div>
     </div>
   );
 };

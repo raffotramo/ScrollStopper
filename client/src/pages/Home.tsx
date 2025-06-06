@@ -92,27 +92,38 @@ const Home: React.FC = () => {
 
     const { level, pointsToNext } = calculateLevel(totalStars);
 
-    // Show achievement notifications
-    newAchievements.forEach(achievement => {
-      toast({
-        title: "🎉 Nuovo Achievement!",
-        description: `Hai sbloccato "${achievement.name}" (+${achievement.stars} stelle)`,
-        duration: 5000,
+    // Only update if stats have actually changed
+    if (
+      currentTimeRecovered !== userStats.totalTimeRecovered ||
+      completedDays !== userStats.daysCompleted ||
+      currentStreak !== userStats.currentStreak ||
+      totalReflections !== userStats.totalReflections ||
+      totalStars !== userStats.totalStars ||
+      level !== userStats.level ||
+      newAchievements.length > 0
+    ) {
+      // Show achievement notifications
+      newAchievements.forEach(achievement => {
+        toast({
+          title: "🎉 Nuovo Achievement!",
+          description: `Hai sbloccato "${achievement.name}" (+${achievement.stars} stelle)`,
+          duration: 5000,
+        });
       });
-    });
 
-    // Update user stats
-    setUserStats({
-      totalTimeRecovered: currentTimeRecovered,
-      daysCompleted: completedDays,
-      currentStreak,
-      totalReflections,
-      totalStars,
-      level,
-      pointsToNextLevel: pointsToNext,
-      achievements: updatedAchievements
-    });
-  }, [progress, completedDays, setUserStats, toast]);
+      // Update user stats
+      setUserStats({
+        totalTimeRecovered: currentTimeRecovered,
+        daysCompleted: completedDays,
+        currentStreak,
+        totalReflections,
+        totalStars,
+        level,
+        pointsToNextLevel: pointsToNext,
+        achievements: updatedAchievements
+      });
+    }
+  }, [progress, completedDays, userStats.totalTimeRecovered, userStats.daysCompleted, userStats.currentStreak, userStats.totalReflections, userStats.totalStars, userStats.level, userStats.achievements, setUserStats, toast]);
   
   const handleCompleteChallenge = (reflectionText: string, status: CompletionStatus, timeSpent?: number) => {
     const isCompleted = status === 'yes' || status === 'partial';
