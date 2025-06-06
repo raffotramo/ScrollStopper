@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
 import Timer from '@/components/Timer';
-import NotificationBlocker from '@/components/NotificationBlocker';
+import FocusHelper from '@/components/FocusHelper';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import PricingChoice from '@/components/PricingChoice';
 
@@ -29,7 +29,7 @@ interface EmergencyLog {
 const EmergencyAntiScroll: React.FC = () => {
   const { toast } = useToast();
   const [currentAction, setCurrentAction] = useState<EmergencyAction | null>(null);
-  const [notificationBlockerActive, setNotificationBlockerActive] = useLocalStorage<boolean>('notification-blocker-active', false);
+  const [focusHelperActive, setFocusHelperActive] = useLocalStorage<boolean>('focus-helper-active', false);
   const [isActionCompleted, setIsActionCompleted] = useState(false);
   const [timerActive, setTimerActive] = useState(false);
   const [emergencyTimeSpent, setEmergencyTimeSpent] = useState<number>(0);

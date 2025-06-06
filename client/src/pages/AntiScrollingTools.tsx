@@ -11,7 +11,7 @@ import ScrollInterceptor from '@/components/ScrollInterceptor';
 import ScrollFeedback from '@/components/ScrollFeedback';
 import MindfulGestures from '@/components/MindfulGestures';
 import HapticFeedback from '@/components/HapticFeedback';
-import NotificationBlocker from '@/components/NotificationBlocker';
+import FocusHelper from '@/components/FocusHelper';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 const AntiScrollingTools: React.FC = () => {
@@ -21,7 +21,7 @@ const AntiScrollingTools: React.FC = () => {
     gesturesCompleted: 0,
     mindfulMoments: 0
   });
-  const [notificationBlockerActive, setNotificationBlockerActive] = useLocalStorage<boolean>('notification-blocker-active', false);
+  const [focusHelperActive, setFocusHelperActive] = useLocalStorage<boolean>('focus-helper-active', false);
 
   const tools = [
     {
@@ -61,12 +61,12 @@ const AntiScrollingTools: React.FC = () => {
       demo: true
     },
     {
-      id: 'notifications',
-      title: 'Blocco Notifiche',
-      description: 'Blocca le notifiche del telefono durante le sessioni focus',
+      id: 'focus',
+      title: 'Assistente Focus',
+      description: 'Guida per preparare l\'ambiente ideale per la concentrazione',
       icon: Bell,
       color: 'bg-indigo-50 text-indigo-600 border-indigo-200',
-      features: ['Modalità focus', 'Blocco schermo attivo', 'Interruzioni minimizzate'],
+      features: ['Preparazione guidata', 'Timer sessione', 'Checklist completa'],
       demo: false
     }
   ];
@@ -315,15 +315,15 @@ const AntiScrollingTools: React.FC = () => {
         />
       )}
 
-      {/* Notification Blocker Section */}
+      {/* Focus Helper Section */}
       <div className="space-y-4">
         <div className="flex items-center gap-2 mb-4">
           <Bell className="w-5 h-5 text-indigo-600" />
-          <h3 className="text-lg font-semibold">Blocco Notifiche</h3>
+          <h3 className="text-lg font-semibold">Assistente Focus</h3>
         </div>
-        <NotificationBlocker
-          isActive={notificationBlockerActive}
-          onToggle={setNotificationBlockerActive}
+        <FocusHelper
+          isActive={focusHelperActive}
+          onToggle={setFocusHelperActive}
         />
       </div>
     </div>

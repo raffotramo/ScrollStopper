@@ -209,13 +209,11 @@ const NotificationBlocker: React.FC<NotificationBlockerProps> = ({ isActive, onT
                 ✓ Schermo mantenuto attivo
               </p>
               <p className="text-xs text-green-700">
-                ✓ Notifiche esterne bloccate
+                ✓ Notifiche web minimizzate
               </p>
-              {blockedNotifications > 0 && (
-                <p className="text-xs text-green-700">
-                  ✓ {blockedNotifications} notifiche bloccate
-                </p>
-              )}
+              <p className="text-xs text-amber-700">
+                ⚠ Le notifiche di app native (WhatsApp, SMS) richiedono configurazione manuale
+              </p>
             </div>
           </div>
         )}
@@ -235,8 +233,29 @@ const NotificationBlocker: React.FC<NotificationBlockerProps> = ({ isActive, onT
           </div>
         )}
 
-        <div className="text-xs text-muted-foreground">
-          <p>💡 <strong>Consiglio:</strong> Per risultati ottimali, attiva la modalità "Non Disturbare" del tuo dispositivo e chiudi altre app prima di iniziare la sessione.</p>
+        <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <div className="flex items-center gap-2 mb-2">
+            <Smartphone className="w-4 h-4 text-blue-600" />
+            <span className="text-sm font-medium text-blue-800">
+              Configurazione Manuale Consigliata
+            </span>
+          </div>
+          <div className="space-y-2 text-xs text-blue-700">
+            <div>
+              <p className="font-medium">📱 iPhone:</p>
+              <p>Impostazioni → Focus → Non Disturbare → Attiva</p>
+            </div>
+            <div>
+              <p className="font-medium">🤖 Android:</p>
+              <p>Impostazioni → Suoni → Non Disturbare → Attiva</p>
+            </div>
+            <div>
+              <p className="font-medium">🔇 Per sessioni intensive:</p>
+              <p>• Modalità aereo + WiFi attivo</p>
+              <p>• Chiudi app social prima di iniziare</p>
+              <p>• Metti il telefono a faccia in giù</p>
+            </div>
+          </div>
         </div>
       </CardContent>
     </Card>
