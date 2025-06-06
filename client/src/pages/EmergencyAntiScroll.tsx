@@ -339,6 +339,22 @@ const EmergencyAntiScroll: React.FC = () => {
     <div className="min-h-screen bg-[#eeeded] pb-20">
       <Header />
       
+      {/* Header */}
+      <section className="mx-4 mt-6 mb-2">
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Zap className="w-8 h-8 text-red-500" />
+            <h1 className="text-3xl font-bold text-red-500">
+              Emergenza
+            </h1>
+          </div>
+          <p className="text-foreground text-sm font-bold mb-3">
+            Intervento immediato anti-scrolling
+          </p>
+          <div className="w-20 h-1 bg-red-500 rounded-full mx-auto"></div>
+        </div>
+      </section>
+      
       <main className="p-4 space-y-6">
         {/* Pulsante principale di emergenza */}
         <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
