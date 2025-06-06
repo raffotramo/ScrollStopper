@@ -44,13 +44,25 @@ const Journal: React.FC = () => {
       {/* Header with ScrollStop Logo */}
       <Header />
 
+      {/* Header */}
+      <section className="mx-4 mt-6 mb-2">
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <BookOpen className="w-8 h-8 text-primary" />
+            <h1 className="text-3xl font-bold text-primary">
+              Diario
+            </h1>
+          </div>
+          <p className="text-foreground text-sm font-bold mb-3">
+            Le tue riflessioni e pensieri del percorso
+          </p>
+          <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+        </div>
+      </section>
+
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         <section className="mx-4 my-4">
-          <div className="flex items-center mb-4">
-            <BookOpen className="w-5 h-5 text-primary mr-2" />
-            <h2 className="text-lg font-semibold text-white">Le tue riflessioni</h2>
-          </div>
           
           {reflectionEntries.length === 0 ? (
             <div className="mb-4 bg-neutral-700 rounded-lg p-6 shadow-sm">

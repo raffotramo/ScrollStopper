@@ -55,18 +55,26 @@ const Calendar: React.FC = () => {
       {/* Header with ScrollStop Logo */}
       <Header />
 
+      {/* Header */}
+      <section className="mx-4 mt-6 mb-2">
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <CalendarIcon className="w-8 h-8 text-primary" />
+            <h1 className="text-3xl font-bold text-primary">
+              Calendario
+            </h1>
+          </div>
+          <p className="text-foreground text-sm font-bold mb-3">
+            {format(today, 'MMMM yyyy', { locale: it })}
+          </p>
+          <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+        </div>
+      </section>
+
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         {/* Current Challenge Overview */}
         <section className="mx-4 my-4">
-          <div className="flex items-center mb-4">
-            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
-              <CalendarIcon className="w-4 h-4 text-primary" />
-            </div>
-            <h2 className="text-lg font-semibold text-foreground">
-              {format(today, 'MMMM yyyy', { locale: it })}
-            </h2>
-          </div>
           
           {/* Challenge Days Grid - 3 columns like home page */}
           <div className="grid grid-cols-3 gap-3">

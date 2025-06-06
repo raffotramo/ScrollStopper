@@ -86,21 +86,23 @@ const Achievements: React.FC = () => {
     <div className="min-h-screen bg-[#eeeded] pb-20">
       <Header />
       
-      <main className="p-4 space-y-6">
-        <div className="flex items-center gap-3 mb-6">
-          <Button 
-            onClick={() => setLocation('/')}
-            variant="ghost" 
-            size="sm"
-            className="p-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-          </Button>
-          <div className="flex items-center gap-2">
-            <Trophy className="w-6 h-6 text-amber-600" />
-            <h1 className="text-2xl font-bold text-foreground">Challenge</h1>
+      {/* Header */}
+      <section className="mx-4 mt-6 mb-2">
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Trophy className="w-8 h-8 text-amber-600" />
+            <h1 className="text-3xl font-bold text-amber-600">
+              Challenge
+            </h1>
           </div>
+          <p className="text-foreground text-sm font-bold mb-3">
+            Conquista obiettivi e sblocca achievement
+          </p>
+          <div className="w-20 h-1 bg-amber-600 rounded-full mx-auto"></div>
         </div>
+      </section>
+
+      <main className="p-4 space-y-6">
 
         <AchievementSystem 
           userStats={{
