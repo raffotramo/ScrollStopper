@@ -107,9 +107,12 @@ const AntiScrollingTools: React.FC = () => {
               <ArrowLeft className="w-4 h-4" />
             </Button>
           </Link>
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">Strumenti Anti-Scrolling</h1>
-            <p className="text-muted-foreground">Micro-interazioni per ridurre lo scrolling compulsivo</p>
+          <div className="flex items-center gap-2">
+            <Shield className="w-6 h-6 text-blue-600" />
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Strumenti Anti-Scrolling</h1>
+              <p className="text-muted-foreground">Micro-interazioni per ridurre lo scrolling compulsivo</p>
+            </div>
           </div>
         </div>
 

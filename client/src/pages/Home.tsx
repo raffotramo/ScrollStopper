@@ -10,7 +10,7 @@ import DailyChallenge from '@/components/DailyChallenge';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
-import scrollStopLogo from "@assets/Progetto senza titolo (4).png";
+
 import { challenges, getTodaysChallenge, getDailyTip } from '@/lib/challenges';
 import { DayProgress, CompletionStatus, UserStats } from '@/types';
 import { ALL_ACHIEVEMENTS, checkAchievements, calculateLevel, getLevelTitle } from '@/lib/achievements';
@@ -206,9 +206,12 @@ const Home: React.FC = () => {
       {/* Header */}
       <section className="mx-4 mt-6 mb-2">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-primary mb-2">
-            ScrollStop
-          </h1>
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Zap className="w-8 h-8 text-primary" />
+            <h1 className="text-3xl font-bold text-primary">
+              ScrollStop
+            </h1>
+          </div>
           <p className="text-foreground text-sm font-bold mb-3">
             Riprenditi il tuo tempo, riconnettiti con la vita
           </p>

@@ -98,7 +98,7 @@ const Achievements: React.FC = () => {
           </Button>
           <div className="flex items-center gap-2">
             <Trophy className="w-6 h-6 text-amber-600" />
-            <h1 className="text-2xl font-bold text-foreground">Achievement</h1>
+            <h1 className="text-2xl font-bold text-foreground">Challenge</h1>
           </div>
         </div>
 
