@@ -11,6 +11,7 @@ import Pricing from "@/pages/Pricing";
 import Journal from "@/pages/Journal";
 import Profile from "@/pages/Profile";
 import Progress from "@/pages/Progress";
+import Achievements from "@/pages/Achievements";
 import Onboarding from "@/pages/Onboarding";
 import TrialGuard from "@/components/TrialGuard";
 import AntiScrollingSystem from "@/components/AntiScrollingSystem";
@@ -40,6 +41,7 @@ function Router() {
       <Route path="/pricing" component={Pricing} />
       <Route path="/journal" component={Journal} />
       <Route path="/progress" component={Progress} />
+      <Route path="/achievements" component={Achievements} />
       <Route path="/profile" component={Profile} />
       <Route component={NotFound} />
     </Switch>

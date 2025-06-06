@@ -22,4 +22,19 @@ export interface UserStats {
   daysCompleted: number;
   currentStreak: number;
   totalReflections: number;
+  totalStars: number;
+  level: number;
+  pointsToNextLevel: number;
+  achievements: Achievement[];
+}
+
+export interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  stars: number;
+  unlocked: boolean;
+  unlockedAt?: Date;
+  category: 'daily' | 'streak' | 'completion' | 'consistency' | 'special';
 }

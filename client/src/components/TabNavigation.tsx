@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, Link } from 'wouter';
-import { Home, Zap, BookOpen, TrendingUp, User } from 'lucide-react';
+import { Home, Zap, Trophy, TrendingUp, User } from 'lucide-react';
 
 const TabNavigation: React.FC = () => {
   const [location] = useLocation();
@@ -27,6 +27,17 @@ const TabNavigation: React.FC = () => {
                 : 'text-muted-foreground/60 hover:text-foreground hover:bg-muted/20'
             }`}>
               <Zap className="w-6 h-6" />
+            </div>
+          </div>
+        </Link>
+        <Link href="/achievements">
+          <div className="py-4 px-4 flex items-center justify-center cursor-pointer transition-all duration-200">
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
+              location === '/achievements' 
+                ? 'bg-primary/10 text-primary' 
+                : 'text-muted-foreground/60 hover:text-foreground hover:bg-muted/20'
+            }`}>
+              <Trophy className="w-6 h-6" />
             </div>
           </div>
         </Link>
