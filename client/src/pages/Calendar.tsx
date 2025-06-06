@@ -52,9 +52,6 @@ const Calendar: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header with ScrollStop Logo */}
-      <Header />
-
       {/* Header */}
       <section className="mx-4 mt-6 mb-2">
         <div className="text-center">

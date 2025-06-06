@@ -97,24 +97,23 @@ const AntiScrollingTools: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <Header />
+      {/* Header */}
+      <section className="mx-4 mt-6 mb-2">
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Shield className="w-8 h-8 text-blue-600" />
+            <h1 className="text-3xl font-bold text-blue-600">
+              Strumenti
+            </h1>
+          </div>
+          <p className="text-foreground text-sm font-bold mb-3">
+            Micro-interazioni per ridurre lo scrolling compulsivo
+          </p>
+          <div className="w-20 h-1 bg-blue-600 rounded-full mx-auto"></div>
+        </div>
+      </section>
       
       <main className="flex-1 px-4 py-6">
-        {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
-          <Link href="/">
-            <Button variant="ghost" size="sm" className="p-2">
-              <ArrowLeft className="w-4 h-4" />
-            </Button>
-          </Link>
-          <div className="flex items-center gap-2">
-            <Shield className="w-6 h-6 text-blue-600" />
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">Strumenti Anti-Scrolling</h1>
-              <p className="text-muted-foreground">Micro-interazioni per ridurre lo scrolling compulsivo</p>
-            </div>
-          </div>
-        </div>
 
         {/* Demo Stats */}
         {(demoStats.interceptorTriggers > 0 || demoStats.gesturesCompleted > 0) && (

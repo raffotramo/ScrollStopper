@@ -337,8 +337,6 @@ const EmergencyAntiScroll: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#eeeded] pb-20">
-      <Header />
-      
       {/* Header */}
       <section className="mx-4 mt-6 mb-2">
         <div className="text-center">
