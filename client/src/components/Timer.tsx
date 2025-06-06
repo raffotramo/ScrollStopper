@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 interface TimerProps {
   timeRequired: number; // in minutes
-  onComplete?: () => void;
+  onComplete?: (timeSpent: number) => void; // timeSpent in minutes
   variant?: 'default' | 'emergency';
 }
 
@@ -22,7 +22,9 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete, variant = 'defa
           if (prevTime <= 1) {
             setIsRunning(false);
             setIsCompleted(true);
-            if (onComplete) onComplete();
+            // Calculate time actually spent (in minutes)
+            const timeSpentMinutes = Math.ceil((timeRequired * 60 - prevTime + 1) / 60);
+            if (onComplete) onComplete(timeSpentMinutes);
             return 0;
           }
           return prevTime - 1;
@@ -35,7 +37,7 @@ const Timer: React.FC<TimerProps> = ({ timeRequired, onComplete, variant = 'defa
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isRunning, timeLeft, onComplete]);
+  }, [isRunning, timeLeft, onComplete, timeRequired]);
 
   const handlePlayPause = () => {
     setIsRunning(!isRunning);

@@ -14,6 +14,7 @@ export interface DayProgress {
   reflectionText?: string;
   completionStatus?: CompletionStatus;
   completedAt?: Date | null;
+  timeSpent?: number; // in minutes - actual time spent on the activity
 }
 
 export interface UserStats {

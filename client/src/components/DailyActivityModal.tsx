@@ -14,7 +14,7 @@ interface DailyActivityModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   challenge: ChallengeDay;
-  onComplete: (reflectionText: string, status: CompletionStatus) => void;
+  onComplete: (reflectionText: string, status: CompletionStatus, timeSpent?: number) => void;
   tip?: string;
 }
 
@@ -28,6 +28,7 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
   const [reflectionText, setReflectionText] = useState('');
   const [completionStatus, setCompletionStatus] = useState<CompletionStatus | undefined>(undefined);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [timeSpent, setTimeSpent] = useState<number>(0);
   const { toast } = useToast();
 
   const handleSubmit = () => {
@@ -44,7 +45,7 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
     
     // Simulate a small delay for better UX
     setTimeout(() => {
-      onComplete(reflectionText, completionStatus);
+      onComplete(reflectionText, completionStatus, timeSpent);
       setIsSubmitting(false);
       toast({
         title: "Attività completata",
@@ -80,7 +81,8 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
               <h3 className="font-medium mb-2 text-white text-sm">Timer ({challenge.timeRequired} min)</h3>
               <Timer 
                 timeRequired={challenge.timeRequired} 
-                onComplete={() => {
+                onComplete={(timeSpentMinutes) => {
+                  setTimeSpent(timeSpentMinutes);
                   toast({
                     title: "Timer completato!",
                     description: "Ora puoi completare la tua riflessione.",
