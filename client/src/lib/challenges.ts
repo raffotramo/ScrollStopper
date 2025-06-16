@@ -3,9 +3,9 @@ import { ChallengeDay } from "../types";
 export const challenges: ChallengeDay[] = [
   {
     day: 1,
-    title: "Passeggiata Detox",
-    description: "Cammina attorno a casa o all'isolato senza telefono. Solo cammino, respiro e osservazione. Scopri cosa succede quando esci senza il tuo compagno digitale.",
-    timeRequired: 10
+    title: "Disegno Libero",
+    description: "Disegna qualsiasi cosa ti venga in mente, senza giudizio. Sperimenta con forme, colori e linee per 15 minuti.",
+    timeRequired: 15
   },
   {
     day: 2,
@@ -15,15 +15,15 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 3,
-    title: "Pensiero Libero",
-    description: "Scrivi un pensiero che ti gira in testa. Non giudicare, lascia uscire ciò che c'è. Dai voce ai pensieri che ronzano nella tua mente.",
+    title: "Flash Workout",
+    description: "Fai 5 esercizi fisici a corpo libero (squat, plank, jumping jack…) per riattivarti. Riconnettiti al corpo con energia esplosiva.",
     timeRequired: 10
   },
   {
     day: 4,
-    title: "Snack Consapevole",
-    description: "Prepara uno snack sano e gustalo lentamente, prestando attenzione a ogni sapore. Riscopri il piacere autentico del cibo.",
-    timeRequired: 10
+    title: "Lettera di gratitudine",
+    description: "Esprimi un sentimento che non hai mai condiviso. Un gesto che potrebbe cambiare una relazione importante.",
+    timeRequired: 15
   },
   {
     day: 5,
@@ -33,9 +33,9 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 6,
-    title: "Mini Meditazione",
-    description: "Ascolta una meditazione guidata offline oppure medita in silenzio. Concentrati sul respiro. Un viaggio verso l'interno che può cambiare l'intera giornata.",
-    timeRequired: 10
+    title: "Cucina un piatto nuovo",
+    description: "Prepara una ricetta che non hai mai provato. Segui ogni passaggio con attenzione e assapora il processo creativo.",
+    timeRequired: 20
   },
   {
     day: 7,
@@ -45,9 +45,9 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 8,
-    title: "Routine Viso",
-    description: "Lavati il viso, applica la crema e massaggia con cura. Trasforma il gesto in un rituale. Scopri il potere del presente.",
-    timeRequired: 10
+    title: "Chiama un vecchio amico",
+    description: "Telefona a qualcuno che non senti da tempo. Riconnettiti con persone importanti e riscopri il piacere delle conversazioni vere.",
+    timeRequired: 15
   },
   {
     day: 9,
@@ -57,15 +57,15 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 10,
-    title: "Flash Workout",
-    description: "Fai 5 esercizi fisici a corpo libero (squat, plank, jumping jack…) per riattivarti. Riconnettiti al corpo con energia esplosiva.",
-    timeRequired: 10
+    title: "Racconta un ricordo",
+    description: "Rivivi un momento speciale del passato attraverso i sensi. Un viaggio nel tempo che ti emozionerà.",
+    timeRequired: 15
   },
   {
     day: 11,
-    title: "Disegno Libero",
-    description: "Lascia che la tua creatività prenda il controllo. Non serve essere artisti per creare qualcosa di bello.",
-    timeRequired: 15
+    title: "Passeggiata Detox",
+    description: "Cammina attorno a casa o all'isolato senza telefono. Solo cammino, respiro e osservazione. Scopri cosa succede quando esci senza il tuo compagno digitale.",
+    timeRequired: 10
   },
   {
     day: 12,
@@ -75,9 +75,9 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 13,
-    title: "Pianifica Domani",
-    description: "Trasforma il caos di domani in una giornata perfetta. Un esercizio che cambierà il tuo rapporto con il tempo.",
-    timeRequired: 15
+    title: "Impara 5 parole straniere",
+    description: "Scegli una lingua che ti incuriosisce e memorizza 5 parole nuove. Usale durante la giornata per fissarle nella memoria.",
+    timeRequired: 10
   },
   {
     day: 14,
@@ -87,33 +87,33 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 15,
-    title: "Silenzio Visivo",
-    description: "Immergiti in un'esperienza di contemplazione pura. Il silenzio ha molto da insegnarti.",
-    timeRequired: 15
+    title: "Scrivi una recensione",
+    description: "Recensisci un libro, film o prodotto che hai usato di recente. Condividi la tua esperienza in modo dettagliato e onesto.",
+    timeRequired: 20
   },
   {
     day: 16,
-    title: "Cammina & Ascolta",
-    description: "Riscopri il mondo attraverso i suoni che hai dimenticato di sentire. Un viaggio sensoriale inaspettato.",
-    timeRequired: 15
+    title: "Ascolta un podcast educativo",
+    description: "Trova un episodio su un argomento che non conosci. Prendi appunti sui concetti più interessanti che scopri.",
+    timeRequired: 20
   },
   {
     day: 17,
-    title: "Mini Documentario",
-    description: "Immergiti in contenuti di qualità che nutrono davvero la mente. Scopri cosa cambia quando scegli consapevolmente.",
+    title: "Osserva le stelle",
+    description: "Esci la sera e guarda il cielo per 15 minuti. Cerca di riconoscere costellazioni o semplicemente goditi l'immensità.",
     timeRequired: 15
   },
   {
     day: 18,
-    title: "Bevanda & Coperta",
-    description: "Crea il tuo momento di comfort perfetto. Un rituale che trasformerà il tuo rapporto con il relax.",
+    title: "Pianifica un weekend perfetto",
+    description: "Progetta nei dettagli come vorresti trascorrere il prossimo fine settimana. Include attività che ti fanno stare bene.",
     timeRequired: 15
   },
   {
     day: 19,
-    title: "Organizza la Settimana",
-    description: "Diventa l'architetto della tua settimana ideale. Un esercizio di controllo che ti darà una nuova energia.",
-    timeRequired: 15
+    title: "Pensiero Libero",
+    description: "Scrivi un pensiero che ti gira in testa. Non giudicare, lascia uscire ciò che c'è. Dai voce ai pensieri che ronzano nella tua mente.",
+    timeRequired: 10
   },
   {
     day: 20,
@@ -123,57 +123,57 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 21,
-    title: "Sistema le tue finanze",
-    description: "Scopri quanto valore hai già guadagnato cambiando le tue abitudini. I numeri ti sorprenderanno.",
-    timeRequired: 15
+    title: "Crea una playlist motivazionale",
+    description: "Seleziona 10 canzoni che ti danno energia e ispirazione. Organizzale in una sequenza che ti accompagni nei momenti difficili.",
+    timeRequired: 20
   },
   {
     day: 22,
-    title: "Mini yoga flow",
-    description: "Riconnetti corpo e mente attraverso movimenti fluidi. Una pratica che cambierà la tua energia quotidiana.",
+    title: "Pratica stretching",
+    description: "Dedica 15 minuti ad allungare tutto il corpo. Concentrati sulle zone più tese e respira profondamente ad ogni movimento.",
     timeRequired: 15
   },
   {
     day: 23,
-    title: "Crea la tua routine mattutina",
-    description: "Progetta il perfetto inizio di giornata. Una sequenza che trasformerà ogni tuo risveglio.",
-    timeRequired: 15
+    title: "Snack Consapevole",
+    description: "Prepara uno snack sano e gustalo lentamente, prestando attenzione a ogni sapore. Riscopri il piacere autentico del cibo.",
+    timeRequired: 10
   },
   {
     day: 24,
-    title: "Racconta un ricordo",
-    description: "Rivivi un momento speciale del passato attraverso i sensi. Un viaggio nel tempo che ti emozionerà.",
-    timeRequired: 15
-  },
-  {
-    day: 25,
-    title: "Lettera di gratitudine",
-    description: "Esprimi un sentimento che non hai mai condiviso. Un gesto che potrebbe cambiare una relazione importante.",
-    timeRequired: 15
-  },
-  {
-    day: 26,
     title: "Decluttering armadio",
     description: "Libera spazio fisico e mentale eliminando ciò che non ti rappresenta più. Una pulizia che va oltre i vestiti.",
     timeRequired: 20
   },
   {
+    day: 25,
+    title: "Crea la tua routine mattutina",
+    description: "Progetta il perfetto inizio di giornata. Una sequenza che trasformerà ogni tuo risveglio.",
+    timeRequired: 15
+  },
+  {
+    day: 26,
+    title: "Esplora il tuo quartiere",
+    description: "Cammina per strade che non hai mai preso. Osserva dettagli architettonici, negozi e angoli nascosti della tua zona.",
+    timeRequired: 20
+  },
+  {
     day: 27,
-    title: "Esci senza meta",
-    description: "Segui solo la curiosità e lascia che i tuoi passi ti guidino. Un'avventura inaspettata ti aspetta dietro l'angolo.",
+    title: "Riorganizza la scrivania",
+    description: "Sistema completamente il tuo spazio di lavoro. Elimina il superfluo e organizza tutto per massimizzare produttività e ispirazione.",
     timeRequired: 20
   },
   {
     day: 28,
-    title: "Pulisci la scrivania",
-    description: "Trasforma il tuo spazio di lavoro in un luogo che ispira produttività e creatività. L'ambiente influenza tutto.",
+    title: "Crea un backup digitale",
+    description: "Salva le foto e i file importanti in un posto sicuro. Elimina i duplicati e organizza tutto in cartelle logiche.",
     timeRequired: 20
   },
   {
     day: 29,
-    title: "Organizza i tuoi file digitali",
-    description: "Porta ordine nel caos digitale e scopri quanto tempo hai perso cercando cose che non trovavi.",
-    timeRequired: 20
+    title: "Scrivi tre obiettivi concreti",
+    description: "Definisci 3 traguardi specifici per i prossimi 3 mesi. Per ognuno scrivi il primo passo concreto da fare domani.",
+    timeRequired: 15
   },
   {
     day: 30,
