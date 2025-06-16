@@ -3,8 +3,8 @@ import { ChallengeDay } from "../types";
 export const challenges: ChallengeDay[] = [
   {
     day: 1,
-    title: "Disegno Libero",
-    description: "Disegna qualsiasi cosa ti venga in mente, senza giudizio. Sperimenta con forme, colori e linee per 15 minuti.",
+    title: "Chiama un amico",
+    description: "Telefona a un amico e raccontagli di questa sfida che stai iniziando. Condividi le tue motivazioni e chiedigli supporto nel percorso.",
     timeRequired: 15
   },
   {
@@ -45,8 +45,8 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 8,
-    title: "Chiama un vecchio amico",
-    description: "Telefona a qualcuno che non senti da tempo. Riconnettiti con persone importanti e riscopri il piacere delle conversazioni vere.",
+    title: "Disegno Libero",
+    description: "Disegna qualsiasi cosa ti venga in mente, senza giudizio. Sperimenta con forme, colori e linee per 15 minuti.",
     timeRequired: 15
   },
   {
