@@ -192,36 +192,36 @@ export const getTodaysChallenge = (currentDay: number): ChallengeDay => {
 // Claim coinvolgenti per le schede attività
 export const getActivityClaim = (day: number): string => {
   const claims = [
-    "Il primo passo verso il cambiamento", // Giorno 1
-    "Condividi il tuo viaggio", // Giorno 2
-    "Risveglia il tuo corpo", // Giorno 3
-    "Un gesto che cambia tutto", // Giorno 4
-    "Riscopri il piacere di sfogliare", // Giorno 5
-    "Creatività in cucina", // Giorno 6
-    "Parla con te stesso", // Giorno 7
-    "Lascia parlare la creatività", // Giorno 8
-    "Libera spazio digitale", // Giorno 9
-    "Un tuffo nel passato", // Giorno 10
-    "Solo tu e la strada", // Giorno 11
-    "Svuota la mente", // Giorno 12
-    "Espandi i tuoi orizzonti", // Giorno 13
-    "Cosa desideri davvero?", // Giorno 14
-    "Racconta la tua storia", // Giorno 15
-    "Impara qualcosa di nuovo", // Giorno 16
-    "L'universo ti aspetta", // Giorno 17
-    "Un momento di puro relax", // Giorno 18
-    "Cosa ti frulla in testa?", // Giorno 19
-    "Chi sei veramente?", // Giorno 20
-    "Crea la tua colonna sonora", // Giorno 21
-    "Respira e rilassati", // Giorno 22
-    "Gustare il momento", // Giorno 23
-    "Via il superfluo", // Giorno 24
-    "Il perfetto buongiorno", // Giorno 25
-    "Avventura dietro l'angolo", // Giorno 26
-    "Il tuo spazio perfetto", // Giorno 27
-    "Le gioie di oggi", // Giorno 28
-    "Obiettivi chiari e concreti", // Giorno 29
-    "Visualizza il tuo futuro" // Giorno 30
+    "Inizia il tuo cambiamento", // Giorno 1
+    "Connettiti con chi conta", // Giorno 2
+    "Energia pura per la tua giornata", // Giorno 3
+    "Un piccolo gesto, grande impatto", // Giorno 4
+    "Ritrova la bellezza nell'attesa", // Giorno 5
+    "Sperimenta qualcosa di nuovo", // Giorno 6
+    "Dialoga con il tuo io più profondo", // Giorno 7
+    "Libera la tua creatività nascosta", // Giorno 8
+    "Fai spazio a ciò che conta", // Giorno 9
+    "Viaggia nei tuoi ricordi", // Giorno 10
+    "Scopri il mondo che ti circonda", // Giorno 11
+    "Dai voce ai tuoi pensieri", // Giorno 12
+    "Amplia i tuoi orizzonti", // Giorno 13
+    "Sogna in grande", // Giorno 14
+    "Condividi la tua esperienza", // Giorno 15
+    "Nutre la tua curiosità", // Giorno 16
+    "Contempla l'infinito", // Giorno 17
+    "Crea il tuo momento perfetto", // Giorno 18
+    "Lascia fluire i pensieri", // Giorno 19
+    "Racconta la tua storia", // Giorno 20
+    "Costruisci il tuo soundtrack", // Giorno 21
+    "Trova la tua pace interiore", // Giorno 22
+    "Assapora ogni momento", // Giorno 23
+    "Elimina ciò che non serve", // Giorno 24
+    "Progetta la giornata perfetta", // Giorno 25
+    "Esplora nuovi territori", // Giorno 26
+    "Crea il tuo ambiente ideale", // Giorno 27
+    "Celebra le piccole vittorie", // Giorno 28
+    "Definisci i tuoi traguardi", // Giorno 29
+    "Immagina il tuo futuro" // Giorno 30
   ];
   
   return claims[day - 1] || "Inizia il tuo cambiamento";
