@@ -3,15 +3,15 @@ import { ChallengeDay } from "../types";
 export const challenges: ChallengeDay[] = [
   {
     day: 1,
-    title: "Chiama un amico",
-    description: "Telefona a un amico e raccontagli di questa sfida che stai iniziando. Condividi le tue motivazioni e chiedigli supporto nel percorso.",
-    timeRequired: 15
-  },
-  {
-    day: 2,
     title: "Cassetto Zen",
     description: "Riordina un cassetto disordinato. Trova almeno 1 cosa da eliminare o donare. Un piccolo spazio che diventerà simbolo di un nuovo inizio.",
     timeRequired: 10
+  },
+  {
+    day: 2,
+    title: "Chiama un amico",
+    description: "Telefona a un amico e raccontagli di questa sfida che stai iniziando. Condividi le tue motivazioni e chiedigli supporto nel percorso.",
+    timeRequired: 15
   },
   {
     day: 3,
