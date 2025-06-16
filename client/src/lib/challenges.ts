@@ -105,8 +105,8 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 18,
-    title: "Pianifica un weekend perfetto",
-    description: "Progetta nei dettagli come vorresti trascorrere il prossimo fine settimana. Include attività che ti fanno stare bene.",
+    title: "Prepara un tè e ascolta musica",
+    description: "Scegli il tuo tè preferito, preparalo con cura e ascolta 3 canzoni che ti rilassano. Concentrati solo su sapori e melodie.",
     timeRequired: 15
   },
   {
@@ -129,9 +129,9 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 22,
-    title: "Pratica stretching",
-    description: "Dedica 15 minuti ad allungare tutto il corpo. Concentrati sulle zone più tese e respira profondamente ad ogni movimento.",
-    timeRequired: 15
+    title: "Fai 20 respiri profondi",
+    description: "Siediti comodamente e fai 20 respiri lenti e profondi. Conta ogni inspirazione ed espirazione, concentrandoti solo sul ritmo.",
+    timeRequired: 10
   },
   {
     day: 23,
@@ -165,9 +165,9 @@ export const challenges: ChallengeDay[] = [
   },
   {
     day: 28,
-    title: "Crea un backup digitale",
-    description: "Salva le foto e i file importanti in un posto sicuro. Elimina i duplicati e organizza tutto in cartelle logiche.",
-    timeRequired: 20
+    title: "Scrivi 3 cose positive di oggi",
+    description: "Prima di dormire, scrivi 3 eventi positivi della giornata, anche piccoli. Descrivi perché ti hanno fatto stare bene.",
+    timeRequired: 10
   },
   {
     day: 29,
