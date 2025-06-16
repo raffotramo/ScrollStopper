@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChevronRight, Lock } from 'lucide-react';
 import { ChallengeDay } from '../types';
+import { getActivityClaim } from '../lib/challenges';
 
 interface DailyChallengeProps {
   challenge: ChallengeDay;
@@ -54,6 +55,9 @@ const DailyChallenge: React.FC<DailyChallengeProps> = ({ challenge, status, onCl
           <h3 className={`font-medium mt-1 ${
             status === 'locked' ? 'text-muted-foreground' : 'text-foreground'
           }`}>{challenge.title}</h3>
+          <p className={`text-sm mt-1 ${
+            status === 'locked' ? 'text-muted-foreground/70' : 'text-muted-foreground'
+          }`}>{getActivityClaim(challenge.day)}</p>
         </div>
         <button 
           className={`${

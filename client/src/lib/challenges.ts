@@ -189,6 +189,44 @@ export const getTodaysChallenge = (currentDay: number): ChallengeDay => {
   return challenges[safeDayIndex];
 };
 
+// Claim coinvolgenti per le schede attività
+export const getActivityClaim = (day: number): string => {
+  const claims = [
+    "Il primo passo verso il cambiamento", // Giorno 1
+    "Condividi il tuo viaggio", // Giorno 2
+    "Risveglia il tuo corpo", // Giorno 3
+    "Un gesto che cambia tutto", // Giorno 4
+    "Riscopri il piacere di sfogliare", // Giorno 5
+    "Creatività in cucina", // Giorno 6
+    "Parla con te stesso", // Giorno 7
+    "Lascia parlare la creatività", // Giorno 8
+    "Libera spazio digitale", // Giorno 9
+    "Un tuffo nel passato", // Giorno 10
+    "Solo tu e la strada", // Giorno 11
+    "Svuota la mente", // Giorno 12
+    "Espandi i tuoi orizzonti", // Giorno 13
+    "Cosa desideri davvero?", // Giorno 14
+    "Racconta la tua storia", // Giorno 15
+    "Impara qualcosa di nuovo", // Giorno 16
+    "L'universo ti aspetta", // Giorno 17
+    "Un momento di puro relax", // Giorno 18
+    "Cosa ti frulla in testa?", // Giorno 19
+    "Chi sei veramente?", // Giorno 20
+    "Crea la tua colonna sonora", // Giorno 21
+    "Respira e rilassati", // Giorno 22
+    "Gustare il momento", // Giorno 23
+    "Via il superfluo", // Giorno 24
+    "Il perfetto buongiorno", // Giorno 25
+    "Avventura dietro l'angolo", // Giorno 26
+    "Il tuo spazio perfetto", // Giorno 27
+    "Le gioie di oggi", // Giorno 28
+    "Obiettivi chiari e concreti", // Giorno 29
+    "Visualizza il tuo futuro" // Giorno 30
+  ];
+  
+  return claims[day - 1] || "Inizia il tuo cambiamento";
+};
+
 export const getDailyTip = (day: number): string => {
   const tips = [
     "Inizia la giornata senza guardare subito il telefono. Aspetta almeno 30 minuti dopo il risveglio.",
