@@ -80,7 +80,7 @@ const Achievements: React.FC = () => {
       pointsToNextLevel: pointsToNext,
       achievements: updatedAchievements
     });
-  }, [progress, setUserStats, toast]);
+  }, [progress, toast]);
 
   return (
     <div className="min-h-screen bg-[#eeeded] pb-20">

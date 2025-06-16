@@ -4,61 +4,61 @@ export const challenges: ChallengeDay[] = [
   {
     day: 1,
     title: "Passeggiata Detox",
-    description: "Scopri cosa succede quando esci senza il tuo compagno digitale. Un'esperienza che cambierà la tua prospettiva.",
+    description: "Cammina attorno a casa o all'isolato senza telefono. Solo cammino, respiro e osservazione. Scopri cosa succede quando esci senza il tuo compagno digitale.",
     timeRequired: 10
   },
   {
     day: 2,
     title: "Cassetto Zen",
-    description: "Un piccolo spazio nascosto della tua casa diventerà il simbolo di un nuovo inizio. Pronto alla trasformazione?",
+    description: "Riordina un cassetto disordinato. Trova almeno 1 cosa da eliminare o donare. Un piccolo spazio che diventerà simbolo di un nuovo inizio.",
     timeRequired: 10
   },
   {
     day: 3,
     title: "Pensiero Libero",
-    description: "Dai voce ai pensieri che ronzano nella tua testa. Un esercizio liberatorio che ti sorprenderà.",
+    description: "Scrivi un pensiero che ti gira in testa. Non giudicare, lascia uscire ciò che c'è. Dai voce ai pensieri che ronzano nella tua mente.",
     timeRequired: 10
   },
   {
     day: 4,
     title: "Snack Consapevole",
-    description: "Riscopri il piacere autentico del cibo attraverso un approccio che hai dimenticato di avere.",
+    description: "Prepara uno snack sano e gustalo lentamente, prestando attenzione a ogni sapore. Riscopri il piacere autentico del cibo.",
     timeRequired: 10
   },
   {
     day: 5,
     title: "Sfoglia & Inspira",
-    description: "Torna al piacere della scoperta casuale. Un momento di pura ispirazione ti aspetta.",
+    description: "Prendi un libro o una rivista e sfoglialo per il gusto di farlo. Nessuna meta, solo ispirazione. Torna al piacere della scoperta casuale.",
     timeRequired: 10
   },
   {
     day: 6,
     title: "Mini Meditazione",
-    description: "Un viaggio verso l'interno che richiede solo 10 minuti ma può cambiare l'intera giornata.",
+    description: "Ascolta una meditazione guidata offline oppure medita in silenzio. Concentrati sul respiro. Un viaggio verso l'interno che può cambiare l'intera giornata.",
     timeRequired: 10
   },
   {
     day: 7,
     title: "Lettera a Me",
-    description: "Scrivi al te stesso del futuro o del passato. Un dialogo intimo che rivelerà cose inaspettate.",
+    description: "Scrivi una lettera al tuo io futuro o passato. Racconta come ti senti oggi. Un dialogo intimo che rivelerà cose inaspettate.",
     timeRequired: 10
   },
   {
     day: 8,
     title: "Routine Viso",
-    description: "Trasforma un gesto quotidiano in un rituale di cura personale. Scopri il potere del presente.",
+    description: "Lavati il viso, applica la crema e massaggia con cura. Trasforma il gesto in un rituale. Scopri il potere del presente.",
     timeRequired: 10
   },
   {
     day: 9,
     title: "Pulizia Digitale",
-    description: "Libera spazio nella tua vita digitale e scopri quanto peso stavi portando senza accorgertene.",
+    description: "Cancella 10 file, foto o app inutili dal telefono o dal computer. Libera spazio nella vita digitale e scopri quanto peso portavi.",
     timeRequired: 10
   },
   {
     day: 10,
     title: "Flash Workout",
-    description: "Riconnettiti al tuo corpo con un'energia esplosiva. Bastano pochi movimenti per sentirti rinato.",
+    description: "Fai 5 esercizi fisici a corpo libero (squat, plank, jumping jack…) per riattivarti. Riconnettiti al corpo con energia esplosiva.",
     timeRequired: 10
   },
   {
