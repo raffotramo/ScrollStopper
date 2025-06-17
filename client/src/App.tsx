@@ -23,14 +23,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
-  const [userProfile] = useLocalStorage<any>('digital-detox-profile', {
-    name: 'Utente Premium',
-    age: '30',
-    screenTime: '3-4 ore',
-    isPremium: true,
-    purchaseDate: new Date().toISOString(),
-    isTrialActive: false
-  });
+  const [userProfile] = useLocalStorage<any>('digital-detox-profile', null);
   const [location] = useLocation();
 
   // Mostra caricamento durante verifica autenticazione
