@@ -74,7 +74,7 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
           </div>
 
           {/* Versione Premium */}
-          <div className="bg-card rounded-2xl shadow-lg p-6 border-2 border-primary transform scale-105 relative">
+          <div className="bg-card rounded-2xl shadow-lg p-6 border-2 border-primary relative">
             {/* Badge "Più Popolare" */}
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
               <span className="bg-primary text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg">
