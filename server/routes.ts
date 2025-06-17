@@ -39,24 +39,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth routes
   app.post("/api/auth/signup", async (req: any, res) => {
     try {
-      const { username, password } = insertUserSchema.parse(req.body);
+      const { email, password, username } = insertUserSchema.parse(req.body);
       
       // Check if user exists
-      const existingUser = await storage.getUserByUsername(username);
+      const existingUser = await storage.getUserByEmail(email);
       if (existingUser) {
-        return res.status(400).json({ error: 'Username already exists' });
+        return res.status(400).json({ error: 'Email già registrata' });
       }
 
       // Hash password and create user
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await storage.createUser({
-        username,
-        password: hashedPassword
+        email,
+        password: hashedPassword,
+        username: username || email.split('@')[0] // Use email prefix as default username
       });
 
       // Set session
       req.session.userId = user.id;
-      res.json({ success: true, user: { id: user.id, username: user.username } });
+      res.json({ 
+        success: true, 
+        user: { 
+          id: user.id, 
+          email: user.email, 
+          username: user.username 
+        } 
+      });
     } catch (error) {
       console.error("Signup error:", error);
       res.status(400).json({ error: 'Failed to create account' });
@@ -65,23 +73,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/auth/login", async (req: any, res) => {
     try {
-      const { username, password } = insertUserSchema.parse(req.body);
+      const { email, password } = req.body;
       
       // Find user
-      const user = await storage.getUserByUsername(username);
+      const user = await storage.getUserByEmail(email);
       if (!user) {
-        return res.status(400).json({ error: 'Invalid credentials' });
+        return res.status(400).json({ error: 'Credenziali non valide' });
       }
 
       // Check password
       const validPassword = await bcrypt.compare(password, user.password);
       if (!validPassword) {
-        return res.status(400).json({ error: 'Invalid credentials' });
+        return res.status(400).json({ error: 'Credenziali non valide' });
       }
 
       // Set session
       req.session.userId = user.id;
-      res.json({ success: true, user: { id: user.id, username: user.username } });
+      res.json({ 
+        success: true, 
+        user: { 
+          id: user.id, 
+          email: user.email, 
+          username: user.username 
+        } 
+      });
     } catch (error) {
       console.error("Login error:", error);
       res.status(400).json({ error: 'Login failed' });

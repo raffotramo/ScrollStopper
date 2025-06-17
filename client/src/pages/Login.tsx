@@ -12,8 +12,9 @@ import { useLocation } from 'wouter';
 import { Zap } from 'lucide-react';
 
 const loginSchema = z.object({
-  username: z.string().min(3, 'Username deve essere almeno 3 caratteri'),
+  email: z.string().email('Email non valida'),
   password: z.string().min(6, 'Password deve essere almeno 6 caratteri'),
+  username: z.string().optional(),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -80,17 +81,34 @@ const Login: React.FC = () => {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
-                id="username"
-                type="text"
-                {...register('username')}
+                id="email"
+                type="email"
+                {...register('email')}
                 disabled={isLoading}
+                placeholder="tuo@email.com"
               />
-              {errors.username && (
-                <p className="text-sm text-destructive mt-1">{errors.username.message}</p>
+              {errors.email && (
+                <p className="text-sm text-destructive mt-1">{errors.email.message}</p>
               )}
             </div>
+            
+            {showSignup && (
+              <div>
+                <Label htmlFor="username">Nome utente (opzionale)</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  {...register('username')}
+                  disabled={isLoading}
+                  placeholder="Il tuo nome"
+                />
+                {errors.username && (
+                  <p className="text-sm text-destructive mt-1">{errors.username.message}</p>
+                )}
+              </div>
+            )}
             
             <div>
               <Label htmlFor="password">Password</Label>
