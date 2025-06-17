@@ -354,6 +354,7 @@ const Onboarding: React.FC = () => {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
+                              <SelectItem value="<1 ora">Meno di 1 ora al giorno</SelectItem>
                               <SelectItem value="1-2 ore">1-2 ore al giorno</SelectItem>
                               <SelectItem value="3-4 ore">3-4 ore al giorno</SelectItem>
                               <SelectItem value="5+ ore">5+ ore al giorno</SelectItem>
