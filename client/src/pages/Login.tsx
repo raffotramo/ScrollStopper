@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { apiRequest } from '@/lib/queryClient';
+import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useLocation } from 'wouter';
 import { Zap } from 'lucide-react';
 
@@ -40,7 +40,13 @@ const Login: React.FC = () => {
           title: showSignup ? "Account creato!" : "Login effettuato!",
           description: showSignup ? "Benvenuto in ScrollStop" : "Bentornato!",
         });
-        setLocation('/');
+        
+        // Invalida la cache di autenticazione e reindirizza
+        await queryClient.invalidateQueries({ queryKey: ['/api/auth/user'] });
+        
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 500);
       } else {
         const error = await response.text();
         toast({
