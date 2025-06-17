@@ -1,8 +1,12 @@
 import React from 'react';
-import { Clock, Award, BookOpen, CalendarDays, BarChart, User } from 'lucide-react';
+import { Clock, Award, BookOpen, CalendarDays, BarChart, User, LogOut } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { useAuth } from '@/hooks/useAuth';
+import { apiRequest } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
 import { DayProgress } from '@/types';
 
 const Profile: React.FC = () => {

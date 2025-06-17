@@ -5,6 +5,13 @@ import { storage } from "./storage";
 import bcrypt from "bcryptjs";
 import session from "express-session";
 
+// Type declaration for session
+declare module 'express-session' {
+  interface SessionData {
+    userId: number;
+  }
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 import { insertChallengeProgressSchema, insertUserStatsSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
@@ -30,7 +37,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   };
 
   // Auth routes
-  app.post("/api/auth/signup", async (req, res) => {
+  app.post("/api/auth/signup", async (req: any, res) => {
     try {
       const { username, password } = insertUserSchema.parse(req.body);
       
@@ -56,7 +63,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/auth/login", async (req, res) => {
+  app.post("/api/auth/login", async (req: any, res) => {
     try {
       const { username, password } = insertUserSchema.parse(req.body);
       

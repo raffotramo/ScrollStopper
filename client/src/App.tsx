@@ -13,11 +13,14 @@ import Profile from "@/pages/Profile";
 import Progress from "@/pages/Progress";
 import Achievements from "@/pages/Achievements";
 import Onboarding from "@/pages/Onboarding";
+import Login from "@/pages/Login";
 import TrialGuard from "@/components/TrialGuard";
 import AntiScrollingSystem from "@/components/AntiScrollingSystem";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { useAuth } from "@/hooks/useAuth";
 
 function Router() {
+  const { isAuthenticated, isLoading } = useAuth();
   const [userProfile] = useLocalStorage<any>('digital-detox-profile', {
     name: 'Utente Premium',
     age: '30',
@@ -27,8 +30,22 @@ function Router() {
     isTrialActive: false
   });
   const [location] = useLocation();
+
+  // Mostra caricamento durante verifica autenticazione
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
+      </div>
+    );
+  }
+
+  // Se non autenticato, mostra login
+  if (!isAuthenticated) {
+    return <Login />;
+  }
   
-  // Se non c'è un profilo e non siamo già in onboarding, mostra onboarding
+  // Se autenticato ma non c'è un profilo e non siamo già in onboarding, mostra onboarding
   if (!userProfile && location !== '/onboarding') {
     return <Onboarding />;
   }
