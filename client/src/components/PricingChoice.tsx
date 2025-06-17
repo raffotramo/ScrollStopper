@@ -84,27 +84,27 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
             
             <div className="flex justify-between items-start mb-4">
               <div>
-                <div className="flex items-center">
-                  <span className="font-bold text-primary mr-2 text-lg">Versione Premium</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600 line-through">
-                      €29,90
-                    </span>
-                    <span className="text-sm px-3 py-1 rounded-full bg-primary/15 text-primary font-bold">
-                      €14,90
-                    </span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <span className="font-bold text-primary mr-2 text-lg">Versione Premium</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600 line-through">
+                        €29,90
+                      </span>
+                      <span className="text-sm px-3 py-1 rounded-full bg-primary/15 text-primary font-bold">
+                        €14,90
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <h3 className="font-semibold mt-2 text-foreground text-lg">Accesso illimitato per sempre</h3>
+                <h3 className="font-semibold text-foreground text-lg">Accesso illimitato per sempre</h3>
               </div>
               <Crown className="w-6 h-6 text-primary" />
             </div>
             
             {/* Badge sconto prominente */}
             <div className="mb-6 p-4 bg-gradient-to-r from-green-50 to-primary/5 border border-green-200 rounded-xl">
-              <p className="text-base text-green-700 font-bold text-center">
-                Dacci fiducia e attivala subito - Sconto 50%
-              </p>
+              <p className="text-base text-green-700 font-bold text-center">Dacci fiducia e attivala subito - Sconto 50%</p>
             </div>
             
             <div className="space-y-3 mb-6">
@@ -134,13 +134,9 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
               onClick={onPremiumSelect}
               className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base h-12"
               size="lg"
-            >
-              Sblocca Versione Premium
-            </Button>
+            >Sblocca Versione Premium</Button>
             
-            <p className="text-sm text-muted-foreground text-center mt-3">
-              Pagamento sicuro con Stripe
-            </p>
+            <p className="text-sm text-muted-foreground text-center mt-3">Pagamento sicuro con Stripe</p>
           </div>
         </div>
       </div>
