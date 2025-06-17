@@ -4,6 +4,7 @@ import Stripe from "stripe";
 import { storage } from "./storage";
 import bcrypt from "bcryptjs";
 import session from "express-session";
+import { handleShopifyCustomerCreated, handleShopifyOrderCreated, importShopifyCustomers } from "./shopify";
 
 // Type declaration for session
 declare module 'express-session' {
@@ -267,6 +268,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(stats);
     } catch (error) {
       res.status(400).json({ message: "Failed to update user stats" });
+    }
+  });
+
+  // Shopify Webhook Routes
+  app.post("/api/shopify/webhooks/customers/create", async (req, res) => {
+    try {
+      const customer = req.body;
+      await handleShopifyCustomerCreated(customer);
+      res.status(200).json({ success: true });
+    } catch (error) {
+      console.error("Shopify customer webhook error:", error);
+      res.status(500).json({ error: "Failed to process customer" });
+    }
+  });
+
+  app.post("/api/shopify/webhooks/orders/create", async (req, res) => {
+    try {
+      const orderData = req.body;
+      await handleShopifyOrderCreated(orderData);
+      res.status(200).json({ success: true });
+    } catch (error) {
+      console.error("Shopify order webhook error:", error);
+      res.status(500).json({ error: "Failed to process order" });
+    }
+  });
+
+  // Shopify Integration Management
+  app.post("/api/shopify/import", requireAuth, async (req: any, res) => {
+    try {
+      const { shopifyApiKey, shopUrl } = req.body;
+      if (!shopifyApiKey || !shopUrl) {
+        return res.status(400).json({ error: "API key and shop URL required" });
+      }
+
+      const result = await importShopifyCustomers(shopifyApiKey, shopUrl);
+      res.json(result);
+    } catch (error) {
+      console.error("Shopify import error:", error);
+      res.status(500).json({ error: "Failed to import customers" });
     }
   });
 

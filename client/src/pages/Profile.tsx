@@ -1,6 +1,7 @@
 import React from 'react';
-import { Clock, Award, BookOpen, CalendarDays, BarChart, User, LogOut } from 'lucide-react';
+import { Clock, Award, BookOpen, CalendarDays, BarChart, User, LogOut, Store } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'wouter';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
