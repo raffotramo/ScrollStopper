@@ -5,6 +5,7 @@ import { storage } from "./storage";
 import bcrypt from "bcryptjs";
 import session from "express-session";
 import { handleShopifyCustomerCreated, handleShopifyOrderCreated, importShopifyCustomers } from "./shopify";
+import { sendRegistrationConfirmationEmail } from "./emailService";
 
 // Type declaration for session
 declare module 'express-session' {
@@ -58,6 +59,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Set session
       req.session.userId = user.id;
+      
+      // Send welcome email
+      await sendRegistrationConfirmationEmail(user.email, user.username || user.email.split('@')[0]);
+      
       res.json({ 
         success: true, 
         user: { 

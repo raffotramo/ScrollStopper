@@ -1,4 +1,6 @@
 import { storage } from "./storage";
+import { sendShopifyWelcomeEmail } from "./emailService";
+import bcrypt from "bcryptjs";
 
 interface ShopifyCustomer {
   id: number;
@@ -29,18 +31,21 @@ export async function handleShopifyCustomerCreated(customerData: ShopifyCustomer
       return existingUser;
     }
 
-    // Crea account ScrollStop automaticamente
+    // Generate temporary password and hash it
+    const tempPassword = generateTempPassword();
+    const hashedPassword = await bcrypt.hash(tempPassword, 10);
     const username = customerData.first_name || customerData.email.split('@')[0];
+    
     const user = await storage.createUser({
       email: customerData.email,
-      password: generateTempPassword(), // Password temporanea
+      password: hashedPassword,
       username
     });
 
     console.log(`Created ScrollStop account for Shopify customer: ${customerData.email}`);
     
-    // Invia email di benvenuto con credenziali di accesso
-    await sendShopifyWelcomeEmail(user, customerData);
+    // Send welcome email with credentials
+    await sendShopifyWelcomeEmail(customerData.email, tempPassword, username);
     
     return user;
   } catch (error) {
@@ -84,11 +89,7 @@ async function activatePremiumForUser(userId: number) {
   console.log(`Activated premium for user ${userId}`);
 }
 
-// Invia email di benvenuto ai clienti Shopify
-async function sendShopifyWelcomeEmail(user: any, shopifyCustomer: ShopifyCustomer) {
-  console.log(`Welcome email sent to ${user.email} from Shopify integration`);
-  // L'implementazione dell'email sarà completata quando avremo SendGrid
-}
+// Email di benvenuto gestita dal servizio email esterno
 
 // Importa clienti esistenti da Shopify
 export async function importShopifyCustomers(shopifyApiKey: string, shopUrl: string) {

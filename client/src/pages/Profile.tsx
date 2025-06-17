@@ -78,15 +78,22 @@ const Profile: React.FC = () => {
           <p className="text-muted-foreground text-sm">{user?.email}</p>
           <p className="text-muted-foreground text-xs mt-1">ScrollStop Challenge</p>
           
-          <Button 
-            onClick={handleLogout}
-            variant="outline" 
-            size="sm"
-            className="mt-3"
-          >
-            <LogOut className="w-4 h-4 mr-2" />
-            Esci
-          </Button>
+          <div className="flex gap-2 mt-3">
+            <Link href="/shopify">
+              <Button variant="outline" size="sm">
+                <Store className="w-4 h-4 mr-2" />
+                Shopify
+              </Button>
+            </Link>
+            <Button 
+              onClick={handleLogout}
+              variant="outline" 
+              size="sm"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Esci
+            </Button>
+          </div>
           
           <div className="mt-4 py-4 px-6 bg-background border border-border/30 rounded-xl mx-auto max-w-xs">
             <div className="flex justify-between items-center">
