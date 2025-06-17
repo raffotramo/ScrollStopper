@@ -17,13 +17,14 @@ import Login from "@/pages/Login";
 import ShopifyIntegration from "@/pages/ShopifyIntegration";
 import EmailConfig from "@/pages/EmailConfig";
 import TrialGuard from "@/components/TrialGuard";
+import PricingChoice from "@/components/PricingChoice";
 import AntiScrollingSystem from "@/components/AntiScrollingSystem";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
-  const [userProfile] = useLocalStorage<any>('digital-detox-profile', null);
+  const [userProfile, setUserProfile] = useLocalStorage<any>('digital-detox-profile', null);
   const [location] = useLocation();
 
   // Mostra caricamento durante verifica autenticazione
@@ -43,6 +44,28 @@ function Router() {
   // Se autenticato ma non c'è un profilo e non siamo già in onboarding, mostra onboarding
   if (!userProfile && location !== '/onboarding') {
     return <Onboarding />;
+  }
+
+  // Per debug: vai direttamente al pricing
+  if (location === '/pricing-test') {
+    return (
+      <PricingChoice
+        onTrialSelect={() => {
+          setUserProfile({
+            name: 'Test User',
+            age: '30',
+            screenTime: '1-2 ore',
+            trialStartDate: new Date().toISOString(),
+            isTrialActive: true,
+            isPremium: false
+          });
+          window.location.href = '/';
+        }}
+        onPremiumSelect={() => {
+          console.log('Premium selected');
+        }}
+      />
+    );
   }
 
   return (
