@@ -12,14 +12,18 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
   return (
     <div className="min-h-screen bg-[#eeeded] flex items-center justify-center p-4">
       <div className="w-full max-w-4xl">
-        <div className="text-center mb-8">
-          <h1 className="text-xl font-bold text-black mb-2">
-            Scegli la tua versione di ScrollStop
+        <section className="text-center mb-8">
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Crown className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-2xl font-bold text-primary mb-2">
+            Scegli la tua versione
           </h1>
-          <p className="text-gray-700">
+          <p className="text-muted-foreground">
             Inizia il tuo percorso di digital detox oggi stesso
           </p>
-        </div>
+          <div className="w-20 h-1 bg-primary rounded-full mx-auto mt-4"></div>
+        </section>
 
         <div className="grid md:grid-cols-2 gap-4 mx-4">
           {/* Prova Gratuita */}
