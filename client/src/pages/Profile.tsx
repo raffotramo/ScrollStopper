@@ -10,7 +10,26 @@ import { useToast } from '@/hooks/use-toast';
 import { DayProgress } from '@/types';
 
 const Profile: React.FC = () => {
+  const { user } = useAuth();
+  const { toast } = useToast();
   const [progress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
+
+  const handleLogout = async () => {
+    try {
+      await apiRequest('POST', '/api/auth/logout', {});
+      toast({
+        title: "Logout effettuato",
+        description: "A presto!",
+      });
+      window.location.reload(); // Forza il refresh per aggiornare lo stato di autenticazione
+    } catch (error) {
+      toast({
+        title: "Errore",
+        description: "Problema durante il logout",
+        variant: "destructive",
+      });
+    }
+  };
   
   // Calculate stats based on actual time spent
   const completedDays = progress.filter(day => day.completed).length;
@@ -52,10 +71,20 @@ const Profile: React.FC = () => {
         {/* Profile Header */}
         <section className="bg-card border border-border/30 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] mx-4 my-4 p-6 text-center">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 text-primary mb-3">
-            <Award className="h-10 w-10" />
+            <User className="h-10 w-10" />
           </div>
-          <h2 className="text-xl font-bold text-foreground mb-1">Digital Detox</h2>
-          <p className="text-muted-foreground">Sfida di 30 giorni</p>
+          <h2 className="text-xl font-bold text-foreground mb-1">{user?.username || 'Utente'}</h2>
+          <p className="text-muted-foreground">ScrollStop Challenge</p>
+          
+          <Button 
+            onClick={handleLogout}
+            variant="outline" 
+            size="sm"
+            className="mt-3"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Esci
+          </Button>
           
           <div className="mt-4 py-4 px-6 bg-background border border-border/30 rounded-xl mx-auto max-w-xs">
             <div className="flex justify-between items-center">
