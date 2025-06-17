@@ -75,11 +75,17 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
               <div>
                 <div className="flex items-center">
                   <span className="font-bold text-primary mr-2">Versione Premium</span>
-                  <span className="text-xs px-2 py-1 rounded-full bg-primary/15 text-primary">
-                    €14,90
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600 line-through">
+                      €29,90
+                    </span>
+                    <span className="text-xs px-2 py-1 rounded-full bg-primary/15 text-primary font-bold">
+                      €14,90
+                    </span>
+                  </div>
                 </div>
                 <h3 className="font-medium mt-1 text-foreground">Accesso illimitato per sempre</h3>
+                <p className="text-xs text-green-600 font-medium mt-1">50% di sconto - Solo oggi!</p>
               </div>
               <Crown className="w-5 h-5 text-primary" />
             </div>
