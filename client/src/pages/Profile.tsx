@@ -32,17 +32,31 @@ const Profile: React.FC = () => {
     }
   };
 
-  const handleResetOnboarding = () => {
-    localStorage.removeItem('digital-detox-profile');
-    localStorage.removeItem('digital-detox-progress');
-    localStorage.removeItem('temp-onboarding-data');
-    toast({
-      title: "Profilo resettato",
-      description: "Riavvia l'app per rifare l'onboarding",
-    });
-    setTimeout(() => {
-      window.location.href = '/';
-    }, 1000);
+  const handleResetOnboarding = async () => {
+    try {
+      // Reset dati server
+      await apiRequest('POST', '/api/auth/reset-profile', {});
+      
+      // Reset dati locali
+      localStorage.removeItem('digital-detox-profile');
+      localStorage.removeItem('digital-detox-progress');
+      localStorage.removeItem('temp-onboarding-data');
+      
+      toast({
+        title: "Profilo resettato",
+        description: "Riavvia per rifare l'onboarding",
+      });
+      
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
+    } catch (error) {
+      toast({
+        title: "Errore",
+        description: "Problema durante il reset",
+        variant: "destructive",
+      });
+    }
   };
   
   // Calculate stats based on actual time spent

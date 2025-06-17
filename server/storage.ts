@@ -19,6 +19,9 @@ export interface IStorage {
   // User stats methods
   getUserStats(userId: number): Promise<UserStats | undefined>;
   updateUserStats(stats: Partial<UserStats> & { userId: number }): Promise<UserStats>;
+  
+  // Reset methods
+  resetUserData(userId: number): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -136,6 +139,20 @@ export class MemStorage implements IStorage {
     
     this.userStatsMap.set(statsUpdate.userId, updatedStats);
     return updatedStats;
+  }
+
+  async resetUserData(userId: number): Promise<void> {
+    // Remove all challenge progress for this user
+    const keysToRemove: string[] = [];
+    this.challengeProgressMap.forEach((progress, key) => {
+      if (progress.userId === userId) {
+        keysToRemove.push(key);
+      }
+    });
+    keysToRemove.forEach(key => this.challengeProgressMap.delete(key));
+    
+    // Remove user stats
+    this.userStatsMap.delete(userId);
   }
 }
 

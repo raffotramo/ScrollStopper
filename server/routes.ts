@@ -118,6 +118,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Reset user profile data
+  app.post("/api/auth/reset-profile", async (req: any, res) => {
+    if (!req.session.userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    try {
+      await storage.resetUserData(req.session.userId);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Error resetting user data:', error);
+      res.status(500).json({ error: 'Reset failed' });
+    }
+  });
+
   app.get("/api/auth/user", (req: any, res) => {
     if (!req.session.userId) {
       return res.status(401).json({ error: 'Not authenticated' });
