@@ -85,9 +85,15 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
                   </div>
                 </div>
                 <h3 className="font-medium mt-1 text-foreground">Accesso illimitato per sempre</h3>
-                <p className="text-xs text-green-600 font-medium mt-1">Dacci fiducia e attivala subito</p>
               </div>
               <Crown className="w-5 h-5 text-primary" />
+            </div>
+            
+            {/* Badge sconto prominente */}
+            <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-sm text-green-700 font-bold text-center">
+                🚀 Dacci fiducia e attivala subito - Sconto 50%
+              </p>
             </div>
             
             <div className="space-y-2 mb-4">
