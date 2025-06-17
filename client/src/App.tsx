@@ -15,6 +15,7 @@ import Achievements from "@/pages/Achievements";
 import Onboarding from "@/pages/Onboarding";
 import Login from "@/pages/Login";
 import ShopifyIntegration from "@/pages/ShopifyIntegration";
+import EmailConfig from "@/pages/EmailConfig";
 import TrialGuard from "@/components/TrialGuard";
 import AntiScrollingSystem from "@/components/AntiScrollingSystem";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -62,6 +63,7 @@ function Router() {
       <Route path="/achievements" component={Achievements} />
       <Route path="/profile" component={Profile} />
       <Route path="/shopify" component={ShopifyIntegration} />
+      <Route path="/email" component={EmailConfig} />
       <Route component={NotFound} />
     </Switch>
   );

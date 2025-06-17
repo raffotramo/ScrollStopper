@@ -88,9 +88,11 @@ Il team ScrollStop
       const sgMail = require('@sendgrid/mail');
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
       
+      const fromEmail = process.env.SENDGRID_FROM_EMAIL || 'noreply@scrollstop.app';
+      
       await sgMail.send({
         to: emailData.to,
-        from: 'noreply@scrollstop.app', // Configura il tuo dominio verificato
+        from: fromEmail, // Configurabile tramite variabile ambiente
         subject: emailData.subject,
         text: emailData.text,
         html: emailData.html
@@ -188,9 +190,11 @@ Il team ScrollStop
       const sgMail = require('@sendgrid/mail');
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
       
+      const fromEmail = process.env.SENDGRID_FROM_EMAIL || 'noreply@scrollstop.app';
+      
       await sgMail.send({
         to: emailData.to,
-        from: 'noreply@scrollstop.app',
+        from: fromEmail,
         subject: emailData.subject,
         text: emailData.text,
         html: emailData.html

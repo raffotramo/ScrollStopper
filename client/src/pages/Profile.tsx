@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, Award, BookOpen, CalendarDays, BarChart, User, LogOut, Store } from 'lucide-react';
+import { Clock, Award, BookOpen, CalendarDays, BarChart, User, LogOut, Store, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import TabNavigation from '@/components/TabNavigation';
@@ -78,19 +78,26 @@ const Profile: React.FC = () => {
           <p className="text-muted-foreground text-sm">{user?.email}</p>
           <p className="text-muted-foreground text-xs mt-1">ScrollStop Challenge</p>
           
-          <div className="flex gap-2 mt-3">
+          <div className="grid grid-cols-3 gap-2 mt-3">
             <Link href="/shopify">
-              <Button variant="outline" size="sm">
-                <Store className="w-4 h-4 mr-2" />
+              <Button variant="outline" size="sm" className="w-full">
+                <Store className="w-4 h-4 mr-1" />
                 Shopify
+              </Button>
+            </Link>
+            <Link href="/email">
+              <Button variant="outline" size="sm" className="w-full">
+                <Mail className="w-4 h-4 mr-1" />
+                Email
               </Button>
             </Link>
             <Button 
               onClick={handleLogout}
               variant="outline" 
               size="sm"
+              className="w-full"
             >
-              <LogOut className="w-4 h-4 mr-2" />
+              <LogOut className="w-4 h-4 mr-1" />
               Esci
             </Button>
           </div>
