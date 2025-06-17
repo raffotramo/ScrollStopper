@@ -121,7 +121,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-      res.json({ id: user.id, username: user.username });
+      res.json({ 
+        id: user.id, 
+        email: user.email, 
+        username: user.username 
+      });
     }).catch(error => {
       console.error("Get user error:", error);
       res.status(500).json({ error: 'Failed to get user' });

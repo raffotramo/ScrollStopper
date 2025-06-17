@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 interface User {
   id: number;
-  username: string;
+  email: string;
+  username?: string;
 }
 
 export function useAuth() {

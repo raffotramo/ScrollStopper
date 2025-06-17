@@ -73,8 +73,9 @@ const Profile: React.FC = () => {
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 text-primary mb-3">
             <User className="h-10 w-10" />
           </div>
-          <h2 className="text-xl font-bold text-foreground mb-1">{user?.username || 'Utente'}</h2>
-          <p className="text-muted-foreground">ScrollStop Challenge</p>
+          <h2 className="text-xl font-bold text-foreground mb-1">{user?.username || user?.email?.split('@')[0] || 'Utente'}</h2>
+          <p className="text-muted-foreground text-sm">{user?.email}</p>
+          <p className="text-muted-foreground text-xs mt-1">ScrollStop Challenge</p>
           
           <Button 
             onClick={handleLogout}
