@@ -92,7 +92,7 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
             {/* Badge sconto prominente */}
             <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
               <p className="text-sm text-green-700 font-bold text-center">
-                🚀 Dacci fiducia e attivala subito - Sconto 50%
+                Dacci fiducia e attivala subito - Sconto 50%
               </p>
             </div>
             
