@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, Award, BookOpen, CalendarDays, BarChart, User, LogOut, Store, Mail } from 'lucide-react';
+import { Clock, Award, BookOpen, CalendarDays, BarChart, User, LogOut, Store, Mail, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import TabNavigation from '@/components/TabNavigation';
@@ -30,6 +30,19 @@ const Profile: React.FC = () => {
         variant: "destructive",
       });
     }
+  };
+
+  const handleResetOnboarding = () => {
+    localStorage.removeItem('digital-detox-profile');
+    localStorage.removeItem('digital-detox-progress');
+    localStorage.removeItem('temp-onboarding-data');
+    toast({
+      title: "Profilo resettato",
+      description: "Riavvia l'app per rifare l'onboarding",
+    });
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 1000);
   };
   
   // Calculate stats based on actual time spent
@@ -78,7 +91,7 @@ const Profile: React.FC = () => {
           <p className="text-muted-foreground text-sm">{user?.email}</p>
           <p className="text-muted-foreground text-xs mt-1">ScrollStop Challenge</p>
           
-          <div className="grid grid-cols-3 gap-2 mt-3">
+          <div className="grid grid-cols-2 gap-2 mt-3">
             <Link href="/shopify">
               <Button variant="outline" size="sm" className="w-full">
                 <Store className="w-4 h-4 mr-1" />
@@ -91,6 +104,18 @@ const Profile: React.FC = () => {
                 Email
               </Button>
             </Link>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-2 mt-2">
+            <Button 
+              onClick={handleResetOnboarding}
+              variant="outline" 
+              size="sm"
+              className="w-full"
+            >
+              <RotateCcw className="w-4 h-4 mr-1" />
+              Reset
+            </Button>
             <Button 
               onClick={handleLogout}
               variant="outline" 
