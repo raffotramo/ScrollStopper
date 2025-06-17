@@ -143,10 +143,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get all challenge progress for a user
-  app.get("/api/progress/:userId", async (req, res) => {
+  // Get all challenge progress for current user
+  app.get("/api/progress", requireAuth, async (req: any, res) => {
     try {
-      const userId = parseInt(req.params.userId);
+      const userId = req.session.userId;
       const progress = await storage.getAllChallengeProgress(userId);
       res.json(progress);
     } catch (error) {
@@ -154,10 +154,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get challenge progress for a specific day
-  app.get("/api/progress/:userId/:day", async (req, res) => {
+  // Get challenge progress for a specific day for current user
+  app.get("/api/progress/:day", requireAuth, async (req: any, res) => {
     try {
-      const userId = parseInt(req.params.userId);
+      const userId = req.session.userId;
       const day = parseInt(req.params.day);
       const progress = await storage.getChallengeProgress(userId, day);
       res.json(progress || null);
@@ -166,10 +166,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Save challenge progress
-  app.post("/api/progress", async (req, res) => {
+  // Save challenge progress for current user
+  app.post("/api/progress", requireAuth, async (req: any, res) => {
     try {
-      const progressData = insertChallengeProgressSchema.parse(req.body);
+      const userId = req.session.userId;
+      const progressData = insertChallengeProgressSchema.parse({
+        ...req.body,
+        userId // Override userId with authenticated user
+      });
       const progress = await storage.saveChallengeProgress(progressData);
       
       // If progress includes a reflection, update reflection count
@@ -224,10 +228,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get user stats
-  app.get("/api/stats/:userId", async (req, res) => {
+  // Get user stats for current user
+  app.get("/api/stats", requireAuth, async (req: any, res) => {
     try {
-      const userId = parseInt(req.params.userId);
+      const userId = req.session.userId;
       const stats = await storage.getUserStats(userId);
       res.json(stats || null);
     } catch (error) {
@@ -235,10 +239,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Update user stats
-  app.patch("/api/stats/:userId", async (req, res) => {
+  // Update user stats for current user
+  app.patch("/api/stats", requireAuth, async (req: any, res) => {
     try {
-      const userId = parseInt(req.params.userId);
+      const userId = req.session.userId;
       const statsData = { userId, ...req.body };
       const stats = await storage.updateUserStats(statsData);
       res.json(stats);
