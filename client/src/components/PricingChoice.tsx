@@ -74,50 +74,50 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
           </div>
 
           {/* Versione Premium */}
-          <div className="bg-card rounded-2xl shadow-sm p-4 border border-border border-l-4 border-l-primary">
+          <div className="bg-orange-500 rounded-2xl shadow-sm p-4 border border-orange-600 border-l-4 border-l-orange-700">
             <div className="flex justify-between items-start mb-3">
               <div>
                 <div className="flex items-center">
-                  <span className="font-bold text-primary mr-2">Versione Premium</span>
+                  <span className="font-bold text-white mr-2">Versione Premium</span>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600 line-through">
+                    <span className="text-xs px-2 py-1 rounded-full bg-red-200 text-red-800 line-through">
                       €29,90
                     </span>
-                    <span className="text-xs px-2 py-1 rounded-full bg-primary/15 text-primary font-bold">
+                    <span className="text-xs px-2 py-1 rounded-full bg-white text-orange-600 font-bold">
                       €14,90
                     </span>
                   </div>
                 </div>
-                <h3 className="font-medium mt-1 text-foreground">Accesso illimitato per sempre</h3>
+                <h3 className="font-medium mt-1 text-orange-100">Accesso illimitato per sempre</h3>
               </div>
-              <Crown className="w-5 h-5 text-primary" />
+              <Crown className="w-5 h-5 text-orange-100" />
             </div>
             
             {/* Badge sconto prominente */}
-            <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-sm text-green-700 font-bold text-center">
+            <div className="mb-4 p-3 bg-orange-200 border border-orange-300 rounded-lg">
+              <p className="text-sm text-orange-800 font-bold text-center">
                 Dacci fiducia e attivala subito - Sconto 50%
               </p>
             </div>
             
             <div className="space-y-2 mb-4">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-orange-100">
                 <Star className="w-4 h-4" />
                 <span>Accesso alla sfida completa</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-orange-100">
                 <Star className="w-4 h-4" />
                 <span>Nessun limite di tempo</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-orange-100">
                 <Star className="w-4 h-4" />
                 <span>Strumenti anti scrolling avanzati</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-orange-100">
                 <Star className="w-4 h-4" />
                 <span>Analisi dettagliate di progresso</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-orange-100">
                 <Zap className="w-4 h-4" />
                 <span>Aiuti motivazionali</span>
               </div>
@@ -125,13 +125,13 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
             
             <Button 
               onClick={onPremiumSelect}
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="w-full bg-white hover:bg-orange-50 text-orange-600 hover:text-orange-700 font-bold"
               size="sm"
             >
               Sblocca Versione Premium
             </Button>
             
-            <p className="text-xs text-muted-foreground text-center mt-2">
+            <p className="text-xs text-orange-200 text-center mt-2">
               Pagamento sicuro con Stripe
             </p>
           </div>
