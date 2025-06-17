@@ -74,64 +74,71 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
           </div>
 
           {/* Versione Premium */}
-          <div className="bg-orange-500 rounded-2xl shadow-sm p-4 border border-orange-600 border-l-4 border-l-orange-700">
-            <div className="flex justify-between items-start mb-3">
+          <div className="bg-card rounded-2xl shadow-lg p-6 border-2 border-primary transform scale-105 relative">
+            {/* Badge "Più Popolare" */}
+            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+              <span className="bg-primary text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg">
+                PIÙ POPOLARE
+              </span>
+            </div>
+            
+            <div className="flex justify-between items-start mb-4">
               <div>
                 <div className="flex items-center">
-                  <span className="font-bold text-white mr-2">Versione Premium</span>
+                  <span className="font-bold text-primary mr-2 text-lg">Versione Premium</span>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs px-2 py-1 rounded-full bg-red-200 text-red-800 line-through">
+                    <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600 line-through">
                       €29,90
                     </span>
-                    <span className="text-xs px-2 py-1 rounded-full bg-white text-orange-600 font-bold">
+                    <span className="text-sm px-3 py-1 rounded-full bg-primary/15 text-primary font-bold">
                       €14,90
                     </span>
                   </div>
                 </div>
-                <h3 className="font-medium mt-1 text-orange-100">Accesso illimitato per sempre</h3>
+                <h3 className="font-semibold mt-2 text-foreground text-lg">Accesso illimitato per sempre</h3>
               </div>
-              <Crown className="w-5 h-5 text-orange-100" />
+              <Crown className="w-6 h-6 text-primary" />
             </div>
             
             {/* Badge sconto prominente */}
-            <div className="mb-4 p-3 bg-orange-200 border border-orange-300 rounded-lg">
-              <p className="text-sm text-orange-800 font-bold text-center">
+            <div className="mb-6 p-4 bg-gradient-to-r from-green-50 to-primary/5 border border-green-200 rounded-xl">
+              <p className="text-base text-green-700 font-bold text-center">
                 Dacci fiducia e attivala subito - Sconto 50%
               </p>
             </div>
             
-            <div className="space-y-2 mb-4">
-              <div className="flex items-center gap-2 text-sm text-orange-100">
-                <Star className="w-4 h-4" />
+            <div className="space-y-3 mb-6">
+              <div className="flex items-center gap-3 text-base text-muted-foreground">
+                <Star className="w-5 h-5 text-primary" />
                 <span>Accesso alla sfida completa</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-orange-100">
-                <Star className="w-4 h-4" />
+              <div className="flex items-center gap-3 text-base text-muted-foreground">
+                <Star className="w-5 h-5 text-primary" />
                 <span>Nessun limite di tempo</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-orange-100">
-                <Star className="w-4 h-4" />
+              <div className="flex items-center gap-3 text-base text-muted-foreground">
+                <Star className="w-5 h-5 text-primary" />
                 <span>Strumenti anti scrolling avanzati</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-orange-100">
-                <Star className="w-4 h-4" />
+              <div className="flex items-center gap-3 text-base text-muted-foreground">
+                <Star className="w-5 h-5 text-primary" />
                 <span>Analisi dettagliate di progresso</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-orange-100">
-                <Zap className="w-4 h-4" />
+              <div className="flex items-center gap-3 text-base text-muted-foreground">
+                <Zap className="w-5 h-5 text-primary" />
                 <span>Aiuti motivazionali</span>
               </div>
             </div>
             
             <Button 
               onClick={onPremiumSelect}
-              className="w-full bg-white hover:bg-orange-50 text-orange-600 hover:text-orange-700 font-bold"
-              size="sm"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base h-12"
+              size="lg"
             >
               Sblocca Versione Premium
             </Button>
             
-            <p className="text-xs text-orange-200 text-center mt-2">
+            <p className="text-sm text-muted-foreground text-center mt-3">
               Pagamento sicuro con Stripe
             </p>
           </div>
