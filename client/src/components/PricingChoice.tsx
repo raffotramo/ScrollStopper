@@ -82,29 +82,25 @@ const PricingChoice: React.FC<PricingChoiceProps> = ({ onTrialSelect, onPremiumS
               </span>
             </div>
             
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <span className="font-bold text-primary mr-2 text-lg">Versione Premium</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600 line-through">
-                        €29,90
-                      </span>
-                      <span className="text-sm px-3 py-1 rounded-full bg-primary/15 text-primary font-bold">
-                        €14,90
-                      </span>
-                    </div>
-                  </div>
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex items-center gap-3">
+                <span className="font-bold text-primary text-lg">Versione Premium</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600 line-through">
+                    €29,90
+                  </span>
+                  <span className="text-sm px-3 py-1 rounded-full bg-primary/15 text-primary font-bold">
+                    €14,90
+                  </span>
                 </div>
-                <h3 className="font-semibold text-foreground text-lg">Accesso illimitato per sempre</h3>
               </div>
               <Crown className="w-6 h-6 text-primary" />
             </div>
+            <h3 className="font-semibold text-foreground text-lg mb-4">Accesso illimitato per sempre</h3>
             
             {/* Badge sconto prominente */}
-            <div className="mb-6 p-4 bg-gradient-to-r from-green-50 to-primary/5 border border-green-200 rounded-xl">
-              <p className="text-base text-green-700 font-bold text-center">Dacci fiducia e attivala subito - Sconto 50%</p>
+            <div className="mb-6 p-3 bg-gradient-to-r from-green-50 to-primary/5 border border-green-200 rounded-xl">
+              <p className="text-sm text-green-700 font-bold text-center">Dacci fiducia e attivala subito - Sconto 50%</p>
             </div>
             
             <div className="space-y-3 mb-6">
