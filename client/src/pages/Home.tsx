@@ -238,37 +238,56 @@ const Home: React.FC = () => {
         {/* Time Saved Counter - Only show if access is allowed */}
         {canAccessToday && (
           <section className="mx-4 my-4">
-            <Card className="bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-200">
-              <CardContent className="py-3 px-4">
+            <Card className="bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 border-none shadow-xl overflow-hidden relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent" />
+              <CardContent className="py-4 px-5 relative z-10">
                 <div className="flex items-center justify-between">
-                  {/* Left side - Title */}
-                  <div>
-                    <div className="text-sm font-medium text-emerald-800">
-                      Tempo Recuperato
+                  {/* Left side - Title with icon */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-white/90 text-xs font-medium uppercase tracking-wide">
+                        Tempo
+                      </div>
+                      <div className="text-white font-bold text-base">
+                        Recuperato
+                      </div>
                     </div>
                   </div>
                   
-                  {/* Right side - Countdown display */}
-                  <div className="flex items-center gap-2">
-                    <div className="w-11 h-11 bg-emerald-600 rounded-lg flex items-center justify-center">
-                      <span className="text-lg font-bold text-white">
-                        {Math.floor(userStats.totalTimeRecovered / 60).toString().padStart(2, '0')}
-                      </span>
+                  {/* Right side - Enhanced countdown display */}
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
+                        <span className="text-xl font-bold text-emerald-700">
+                          {Math.floor(userStats.totalTimeRecovered / 60).toString().padStart(2, '0')}
+                        </span>
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse" />
                     </div>
-                    <div className="text-lg font-bold text-emerald-600">:</div>
-                    <div className="w-11 h-11 bg-emerald-600 rounded-lg flex items-center justify-center">
-                      <span className="text-lg font-bold text-white">
-                        {(userStats.totalTimeRecovered % 60).toString().padStart(2, '0')}
-                      </span>
+                    <div className="text-2xl font-bold text-white/80 animate-pulse">:</div>
+                    <div className="relative">
+                      <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
+                        <span className="text-xl font-bold text-emerald-700">
+                          {(userStats.totalTimeRecovered % 60).toString().padStart(2, '0')}
+                        </span>
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
                     </div>
                   </div>
                 </div>
                 
                 {/* Labels under countdown */}
-                <div className="flex justify-end gap-6 mt-1">
-                  <span className="text-xs text-emerald-700 font-medium">ORE</span>
-                  <span className="text-xs text-emerald-700 font-medium">MIN</span>
+                <div className="flex justify-end gap-7 mt-2">
+                  <span className="text-xs text-white/80 font-medium">ORE</span>
+                  <span className="text-xs text-white/80 font-medium">MIN</span>
                 </div>
+                
+                {/* Decorative elements */}
+                <div className="absolute top-2 right-2 w-2 h-2 bg-white/30 rounded-full animate-ping" />
+                <div className="absolute bottom-3 left-3 w-1 h-1 bg-white/40 rounded-full animate-bounce" style={{ animationDelay: '1s' }} />
               </CardContent>
             </Card>
           </section>
