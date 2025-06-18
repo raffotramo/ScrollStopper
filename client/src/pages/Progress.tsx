@@ -21,7 +21,7 @@ const ProgressPage: React.FC = () => {
     <div className="min-h-screen bg-background">
       <main className="p-4 space-y-4 pb-20">
         {/* Header */}
-        <section className="mx-4 mt-2 mb-6">
+        <section className="mx-4 mt-8 mb-6">
           <div className="text-center">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <BarChart3 className="w-8 h-8 text-primary" />
@@ -29,9 +29,6 @@ const ProgressPage: React.FC = () => {
             <h1 className="text-2xl font-bold text-primary mb-4">
               Progressi
             </h1>
-            <p className="text-foreground text-sm font-bold mb-3">
-              Monitora il tuo percorso di digital detox
-            </p>
             <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
           </div>
         </section>

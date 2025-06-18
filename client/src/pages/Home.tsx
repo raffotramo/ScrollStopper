@@ -208,17 +208,14 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <section className="mx-4 mt-6 mb-2">
+      <section className="mx-4 mt-8 mb-6">
         <div className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <Zap className="w-8 h-8 text-primary" />
-            <h1 className="text-3xl font-bold text-primary">
-              ScrollStop
-            </h1>
           </div>
-          <p className="text-foreground text-sm font-bold mb-3">
-            Riprenditi il tuo tempo, riconnettiti con la vita
-          </p>
+          <h1 className="text-2xl font-bold text-primary mb-4">
+            ScrollStop
+          </h1>
           <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
         </div>
       </section>

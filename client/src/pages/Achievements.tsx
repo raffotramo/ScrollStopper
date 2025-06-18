@@ -85,17 +85,14 @@ const Achievements: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#eeeded] pb-20">
       {/* Header */}
-      <section className="mx-4 mt-6 mb-2">
+      <section className="mx-4 mt-8 mb-6">
         <div className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="w-16 h-16 bg-amber-600/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <Trophy className="w-8 h-8 text-amber-600" />
-            <h1 className="text-3xl font-bold text-amber-600">
-              Challenge
-            </h1>
           </div>
-          <p className="text-foreground text-sm font-bold mb-3">
-            Mindfulness • Creatività • Connessioni
-          </p>
+          <h1 className="text-2xl font-bold text-amber-600 mb-4">
+            Achievements
+          </h1>
           <div className="w-20 h-1 bg-amber-600 rounded-full mx-auto"></div>
         </div>
       </section>
