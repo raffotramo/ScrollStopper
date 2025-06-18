@@ -9,6 +9,7 @@ import DailyActivityModal from '@/components/DailyActivityModal';
 import DailyChallenge from '@/components/DailyChallenge';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
+import SocialShare from '@/components/SocialShare';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 import { challenges, getTodaysChallenge, getDailyTip, CHALLENGE_CATEGORIES } from '@/lib/challenges';
@@ -323,11 +324,14 @@ const Home: React.FC = () => {
 
         {/* Statistics Grid */}
         <section className="mx-4 my-4">
-          <div className="flex items-center mb-4">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
-              <Info className="w-4 h-4 text-primary-foreground" />
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
+                <Info className="w-4 h-4 text-primary-foreground" />
+              </div>
+              <h2 className="text-lg font-bold text-foreground">Il tuo progresso</h2>
             </div>
-            <h2 className="text-lg font-bold text-foreground">Il tuo progresso</h2>
+            <SocialShare userStats={userStats} />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">

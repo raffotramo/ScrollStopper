@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Achievement } from '../types';
 import { getLevelTitle } from '../lib/achievements';
+import SocialShare from './SocialShare';
 
 interface AchievementSystemProps {
   userStats: {
@@ -142,10 +143,24 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
       {/* Statistiche totali */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg flex items-center gap-2">
-            <Trophy className="w-5 h-5 text-amber-600" />
-            I tuoi progressi
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Trophy className="w-5 h-5 text-amber-600" />
+              I tuoi progressi
+            </CardTitle>
+            <SocialShare 
+              userStats={{
+                totalStars: userStats.totalStars,
+                level: userStats.level,
+                pointsToNextLevel: userStats.pointsToNextLevel,
+                daysCompleted: userStats.achievements.filter(a => a.unlocked).length,
+                currentStreak: 0,
+                totalReflections: 0,
+                totalTimeRecovered: 0,
+                achievements: userStats.achievements
+              }}
+            />
+          </div>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4 text-center">
@@ -202,6 +217,24 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
                 <p className="text-center text-sm text-green-600">
                   Sbloccato il {new Date(selectedAchievement.unlockedAt).toLocaleDateString('it-IT')}
                 </p>
+              )}
+
+              {selectedAchievement.unlocked && (
+                <div className="flex justify-center pt-2">
+                  <SocialShare 
+                    userStats={{
+                      totalStars: userStats.totalStars,
+                      level: userStats.level,
+                      pointsToNextLevel: userStats.pointsToNextLevel,
+                      daysCompleted: userStats.achievements.filter(a => a.unlocked).length,
+                      currentStreak: 0,
+                      totalReflections: 0,
+                      totalTimeRecovered: 0,
+                      achievements: userStats.achievements
+                    }}
+                    achievement={selectedAchievement}
+                  />
+                </div>
               )}
             </div>
           )}
