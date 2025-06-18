@@ -92,48 +92,41 @@ const ProgressPage: React.FC = () => {
       </section>
 
       <main className="p-4 space-y-6">
-        {/* Come funziona */}
-        <Card className="bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
+        {/* Scheda Come funziona */}
+        <Card className="bg-card border border-border rounded-2xl shadow-sm">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Info className="w-5 h-5 text-orange-600" />
-              Come funziona
+            <CardTitle className="text-foreground flex items-center gap-2">
+              <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                <Info className="w-4 h-4 text-primary" />
+              </div>
+              Come funziona?
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex gap-3">
-                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-orange-600">1</span>
-                </div>
-                <div>
-                  <p className="font-medium text-sm">Completa le sfide giornaliere</p>
-                  <p className="text-xs text-muted-foreground">
-                    Ogni giorno sblocca una nuova attività per ridurre il tempo schermo
-                  </p>
-                </div>
+          <CardContent className="space-y-4">
+            <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
+              <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <Clock className="w-4 h-4 text-primary" />
               </div>
-              <div className="flex gap-3">
-                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-orange-600">2</span>
-                </div>
-                <div>
-                  <p className="font-medium text-sm">Accumula stelle e livelli</p>
-                  <p className="text-xs text-muted-foreground">
-                    Ogni attività completata ti fa guadagnare stelle e sbloccare achievement
-                  </p>
-                </div>
+              <div>
+                <h4 className="font-medium text-foreground mb-2">Check-in giornaliero</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Torna ogni giorno in <strong>tarda serata (22:00-23:00)</strong> e compila il tuo check-in giornaliero per monitorare i tuoi progressi nel digital detox.
+                </p>
               </div>
-              <div className="flex gap-3">
-                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-orange-600">3</span>
-                </div>
-                <div>
-                  <p className="font-medium text-sm">Monitora i tuoi progressi</p>
-                  <p className="text-xs text-muted-foreground">
-                    Fai il check-in quotidiano e traccia il tuo percorso di benessere digitale
-                  </p>
-                </div>
+            </div>
+            
+            <div className="grid grid-cols-1 gap-3 text-sm">
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <div className="w-2 h-2 bg-primary rounded-full"></div>
+                <span>Monitora il tuo utilizzo dello smartphone</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <div className="w-2 h-2 bg-primary rounded-full"></div>
+                <span>Traccia il tempo sui social media</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <div className="w-2 h-2 bg-primary rounded-full"></div>
+                <span>Valuta i cambiamenti nel tuo umore</span>
               </div>
             </div>
           </CardContent>
