@@ -20,57 +20,46 @@ const TabNavigation: React.FC = () => {
           </div>
         </Link>
         <Link href="/emergency">
-          <div className="py-4 px-3 flex items-center justify-center cursor-pointer transition-all duration-200">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
+          <div className="py-4 px-4 flex items-center justify-center cursor-pointer transition-all duration-200">
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
               location === '/emergency' 
                 ? 'bg-primary/10 text-primary' 
                 : 'text-muted-foreground/60 hover:text-foreground hover:bg-muted/20'
             }`}>
-              <Zap className="w-5 h-5" />
+              <Zap className="w-6 h-6" />
             </div>
           </div>
         </Link>
         <Link href="/challenges">
-          <div className="py-4 px-3 flex items-center justify-center cursor-pointer transition-all duration-200">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
-              location === '/challenges' 
+          <div className="py-4 px-4 flex items-center justify-center cursor-pointer transition-all duration-200">
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
+              location === '/challenges' || location === '/achievements'
                 ? 'bg-primary/10 text-primary' 
                 : 'text-muted-foreground/60 hover:text-foreground hover:bg-muted/20'
             }`}>
-              <Calendar className="w-5 h-5" />
-            </div>
-          </div>
-        </Link>
-        <Link href="/achievements">
-          <div className="py-4 px-3 flex items-center justify-center cursor-pointer transition-all duration-200">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
-              location === '/achievements' 
-                ? 'bg-primary/10 text-primary' 
-                : 'text-muted-foreground/60 hover:text-foreground hover:bg-muted/20'
-            }`}>
-              <Trophy className="w-5 h-5" />
+              <Trophy className="w-6 h-6" />
             </div>
           </div>
         </Link>
         <Link href="/progress">
-          <div className="py-4 px-3 flex items-center justify-center cursor-pointer transition-all duration-200">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
+          <div className="py-4 px-4 flex items-center justify-center cursor-pointer transition-all duration-200">
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
               location === '/progress' 
                 ? 'bg-primary/10 text-primary' 
                 : 'text-muted-foreground/60 hover:text-foreground hover:bg-muted/20'
             }`}>
-              <TrendingUp className="w-5 h-5" />
+              <TrendingUp className="w-6 h-6" />
             </div>
           </div>
         </Link>
         <Link href="/profile">
-          <div className="py-4 px-3 flex items-center justify-center cursor-pointer transition-all duration-200">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
+          <div className="py-4 px-4 flex items-center justify-center cursor-pointer transition-all duration-200">
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
               location === '/profile' 
                 ? 'bg-primary/10 text-primary' 
                 : 'text-muted-foreground/60 hover:text-foreground hover:bg-muted/20'
             }`}>
-              <User className="w-5 h-5" />
+              <User className="w-6 h-6" />
             </div>
           </div>
         </Link>
