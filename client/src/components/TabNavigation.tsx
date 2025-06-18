@@ -33,7 +33,7 @@ const TabNavigation: React.FC = () => {
         <Link href="/challenges">
           <div className="py-4 px-4 flex items-center justify-center cursor-pointer transition-all duration-200">
             <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
-              location === '/challenges' || location === '/achievements'
+              location === '/challenges'
                 ? 'bg-primary/10 text-primary' 
                 : 'text-muted-foreground/60 hover:text-foreground hover:bg-muted/20'
             }`}>
