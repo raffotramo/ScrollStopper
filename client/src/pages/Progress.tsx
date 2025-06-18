@@ -18,22 +18,25 @@ const ProgressPage: React.FC = () => {
   ).length;
 
   return (
-    <div className="min-h-screen bg-background">
-      <main className="p-4 space-y-4 pb-20">
-        {/* Header */}
-        <section className="mx-4 mt-8 mb-6">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <BarChart3 className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="text-2xl font-bold text-primary mb-4">
-              Progressi
-            </h1>
-            <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+    <div className="flex flex-col min-h-screen">
+      {/* Header */}
+      <section className="mx-4 mt-8 mb-6">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <BarChart3 className="w-8 h-8 text-primary" />
           </div>
-        </section>
-        {/* Come funziona */}
-        <Card>
+          <h1 className="text-2xl font-bold text-primary mb-4">
+            Progressi
+          </h1>
+          <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <main className="flex-1 overflow-auto hide-scrollbar pb-24">
+        <div className="mx-4 space-y-4">
+          {/* Come funziona */}
+          <Card>
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center">
@@ -319,6 +322,7 @@ const ProgressPage: React.FC = () => {
             )}
           </CardContent>
         </Card>
+        </div>
       </main>
 
       <TabNavigation />

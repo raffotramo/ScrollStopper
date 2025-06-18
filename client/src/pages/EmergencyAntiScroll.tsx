@@ -350,8 +350,10 @@ const EmergencyAntiScroll: React.FC = () => {
         </div>
       </section>
       
-      <main className="p-4 space-y-6">
-        {/* Pulsante principale di emergenza */}
+      {/* Main Content */}
+      <main className="flex-1 overflow-auto hide-scrollbar pb-24">
+        <div className="mx-4 space-y-4">
+          {/* Pulsante principale di emergenza */}
         <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
           <Button 
             onClick={handleEmergencyClick}
@@ -471,6 +473,7 @@ const EmergencyAntiScroll: React.FC = () => {
               <strong>Ricorda:</strong> Ogni volta che usi questi strumenti, stai allenando la tua forza di volontà. È come fare esercizio per la mente.
             </p>
           </div>
+        </div>
         </div>
       </main>
 
