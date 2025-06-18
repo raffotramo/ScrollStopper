@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, Calendar, Star, Trophy, Clock, Award, Share2 } from 'lucide-react';
+import { TrendingUp, Calendar, Star, Trophy, Clock, Award, Share2, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
@@ -92,6 +92,53 @@ const ProgressPage: React.FC = () => {
       </section>
 
       <main className="p-4 space-y-6">
+        {/* Come funziona */}
+        <Card className="bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Info className="w-5 h-5 text-orange-600" />
+              Come funziona
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex gap-3">
+                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-sm font-bold text-orange-600">1</span>
+                </div>
+                <div>
+                  <p className="font-medium text-sm">Completa le sfide giornaliere</p>
+                  <p className="text-xs text-muted-foreground">
+                    Ogni giorno sblocca una nuova attività per ridurre il tempo schermo
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-sm font-bold text-orange-600">2</span>
+                </div>
+                <div>
+                  <p className="font-medium text-sm">Accumula stelle e livelli</p>
+                  <p className="text-xs text-muted-foreground">
+                    Ogni attività completata ti fa guadagnare stelle e sbloccare achievement
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-sm font-bold text-orange-600">3</span>
+                </div>
+                <div>
+                  <p className="font-medium text-sm">Monitora i tuoi progressi</p>
+                  <p className="text-xs text-muted-foreground">
+                    Fai il check-in quotidiano e traccia il tuo percorso di benessere digitale
+                  </p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Daily Check-in Quiz */}
         <Card>
           <CardHeader>
