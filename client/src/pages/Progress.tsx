@@ -114,85 +114,10 @@ const ProgressPage: React.FC = () => {
                 </p>
               </div>
             </div>
-            
-            <div className="grid grid-cols-1 gap-3 text-sm">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <div className="w-2 h-2 bg-primary rounded-full"></div>
-                <span>Monitora il tuo utilizzo dello smartphone</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <div className="w-2 h-2 bg-primary rounded-full"></div>
-                <span>Traccia il tempo sui social media</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <div className="w-2 h-2 bg-primary rounded-full"></div>
-                <span>Valuta i cambiamenti nel tuo umore</span>
-              </div>
-            </div>
           </CardContent>
         </Card>
 
-        {/* Progressi */}
-        <section className="mx-4 my-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
-                <Trophy className="w-4 h-4 text-primary-foreground" />
-              </div>
-              <h2 className="text-lg font-bold text-foreground">Progressi</h2>
-            </div>
-            <SocialShare userStats={userStats} />
-          </div>
-          
-          {/* Level and Progress Card */}
-          <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200 mb-4">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center">
-                  <Trophy className="w-5 h-5 text-yellow-600 mr-2" />
-                  <span className="font-bold text-yellow-800">
-                    {getLevelTitle(userStats.level)}
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <Star className="w-4 h-4 text-yellow-600 mr-1" />
-                  <span className="font-bold text-yellow-800">{userStats.totalStars} stelle totali</span>
-                </div>
-              </div>
-              <div className="w-full bg-yellow-200 rounded-full h-2 mb-2">
-                <div 
-                  className="bg-yellow-600 h-2 rounded-full transition-all duration-500"
-                  style={{ width: `${Math.min(100, levelProgress)}%` }}
-                ></div>
-              </div>
-              <p className="text-xs text-yellow-700 font-medium">
-                {userStats.pointsToNextLevel > 0 
-                  ? `${userStats.pointsToNextLevel} stelle al prossimo livello`
-                  : 'Livello massimo raggiunto!'
-                }
-              </p>
-            </CardContent>
-          </Card>
 
-          {/* Current Stats Grid */}
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
-              <CardContent className="p-4 text-center">
-                <Calendar className="w-5 h-5 text-green-600 mx-auto mb-2" />
-                <div className="text-xl font-bold text-green-800">{completedDays}</div>
-                <div className="text-xs text-green-600 font-medium">Giorni completati</div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
-              <CardContent className="p-4 text-center">
-                <Clock className="w-5 h-5 text-blue-600 mx-auto mb-2" />
-                <div className="text-xl font-bold text-blue-800">{Math.round(timeRecovered)}</div>
-                <div className="text-xs text-blue-600 font-medium">Minuti recuperati</div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
 
         {/* Daily Check-in Quiz */}
         <Card>
@@ -213,6 +138,49 @@ const ProgressPage: React.FC = () => {
                 }));
               }} 
             />
+          </CardContent>
+        </Card>
+
+        {/* Grafici dell'andamento */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-green-600" />
+              Andamento progressi
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-green-600">{completedDays}</div>
+                <div className="text-sm text-muted-foreground">Giorni completati</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-blue-600">{currentStreak}</div>
+                <div className="text-sm text-muted-foreground">Giorni consecutivi</div>
+              </div>
+            </div>
+            
+            {/* Grafico a barre settimanale */}
+            <div className="space-y-3">
+              <h4 className="font-medium text-foreground">Progresso settimanale</h4>
+              {weeklyProgress.map((week) => (
+                <div key={week.week} className="flex items-center gap-3">
+                  <div className="w-16 text-sm text-muted-foreground">
+                    Sett. {week.week}
+                  </div>
+                  <div className="flex-1 bg-muted rounded-full h-3">
+                    <div 
+                      className="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full transition-all duration-500"
+                      style={{ width: `${week.percentage}%` }}
+                    />
+                  </div>
+                  <div className="w-12 text-sm text-muted-foreground text-right">
+                    {week.completed}/{week.total}
+                  </div>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
         {/* Overview Card */}
