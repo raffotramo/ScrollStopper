@@ -23,25 +23,10 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 
 function Router() {
-  const { isAuthenticated, isLoading } = useAuth();
   const [userProfile, setUserProfile] = useLocalStorage<any>('digital-detox-profile', null);
   const [location] = useLocation();
 
-  // Mostra caricamento durante verifica autenticazione
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
-      </div>
-    );
-  }
-
-  // Se non autenticato, mostra login
-  if (!isAuthenticated) {
-    return <Login />;
-  }
-  
-  // Se autenticato ma non c'è un profilo e non siamo già in onboarding, mostra onboarding
+  // Se non c'è un profilo e non siamo già in onboarding, mostra onboarding
   if (!userProfile && location !== '/onboarding') {
     return <Onboarding />;
   }
