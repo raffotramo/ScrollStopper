@@ -7,7 +7,7 @@ import TabNavigation from '@/components/TabNavigation';
 import AchievementSystem from '@/components/AchievementSystem';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { DayProgress, UserStats, Achievement } from '../types';
-import { ALL_ACHIEVEMENTS, checkAchievements, calculateLevel } from '../lib/achievements';
+import { ALL_ACHIEVEMENTS, checkAchievements, calculateLevel, ACHIEVEMENT_CATEGORIES } from '../lib/achievements';
 import { useToast } from '@/hooks/use-toast';
 
 const Achievements: React.FC = () => {

@@ -37,5 +37,5 @@ export interface Achievement {
   stars: number;
   unlocked: boolean;
   unlockedAt?: Date;
-  category: 'daily' | 'streak' | 'completion' | 'consistency' | 'special';
+  category: 'mindfulness' | 'creativity' | 'connection' | 'special';
 }

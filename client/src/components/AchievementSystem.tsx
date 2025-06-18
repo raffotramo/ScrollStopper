@@ -27,10 +27,9 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
 
   const categories = [
     { id: 'all', name: 'Tutti', icon: '🎯' },
-    { id: 'daily', name: 'Giornalieri', icon: '📅' },
-    { id: 'streak', name: 'Serie', icon: '🔥' },
-    { id: 'completion', name: 'Completamento', icon: '✅' },
-    { id: 'consistency', name: 'Costanza', icon: '⚡' },
+    { id: 'mindfulness', name: 'Mindfulness', icon: '🧘' },
+    { id: 'creativity', name: 'Creatività', icon: '🎨' },
+    { id: 'connection', name: 'Connessioni', icon: '🤝' },
     { id: 'special', name: 'Speciali', icon: '⭐' }
   ];
 

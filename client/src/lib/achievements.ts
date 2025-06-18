@@ -1,8 +1,30 @@
 import { Achievement, DayProgress } from '../types';
 
-// Definizione di tutti gli achievement disponibili
+// Categorie semplificate di achievement - allineate alle macro categorie delle sfide
+export const ACHIEVEMENT_CATEGORIES = {
+  MINDFULNESS: {
+    name: 'Mindfulness',
+    description: 'Consapevolezza e crescita personale',
+    icon: '🧘',
+    color: 'blue'
+  },
+  CREATIVITY: {
+    name: 'Creatività', 
+    description: 'Espressione artistica e innovazione',
+    icon: '🎨',
+    color: 'purple'
+  },
+  CONNECTION: {
+    name: 'Connessioni',
+    description: 'Relazioni e organizzazione',
+    icon: '🤝',
+    color: 'green'
+  }
+};
+
+// Definizione di tutti gli achievement disponibili - raggruppati nelle 3 macro categorie
 export const ALL_ACHIEVEMENTS: Achievement[] = [
-  // Achievement giornalieri
+  // MINDFULNESS - Achievement di consapevolezza e crescita personale
   {
     id: 'first_activity',
     name: 'Primo Passo',
@@ -10,141 +32,137 @@ export const ALL_ACHIEVEMENTS: Achievement[] = [
     icon: '🎯',
     stars: 5,
     unlocked: false,
-    category: 'daily'
+    category: 'mindfulness'
   },
   {
-    id: 'daily_warrior',
-    name: 'Guerriero Quotidiano',
-    description: 'Completa 7 attività',
-    icon: '⚔️',
+    id: 'mindful_week',
+    name: 'Settimana Mindful',
+    description: 'Completa tutte le attività di Mindfulness (giorni 1-10)',
+    icon: '🧘',
+    stars: 25,
+    unlocked: false,
+    category: 'mindfulness'
+  },
+  {
+    id: 'streak_7',
+    name: 'Costanza Quotidiana',
+    description: 'Mantieni una serie di 7 giorni consecutivi',
+    icon: '🔥',
+    stars: 20,
+    unlocked: false,
+    category: 'mindfulness'
+  },
+  {
+    id: 'thoughtful_writer',
+    name: 'Riflessioni Profonde',
+    description: 'Scrivi riflessioni per 10 attività',
+    icon: '✍️',
     stars: 15,
     unlocked: false,
-    category: 'daily'
+    category: 'mindfulness'
   },
   {
-    id: 'half_journey',
-    name: 'Metà del Viaggio',
-    description: 'Completa 15 attività',
-    icon: '🏃‍♂️',
+    id: 'time_awareness',
+    name: 'Consapevolezza Temporale',
+    description: 'Recupera 3 ore dal scrolling',
+    icon: '⏰',
     stars: 30,
     unlocked: false,
-    category: 'completion'
+    category: 'mindfulness'
+  },
+
+  // CREATIVITY - Achievement di espressione e creatività
+  {
+    id: 'creative_explorer',
+    name: 'Esploratore Creativo',
+    description: 'Completa tutte le attività Creative (giorni 11-20)',
+    icon: '🎨',
+    stars: 25,
+    unlocked: false,
+    category: 'creativity'
   },
   {
-    id: 'master_completer',
-    name: 'Maestro Completista',
+    id: 'artistic_soul',
+    name: 'Anima Artistica',
+    description: 'Completa 5 attività creative consecutive',
+    icon: '🌟',
+    stars: 20,
+    unlocked: false,
+    category: 'creativity'
+  },
+  {
+    id: 'creative_master',
+    name: 'Maestro Creativo',
+    description: 'Completa tutte le attività creative con riflessioni',
+    icon: '🏆',
+    stars: 35,
+    unlocked: false,
+    category: 'creativity'
+  },
+  {
+    id: 'innovation_spirit',
+    name: 'Spirito Innovativo',
+    description: 'Prova 3 nuove forme di espressione creativa',
+    icon: '💡',
+    stars: 15,
+    unlocked: false,
+    category: 'creativity'
+  },
+  {
+    id: 'storyteller',
+    name: 'Narratore',
+    description: 'Completa tutte le attività di scrittura creativa',
+    icon: '📚',
+    stars: 25,
+    unlocked: false,
+    category: 'creativity'
+  },
+
+  // CONNECTION - Achievement di relazioni e organizzazione
+  {
+    id: 'social_connector',
+    name: 'Connettore Sociale',
+    description: 'Completa tutte le attività di Connessioni (giorni 21-30)',
+    icon: '🤝',
+    stars: 25,
+    unlocked: false,
+    category: 'connection'
+  },
+  {
+    id: 'organizer_pro',
+    name: 'Organizzatore Pro',
+    description: 'Completa tutte le attività di decluttering',
+    icon: '🗂️',
+    stars: 20,
+    unlocked: false,
+    category: 'connection'
+  },
+  {
+    id: 'relationship_builder',
+    name: 'Costruttore di Relazioni',
+    description: 'Contatta almeno 3 persone diverse durante la sfida',
+    icon: '💕',
+    stars: 15,
+    unlocked: false,
+    category: 'connection'
+  },
+  {
+    id: 'life_organizer',
+    name: 'Organizzatore di Vita',
+    description: 'Riorganizza 3 spazi diversi (casa, lavoro, digitale)',
+    icon: '🏠',
+    stars: 25,
+    unlocked: false,
+    category: 'connection'
+  },
+  {
+    id: 'journey_completer',
+    name: 'Completista del Viaggio',
     description: 'Completa tutte le 30 attività',
     icon: '👑',
     stars: 100,
     unlocked: false,
-    category: 'completion'
-  },
-
-  // Achievement di streak
-  {
-    id: 'streak_3',
-    name: 'Costanza Iniziale',
-    description: 'Mantieni una serie di 3 giorni consecutivi',
-    icon: '🔥',
-    stars: 10,
-    unlocked: false,
-    category: 'streak'
-  },
-  {
-    id: 'streak_7',
-    name: 'Settimana Perfetta',
-    description: 'Mantieni una serie di 7 giorni consecutivi',
-    icon: '🌟',
-    stars: 25,
-    unlocked: false,
-    category: 'streak'
-  },
-  {
-    id: 'streak_14',
-    name: 'Fortezza di Volontà',
-    description: 'Mantieni una serie di 14 giorni consecutivi',
-    icon: '🏰',
-    stars: 50,
-    unlocked: false,
-    category: 'streak'
-  },
-  {
-    id: 'streak_21',
-    name: 'Abitudine Radicata',
-    description: 'Mantieni una serie di 21 giorni consecutivi',
-    icon: '🌳',
-    stars: 75,
-    unlocked: false,
-    category: 'streak'
-  },
-
-  // Achievement di riflessione
-  {
-    id: 'thoughtful_writer',
-    name: 'Scrittore Riflessivo',
-    description: 'Scrivi riflessioni per 10 attività',
-    icon: '✍️',
-    stars: 20,
-    unlocked: false,
-    category: 'consistency'
-  },
-  {
-    id: 'deep_thinker',
-    name: 'Pensatore Profondo',
-    description: 'Scrivi riflessioni per 20 attività',
-    icon: '🧠',
-    stars: 40,
-    unlocked: false,
-    category: 'consistency'
-  },
-
-  // Achievement di tempo
-  {
-    id: 'time_saver',
-    name: 'Risparmiatore di Tempo',
-    description: 'Recupera 60 minuti dal scrolling',
-    icon: '⏰',
-    stars: 15,
-    unlocked: false,
-    category: 'special'
-  },
-  {
-    id: 'hour_master',
-    name: 'Maestro delle Ore',
-    description: 'Recupera 3 ore dal scrolling',
-    icon: '⏳',
-    stars: 35,
-    unlocked: false,
-    category: 'special'
-  },
-  {
-    id: 'time_lord',
-    name: 'Signore del Tempo',
-    description: 'Recupera 10 ore dal scrolling',
-    icon: '🕰️',
-    stars: 80,
-    unlocked: false,
-    category: 'special'
-  },
-
-  // Achievement check-in
-  {
-    id: 'consistent_checker',
-    name: 'Check-in Costante',
-    description: 'Completa il check-in per 5 giorni consecutivi',
-    icon: '📋',
-    stars: 12,
-    unlocked: false,
-    category: 'consistency'
-  },
-  {
-    id: 'evening_ritual',
-    name: 'Rituale Serale',
-    description: 'Completa il check-in per 14 giorni consecutivi',
-    icon: '🌙',
-    stars: 30,
-    unlocked: false,
-    category: 'consistency'
+    category: 'connection'
   },
 
   // Achievement speciali
