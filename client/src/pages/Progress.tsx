@@ -5,6 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import TabNavigation from '@/components/TabNavigation';
 import SocialShare from '@/components/SocialShare';
+import DailyProgressQuiz from '@/components/DailyProgressQuiz';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { DayProgress, UserStats } from '@/types';
 import { ALL_ACHIEVEMENTS, calculateLevel, getLevelTitle } from '@/lib/achievements';
@@ -21,6 +22,7 @@ const ProgressPage: React.FC = () => {
     pointsToNextLevel: 20,
     achievements: ALL_ACHIEVEMENTS.map(a => ({ ...a, unlocked: false }))
   });
+  const [dailyCheckIns, setDailyCheckIns] = useLocalStorage<Record<number, any>>('daily-checkins', {});
 
   // Calcola statistiche dettagliate
   const completedDays = progress.filter(day => day.completed).length;
@@ -68,6 +70,9 @@ const ProgressPage: React.FC = () => {
     ? ((userStats.totalStars) / (userStats.totalStars + userStats.pointsToNextLevel)) * 100
     : 100;
 
+  // Calcola il giorno corrente
+  const currentDay = Math.min(Math.max(1, completedDays + 1), 30);
+
   return (
     <div className="min-h-screen bg-[#eeeded] pb-20">
       {/* Header */}
@@ -87,6 +92,27 @@ const ProgressPage: React.FC = () => {
       </section>
 
       <main className="p-4 space-y-6">
+        {/* Daily Check-in Quiz */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Check-in giornaliero</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <DailyProgressQuiz 
+              day={currentDay} 
+              onComplete={(data) => {
+                console.log('Daily check-in completed:', data);
+                setDailyCheckIns(prev => ({
+                  ...prev,
+                  [currentDay]: {
+                    ...data,
+                    completedAt: new Date().toISOString()
+                  }
+                }));
+              }} 
+            />
+          </CardContent>
+        </Card>
         {/* Overview Card */}
         <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
           <CardHeader>

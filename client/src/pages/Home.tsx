@@ -17,12 +17,12 @@ import { DayProgress, CompletionStatus, UserStats } from '@/types';
 import { ALL_ACHIEVEMENTS, checkAchievements, calculateLevel, getLevelTitle } from '@/lib/achievements';
 import { useDailyAccess } from '@/hooks/useDailyAccess';
 import DailyAccessControl from '@/components/DailyAccessControl';
-import DailyProgressQuiz from '@/components/DailyProgressQuiz';
+
 
 const Home: React.FC = () => {
   const [progress, setProgress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
   const [modalOpen, setModalOpen] = useState(false);
-  const [dailyCheckIns, setDailyCheckIns] = useLocalStorage<Record<number, any>>('daily-checkins', {});
+
   const [userStats, setUserStats] = useLocalStorage<UserStats>('user-stats', {
     totalTimeRecovered: 0,
     daysCompleted: 0,
@@ -311,31 +311,7 @@ const Home: React.FC = () => {
           </Link>
         </section>
 
-        {/* Daily Check-in Quiz */}
-        <section className="mx-4 my-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
-                <Info className="w-4 h-4 text-primary-foreground" />
-              </div>
-              <h2 className="text-lg font-bold text-foreground">Check-in giornaliero</h2>
-            </div>
-            <SocialShare userStats={userStats} />
-          </div>
-          <DailyProgressQuiz 
-            day={currentDay} 
-            onComplete={(data) => {
-              console.log('Daily check-in completed:', data);
-              setDailyCheckIns(prev => ({
-                ...prev,
-                [currentDay]: {
-                  ...data,
-                  completedAt: new Date().toISOString()
-                }
-              }));
-            }} 
-          />
-        </section>
+
 
         {/* Emergency Anti-Scroll Button */}
         <section className="mx-4 my-4">
