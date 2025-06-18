@@ -235,6 +235,45 @@ const Home: React.FC = () => {
           />
         </section>
 
+        {/* Time Saved Counter - Only show if access is allowed */}
+        {canAccessToday && (
+          <section className="mx-4 my-4">
+            <Card className="bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-200">
+              <CardContent className="py-3 px-4">
+                <div className="flex items-center justify-between">
+                  {/* Left side - Title */}
+                  <div>
+                    <div className="text-sm font-medium text-emerald-800">
+                      Tempo Recuperato
+                    </div>
+                  </div>
+                  
+                  {/* Right side - Countdown display */}
+                  <div className="flex items-center gap-2">
+                    <div className="w-11 h-11 bg-emerald-600 rounded-lg flex items-center justify-center">
+                      <span className="text-lg font-bold text-white">
+                        {Math.floor(userStats.totalTimeRecovered / 60).toString().padStart(2, '0')}
+                      </span>
+                    </div>
+                    <div className="text-lg font-bold text-emerald-600">:</div>
+                    <div className="w-11 h-11 bg-emerald-600 rounded-lg flex items-center justify-center">
+                      <span className="text-lg font-bold text-white">
+                        {(userStats.totalTimeRecovered % 60).toString().padStart(2, '0')}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Labels under countdown */}
+                <div className="flex justify-end gap-6 mt-1">
+                  <span className="text-xs text-emerald-700 font-medium">ORE</span>
+                  <span className="text-xs text-emerald-700 font-medium">MIN</span>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+        )}
+
         {/* Main Challenge Card - Only show if access is allowed */}
         {canAccessToday && (
           <section className="bg-card rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] mx-4 my-4 p-6 border-2 border-primary/20 ring-1 ring-primary/10">
@@ -264,41 +303,6 @@ const Home: React.FC = () => {
             >
               {isCurrentDayCompleted ? "✓ Completato per Oggi" : "Inizia Oggi"}
             </Button>
-          </section>
-        )}
-
-        {/* Time Saved Counter - Only show if access is allowed */}
-        {canAccessToday && (
-          <section className="mx-4 my-4">
-            <Card className="bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-200">
-              <CardContent className="p-4">
-                <div className="text-center">
-                  <div className="text-xs font-medium text-emerald-700 uppercase tracking-wide mb-3">
-                    Tempo Recuperato
-                  </div>
-                  
-                  {/* Countdown display */}
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    <div className="w-14 h-14 bg-emerald-600 rounded-lg flex items-center justify-center">
-                      <span className="text-xl font-bold text-white">
-                        {Math.floor(userStats.totalTimeRecovered / 60).toString().padStart(2, '0')}
-                      </span>
-                    </div>
-                    <div className="text-xl font-bold text-emerald-600">:</div>
-                    <div className="w-14 h-14 bg-emerald-600 rounded-lg flex items-center justify-center">
-                      <span className="text-xl font-bold text-white">
-                        {(userStats.totalTimeRecovered % 60).toString().padStart(2, '0')}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex justify-center gap-8">
-                    <span className="text-xs text-emerald-700 font-medium">ORE</span>
-                    <span className="text-xs text-emerald-700 font-medium">MIN</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </section>
         )}
 
