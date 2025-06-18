@@ -4,10 +4,30 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import TabNavigation from '@/components/TabNavigation';
 import DailyProgressQuiz from '@/components/DailyProgressQuiz';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { DayProgress } from '@/types';
 
 const ProgressPage: React.FC = () => {
   const [dailyCheckIns, setDailyCheckIns] = useLocalStorage<Record<number, any>>('daily-checkins', {});
+  const [progress, setProgress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
   const currentDay = Math.floor((Date.now() - new Date('2024-01-01').getTime()) / (1000 * 60 * 60 * 24)) % 30 + 1;
+  
+  // Calcola statistiche unificate
+  const completedChallenges = progress.filter(day => day.completed).length;
+  const totalReflections = progress.filter(day => day.reflectionText && day.reflectionText.trim() !== '').length;
+  const totalTimeSpent = progress
+    .filter(day => day.completed && day.timeSpent)
+    .reduce((total, day) => total + (day.timeSpent || 0), 0);
+  
+  // Calcola streak corrente
+  let currentStreak = 0;
+  const progressSorted = [...progress].sort((a, b) => b.day - a.day);
+  for (const day of progressSorted) {
+    if (day.completed) {
+      currentStreak++;
+    } else {
+      break;
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -85,10 +105,23 @@ const ProgressPage: React.FC = () => {
               <div className="text-sm text-muted-foreground">Check-in completati</div>
             </div>
             
-            {/* Dashboard ultra minimal */}
-            {Object.keys(dailyCheckIns).length > 0 ? (
-              <div className="space-y-3">
-                {/* Metriche essenziali */}
+            {/* Dashboard unificato - Check-in + Sfide */}
+            <div className="space-y-3">
+              {/* Panoramica generale */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-card rounded-lg p-3 border">
+                  <div className="text-xs text-muted-foreground mb-1">Sfide completate</div>
+                  <div className="text-xl font-bold text-foreground">{completedChallenges}/30</div>
+                </div>
+                
+                <div className="bg-card rounded-lg p-3 border">
+                  <div className="text-xs text-muted-foreground mb-1">Streak corrente</div>
+                  <div className="text-xl font-bold text-foreground">{currentStreak} giorni</div>
+                </div>
+              </div>
+
+              {/* Tempo e controllo - solo se ci sono check-in */}
+              {Object.keys(dailyCheckIns).length > 0 && (
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-card rounded-lg p-3 border">
                     <div className="text-xs text-muted-foreground mb-1">Tempo telefono</div>
@@ -115,65 +148,103 @@ const ProgressPage: React.FC = () => {
                   <div className="bg-card rounded-lg p-3 border">
                     <div className="text-xs text-muted-foreground mb-1">Controllo impulsi</div>
                     <div className="text-xl font-bold text-foreground">
-                      {Math.round((Object.values(dailyCheckIns).filter(day => day.scrollImpulse === 'Mai').length / Object.keys(dailyCheckIns).length) * 100)}%
+                      {Object.keys(dailyCheckIns).length > 0 ? 
+                        Math.round((Object.values(dailyCheckIns).filter(day => day.scrollImpulse === 'Mai').length / Object.keys(dailyCheckIns).length) * 100) + '%'
+                        : '0%'
+                      }
                     </div>
                   </div>
                 </div>
+              )}
 
-                {/* Dopamina insight */}
+              {/* Statistiche dettagliate */}
+              <div className="grid grid-cols-2 gap-3">
                 <div className="bg-card rounded-lg p-3 border">
-                  <div className="text-xs text-muted-foreground mb-2">Sistema dopamina</div>
+                  <div className="text-xs text-muted-foreground mb-1">Riflessioni scritte</div>
+                  <div className="text-xl font-bold text-foreground">{totalReflections}</div>
+                </div>
+                
+                <div className="bg-card rounded-lg p-3 border">
+                  <div className="text-xs text-muted-foreground mb-1">Tempo investito</div>
+                  <div className="text-xl font-bold text-foreground">
+                    {totalTimeSpent >= 60 ? `${(totalTimeSpent / 60).toFixed(1)}h` : `${totalTimeSpent}m`}
+                  </div>
+                </div>
+              </div>
+
+              {/* Insights combinati */}
+              {Object.keys(dailyCheckIns).length > 0 && (
+                <div className="bg-card rounded-lg p-3 border">
+                  <div className="text-xs text-muted-foreground mb-2">Analisi progresso</div>
                   <div className="text-sm text-foreground">
                     {(() => {
+                      const challengeProgress = (completedChallenges / 30) * 100;
                       const highUsage = Object.values(dailyCheckIns).filter(day => 
                         day.phoneTime === '2–3h' || day.phoneTime === 'Più di 3h'
                       ).length;
-                      const total = Object.keys(dailyCheckIns).length;
+                      const checkInTotal = Object.keys(dailyCheckIns).length;
                       
-                      if (highUsage / total > 0.6) return 'Sovrastimolazione - Riduci gradualmente';
-                      if (highUsage / total < 0.3) return 'Sistema equilibrato';
-                      return 'Fase di ricalibrazione';
+                      if (challengeProgress >= 50 && (highUsage / checkInTotal) < 0.3) {
+                        return 'Eccellente progresso - Controllo digitale in miglioramento';
+                      } else if (challengeProgress >= 30) {
+                        return 'Buon ritmo - Continua con costanza per consolidare i cambiamenti';
+                      } else if (challengeProgress >= 10) {
+                        return 'Inizio promettente - Mantieni la motivazione nei prossimi giorni';
+                      } else {
+                        return 'Inizia il tuo percorso - Ogni piccolo passo conta';
+                      }
                     })()}
                   </div>
                 </div>
+              )}
 
-                {/* Grafico minimale */}
-                <div className="bg-card rounded-lg p-3 border">
-                  <div className="text-xs text-muted-foreground mb-3">Ultimi 7 giorni</div>
-                  <div className="flex justify-between items-end gap-1 h-12">
-                    {Array.from({ length: 7 }, (_, i) => {
-                      const day = Math.max(1, currentDay - 6 + i);
-                      const dayData = dailyCheckIns[day];
-                      
-                      let level = 0;
-                      if (dayData?.phoneTime) {
-                        switch (dayData.phoneTime) {
-                          case 'Meno di 1h': level = 1; break;
-                          case '1–2h': level = 2; break;
-                          case '2–3h': level = 3; break;
-                          case 'Più di 3h': level = 4; break;
-                        }
+              {/* Andamento ultimi 7 giorni - combinato */}
+              <div className="bg-card rounded-lg p-3 border">
+                <div className="text-xs text-muted-foreground mb-3">Ultimi 7 giorni</div>
+                <div className="flex justify-between items-end gap-1 h-12">
+                  {Array.from({ length: 7 }, (_, i) => {
+                    const day = Math.max(1, currentDay - 6 + i);
+                    const dayData = dailyCheckIns[day];
+                    const challengeCompleted = progress.some(p => p.day === day && p.completed);
+                    
+                    let level = 0;
+                    // Se c'è check-in, usa quello per il livello
+                    if (dayData?.phoneTime) {
+                      switch (dayData.phoneTime) {
+                        case 'Meno di 1h': level = 1; break;
+                        case '1–2h': level = 2; break;
+                        case '2–3h': level = 3; break;
+                        case 'Più di 3h': level = 4; break;
                       }
-                      
-                      const height = ['h-1', 'h-3', 'h-6', 'h-9', 'h-12'][level];
-                      const color = ['bg-muted', 'bg-green-400', 'bg-blue-400', 'bg-yellow-400', 'bg-red-400'][level];
-                      
-                      return (
-                        <div key={i} className="flex-1 flex flex-col items-center">
-                          <div className={`w-full ${height} ${color} rounded-t mb-1`} />
-                          <div className="text-xs text-muted-foreground">{day}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                    } else if (challengeCompleted) {
+                      // Se non c'è check-in ma c'è sfida completata, livello medio
+                      level = 2;
+                    }
+                    
+                    const height = ['h-1', 'h-3', 'h-6', 'h-9', 'h-12'][level];
+                    const color = challengeCompleted ? 
+                      ['bg-muted', 'bg-green-400', 'bg-blue-400', 'bg-yellow-400', 'bg-red-400'][level] :
+                      'bg-muted';
+                    
+                    return (
+                      <div key={i} className="flex-1 flex flex-col items-center">
+                        <div className={`w-full ${height} ${color} rounded-t mb-1`} />
+                        <div className="text-xs text-muted-foreground">{day}</div>
+                        {challengeCompleted && (
+                          <div className="w-1 h-1 bg-primary rounded-full mt-1" />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                  <span>• = Sfida completata</span>
+                  {Object.keys(dailyCheckIns).length > 0 && (
+                    <span>Colore = Tempo telefono</span>
+                  )}
                 </div>
               </div>
-            ) : (
-              <div className="text-center py-8 text-muted-foreground">
-                <div className="text-2xl mb-2">📊</div>
-                <div className="text-sm">Completa i check-in per vedere i progressi</div>
-              </div>
-            )}
+            </div>
           </CardContent>
         </Card>
       </main>
