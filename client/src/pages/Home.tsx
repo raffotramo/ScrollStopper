@@ -271,23 +271,26 @@ const Home: React.FC = () => {
         {canAccessToday && (
           <section className="mx-4 my-4">
             <Card className="bg-white border-emerald-200">
-              <CardContent className="p-4">
+              <CardContent className="p-6">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <Clock className="w-4 h-4 text-emerald-600" />
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                      <Clock className="w-6 h-6 text-emerald-600" />
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-emerald-800">
+                      <div className="text-base font-medium text-emerald-800">
                         Tempo Recuperato
+                      </div>
+                      <div className="text-xs text-emerald-600">
+                        Da tutte le attività
                       </div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xl font-bold text-emerald-800 font-mono">
+                    <div className="text-3xl font-bold text-emerald-800 font-mono tracking-wide">
                       {Math.floor(userStats.totalTimeRecovered / 60).toString().padStart(2, '0')}:{(userStats.totalTimeRecovered % 60).toString().padStart(2, '0')}
                     </div>
-                    <div className="text-xs text-emerald-600">
+                    <div className="text-sm text-emerald-600 mt-1">
                       ore:minuti
                     </div>
                   </div>
