@@ -222,6 +222,24 @@ const Home: React.FC = () => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
+        {/* Home Section Header Card */}
+        <section className="mx-4 my-4">
+          <Card className="bg-white border-primary/20">
+            <CardContent className="py-3 px-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                  <Zap className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <div className="text-base font-bold text-primary">
+                    Home
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         {/* Time Saved Counter - Only show if access is allowed */}
         {canAccessToday && (
           <section className="mx-4 my-4">
