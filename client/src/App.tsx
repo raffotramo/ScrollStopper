@@ -12,6 +12,7 @@ import Journal from "@/pages/Journal";
 import Profile from "@/pages/Profile";
 import Progress from "@/pages/Progress";
 import Achievements from "@/pages/Achievements";
+import Challenges from "@/pages/Challenges";
 import Onboarding from "@/pages/Onboarding";
 import Login from "@/pages/Login";
 import ShopifyIntegration from "@/pages/ShopifyIntegration";
@@ -62,6 +63,7 @@ function Router() {
       <Route path="/journal" component={Journal} />
       <Route path="/progress" component={Progress} />
       <Route path="/achievements" component={Achievements} />
+      <Route path="/challenges" component={Challenges} />
       <Route path="/profile" component={Profile} />
       <Route path="/shopify" component={ShopifyIntegration} />
       <Route path="/email" component={EmailConfig} />
