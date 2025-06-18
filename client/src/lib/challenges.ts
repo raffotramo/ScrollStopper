@@ -25,16 +25,16 @@ export const CHALLENGE_CATEGORIES = {
 export const challenges: ChallengeDay[] = [
   {
     day: 1,
-    title: "Chiama un Amico",
-    description: "Telefona a un amico e raccontagli di questa sfida che stai iniziando. Condividi le tue motivazioni e chiedigli supporto nel percorso.",
-    timeRequired: 15,
+    title: "Cassetto Zen",
+    description: "Riordina un cassetto disordinato. Trova almeno 1 cosa da eliminare o donare.",
+    timeRequired: 10,
     category: "CONNECTION"
   },
   {
     day: 2,
-    title: "Cassetto Zen",
-    description: "Riordina un cassetto disordinato. Trova almeno 1 cosa da eliminare o donare.",
-    timeRequired: 10,
+    title: "Chiama un Amico",
+    description: "Telefona a un amico e raccontagli di questa sfida che stai iniziando. Condividi le tue motivazioni e chiedigli supporto nel percorso.",
+    timeRequired: 15,
     category: "CONNECTION"
   },
   {
@@ -244,8 +244,8 @@ export const getTodaysChallenge = (currentDay: number): ChallengeDay => {
 // Claim coinvolgenti per le schede attività
 export const getActivityClaim = (day: number): string => {
   const claims = [
-    "Condividi questo momento con chi ami", // Giorno 1 - Chiama un Amico
-    "Libera spazio, libera la mente", // Giorno 2 - Cassetto Zen
+    "Libera spazio, libera la mente", // Giorno 1 - Cassetto Zen
+    "Condividi questo momento con chi ami", // Giorno 2 - Chiama un Amico
     "Energia pura per il tuo corpo", // Giorno 3 - Flash Workout
     "Un piccolo gesto, grande impatto", // Giorno 4 - Lettera di Gratitudine
     "Ritrova la bellezza nell'attesa", // Giorno 5 - Sfoglia & Inspira
