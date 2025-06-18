@@ -142,21 +142,28 @@ const Profile: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <section className="mx-4 mt-8 mb-6">
-        <div className="text-center">
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <User className="w-8 h-8 text-primary" />
-          </div>
-          <h1 className="text-2xl font-bold text-primary mb-4">
-            Il tuo profilo
-          </h1>
-          <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
-        </div>
-      </section>
-
       {/* Main Content */}
-      <main className="flex-1 overflow-auto hide-scrollbar pb-24">
+      <main className="flex-1 overflow-auto hide-scrollbar pb-24 pt-8">
+        {/* Profile Welcome Card */}
+        <section className="mx-4 my-4">
+          <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+            <CardContent className="py-4 px-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                  <User className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-primary">
+                    Il tuo profilo
+                  </div>
+                  <div className="text-sm text-primary/70">
+                    Le tue statistiche personali
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
         {/* Profile Header */}
         <section className="bg-card border border-border/30 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] mx-4 my-4 p-6 text-center">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 text-primary mb-3">

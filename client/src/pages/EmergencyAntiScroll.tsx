@@ -337,21 +337,29 @@ const EmergencyAntiScroll: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#eeeded] pb-20">
-      {/* Header */}
-      <section className="mx-4 mt-8 mb-6">
-        <div className="text-center">
-          <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Zap className="w-8 h-8 text-red-500" />
-          </div>
-          <h1 className="text-2xl font-bold text-red-500 mb-4">
-            Emergenza
-          </h1>
-          <div className="w-20 h-1 bg-red-500 rounded-full mx-auto"></div>
-        </div>
-      </section>
-      
       {/* Main Content */}
-      <main className="flex-1 overflow-auto hide-scrollbar pb-24">
+      <main className="flex-1 overflow-auto hide-scrollbar pb-24 pt-8">
+        {/* Emergency Welcome Card */}
+        <section className="mx-4 my-4">
+          <Card className="bg-gradient-to-r from-red-50 to-orange-50 border-red-200">
+            <CardContent className="py-4 px-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center">
+                  <Zap className="w-6 h-6 text-red-500" />
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-red-500">
+                    Emergenza
+                  </div>
+                  <div className="text-sm text-red-500/70">
+                    Ferma l'impulso di scrollare
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <div className="mx-4 space-y-4">
           {/* Pulsante principale di emergenza */}
         <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
