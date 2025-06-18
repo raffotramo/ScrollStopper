@@ -222,30 +222,6 @@ const Home: React.FC = () => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
-        {/* Progress Overview */}
-        <section className="mx-4 my-4">
-          <div className="bg-card rounded-2xl p-6 border border-border shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <ProgressCircle currentDay={currentDay} totalDays={30} size={60} strokeWidth={6} />
-                <div>
-                  <h3 className="text-lg font-bold text-foreground">Il tuo percorso</h3>
-                  <p className="text-sm text-muted-foreground">Giorno {currentDay} di 30</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-2xl font-bold text-primary">{completedDays}/30</div>
-                <div className="text-xs text-muted-foreground">giorni completati</div>
-              </div>
-            </div>
-            <div className="text-xs text-muted-foreground">
-              {completedDays > 0 && `Ultima attività completata ${Math.max(...progress.filter(p => p.completed).map(p => p.day))} giorni fa`}
-            </div>
-          </div>
-        </section>
-
-
-
         {/* Main Challenge Card */}
         <section className="bg-card rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] mx-4 my-4 p-6 border-2 border-primary/20 ring-1 ring-primary/10">
           <div className="flex items-center justify-between mb-4">
