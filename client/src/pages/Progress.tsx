@@ -85,13 +85,13 @@ const ProgressPage: React.FC = () => {
               <div className="text-sm text-muted-foreground">Check-in completati</div>
             </div>
             
-            {/* OPZIONE 1: Dashboard con widgets modulari */}
+            {/* Dashboard con focus dopamina */}
             {Object.keys(dailyCheckIns).length > 0 ? (
-              <div className="space-y-6">
-                <div className="text-sm font-medium text-foreground">OPZIONE 1: Dashboard Modulari</div>
+              <div className="space-y-4">
+                {/* Widgets principali */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-4">
-                    <div className="text-xs text-blue-600 font-medium mb-1">Tempo Telefono</div>
+                    <div className="text-xs text-blue-600 font-medium mb-1">⏱️ Tempo Telefono</div>
                     <div className="text-lg font-bold text-blue-800">
                       {(() => {
                         const avgTime = Object.values(dailyCheckIns).map(day => {
@@ -111,206 +111,166 @@ const ProgressPage: React.FC = () => {
                     </div>
                   </div>
                   
+                  <div className="bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-4">
+                    <div className="text-xs text-red-600 font-medium mb-1">🧠 Livello Dopamina</div>
+                    <div className="text-lg font-bold text-red-800">
+                      {(() => {
+                        const avgTime = Object.values(dailyCheckIns).map(day => {
+                          switch (day.phoneTime) {
+                            case 'Meno di 1h': return 1; // Basso
+                            case '1–2h': return 2; // Normale
+                            case '2–3h': return 3; // Alto
+                            case 'Più di 3h': return 4; // Critico
+                            default: return 0;
+                          }
+                        }).reduce((a, b) => a + b, 0) / Object.keys(dailyCheckIns).length;
+                        const level = avgTime <= 1.5 ? 'Equilibrato' : avgTime <= 2.5 ? 'Moderato' : avgTime <= 3.5 ? 'Elevato' : 'Critico';
+                        return level;
+                      })()}
+                    </div>
+                    <div className="text-xs text-red-600 mt-1">
+                      {(() => {
+                        const highUsageDays = Object.values(dailyCheckIns).filter(day => 
+                          day.phoneTime === '2–3h' || day.phoneTime === 'Più di 3h'
+                        ).length;
+                        return highUsageDays > 0 ? 'Sovrastimolazione rilevata' : 'Sistema bilanciato';
+                      })()}
+                    </div>
+                  </div>
+                  
                   <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-4">
-                    <div className="text-xs text-green-600 font-medium mb-1">Controllo</div>
+                    <div className="text-xs text-green-600 font-medium mb-1">🎯 Controllo Impulsi</div>
                     <div className="text-lg font-bold text-green-800">
                       {Math.round((Object.values(dailyCheckIns).filter(day => day.scrollImpulse === 'Mai').length / Object.keys(dailyCheckIns).length) * 100)}%
                     </div>
                     <div className="w-full bg-green-200 rounded-full h-1 mt-2">
-                      <div className="bg-green-500 h-1 rounded-full" style={{width: '80%'}}></div>
+                      <div className="bg-green-500 h-1 rounded-full" style={{
+                        width: `${(Object.values(dailyCheckIns).filter(day => day.scrollImpulse === 'Mai').length / Object.keys(dailyCheckIns).length) * 100}%`
+                      }}></div>
                     </div>
                   </div>
                   
                   <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-4">
-                    <div className="text-xs text-purple-600 font-medium mb-1">Umore</div>
-                    <div className="text-lg font-bold text-purple-800">Stabile</div>
-                    <div className="flex gap-1 mt-2">
-                      {Array.from({length: 5}, (_, i) => (
-                        <div key={i} className={`w-2 h-2 rounded-full ${i < 4 ? 'bg-purple-500' : 'bg-purple-200'}`}></div>
-                      ))}
+                    <div className="text-xs text-purple-600 font-medium mb-1">💎 Tempo Recuperato</div>
+                    <div className="text-lg font-bold text-purple-800">
+                      {(() => {
+                        // Stima tempo recuperato basato su riduzione uso telefono
+                        const savedTime = Object.values(dailyCheckIns).map(day => {
+                          switch (day.phoneTime) {
+                            case 'Meno di 1h': return 120; // 2h salvate rispetto a media 3h
+                            case '1–2h': return 60; // 1h salvata
+                            case '2–3h': return 20; // 20min salvati
+                            case 'Più di 3h': return 0;
+                            default: return 0;
+                          }
+                        }).reduce((a, b) => a + b, 0);
+                        return savedTime >= 60 ? `${(savedTime / 60).toFixed(1)}h` : `${savedTime}m`;
+                      })()}
                     </div>
+                    <div className="text-xs text-purple-600 mt-1">Per attività significative</div>
                   </div>
+                </div>
+
+                {/* Analisi dopamina dettagliata */}
+                <div className="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl p-4 border border-amber-200">
+                  <div className="text-sm font-medium text-amber-800 mb-3">⚡ Analisi Sistema Dopamina</div>
                   
-                  <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-4">
-                    <div className="text-xs text-orange-600 font-medium mb-1">Streak</div>
-                    <div className="text-lg font-bold text-orange-800">{Object.keys(dailyCheckIns).length} giorni</div>
-                    <div className="text-xs text-orange-600 mt-1">In crescita</div>
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
-            {/* OPZIONE 2: Timeline interattiva */}
-            {Object.keys(dailyCheckIns).length > 0 ? (
-              <div className="space-y-6 mt-8">
-                <div className="text-sm font-medium text-foreground">OPZIONE 2: Timeline Interattiva</div>
-                <div className="relative">
-                  <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-muted"></div>
-                  {Array.from({ length: 7 }, (_, i) => {
-                    const day = Math.max(1, currentDay - 6 + i);
-                    const dayData = dailyCheckIns[day];
-                    const isGoodDay = dayData && (
-                      (dayData.phoneTime === 'Meno di 1h' || dayData.phoneTime === '1–2h') ||
-                      dayData.scrollImpulse === 'Mai'
-                    );
+                  {(() => {
+                    const highUsageDays = Object.values(dailyCheckIns).filter(day => 
+                      day.phoneTime === '2–3h' || day.phoneTime === 'Più di 3h'
+                    ).length;
                     
-                    return (
-                      <div key={i} className="relative flex items-center gap-4 pb-4">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 ${
-                          isGoodDay ? 'bg-green-100 border-green-500 text-green-700' : 
-                          dayData ? 'bg-yellow-100 border-yellow-500 text-yellow-700' :
-                          'bg-muted border-border text-muted-foreground'
-                        }`}>
-                          {day}
-                        </div>
-                        <div className="flex-1 bg-card rounded-lg p-3 border">
-                          <div className="text-sm font-medium">Giorno {day}</div>
-                          {dayData ? (
-                            <div className="text-xs text-muted-foreground mt-1">
-                              📱 {dayData.phoneTime} • 🎯 {dayData.scrollImpulse || 'N/A'} • 😌 {dayData.dailyFeeling?.slice(0, 10) || 'N/A'}...
-                            </div>
-                          ) : (
-                            <div className="text-xs text-muted-foreground mt-1">Nessun check-in</div>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : null}
-
-            {/* OPZIONE 3: Grafici a torta + barre */}
-            {Object.keys(dailyCheckIns).length > 0 ? (
-              <div className="space-y-6 mt-8">
-                <div className="text-sm font-medium text-foreground">OPZIONE 3: Distribuzione + Confronti</div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-card rounded-lg p-4 border">
-                    <div className="text-sm font-medium mb-3">Tempo Telefono</div>
-                    <div className="space-y-2">
-                      {['Meno di 1h', '1–2h', '2–3h', 'Più di 3h'].map(time => {
-                        const count = Object.values(dailyCheckIns).filter(day => day.phoneTime === time).length;
-                        const percentage = (count / Object.keys(dailyCheckIns).length) * 100;
-                        return (
-                          <div key={time} className="flex items-center gap-2">
-                            <div className="text-xs w-16">{time}</div>
-                            <div className="flex-1 bg-muted rounded-full h-2">
-                              <div 
-                                className="bg-primary h-2 rounded-full transition-all duration-300"
-                                style={{width: `${percentage}%`}}
-                              ></div>
-                            </div>
-                            <div className="text-xs w-8">{count}</div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                  
-                  <div className="bg-card rounded-lg p-4 border">
-                    <div className="text-sm font-medium mb-3">Controllo Impulsi</div>
-                    <div className="space-y-2">
-                      {['Mai', 'Una volta', 'Più volte'].map(impulse => {
-                        const count = Object.values(dailyCheckIns).filter(day => day.scrollImpulse === impulse).length;
-                        const percentage = (count / Object.keys(dailyCheckIns).length) * 100;
-                        const color = impulse === 'Mai' ? 'bg-green-500' : impulse === 'Una volta' ? 'bg-yellow-500' : 'bg-red-500';
-                        return (
-                          <div key={impulse} className="flex items-center gap-2">
-                            <div className="text-xs w-16">{impulse}</div>
-                            <div className="flex-1 bg-muted rounded-full h-2">
-                              <div 
-                                className={`${color} h-2 rounded-full transition-all duration-300`}
-                                style={{width: `${percentage}%`}}
-                              ></div>
-                            </div>
-                            <div className="text-xs w-8">{count}</div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
-            {/* OPZIONE 4: Stile fitness tracker */}
-            {Object.keys(dailyCheckIns).length > 0 ? (
-              <div className="space-y-6 mt-8">
-                <div className="text-sm font-medium text-foreground">OPZIONE 4: Fitness Tracker Style</div>
-                
-                {/* Anelli di progresso */}
-                <div className="flex justify-center">
-                  <div className="relative w-32 h-32">
-                    <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
-                      {/* Anello esterno - Tempo */}
-                      <circle cx="60" cy="60" r="54" fill="none" stroke="#e2e8f0" strokeWidth="6"/>
-                      <circle 
-                        cx="60" cy="60" r="54" fill="none" stroke="#22c55e" strokeWidth="6"
-                        strokeDasharray={`${(Object.values(dailyCheckIns).filter(day => day.phoneTime === 'Meno di 1h').length / Object.keys(dailyCheckIns).length) * 339.292} 339.292`}
-                        strokeLinecap="round"
-                      />
-                      
-                      {/* Anello medio - Controllo */}
-                      <circle cx="60" cy="60" r="42" fill="none" stroke="#e2e8f0" strokeWidth="6"/>
-                      <circle 
-                        cx="60" cy="60" r="42" fill="none" stroke="#3b82f6" strokeWidth="6"
-                        strokeDasharray={`${(Object.values(dailyCheckIns).filter(day => day.scrollImpulse === 'Mai').length / Object.keys(dailyCheckIns).length) * 263.894} 263.894`}
-                        strokeLinecap="round"
-                      />
-                      
-                      {/* Anello interno - Umore */}
-                      <circle cx="60" cy="60" r="30" fill="none" stroke="#e2e8f0" strokeWidth="6"/>
-                      <circle 
-                        cx="60" cy="60" r="30" fill="none" stroke="#8b5cf6" strokeWidth="6"
-                        strokeDasharray={`${(Object.values(dailyCheckIns).filter(day => day.dailyFeeling === 'Calmo/a e concentrato/a').length / Object.keys(dailyCheckIns).length) * 188.496} 188.496`}
-                        strokeLinecap="round"
-                      />
-                    </svg>
+                    const impulseControl = Object.values(dailyCheckIns).filter(day => 
+                      day.scrollImpulse === 'Mai'
+                    ).length;
                     
-                    {/* Centro con streak */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-primary">{Object.keys(dailyCheckIns).length}</div>
-                        <div className="text-xs text-muted-foreground">giorni</div>
-                      </div>
-                    </div>
-                  </div>
+                    const goodMoodDays = Object.values(dailyCheckIns).filter(day => 
+                      day.dailyFeeling === 'Calmo/a e concentrato/a'
+                    ).length;
+                    
+                    const totalDays = Object.keys(dailyCheckIns).length;
+                    
+                    if (highUsageDays / totalDays > 0.6) {
+                      return (
+                        <div className="space-y-2">
+                          <div className="text-sm text-amber-800">
+                            🟡 <strong>Sovrastimolazione frequente</strong> - Il tuo sistema dopaminergico potrebbe essere in sovraccarico
+                          </div>
+                          <div className="text-xs text-amber-700">
+                            • Ridurre gradualmente il tempo al telefono aiuta a riequilibrare i neurotrasmettitori
+                            • Focus su attività che stimolano dopamina naturale: sport, creatività, relazioni sociali
+                          </div>
+                        </div>
+                      );
+                    } else if (impulseControl / totalDays > 0.7) {
+                      return (
+                        <div className="space-y-2">
+                          <div className="text-sm text-green-800">
+                            🟢 <strong>Ottimo controllo inibitorio</strong> - Stai riequilibrando efficacemente il sistema della ricompensa
+                          </div>
+                          <div className="text-xs text-green-700">
+                            • La tua corteccia prefrontale sta riprendendo controllo sui circuiti automatici
+                            • Continua con pause regolari per consolidare questi nuovi pattern neurali
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div className="space-y-2">
+                          <div className="text-sm text-blue-800">
+                            🔵 <strong>Fase di ricalibrazione</strong> - Il tuo cervello si sta adattando ai nuovi stimoli
+                          </div>
+                          <div className="text-xs text-blue-700">
+                            • È normale sentire resistenza iniziale - i recettori dopaminergici si stanno resettando
+                            • Ogni giorno di controllo rinforza nuove connessioni neurali più sane
+                          </div>
+                        </div>
+                      );
+                    }
+                  })()}
                 </div>
-                
-                {/* Legenda anelli */}
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div>
-                    <div className="w-3 h-3 bg-green-500 rounded-full mx-auto mb-1"></div>
-                    <div className="text-xs">Tempo</div>
+
+                {/* Grafici trend mini */}
+                <div className="space-y-3">
+                  <div className="text-sm font-medium text-foreground">Trend ultimi 7 giorni</div>
+                  <div className="grid grid-cols-7 gap-1">
+                    {Array.from({ length: 7 }, (_, i) => {
+                      const day = Math.max(1, currentDay - 6 + i);
+                      const dayData = dailyCheckIns[day];
+                      
+                      let dopamineLevel = 0; // 0=nessun dato, 1=equilibrato, 2=moderato, 3=alto, 4=critico
+                      if (dayData?.phoneTime) {
+                        switch (dayData.phoneTime) {
+                          case 'Meno di 1h': dopamineLevel = 1; break;
+                          case '1–2h': dopamineLevel = 2; break;
+                          case '2–3h': dopamineLevel = 3; break;
+                          case 'Più di 3h': dopamineLevel = 4; break;
+                        }
+                      }
+                      
+                      const height = dopamineLevel === 0 ? 'h-2' : dopamineLevel === 1 ? 'h-3' : dopamineLevel === 2 ? 'h-5' : dopamineLevel === 3 ? 'h-7' : 'h-9';
+                      const color = dopamineLevel === 0 ? 'bg-muted' : dopamineLevel === 1 ? 'bg-green-400' : dopamineLevel === 2 ? 'bg-blue-400' : dopamineLevel === 3 ? 'bg-yellow-400' : 'bg-red-400';
+                      
+                      return (
+                        <div key={i} className="text-center">
+                          <div className="h-9 flex items-end justify-center mb-1">
+                            <div className={`w-3 rounded-t transition-all duration-300 ${height} ${color}`} />
+                          </div>
+                          <div className="text-xs text-muted-foreground">{day}</div>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <div>
-                    <div className="w-3 h-3 bg-blue-500 rounded-full mx-auto mb-1"></div>
-                    <div className="text-xs">Controllo</div>
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>🟢 Equilibrato</span>
+                    <span>🔴 Sovrastimolato</span>
                   </div>
-                  <div>
-                    <div className="w-3 h-3 bg-purple-500 rounded-full mx-auto mb-1"></div>
-                    <div className="text-xs">Umore</div>
-                  </div>
-                </div>
-                
-                {/* Badge achievements */}
-                <div className="flex justify-center gap-2">
-                  {Object.keys(dailyCheckIns).length >= 3 && (
-                    <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-medium">
-                      🔥 3 giorni consecutivi
-                    </div>
-                  )}
-                  {Object.values(dailyCheckIns).filter(day => day.phoneTime === 'Meno di 1h').length >= 2 && (
-                    <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
-                      📱 Master del tempo
-                    </div>
-                  )}
                 </div>
               </div>
             ) : (
               <div className="text-center py-6 text-muted-foreground">
-                <div className="text-4xl mb-2">📊</div>
-                <div className="text-sm">Inizia a completare i check-in per vedere i tuoi progressi</div>
+                <div className="text-4xl mb-2">🧠</div>
+                <div className="text-sm">Inizia a completare i check-in per monitorare il tuo sistema dopaminergico</div>
               </div>
             )}
           </CardContent>
