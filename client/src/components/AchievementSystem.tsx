@@ -21,28 +21,8 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
   userStats, 
   allAchievements 
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('mindfulness');
   const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null);
-
-  const categories = [
-    { id: 'mindfulness', name: 'Mindfulness', icon: '🧘' },
-    { id: 'creativity', name: 'Creatività', icon: '🎨' },
-    { id: 'connection', name: 'Connessioni', icon: '🤝' }
-  ];
-
-  const filteredAchievements = allAchievements.filter(a => {
-    if (selectedCategory === 'mindfulness') {
-      return a.category === 'mindfulness' || a.category === 'special';
-    }
-    if (selectedCategory === 'creativity') {
-      return a.category === 'creativity';
-    }
-    if (selectedCategory === 'connection') {
-      return a.category === 'connection';
-    }
-    return false;
-  });
 
   const levelProgress = userStats.pointsToNextLevel > 0 
     ? ((userStats.totalStars) / (userStats.totalStars + userStats.pointsToNextLevel)) * 100
@@ -91,25 +71,9 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
         </CardHeader>
       </Card>
 
-      {/* Filtri categorie */}
-      <div className="flex flex-wrap gap-2">
-        {categories.map(category => (
-          <Button
-            key={category.id}
-            variant={selectedCategory === category.id ? "default" : "outline"}
-            size="sm"
-            onClick={() => setSelectedCategory(category.id)}
-            className="text-xs"
-          >
-            <span className="mr-1">{category.icon}</span>
-            {category.name}
-          </Button>
-        ))}
-      </div>
-
       {/* Griglia achievement */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {filteredAchievements.map(achievement => (
+        {allAchievements.map(achievement => (
           <Card 
             key={achievement.id}
             className={`cursor-pointer transition-all hover:shadow-md ${
