@@ -92,52 +92,67 @@ const ProgressPage: React.FC = () => {
       </section>
 
       <main className="p-4 space-y-6">
-        {/* Come funziona */}
-        <Card className="bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Info className="w-5 h-5 text-orange-600" />
-              Come funziona
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex gap-3">
-                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-orange-600">1</span>
-                </div>
-                <div>
-                  <p className="font-medium text-sm">Completa le sfide giornaliere</p>
-                  <p className="text-xs text-muted-foreground">
-                    Ogni giorno sblocca una nuova attività per ridurre il tempo schermo
-                  </p>
-                </div>
+        {/* Progressi */}
+        <section className="mx-4 my-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
+                <Trophy className="w-4 h-4 text-primary-foreground" />
               </div>
-              <div className="flex gap-3">
-                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-orange-600">2</span>
-                </div>
-                <div>
-                  <p className="font-medium text-sm">Accumula stelle e livelli</p>
-                  <p className="text-xs text-muted-foreground">
-                    Ogni attività completata ti fa guadagnare stelle e sbloccare achievement
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-orange-600">3</span>
-                </div>
-                <div>
-                  <p className="font-medium text-sm">Monitora i tuoi progressi</p>
-                  <p className="text-xs text-muted-foreground">
-                    Fai il check-in quotidiano e traccia il tuo percorso di benessere digitale
-                  </p>
-                </div>
-              </div>
+              <h2 className="text-lg font-bold text-foreground">Progressi</h2>
             </div>
-          </CardContent>
-        </Card>
+            <SocialShare userStats={userStats} />
+          </div>
+          
+          {/* Level and Progress Card */}
+          <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200 mb-4">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center">
+                  <Trophy className="w-5 h-5 text-yellow-600 mr-2" />
+                  <span className="font-bold text-yellow-800">
+                    {getLevelTitle(userStats.level)}
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <Star className="w-4 h-4 text-yellow-600 mr-1" />
+                  <span className="font-bold text-yellow-800">{userStats.totalStars} stelle totali</span>
+                </div>
+              </div>
+              <div className="w-full bg-yellow-200 rounded-full h-2 mb-2">
+                <div 
+                  className="bg-yellow-600 h-2 rounded-full transition-all duration-500"
+                  style={{ width: `${Math.min(100, levelProgress)}%` }}
+                ></div>
+              </div>
+              <p className="text-xs text-yellow-700 font-medium">
+                {userStats.pointsToNextLevel > 0 
+                  ? `${userStats.pointsToNextLevel} stelle al prossimo livello`
+                  : 'Livello massimo raggiunto!'
+                }
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Current Stats Grid */}
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+              <CardContent className="p-4 text-center">
+                <Calendar className="w-5 h-5 text-green-600 mx-auto mb-2" />
+                <div className="text-xl font-bold text-green-800">{completedDays}</div>
+                <div className="text-xs text-green-600 font-medium">Giorni completati</div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
+              <CardContent className="p-4 text-center">
+                <Clock className="w-5 h-5 text-blue-600 mx-auto mb-2" />
+                <div className="text-xl font-bold text-blue-800">{Math.round(timeRecovered)}</div>
+                <div className="text-xs text-blue-600 font-medium">Minuti recuperati</div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
 
         {/* Daily Check-in Quiz */}
         <Card>
