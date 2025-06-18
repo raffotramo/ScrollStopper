@@ -143,7 +143,6 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
       </div>
 
       {viewMode === 'achievements' ? (
-        // Griglia achievement
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {filteredAchievements.map(achievement => (
             <Card 
@@ -211,7 +210,6 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
           ))}
         </div>
       ) : (
-        // Lista sfide
         <div className="space-y-3">
           {filteredChallenges.map(challenge => {
             const status = getChallengeStatus(challenge.day);
@@ -267,74 +265,72 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
 
       {viewMode === 'achievements' && (
         <>
-          {/* Statistiche totali */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg flex items-center gap-2">
-            <Trophy className="w-5 h-5 text-amber-600" />
-            I tuoi progressi
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-4 text-center">
-            <div>
-              <div className="text-2xl font-bold text-green-600">
-                {userStats.achievements.filter(a => a.unlocked).length}
-              </div>
-              <div className="text-sm text-gray-600">Achievement sbloccati</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-amber-600">
-                {userStats.totalStars}
-              </div>
-              <div className="text-sm text-gray-600">Stelle guadagnate</div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Modal dettagli achievement */}
-      <Dialog open={showAchievementModal} onOpenChange={setShowAchievementModal}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              {selectedAchievement && (
-                <>
-                  <span className="text-2xl">{selectedAchievement.icon}</span>
-                  {selectedAchievement.name}
-                </>
-              )}
-            </DialogTitle>
-          </DialogHeader>
-          
-          {selectedAchievement && (
-            <div className="space-y-4">
-              <p className="text-gray-600">{selectedAchievement.description}</p>
-              
-              <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
-                <span className="text-sm font-medium">Ricompensa:</span>
-                <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                  <span className="font-bold text-amber-700">{selectedAchievement.stars} stelle</span>
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Trophy className="w-5 h-5 text-amber-600" />
+                I tuoi progressi
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4 text-center">
+                <div>
+                  <div className="text-2xl font-bold text-green-600">
+                    {userStats.achievements.filter(a => a.unlocked).length}
+                  </div>
+                  <div className="text-sm text-gray-600">Achievement sbloccati</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-amber-600">
+                    {userStats.totalStars}
+                  </div>
+                  <div className="text-sm text-gray-600">Stelle guadagnate</div>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+
+          <Dialog open={showAchievementModal} onOpenChange={setShowAchievementModal}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  {selectedAchievement && (
+                    <>
+                      <span className="text-2xl">{selectedAchievement.icon}</span>
+                      {selectedAchievement.name}
+                    </>
+                  )}
+                </DialogTitle>
+              </DialogHeader>
               
-              <Badge 
-                variant={selectedAchievement.unlocked ? "default" : "secondary"}
-                className="w-full justify-center py-2"
-              >
-                {selectedAchievement.unlocked ? '✅ Sbloccato' : '🔒 Da sbloccare'}
-              </Badge>
-              
-              {selectedAchievement.unlocked && selectedAchievement.unlockedAt && (
-                <p className="text-center text-sm text-green-600">
-                  Sbloccato il {new Date(selectedAchievement.unlockedAt).toLocaleDateString('it-IT')}
-                </p>
+              {selectedAchievement && (
+                <div className="space-y-4">
+                  <p className="text-gray-600">{selectedAchievement.description}</p>
+                  
+                  <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
+                    <span className="text-sm font-medium">Ricompensa:</span>
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                      <span className="font-bold text-amber-700">{selectedAchievement.stars} stelle</span>
+                    </div>
+                  </div>
+                  
+                  <Badge 
+                    variant={selectedAchievement.unlocked ? "default" : "secondary"}
+                    className="w-full justify-center py-2"
+                  >
+                    {selectedAchievement.unlocked ? '✅ Sbloccato' : '🔒 Da sbloccare'}
+                  </Badge>
+                  
+                  {selectedAchievement.unlocked && selectedAchievement.unlockedAt && (
+                    <p className="text-center text-sm text-green-600">
+                      Sbloccato il {new Date(selectedAchievement.unlockedAt).toLocaleDateString('it-IT')}
+                    </p>
+                  )}
+                </div>
               )}
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+            </DialogContent>
+          </Dialog>
         </>
       )}
     </div>
