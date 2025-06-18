@@ -100,8 +100,7 @@ const Challenges: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
         <div className="mx-4 space-y-4">
-
-        <AchievementSystem 
+          <AchievementSystem 
           userStats={{
             totalStars: userStats.totalStars,
             level: userStats.level,
@@ -110,6 +109,7 @@ const Challenges: React.FC = () => {
           }}
           allAchievements={userStats.achievements}
         />
+        </div>
       </main>
 
       <TabNavigation />
