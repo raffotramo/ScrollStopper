@@ -270,29 +270,31 @@ const Home: React.FC = () => {
         {/* Time Saved Counter - Only show if access is allowed */}
         {canAccessToday && (
           <section className="mx-4 my-4">
-            <Card className="bg-white border-emerald-200">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <Clock className="w-6 h-6 text-emerald-600" />
+            <Card className="bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-200">
+              <CardContent className="p-4">
+                <div className="text-center">
+                  <div className="text-xs font-medium text-emerald-700 uppercase tracking-wide mb-3">
+                    Tempo Recuperato
+                  </div>
+                  
+                  {/* Countdown display */}
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <div className="w-14 h-14 bg-emerald-600 rounded-lg flex items-center justify-center">
+                      <span className="text-xl font-bold text-white">
+                        {Math.floor(userStats.totalTimeRecovered / 60).toString().padStart(2, '0')}
+                      </span>
                     </div>
-                    <div>
-                      <div className="text-base font-medium text-emerald-800">
-                        Tempo Recuperato
-                      </div>
-                      <div className="text-xs text-emerald-600">
-                        Da tutte le attività
-                      </div>
+                    <div className="text-xl font-bold text-emerald-600">:</div>
+                    <div className="w-14 h-14 bg-emerald-600 rounded-lg flex items-center justify-center">
+                      <span className="text-xl font-bold text-white">
+                        {(userStats.totalTimeRecovered % 60).toString().padStart(2, '0')}
+                      </span>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-3xl font-bold text-emerald-800 font-mono tracking-wide">
-                      {Math.floor(userStats.totalTimeRecovered / 60).toString().padStart(2, '0')}:{(userStats.totalTimeRecovered % 60).toString().padStart(2, '0')}
-                    </div>
-                    <div className="text-sm text-emerald-600 mt-1">
-                      ore:minuti
-                    </div>
+                  
+                  <div className="flex justify-center gap-8">
+                    <span className="text-xs text-emerald-700 font-medium">ORE</span>
+                    <span className="text-xs text-emerald-700 font-medium">MIN</span>
                   </div>
                 </div>
               </CardContent>
