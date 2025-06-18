@@ -244,36 +244,36 @@ export const getTodaysChallenge = (currentDay: number): ChallengeDay => {
 // Claim coinvolgenti per le schede attività
 export const getActivityClaim = (day: number): string => {
   const claims = [
-    "Inizia il tuo cambiamento", // Giorno 1
-    "Connettiti con chi conta", // Giorno 2
-    "Energia pura per la tua giornata", // Giorno 3
-    "Un piccolo gesto, grande impatto", // Giorno 4
-    "Ritrova la bellezza nell'attesa", // Giorno 5
-    "Sperimenta qualcosa di nuovo", // Giorno 6
-    "Dialoga con il tuo io più profondo", // Giorno 7
-    "Libera la tua creatività nascosta", // Giorno 8
-    "Fai spazio a ciò che conta", // Giorno 9
-    "Viaggia nei tuoi ricordi", // Giorno 10
-    "Scopri il mondo che ti circonda", // Giorno 11
-    "Dai voce ai tuoi pensieri", // Giorno 12
-    "Amplia i tuoi orizzonti", // Giorno 13
-    "Sogna in grande", // Giorno 14
-    "Condividi la tua esperienza", // Giorno 15
-    "Nutre la tua curiosità", // Giorno 16
-    "Contempla l'infinito", // Giorno 17
-    "Crea il tuo momento perfetto", // Giorno 18
-    "Lascia fluire i pensieri", // Giorno 19
-    "Racconta la tua storia", // Giorno 20
-    "Costruisci il tuo soundtrack", // Giorno 21
-    "Trova la tua pace interiore", // Giorno 22
-    "Assapora ogni momento", // Giorno 23
-    "Elimina ciò che non serve", // Giorno 24
-    "Progetta la giornata perfetta", // Giorno 25
-    "Esplora nuovi territori", // Giorno 26
-    "Crea il tuo ambiente ideale", // Giorno 27
-    "Celebra le piccole vittorie", // Giorno 28
-    "Definisci i tuoi traguardi", // Giorno 29
-    "Immagina il tuo futuro" // Giorno 30
+    "Condividi questo momento con chi ami", // Giorno 1 - Chiama un Amico
+    "Libera spazio, libera la mente", // Giorno 2 - Cassetto Zen
+    "Energia pura per il tuo corpo", // Giorno 3 - Flash Workout
+    "Un piccolo gesto, grande impatto", // Giorno 4 - Lettera di Gratitudine
+    "Ritrova la bellezza nell'attesa", // Giorno 5 - Sfoglia & Inspira
+    "Sperimenta qualcosa di nuovo", // Giorno 6 - Cucina un Piatto Nuovo
+    "Dialoga con il tuo io più profondo", // Giorno 7 - Lettera a Me
+    "Libera la tua creatività nascosta", // Giorno 8 - Disegno Libero
+    "Fai spazio a ciò che conta", // Giorno 9 - Pulizia Digitale
+    "Viaggia nei tuoi ricordi", // Giorno 10 - Racconta un Ricordo
+    "Scopri il mondo che ti circonda", // Giorno 11 - Passeggiata Detox
+    "Dai voce ai tuoi pensieri", // Giorno 12 - Journaling Mentale
+    "Amplia i tuoi orizzonti", // Giorno 13 - Impara 5 Parole Straniere
+    "Sogna in grande", // Giorno 14 - Lista dei Desideri
+    "Condividi la tua esperienza", // Giorno 15 - Scrivi una Recensione
+    "Nutri la tua curiosità", // Giorno 16 - Ascolta un Podcast Educativo
+    "Contempla l'infinito", // Giorno 17 - Osserva le Stelle
+    "Crea il tuo momento perfetto", // Giorno 18 - Prepara un Tè e Ascolta Musica
+    "Lascia fluire i pensieri", // Giorno 19 - Pensiero Libero
+    "Racconta la tua storia", // Giorno 20 - Scrivi la Tua Bio
+    "Costruisci il tuo soundtrack", // Giorno 21 - Crea una Playlist Motivazionale
+    "Trova la tua pace interiore", // Giorno 22 - Fai 20 Respiri Profondi
+    "Assapora ogni momento", // Giorno 23 - Snack Consapevole
+    "Elimina ciò che non serve", // Giorno 24 - Decluttering Armadio
+    "Progetta la giornata perfetta", // Giorno 25 - Crea la Tua Routine Mattutina
+    "Esplora nuovi territori", // Giorno 26 - Esplora il Tuo Quartiere
+    "Crea il tuo ambiente ideale", // Giorno 27 - Riorganizza la Scrivania
+    "Celebra le piccole vittorie", // Giorno 28 - Scrivi 3 Cose Positive di Oggi
+    "Definisci i tuoi traguardi", // Giorno 29 - Scrivi Tre Obiettivi Concreti
+    "Immagina il tuo futuro" // Giorno 30 - Crea un Collage Ispirazionale
   ];
   
   return claims[day - 1] || "Inizia il tuo cambiamento";

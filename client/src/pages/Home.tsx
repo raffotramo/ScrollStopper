@@ -12,7 +12,7 @@ import Header from '@/components/Header';
 import SocialShare from '@/components/SocialShare';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
-import { challenges, getTodaysChallenge, getDailyTip, CHALLENGE_CATEGORIES } from '@/lib/challenges';
+import { challenges, getTodaysChallenge, getDailyTip, getActivityClaim, CHALLENGE_CATEGORIES } from '@/lib/challenges';
 import { DayProgress, CompletionStatus, UserStats } from '@/types';
 import { ALL_ACHIEVEMENTS, checkAchievements, calculateLevel, getLevelTitle } from '@/lib/achievements';
 import { useDailyAccess } from '@/hooks/useDailyAccess';
@@ -252,7 +252,7 @@ const Home: React.FC = () => {
               </div>
             </div>
             <h2 className="text-lg font-bold text-foreground mb-3">{todayChallenge.title}</h2>
-            <p className="text-muted-foreground text-sm mb-6">{todayChallenge.description}</p>
+            <p className="text-muted-foreground text-sm mb-6">{getActivityClaim(currentDay)}</p>
             <Button 
               className={`w-full rounded-full h-12 font-bold text-base shadow-lg transition-all duration-200 ${
                 isCurrentDayCompleted 
