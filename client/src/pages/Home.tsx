@@ -11,7 +11,7 @@ import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
-import { challenges, getTodaysChallenge, getDailyTip } from '@/lib/challenges';
+import { challenges, getTodaysChallenge, getDailyTip, CHALLENGE_CATEGORIES } from '@/lib/challenges';
 import { DayProgress, CompletionStatus, UserStats } from '@/types';
 import { ALL_ACHIEVEMENTS, checkAchievements, calculateLevel, getLevelTitle } from '@/lib/achievements';
 import { useDailyAccess } from '@/hooks/useDailyAccess';
@@ -234,24 +234,66 @@ const Home: React.FC = () => {
           />
         </section>
 
+        {/* Category Progress Overview */}
+        <section className="mx-4 my-4">
+          <h2 className="text-lg font-bold text-foreground mb-4">Il Tuo Percorso</h2>
+          <div className="grid grid-cols-3 gap-3">
+            {Object.entries(CHALLENGE_CATEGORIES).map(([key, category]) => {
+              const categoryDays = key === 'MINDFULNESS' ? [1,2,3,4,5,6,7,8,9,10] : 
+                                  key === 'CREATIVITY' ? [11,12,13,14,15,16,17,18,19,20] : 
+                                  [21,22,23,24,25,26,27,28,29,30];
+              const completedInCategory = progress.filter(p => categoryDays.includes(p.day) && p.completed).length;
+              const isCurrentCategory = categoryDays.includes(currentDay);
+              
+              return (
+                <div key={key} className={`p-3 rounded-xl border ${
+                  isCurrentCategory ? 'border-primary bg-primary/5' : 'border-border bg-card'
+                }`}>
+                  <div className="text-lg mb-1">{category.icon}</div>
+                  <div className="text-xs font-bold text-foreground">{category.name}</div>
+                  <div className="text-xs text-muted-foreground">{completedInCategory}/10</div>
+                  {isCurrentCategory && (
+                    <div className="w-full bg-primary/20 rounded-full h-1 mt-2">
+                      <div 
+                        className="bg-primary h-1 rounded-full"
+                        style={{ width: `${(completedInCategory / 10) * 100}%` }}
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Main Challenge Card - Only show if access is allowed */}
         {canAccessToday && (
-          <section className="bg-card rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] mx-4 my-4 p-8 border-2 border-primary/20 ring-1 ring-primary/10">
-            <div className="flex items-center justify-between mb-6">
+          <section className="bg-card rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] mx-4 my-4 p-6 border-2 border-primary/20 ring-1 ring-primary/10">
+            {/* Category Badge */}
+            {todayChallenge.category && (
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-lg">{CHALLENGE_CATEGORIES[todayChallenge.category as keyof typeof CHALLENGE_CATEGORIES]?.icon}</span>
+                <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
+                  {CHALLENGE_CATEGORIES[todayChallenge.category as keyof typeof CHALLENGE_CATEGORIES]?.name}
+                </span>
+              </div>
+            )}
+            
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
                   <Calendar className="w-5 h-5 text-primary" />
                 </div>
-                <h1 className="text-2xl font-bold text-foreground">Giorno {currentDay}</h1>
+                <h1 className="text-xl font-bold text-foreground">Giorno {currentDay}</h1>
               </div>
-              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">{currentDay}</span>
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-sm">{currentDay}</span>
               </div>
             </div>
-            <h2 className="text-xl font-bold text-foreground mb-3">{todayChallenge.title}</h2>
-            <p className="text-muted-foreground text-base mb-8">{todayChallenge.description}</p>
+            <h2 className="text-lg font-bold text-foreground mb-3">{todayChallenge.title}</h2>
+            <p className="text-muted-foreground text-sm mb-6">{todayChallenge.description}</p>
             <Button 
-              className={`w-full rounded-full h-14 font-bold text-lg shadow-lg transition-all duration-200 ${
+              className={`w-full rounded-full h-12 font-bold text-base shadow-lg transition-all duration-200 ${
                 isCurrentDayCompleted 
                   ? "bg-primary/20 text-primary border-2 border-primary hover:bg-primary/30 hover:scale-[1.02]" 
                   : "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-[1.02] hover:shadow-xl"
