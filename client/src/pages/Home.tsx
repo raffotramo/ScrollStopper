@@ -267,6 +267,39 @@ const Home: React.FC = () => {
           </section>
         )}
 
+        {/* Time Saved Timer - Only show if access is allowed */}
+        {canAccessToday && (
+          <section className="mx-4 my-4">
+            <Card className="bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-200">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-emerald-600" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-emerald-800">
+                        Tempo Recuperato
+                      </div>
+                      <div className="text-xs text-emerald-700">
+                        Da tutte le attività
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-emerald-800">
+                      {Math.floor(userStats.totalTimeRecovered / 60)}h {userStats.totalTimeRecovered % 60}m
+                    </div>
+                    <div className="text-xs text-emerald-600">
+                      salvati finora
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+        )}
+
         {/* Gamification Widget */}
         <section className="mx-4 my-4">
           <Link href="/achievements">
