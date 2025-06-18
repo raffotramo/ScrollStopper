@@ -267,33 +267,64 @@ const Home: React.FC = () => {
           </section>
         )}
 
-        {/* Time Saved Timer - Only show if access is allowed */}
+        {/* Time Saved Countdown - Only show if access is allowed */}
         {canAccessToday && (
           <section className="mx-4 my-4">
-            <Card className="bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-200">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-emerald-600" />
+            <Card className="bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-200 overflow-hidden relative">
+              <CardContent className="p-6">
+                {/* Animated background pulse */}
+                <div className="absolute inset-0 bg-emerald-100/20 animate-pulse" style={{ animationDuration: '3s' }} />
+                
+                <div className="relative z-10">
+                  <div className="text-center mb-4">
+                    <div className="text-xs font-medium text-emerald-700 uppercase tracking-wide mb-2">
+                      Tempo Recuperato
                     </div>
-                    <div>
-                      <div className="text-sm font-bold text-emerald-800">
-                        Tempo Recuperato
+                    
+                    {/* Main countdown display */}
+                    <div className="flex items-center justify-center gap-4 mb-3">
+                      {/* Hours */}
+                      <div className="flex flex-col items-center">
+                        <div className="w-16 h-16 bg-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                          <span className="text-2xl font-bold text-white">
+                            {Math.floor(userStats.totalTimeRecovered / 60).toString().padStart(2, '0')}
+                          </span>
+                        </div>
+                        <span className="text-xs text-emerald-700 mt-1 font-medium">ORE</span>
                       </div>
-                      <div className="text-xs text-emerald-700">
-                        Da tutte le attività
+                      
+                      {/* Separator */}
+                      <div className="text-2xl font-bold text-emerald-600 animate-pulse">:</div>
+                      
+                      {/* Minutes */}
+                      <div className="flex flex-col items-center">
+                        <div className="w-16 h-16 bg-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                          <span className="text-2xl font-bold text-white">
+                            {(userStats.totalTimeRecovered % 60).toString().padStart(2, '0')}
+                          </span>
+                        </div>
+                        <span className="text-xs text-emerald-700 mt-1 font-medium">MIN</span>
                       </div>
+                    </div>
+                    
+                    {/* Progress bar */}
+                    <div className="w-full bg-emerald-200 rounded-full h-2 mb-2">
+                      <div 
+                        className="bg-gradient-to-r from-emerald-500 to-emerald-600 h-2 rounded-full transition-all duration-1000 ease-out"
+                        style={{ 
+                          width: `${Math.min((userStats.totalTimeRecovered / 480) * 100, 100)}%` // Progress towards 8 hours
+                        }}
+                      />
+                    </div>
+                    
+                    <div className="text-xs text-emerald-700">
+                      Obiettivo: 8 ore di tempo recuperato
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-lg font-bold text-emerald-800">
-                      {Math.floor(userStats.totalTimeRecovered / 60)}h {userStats.totalTimeRecovered % 60}m
-                    </div>
-                    <div className="text-xs text-emerald-600">
-                      salvati finora
-                    </div>
-                  </div>
+                  
+                  {/* Floating animation elements */}
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-emerald-400 rounded-full animate-ping" />
+                  <div className="absolute bottom-2 left-2 w-1 h-1 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }} />
                 </div>
               </CardContent>
             </Card>
