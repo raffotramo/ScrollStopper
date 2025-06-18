@@ -22,6 +22,7 @@ import DailyAccessControl from '@/components/DailyAccessControl';
 const Home: React.FC = () => {
   const [progress, setProgress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedChallenge, setSelectedChallenge] = useState<any>(null);
 
   const [userStats, setUserStats] = useLocalStorage<UserStats>('user-stats', {
     totalTimeRecovered: 0,
@@ -259,7 +260,10 @@ const Home: React.FC = () => {
                   ? "bg-primary/20 text-primary border-2 border-primary hover:bg-primary/30 hover:scale-[1.02]" 
                   : "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-[1.02] hover:shadow-xl"
               }`}
-              onClick={() => setModalOpen(true)}
+              onClick={() => {
+                setSelectedChallenge(todayChallenge);
+                setModalOpen(true);
+              }}
             >
               {isCurrentDayCompleted ? "✓ Completato per Oggi" : "Inizia Oggi"}
             </Button>
@@ -357,6 +361,7 @@ const Home: React.FC = () => {
               
               const handleClick = () => {
                 if (isToday || isCompleted) {
+                  setSelectedChallenge(challenge);
                   setModalOpen(true);
                 } else {
                   toast({
@@ -425,7 +430,7 @@ const Home: React.FC = () => {
       <DailyActivityModal
         open={modalOpen}
         onOpenChange={setModalOpen}
-        challenge={todayChallenge}
+        challenge={selectedChallenge || todayChallenge}
         onComplete={handleCompleteChallenge}
         tip={tip}
       />
