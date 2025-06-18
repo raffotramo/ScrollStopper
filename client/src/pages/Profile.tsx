@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, Award, BookOpen, CalendarDays, BarChart, User, LogOut, Store, Mail, RotateCcw } from 'lucide-react';
+import { Clock, Award, BookOpen, CalendarDays, BarChart, User, LogOut, Store, Mail, RotateCcw, Brain, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import TabNavigation from '@/components/TabNavigation';
@@ -14,6 +14,8 @@ const Profile: React.FC = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [progress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
+  const [dailyCheckIns] = useLocalStorage<Record<number, any>>('daily-checkins', {});
+  const [emergencyStats] = useLocalStorage<any>('emergency-stats', { totalUsage: 0 });
 
   const handleLogout = async () => {
     try {
@@ -41,6 +43,8 @@ const Profile: React.FC = () => {
       localStorage.removeItem('digital-detox-profile');
       localStorage.removeItem('digital-detox-progress');
       localStorage.removeItem('temp-onboarding-data');
+      localStorage.removeItem('daily-checkins');
+      localStorage.removeItem('emergency-stats');
       
       toast({
         title: "Profilo resettato",
@@ -59,24 +63,81 @@ const Profile: React.FC = () => {
     }
   };
   
-  // Calculate stats based on actual time spent
+  // Calculate stats from all sources
   const completedDays = progress.filter(day => day.completed).length;
   const percentComplete = Math.round((completedDays / 30) * 100);
-  const timeRecovered = progress
-    .filter(day => day.completed && day.timeSpent)
-    .reduce((total, day) => total + (day.timeSpent || 0), 0);
+  
+  // Calcola tempo recuperato totale da tutte le fonti
+  const timeRecovered = (() => {
+    // Tempo dalle sfide completate
+    const challengeTime = progress
+      .filter(day => day.completed && day.timeSpent)
+      .reduce((total, day) => total + (day.timeSpent || 0), 0);
+    
+    // Tempo stimato dai check-in (basato su riduzione uso telefono)
+    const checkInTime = Object.values(dailyCheckIns).reduce((total, day: any) => {
+      if (day.screenTime) {
+        switch (day.screenTime) {
+          case 'Meno di 2h': return total + 120; // 2h risparmiate rispetto a media 4h
+          case '2–4h': return total + 60; // 1h risparmiata
+          case '4–6h': return total + 30; // 30min risparmiate
+          case '6–8h': return total + 0; // nessun risparmio
+          case 'Oltre 8h': return total + 0; // nessun risparmio
+          default: return total;
+        }
+      }
+      return total;
+    }, 0);
+    
+    // Tempo dalle sessioni di emergenza (stima 5min per utilizzo strumento)
+    const emergencyTime = (emergencyStats?.totalUsage || 0) * 5;
+    
+    return challengeTime + checkInTime + emergencyTime;
+  })();
+  
   const reflectionsCount = progress.filter(day => day.reflectionText && day.reflectionText.trim() !== '').length;
   
-  // Determine current streak
-  let currentStreak = 0;
-  const progressSorted = [...progress].sort((a, b) => b.day - a.day);
-  for (const day of progressSorted) {
-    if (day.completed) {
-      currentStreak++;
-    } else {
-      break;
-    }
-  }
+  // Calcola controllo digitale medio invece di streak
+  const digitalControlScore = (() => {
+    const totalCheckIns = Object.keys(dailyCheckIns).length;
+    if (totalCheckIns === 0) return 0;
+    
+    let totalScore = 0;
+    Object.values(dailyCheckIns).forEach((day: any) => {
+      let dayScore = 0;
+      
+      // Punteggio tempo schermo (0-100)
+      switch (day.screenTime) {
+        case 'Meno di 2h': dayScore += 100; break;
+        case '2–4h': dayScore += 80; break;
+        case '4–6h': dayScore += 60; break;
+        case '6–8h': dayScore += 40; break;
+        case 'Oltre 8h': dayScore += 20; break;
+      }
+      
+      // Punteggio controllo impulsi (0-100)
+      switch (day.impulseControl) {
+        case 'Oltre 12': dayScore += 100; break;
+        case '8–12 volte': dayScore += 80; break;
+        case '4–7 volte': dayScore += 60; break;
+        case '1–3 volte': dayScore += 40; break;
+        case '0 volte': dayScore += 20; break;
+      }
+      
+      // Punteggio qualità focus (0-100)
+      switch (day.focusQuality) {
+        case 'Molto alto': dayScore += 100; break;
+        case 'Alto': dayScore += 80; break;
+        case 'Medio': dayScore += 60; break;
+        case 'Basso': dayScore += 40; break;
+        case 'Molto basso': dayScore += 20; break;
+      }
+      
+      totalScore += dayScore / 3; // Media dei 3 punteggi
+    });
+    
+    return Math.round(totalScore / totalCheckIns);
+  })();
 
 
   return (
@@ -175,10 +236,10 @@ const Profile: React.FC = () => {
             
             <div className="bg-card rounded-2xl p-4 border border-border/30 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
               <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
-                <Award className="w-5 h-5 text-primary" />
+                <Brain className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-xs text-muted-foreground mb-1">Serie corrente</p>
-              <p className="text-xl font-bold text-foreground">{currentStreak}</p>
+              <p className="text-xs text-muted-foreground mb-1">Controllo digitale</p>
+              <p className="text-xl font-bold text-foreground">{digitalControlScore}/100</p>
             </div>
             
             <div className="bg-card rounded-2xl p-4 border border-border/30 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
