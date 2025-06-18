@@ -17,10 +17,12 @@ import { DayProgress, CompletionStatus, UserStats } from '@/types';
 import { ALL_ACHIEVEMENTS, checkAchievements, calculateLevel, getLevelTitle } from '@/lib/achievements';
 import { useDailyAccess } from '@/hooks/useDailyAccess';
 import DailyAccessControl from '@/components/DailyAccessControl';
+import DailyProgressQuiz from '@/components/DailyProgressQuiz';
 
 const Home: React.FC = () => {
   const [progress, setProgress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
   const [modalOpen, setModalOpen] = useState(false);
+  const [dailyCheckIns, setDailyCheckIns] = useLocalStorage<Record<number, any>>('daily-checkins', {});
   const [userStats, setUserStats] = useLocalStorage<UserStats>('user-stats', {
     totalTimeRecovered: 0,
     daysCompleted: 0,
@@ -309,51 +311,30 @@ const Home: React.FC = () => {
           </Link>
         </section>
 
-        {/* Statistics Grid */}
+        {/* Daily Check-in Quiz */}
         <section className="mx-4 my-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
               <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
                 <Info className="w-4 h-4 text-primary-foreground" />
               </div>
-              <h2 className="text-lg font-bold text-foreground">Il tuo progresso</h2>
+              <h2 className="text-lg font-bold text-foreground">Check-in giornaliero</h2>
             </div>
             <SocialShare userStats={userStats} />
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
-              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
-                <Clock className="w-5 h-5 text-primary" />
-              </div>
-              <p className="text-xs text-muted-foreground mb-1">Tempo recuperato</p>
-              <p className="text-xl font-bold text-foreground">
-                {timeRecovered >= 60 
-                  ? `${(timeRecovered / 60).toFixed(1)}h` 
-                  : `${timeRecovered}m`}
-              </p>
-            </div>
-            <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
-              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
-                <Star className="w-5 h-5 text-primary" />
-              </div>
-              <p className="text-xs text-muted-foreground mb-1">Giorni completati</p>
-              <p className="text-xl font-bold text-foreground">{completedDays}/30</p>
-            </div>
-            <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
-              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
-                <Award className="w-5 h-5 text-primary" />
-              </div>
-              <p className="text-xs text-muted-foreground mb-1">Serie attuale</p>
-              <p className="text-xl font-bold text-foreground">{currentStreak}</p>
-            </div>
-            <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
-              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-3">
-                <BookOpen className="w-5 h-5 text-primary" />
-              </div>
-              <p className="text-xs text-muted-foreground mb-1">Riflessioni</p>
-              <p className="text-xl font-bold text-foreground">{reflectionsCount}</p>
-            </div>
-          </div>
+          <DailyProgressQuiz 
+            day={currentDay} 
+            onComplete={(data) => {
+              console.log('Daily check-in completed:', data);
+              setDailyCheckIns(prev => ({
+                ...prev,
+                [currentDay]: {
+                  ...data,
+                  completedAt: new Date().toISOString()
+                }
+              }));
+            }} 
+          />
         </section>
 
         {/* Emergency Anti-Scroll Button */}
