@@ -1,294 +1,273 @@
-import React, { useState } from 'react';
-import { BarChart, TrendingUp, Award, Calendar, Info, Clock } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { TrendingUp, Calendar, Star, Trophy, Clock, Award, Share2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
 import TabNavigation from '@/components/TabNavigation';
-import Header from '@/components/Header';
-import DailyProgressQuiz from '@/components/DailyProgressQuiz';
-import WeeklyProgress from '@/components/WeeklyProgress';
+import SocialShare from '@/components/SocialShare';
 import useLocalStorage from '@/hooks/useLocalStorage';
-import { DayProgress } from '@/types';
+import { DayProgress, UserStats } from '@/types';
+import { ALL_ACHIEVEMENTS, calculateLevel, getLevelTitle } from '@/lib/achievements';
 
-interface QuizData {
-  phoneChecks: string;
-  socialTime: string;
-  moodChange: string;
-}
-
-interface DailyQuizProgress {
-  day: number;
-  quizData: QuizData;
-  completedAt: Date;
-}
-
-const Progress: React.FC = () => {
+const ProgressPage: React.FC = () => {
   const [progress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
-  const [quizProgress, setQuizProgress] = useLocalStorage<DailyQuizProgress[]>('daily-quiz-progress', []);
-  
-  // Calculate current day based on completed challenges
-  const completedDays = progress.filter(day => day.completed).map(day => day.day);
-  const currentDay = Math.min(completedDays.length + 1, 30);
-  
-  // Check if today's quiz is already completed
-  const todayQuizCompleted = quizProgress.some(quiz => quiz.day === currentDay);
+  const [userStats] = useLocalStorage<UserStats>('user-stats', {
+    totalTimeRecovered: 0,
+    daysCompleted: 0,
+    currentStreak: 0,
+    totalReflections: 0,
+    totalStars: 0,
+    level: 1,
+    pointsToNextLevel: 20,
+    achievements: ALL_ACHIEVEMENTS.map(a => ({ ...a, unlocked: false }))
+  });
 
-  const handleQuizComplete = (data: QuizData) => {
-    const newQuizEntry: DailyQuizProgress = {
-      day: currentDay,
-      quizData: data,
-      completedAt: new Date()
+  // Calcola statistiche dettagliate
+  const completedDays = progress.filter(day => day.completed).length;
+  const timeRecovered = progress
+    .filter(day => day.completed && day.timeSpent)
+    .reduce((total, day) => total + (day.timeSpent || 0), 0);
+  
+  let currentStreak = 0;
+  const progressSorted = [...progress].sort((a, b) => b.day - a.day);
+  for (const day of progressSorted) {
+    if (day.completed) {
+      currentStreak++;
+    } else {
+      break;
+    }
+  }
+
+  const reflectionsCount = progress.filter(day => day.reflectionText && day.reflectionText.trim() !== '').length;
+  const weeklyProgress = Array.from({ length: 4 }, (_, weekIndex) => {
+    const startDay = weekIndex * 7 + 1;
+    const endDay = Math.min(startDay + 6, 30);
+    const weekDays = progress.filter(day => day.day >= startDay && day.day <= endDay);
+    const completed = weekDays.filter(day => day.completed).length;
+    return {
+      week: weekIndex + 1,
+      completed,
+      total: endDay - startDay + 1,
+      percentage: (completed / (endDay - startDay + 1)) * 100
     };
-    
-    setQuizProgress(prev => [...prev.filter(q => q.day !== currentDay), newQuizEntry]);
-  };
+  });
 
-  const calculateWellnessScore = () => {
-    if (quizProgress.length === 0) return { score: 0, trend: 'neutral' };
-    
-    const lastWeekData = quizProgress.slice(-7);
-    let totalScore = 0;
-    
-    lastWeekData.forEach(quiz => {
-      let dayScore = 0;
-      
-      // Phone checks score (0-3)
-      if (quiz.quizData.phoneChecks === '0-2') dayScore += 3;
-      else if (quiz.quizData.phoneChecks === '3-5') dayScore += 2;
-      else if (quiz.quizData.phoneChecks === '6-10') dayScore += 1;
-      
-      // Social time score (0-3)
-      if (quiz.quizData.socialTime === 'meno-30') dayScore += 3;
-      else if (quiz.quizData.socialTime === '30-60') dayScore += 2;
-      else if (quiz.quizData.socialTime === '1-2h') dayScore += 1;
-      
-      // Mood score (1-3)
-      if (quiz.quizData.moodChange === 'calmo') dayScore += 3;
-      else if (quiz.quizData.moodChange === 'uguale') dayScore += 2;
-      else dayScore += 1;
-      
-      totalScore += dayScore;
-    });
-    
-    const avgScore = totalScore / lastWeekData.length;
-    const scorePercentage = Math.round((avgScore / 9) * 100);
-    
-    // Calculate trend
-    const firstHalf = lastWeekData.slice(0, Math.ceil(lastWeekData.length / 2));
-    const secondHalf = lastWeekData.slice(Math.ceil(lastWeekData.length / 2));
-    
-    const firstHalfAvg = firstHalf.length > 0 ? firstHalf.reduce((sum, quiz) => {
-      let score = 0;
-      if (quiz.quizData.phoneChecks === '0-2') score += 3;
-      else if (quiz.quizData.phoneChecks === '3-5') score += 2;
-      else if (quiz.quizData.phoneChecks === '6-10') score += 1;
-      
-      if (quiz.quizData.socialTime === 'meno-30') score += 3;
-      else if (quiz.quizData.socialTime === '30-60') score += 2;
-      else if (quiz.quizData.socialTime === '1-2h') score += 1;
-      
-      if (quiz.quizData.moodChange === 'calmo') score += 3;
-      else if (quiz.quizData.moodChange === 'uguale') score += 2;
-      else score += 1;
-      
-      return sum + score;
-    }, 0) / firstHalf.length : 0;
-    
-    const secondHalfAvg = secondHalf.length > 0 ? secondHalf.reduce((sum, quiz) => {
-      let score = 0;
-      if (quiz.quizData.phoneChecks === '0-2') score += 3;
-      else if (quiz.quizData.phoneChecks === '3-5') score += 2;
-      else if (quiz.quizData.phoneChecks === '6-10') score += 1;
-      
-      if (quiz.quizData.socialTime === 'meno-30') score += 3;
-      else if (quiz.quizData.socialTime === '30-60') score += 2;
-      else if (quiz.quizData.socialTime === '1-2h') score += 1;
-      
-      if (quiz.quizData.moodChange === 'calmo') score += 3;
-      else if (quiz.quizData.moodChange === 'uguale') score += 2;
-      else score += 1;
-      
-      return sum + score;
-    }, 0) / secondHalf.length : 0;
-    
-    const trend = secondHalfAvg > firstHalfAvg ? 'up' : secondHalfAvg < firstHalfAvg ? 'down' : 'neutral';
-    
-    return { score: scorePercentage, trend };
-  };
+  // Milestones raggiunti
+  const milestones = [
+    { type: 'days' as const, threshold: 7, title: '7 giorni completati', achieved: completedDays >= 7 },
+    { type: 'days' as const, threshold: 14, title: '14 giorni completati', achieved: completedDays >= 14 },
+    { type: 'days' as const, threshold: 21, title: '21 giorni completati', achieved: completedDays >= 21 },
+    { type: 'days' as const, threshold: 30, title: '30 giorni completati', achieved: completedDays >= 30 },
+    { type: 'streak' as const, threshold: 5, title: '5 giorni consecutivi', achieved: currentStreak >= 5 },
+    { type: 'streak' as const, threshold: 10, title: '10 giorni consecutivi', achieved: currentStreak >= 10 },
+    { type: 'stars' as const, threshold: 50, title: '50 stelle raccolte', achieved: userStats.totalStars >= 50 },
+    { type: 'stars' as const, threshold: 100, title: '100 stelle raccolte', achieved: userStats.totalStars >= 100 },
+  ];
 
-  const wellnessScore = calculateWellnessScore();
+  const levelProgress = userStats.pointsToNextLevel > 0 
+    ? ((userStats.totalStars) / (userStats.totalStars + userStats.pointsToNextLevel)) * 100
+    : 100;
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen bg-[#eeeded] pb-20">
       {/* Header */}
       <section className="mx-4 mt-6 mb-2">
         <div className="text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <TrendingUp className="w-8 h-8 text-primary" />
-            <h1 className="text-3xl font-bold text-primary">
-              Progresso
+            <TrendingUp className="w-8 h-8 text-green-600" />
+            <h1 className="text-3xl font-bold text-green-600">
+              Progressi
             </h1>
           </div>
           <p className="text-foreground text-sm font-bold mb-3">
-            Traccia la tua evoluzione giornaliera
+            Il tuo percorso verso il benessere digitale
           </p>
-          <div className="w-20 h-1 bg-primary rounded-full mx-auto"></div>
+          <div className="w-20 h-1 bg-green-600 rounded-full mx-auto"></div>
         </div>
       </section>
-      
-      <main className="flex-1 overflow-auto hide-scrollbar pb-24">
-        <div className="container mx-auto px-4 py-4">
 
-          <Tabs defaultValue="today" className="space-y-4">
-            <TabsList className="grid w-full grid-cols-3 bg-background border border-border/30 rounded-xl">
-              <TabsTrigger value="today" className="text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm rounded-lg transition-all">
-                Oggi
-              </TabsTrigger>
-              <TabsTrigger value="weekly" className="text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm rounded-lg transition-all">
-                Settimane
-              </TabsTrigger>
-              <TabsTrigger value="stats" className="text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm rounded-lg transition-all">
-                Statistiche
-              </TabsTrigger>
-            </TabsList>
+      <main className="p-4 space-y-6">
+        {/* Overview Card */}
+        <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-xl text-green-800">
+                Livello {userStats.level} - {getLevelTitle(userStats.level)}
+              </CardTitle>
+              <SocialShare 
+                userStats={userStats}
+                milestone={{
+                  type: 'level',
+                  value: userStats.level,
+                  title: `Livello ${userStats.level}`
+                }}
+              />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-green-600">{completedDays}</div>
+                <div className="text-sm text-green-700">Giorni completati</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-amber-600">{userStats.totalStars}</div>
+                <div className="text-sm text-amber-700">Stelle totali</div>
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>Progresso livello</span>
+                <span>{userStats.pointsToNextLevel} stelle al prossimo livello</span>
+              </div>
+              <Progress value={levelProgress} className="h-3" />
+            </div>
+          </CardContent>
+        </Card>
 
-            <TabsContent value="today" className="space-y-4">
-              {/* Scheda Come funziona */}
-              <Card className="bg-card border border-border rounded-2xl shadow-sm">
-                <CardHeader>
-                  <CardTitle className="text-foreground flex items-center gap-2">
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                      <Info className="w-4 h-4 text-primary" />
-                    </div>
-                    Come funziona?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <h4 className="font-medium text-foreground mb-3">Check-in giornaliero</h4>
-                    <p className="text-base text-foreground leading-relaxed">
-                      Torna ogni giorno in <strong>tarda serata (22:00-23:00)</strong> e compila il tuo check-in giornaliero per monitorare i tuoi progressi nel digital detox.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+        {/* Statistics Grid */}
+        <div className="grid grid-cols-2 gap-4">
+          <Card>
+            <CardContent className="p-4 text-center">
+              <Clock className="w-8 h-8 text-blue-500 mx-auto mb-2" />
+              <div className="text-xl font-bold text-foreground">
+                {timeRecovered >= 60 
+                  ? `${(timeRecovered / 60).toFixed(1)}h` 
+                  : `${timeRecovered}m`}
+              </div>
+              <div className="text-sm text-muted-foreground">Tempo recuperato</div>
+            </CardContent>
+          </Card>
 
-              {!todayQuizCompleted ? (
-                <Card className="bg-card border border-border rounded-2xl shadow-sm">
-                  <CardHeader>
-                    <CardTitle className="text-foreground flex items-center gap-2">
-                      <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                        <Calendar className="w-4 h-4 text-primary" />
-                      </div>
-                      <div>
-                        <div>Check-in giornaliero</div>
-                        <div className="text-sm font-semibold text-orange-500">Giorno {currentDay}</div>
-                      </div>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <DailyProgressQuiz day={currentDay} onComplete={handleQuizComplete} />
-                  </CardContent>
-                </Card>
-              ) : (
-                <Card className="bg-card border border-border rounded-2xl shadow-sm">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Award className="w-8 h-8 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground mb-4">
-                      Check-in completato!
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Hai già registrato il tuo progresso per oggi. Torna domani per il prossimo check-in!
-                    </p>
-                  </CardContent>
-                </Card>
-              )}
-            </TabsContent>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <Award className="w-8 h-8 text-orange-500 mx-auto mb-2" />
+              <div className="text-xl font-bold text-foreground">{currentStreak}</div>
+              <div className="text-sm text-muted-foreground">Serie attuale</div>
+            </CardContent>
+          </Card>
 
-            <TabsContent value="weekly" className="space-y-4">
-              <WeeklyProgress currentDay={currentDay} completedDays={completedDays} />
-            </TabsContent>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <Trophy className="w-8 h-8 text-purple-500 mx-auto mb-2" />
+              <div className="text-xl font-bold text-foreground">
+                {userStats.achievements.filter(a => a.unlocked).length}
+              </div>
+              <div className="text-sm text-muted-foreground">Achievement</div>
+            </CardContent>
+          </Card>
 
-            <TabsContent value="stats" className="space-y-4">
-              {/* Punteggio Benessere Digitale */}
-              <Card className="bg-card border border-border rounded-2xl shadow-sm">
-                <CardHeader>
-                  <CardTitle className="text-foreground flex items-center gap-2">
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                      <BarChart className="w-4 h-4 text-primary" />
-                    </div>
-                    Punteggio Benessere Digitale
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center mb-6">
-                    <div className="text-4xl font-bold text-primary mb-2">
-                      {wellnessScore.score}%
-                    </div>
-                    <div className="flex items-center justify-center gap-2">
-                      <TrendingUp className={`w-5 h-5 ${
-                        wellnessScore.trend === 'up' ? 'text-green-500' : 
-                        wellnessScore.trend === 'down' ? 'text-red-500' : 'text-gray-500'
-                      }`} />
-                      <span className="text-muted-foreground">
-                        {wellnessScore.trend === 'up' ? 'In miglioramento' : 
-                         wellnessScore.trend === 'down' ? 'In calo' : 'Stabile'}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Check-in completati</span>
-                      <span className="text-foreground font-semibold">{quizProgress.length}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Sfide completate</span>
-                      <span className="text-foreground font-semibold">{completedDays.length}/30</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Giorno corrente</span>
-                      <span className="text-foreground font-semibold">{currentDay}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Analisi recente */}
-              {quizProgress.length > 0 && (
-                <Card className="border border-gray-300 bg-transparent">
-                  <CardHeader>
-                    <CardTitle className="text-white flex items-center gap-2">
-                      <Calendar className="w-5 h-5 text-primary" />
-                      Analisi ultimi 7 giorni
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {quizProgress.slice(-7).map((quiz, index) => (
-                        <div key={quiz.day} className="flex justify-between items-center p-2 border border-gray-600 rounded">
-                          <span className="text-gray-300">Giorno {quiz.day}</span>
-                          <div className="flex gap-2">
-                            <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">
-                              📱 {quiz.quizData.phoneChecks}
-                            </span>
-                            <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">
-                              ⏱️ {quiz.quizData.socialTime}
-                            </span>
-                            <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">
-                              😌 {quiz.quizData.moodChange}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </TabsContent>
-          </Tabs>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <Star className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
+              <div className="text-xl font-bold text-foreground">{reflectionsCount}</div>
+              <div className="text-sm text-muted-foreground">Riflessioni</div>
+            </CardContent>
+          </Card>
         </div>
+
+        {/* Weekly Progress */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Progresso Settimanale</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {weeklyProgress.map(week => (
+                <div key={week.week}>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span>Settimana {week.week}</span>
+                    <span>{week.completed}/{week.total} giorni</span>
+                  </div>
+                  <Progress value={week.percentage} className="h-2" />
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Milestones */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Traguardi</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 gap-3">
+              {milestones.map((milestone, index) => (
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      milestone.achieved ? 'bg-green-100 text-green-600' : 'bg-gray-200 text-gray-400'
+                    }`}>
+                      {milestone.achieved ? '✓' : '○'}
+                    </div>
+                    <span className={`font-medium ${
+                      milestone.achieved ? 'text-green-800' : 'text-gray-600'
+                    }`}>
+                      {milestone.title}
+                    </span>
+                  </div>
+                  {milestone.achieved && (
+                    <SocialShare 
+                      userStats={userStats}
+                      milestone={{
+                        type: milestone.type,
+                        value: milestone.threshold,
+                        title: milestone.title
+                      }}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Calendar View */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Calendario Progresso</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-7 gap-2">
+              {Array.from({ length: 30 }, (_, i) => {
+                const day = i + 1;
+                const dayProgress = progress.find(p => p.day === day);
+                const isCompleted = dayProgress?.completed || false;
+                
+                return (
+                  <div
+                    key={day}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${
+                      isCompleted
+                        ? 'bg-green-500 text-white'
+                        : day <= completedDays + 1
+                        ? 'bg-gray-200 text-gray-600'
+                        : 'bg-gray-100 text-gray-400'
+                    }`}
+                  >
+                    {day}
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex items-center gap-4 mt-4 text-xs">
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span>Completato</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 bg-gray-200 rounded-full"></div>
+                <span>Disponibile</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 bg-gray-100 rounded-full"></div>
+                <span>Bloccato</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </main>
 
       <TabNavigation />
@@ -296,4 +275,4 @@ const Progress: React.FC = () => {
   );
 };
 
-export default Progress;
+export default ProgressPage;
