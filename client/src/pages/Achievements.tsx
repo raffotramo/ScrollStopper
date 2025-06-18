@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Trophy, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { useLocation } from 'wouter';
 import Header from '@/components/Header';
 import TabNavigation from '@/components/TabNavigation';
@@ -84,30 +85,40 @@ const Achievements: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#eeeded] pb-20">
-      {/* Header */}
-      <section className="mx-4 mt-8 mb-6">
-        <div className="text-center">
-          <div className="w-16 h-16 bg-amber-600/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Trophy className="w-8 h-8 text-amber-600" />
-          </div>
-          <h1 className="text-2xl font-bold text-amber-600 mb-4">
-            Achievements
-          </h1>
-          <div className="w-20 h-1 bg-amber-600 rounded-full mx-auto"></div>
+      {/* Main Content */}
+      <main className="flex-1 overflow-auto hide-scrollbar pb-24 pt-8">
+        {/* Achievements Welcome Card */}
+        <section className="mx-4 my-4">
+          <Card className="bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200">
+            <CardContent className="py-4 px-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-amber-600/10 rounded-full flex items-center justify-center">
+                  <Trophy className="w-6 h-6 text-amber-600" />
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-amber-600">
+                    Achievements
+                  </div>
+                  <div className="text-sm text-amber-600/70">
+                    I tuoi traguardi conquistati
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        <div className="mx-4 space-y-4">
+          <AchievementSystem 
+            userStats={{
+              totalStars: userStats.totalStars,
+              level: userStats.level,
+              pointsToNextLevel: userStats.pointsToNextLevel,
+              achievements: userStats.achievements
+            }}
+            allAchievements={userStats.achievements}
+          />
         </div>
-      </section>
-
-      <main className="p-4 space-y-6">
-
-        <AchievementSystem 
-          userStats={{
-            totalStars: userStats.totalStars,
-            level: userStats.level,
-            pointsToNextLevel: userStats.pointsToNextLevel,
-            achievements: userStats.achievements
-          }}
-          allAchievements={userStats.achievements}
-        />
       </main>
 
       <TabNavigation />
