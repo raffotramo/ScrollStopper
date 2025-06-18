@@ -85,167 +85,125 @@ const ProgressPage: React.FC = () => {
               <div className="text-sm text-muted-foreground">Check-in completati</div>
             </div>
             
-            {/* Analisi delle risposte */}
-            {Object.keys(dailyCheckIns).length > 0 && (
-              <div className="space-y-6">
-                {/* Tempo medio al telefono */}
+            {/* Andamento semplificato */}
+            {Object.keys(dailyCheckIns).length > 0 ? (
+              <div className="space-y-4">
+                {/* Riepilogo numerico */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-green-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-green-600">
+                      {(() => {
+                        const goodDays = Object.values(dailyCheckIns).filter(day => 
+                          (day.phoneTime === 'Meno di 1h' || day.phoneTime === '1–2h') ||
+                          (day.scrollImpulse === 'Mai' || day.scrollImpulse === 'Una volta') ||
+                          (day.dailyFeeling === 'Calmo/a e concentrato/a')
+                        ).length;
+                        return Math.round((goodDays / Object.keys(dailyCheckIns).length) * 100);
+                      })()}%
+                    </div>
+                    <div className="text-xs text-green-700">Giorni positivi</div>
+                  </div>
+                  
+                  <div className="bg-blue-50 rounded-lg p-3 text-center">
+                    <div className="text-lg font-bold text-blue-600">
+                      {(() => {
+                        const resistedDays = Object.values(dailyCheckIns).filter(day => 
+                          day.resistedImpulse === 'Sì' || day.ignoredNotifications === 'Sì'
+                        ).length;
+                        return resistedDays;
+                      })()}
+                    </div>
+                    <div className="text-xs text-blue-700">Impulsi resistiti</div>
+                  </div>
+                </div>
+
+                {/* Grafico semplice ultimi 7 giorni */}
                 <div>
-                  <h4 className="text-sm font-medium text-foreground mb-3">Tempo al telefono</h4>
-                  <div className="grid grid-cols-7 gap-1">
+                  <h4 className="text-sm font-medium text-foreground mb-3">Ultimi 7 giorni</h4>
+                  <div className="grid grid-cols-7 gap-2">
                     {Array.from({ length: 7 }, (_, i) => {
                       const day = Math.max(1, currentDay - 6 + i);
                       const dayData = dailyCheckIns[day];
                       
-                      let height = 'h-2';
-                      let color = 'bg-muted';
-                      
-                      if (dayData?.phoneTime) {
-                        switch (dayData.phoneTime) {
-                          case 'Meno di 1h':
-                            height = 'h-3';
-                            color = 'bg-green-500';
-                            break;
-                          case '1–2h':
-                            height = 'h-6';
-                            color = 'bg-yellow-500';
-                            break;
-                          case '2–3h':
-                            height = 'h-9';
-                            color = 'bg-orange-500';
-                            break;
-                          case 'Più di 3h':
-                            height = 'h-12';
-                            color = 'bg-red-500';
-                            break;
-                        }
+                      // Calcola punteggio giornaliero (0-3)
+                      let score = 0;
+                      if (dayData) {
+                        if (dayData.phoneTime === 'Meno di 1h' || dayData.phoneTime === '1–2h') score++;
+                        if (dayData.scrollImpulse === 'Mai' || dayData.scrollImpulse === 'Una volta') score++;
+                        if (dayData.dailyFeeling === 'Calmo/a e concentrato/a' || dayData.dailyFeeling === 'Neutro/a') score++;
                       }
+                      
+                      const height = score === 0 ? 'h-2' : score === 1 ? 'h-4' : score === 2 ? 'h-6' : 'h-8';
+                      const color = score === 0 ? 'bg-muted' : score === 1 ? 'bg-red-400' : score === 2 ? 'bg-yellow-400' : 'bg-green-400';
                       
                       return (
                         <div key={i} className="text-center">
-                          <div className="h-12 flex items-end justify-center mb-1">
-                            <div className={`w-3 rounded-t transition-all duration-300 ${height} ${color}`} />
+                          <div className="h-8 flex items-end justify-center mb-1">
+                            <div className={`w-4 rounded-t transition-all duration-300 ${height} ${color}`} />
                           </div>
                           <div className="text-xs text-muted-foreground">{day}</div>
+                          {dayData && (
+                            <div className="text-xs font-bold text-foreground">{score}/3</div>
+                          )}
                         </div>
                       );
                     })}
                   </div>
-                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                    <span>Meno</span>
-                    <span>Più tempo</span>
+                  <div className="text-center text-xs text-muted-foreground mt-3">
+                    Punteggio basato su: tempo telefono, controllo impulsi, umore
                   </div>
                 </div>
 
-                {/* Controllo degli impulsi */}
-                <div>
-                  <h4 className="text-sm font-medium text-foreground mb-3">Controllo impulsi</h4>
-                  <div className="grid grid-cols-7 gap-1">
-                    {Array.from({ length: 7 }, (_, i) => {
-                      const day = Math.max(1, currentDay - 6 + i);
-                      const dayData = dailyCheckIns[day];
-                      
-                      let height = 'h-2';
-                      let color = 'bg-muted';
-                      
-                      if (dayData?.scrollImpulse) {
-                        switch (dayData.scrollImpulse) {
-                          case 'Mai':
-                            height = 'h-12';
-                            color = 'bg-green-500';
-                            break;
-                          case 'Una volta':
-                            height = 'h-6';
-                            color = 'bg-yellow-500';
-                            break;
-                          case 'Più volte':
-                            height = 'h-3';
-                            color = 'bg-red-500';
-                            break;
-                        }
-                      }
-                      
-                      return (
-                        <div key={i} className="text-center">
-                          <div className="h-12 flex items-end justify-center mb-1">
-                            <div className={`w-3 rounded-t transition-all duration-300 ${height} ${color}`} />
-                          </div>
-                          <div className="text-xs text-muted-foreground">{day}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                    <span>Più controllo</span>
-                    <span>Meno controllo</span>
-                  </div>
+                {/* Insights chiave */}
+                <div className="space-y-3">
+                  <h4 className="text-sm font-medium text-foreground">Insights</h4>
+                  
+                  {(() => {
+                    const insights = [];
+                    const totalDays = Object.keys(dailyCheckIns).length;
+                    
+                    // Analisi tempo telefono
+                    const lowPhoneTime = Object.values(dailyCheckIns).filter(day => 
+                      day.phoneTime === 'Meno di 1h'
+                    ).length;
+                    
+                    if (lowPhoneTime / totalDays >= 0.7) {
+                      insights.push({ icon: '📱', text: 'Ottimo controllo del tempo al telefono!', color: 'text-green-600' });
+                    } else if (lowPhoneTime / totalDays <= 0.3) {
+                      insights.push({ icon: '⚠️', text: 'Prova a ridurre il tempo al telefono', color: 'text-orange-600' });
+                    }
+                    
+                    // Analisi impulsi
+                    const goodImpulseControl = Object.values(dailyCheckIns).filter(day => 
+                      day.scrollImpulse === 'Mai'
+                    ).length;
+                    
+                    if (goodImpulseControl / totalDays >= 0.5) {
+                      insights.push({ icon: '🎯', text: 'Controllo impulsi in miglioramento', color: 'text-blue-600' });
+                    }
+                    
+                    // Analisi umore
+                    const goodMood = Object.values(dailyCheckIns).filter(day => 
+                      day.dailyFeeling === 'Calmo/a e concentrato/a'
+                    ).length;
+                    
+                    if (goodMood / totalDays >= 0.6) {
+                      insights.push({ icon: '😌', text: 'Umore stabile e concentrazione alta', color: 'text-green-600' });
+                    }
+                    
+                    return insights.slice(0, 3).map((insight, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-sm">
+                        <span>{insight.icon}</span>
+                        <span className={insight.color}>{insight.text}</span>
+                      </div>
+                    ));
+                  })()}
                 </div>
-
-                {/* Umore generale */}
-                <div>
-                  <h4 className="text-sm font-medium text-foreground mb-3">Umore giornaliero</h4>
-                  <div className="grid grid-cols-7 gap-1">
-                    {Array.from({ length: 7 }, (_, i) => {
-                      const day = Math.max(1, currentDay - 6 + i);
-                      const dayData = dailyCheckIns[day];
-                      
-                      let height = 'h-2';
-                      let color = 'bg-muted';
-                      
-                      if (dayData?.dailyFeeling) {
-                        switch (dayData.dailyFeeling) {
-                          case 'Calmo/a e concentrato/a':
-                            height = 'h-12';
-                            color = 'bg-green-500';
-                            break;
-                          case 'Neutro/a':
-                            height = 'h-6';
-                            color = 'bg-yellow-500';
-                            break;
-                          case 'Distratto/a o ansioso/a':
-                            height = 'h-3';
-                            color = 'bg-red-500';
-                            break;
-                        }
-                      }
-                      
-                      return (
-                        <div key={i} className="text-center">
-                          <div className="h-12 flex items-end justify-center mb-1">
-                            <div className={`w-3 rounded-t transition-all duration-300 ${height} ${color}`} />
-                          </div>
-                          <div className="text-xs text-muted-foreground">{day}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                    <span>Più calmo</span>
-                    <span>Più distratto</span>
-                  </div>
-                </div>
-
-                {/* Legenda colori */}
-                <div className="bg-muted/30 rounded-lg p-3">
-                  <div className="text-xs font-medium text-foreground mb-2">Legenda:</div>
-                  <div className="flex flex-wrap gap-3 text-xs">
-                    <div className="flex items-center gap-1">
-                      <div className="w-3 h-3 bg-green-500 rounded"></div>
-                      <span>Ottimo</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <div className="w-3 h-3 bg-yellow-500 rounded"></div>
-                      <span>Medio</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <div className="w-3 h-3 bg-orange-500 rounded"></div>
-                      <span>Attenzione</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <div className="w-3 h-3 bg-red-500 rounded"></div>
-                      <span>Critico</span>
-                    </div>
-                  </div>
-                </div>
+              </div>
+            ) : (
+              <div className="text-center py-6 text-muted-foreground">
+                <div className="text-4xl mb-2">📊</div>
+                <div className="text-sm">Inizia a completare i check-in per vedere i tuoi progressi</div>
               </div>
             )}
           </CardContent>
