@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock } from 'lucide-react';
+import { Clock, BarChart3 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import TabNavigation from '@/components/TabNavigation';
 import DailyProgressQuiz from '@/components/DailyProgressQuiz';
@@ -12,6 +12,13 @@ const ProgressPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       <main className="p-4 space-y-4 pb-20">
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+            <BarChart3 className="w-4 h-4 text-primary-foreground" />
+          </div>
+          <h1 className="text-2xl font-bold text-foreground">Progressi</h1>
+        </div>
         {/* Come funziona */}
         <Card>
           <CardHeader>
