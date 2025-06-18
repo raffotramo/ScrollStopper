@@ -93,25 +93,26 @@ const ProgressPage: React.FC = () => {
               <div className="text-sm text-muted-foreground">Check-in completati</div>
             </div>
             
-            {/* Dashboard semplice - Solo Check-in */}
+            {/* Dashboard avanzato con nuovi dati */}
             {totalCheckIns > 0 ? (
               <div className="space-y-3">
                 {/* Metriche principali */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-card rounded-lg p-3 border">
-                    <div className="text-xs text-muted-foreground mb-1">Tempo telefono</div>
+                    <div className="text-xs text-muted-foreground mb-1">Tempo schermo medio</div>
                     <div className="text-xl font-bold text-foreground">
                       {(() => {
                         let sum = 0;
                         let count = 0;
                         Object.values(dailyCheckIns).forEach((day: any) => {
-                          if (day.phoneTime) {
+                          if (day.screenTime) {
                             count++;
-                            switch (day.phoneTime) {
-                              case 'Meno di 1h': sum += 0.5; break;
-                              case '1–2h': sum += 1.5; break;
-                              case '2–3h': sum += 2.5; break;
-                              case 'Più di 3h': sum += 3.5; break;
+                            switch (day.screenTime) {
+                              case 'Meno di 2h': sum += 1; break;
+                              case '2–4h': sum += 3; break;
+                              case '4–6h': sum += 5; break;
+                              case '6–8h': sum += 7; break;
+                              case 'Oltre 8h': sum += 9; break;
                             }
                           }
                         });
@@ -121,72 +122,202 @@ const ProgressPage: React.FC = () => {
                   </div>
                   
                   <div className="bg-card rounded-lg p-3 border">
-                    <div className="text-xs text-muted-foreground mb-1">Controllo impulsi</div>
+                    <div className="text-xs text-muted-foreground mb-1">Qualità focus</div>
                     <div className="text-xl font-bold text-foreground">
-                      {Math.round((goodControlDays / totalCheckIns) * 100)}%
+                      {(() => {
+                        let sum = 0;
+                        let count = 0;
+                        Object.values(dailyCheckIns).forEach((day: any) => {
+                          if (day.focusQuality) {
+                            count++;
+                            switch (day.focusQuality) {
+                              case 'Molto basso': sum += 1; break;
+                              case 'Basso': sum += 2; break;
+                              case 'Medio': sum += 3; break;
+                              case 'Alto': sum += 4; break;
+                              case 'Molto alto': sum += 5; break;
+                            }
+                          }
+                        });
+                        return count > 0 ? `${(sum / count).toFixed(1)}/5` : '0/5';
+                      })()}
                     </div>
                   </div>
                 </div>
 
-                {/* Insight semplice */}
+                {/* Metriche controllo digitale */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-card rounded-lg p-3 border">
+                    <div className="text-xs text-muted-foreground mb-1">Impulsi resistiti/giorno</div>
+                    <div className="text-xl font-bold text-foreground">
+                      {(() => {
+                        let sum = 0;
+                        let count = 0;
+                        Object.values(dailyCheckIns).forEach((day: any) => {
+                          if (day.impulseControl) {
+                            count++;
+                            switch (day.impulseControl) {
+                              case '0 volte': sum += 0; break;
+                              case '1–3 volte': sum += 2; break;
+                              case '4–7 volte': sum += 5.5; break;
+                              case '8–12 volte': sum += 10; break;
+                              case 'Oltre 12': sum += 15; break;
+                            }
+                          }
+                        });
+                        return count > 0 ? Math.round(sum / count) : 0;
+                      })()}
+                    </div>
+                  </div>
+                  
+                  <div className="bg-card rounded-lg p-3 border">
+                    <div className="text-xs text-muted-foreground mb-1">Attività offline/giorno</div>
+                    <div className="text-xl font-bold text-foreground">
+                      {(() => {
+                        let sum = 0;
+                        let count = 0;
+                        Object.values(dailyCheckIns).forEach((day: any) => {
+                          if (day.realWorldActivities) {
+                            count++;
+                            switch (day.realWorldActivities) {
+                              case 'Nessuna': sum += 0; break;
+                              case '1 attività': sum += 1; break;
+                              case '2–3 attività': sum += 2.5; break;
+                              case '4–5 attività': sum += 4.5; break;
+                              case 'Oltre 5': sum += 6; break;
+                            }
+                          }
+                        });
+                        return count > 0 ? (sum / count).toFixed(1) : '0';
+                      })()}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Insight avanzato */}
                 <div className="bg-card rounded-lg p-3 border">
-                  <div className="text-xs text-muted-foreground mb-2">Analisi comportamento</div>
+                  <div className="text-xs text-muted-foreground mb-2">Analisi benessere digitale</div>
                   <div className="text-sm text-foreground">
                     {(() => {
-                      const controlPercentage = (goodControlDays / totalCheckIns) * 100;
-                      const lowUsagePercentage = (lowUsageDays / totalCheckIns) * 100;
+                      let screenTimeScore = 0;
+                      let focusScore = 0;
+                      let stressScore = 0;
+                      let count = 0;
+
+                      Object.values(dailyCheckIns).forEach((day: any) => {
+                        if (day.screenTime && day.focusQuality && day.stressLevel) {
+                          count++;
+                          // Screen time (inverso - meno è meglio)
+                          switch (day.screenTime) {
+                            case 'Meno di 2h': screenTimeScore += 5; break;
+                            case '2–4h': screenTimeScore += 4; break;
+                            case '4–6h': screenTimeScore += 3; break;
+                            case '6–8h': screenTimeScore += 2; break;
+                            case 'Oltre 8h': screenTimeScore += 1; break;
+                          }
+                          // Focus quality
+                          switch (day.focusQuality) {
+                            case 'Molto alto': focusScore += 5; break;
+                            case 'Alto': focusScore += 4; break;
+                            case 'Medio': focusScore += 3; break;
+                            case 'Basso': focusScore += 2; break;
+                            case 'Molto basso': focusScore += 1; break;
+                          }
+                          // Stress (inverso - meno è meglio)
+                          switch (day.stressLevel) {
+                            case 'Nullo': stressScore += 5; break;
+                            case 'Basso': stressScore += 4; break;
+                            case 'Moderato': stressScore += 3; break;
+                            case 'Alto': stressScore += 2; break;
+                            case 'Molto alto': stressScore += 1; break;
+                          }
+                        }
+                      });
+
+                      if (count === 0) return 'Completa più check-in per vedere l\'analisi';
                       
-                      if (controlPercentage >= 70 && lowUsagePercentage >= 50) {
-                        return 'Eccellente controllo digitale - Continua così';
-                      } else if (controlPercentage >= 50) {
-                        return 'Buon controllo impulsi - Lavora sulla riduzione del tempo';
-                      } else if (lowUsagePercentage >= 50) {
-                        return 'Tempo telefono ridotto - Migliora il controllo impulsi';
-                      } else {
-                        return 'Inizia il cambiamento - Ogni giorno conta';
-                      }
+                      const avgScore = (screenTimeScore + focusScore + stressScore) / (count * 3);
+                      
+                      if (avgScore >= 4.2) return 'Eccellente equilibrio digitale - Sei un esempio da seguire';
+                      if (avgScore >= 3.5) return 'Buon controllo digitale - Piccoli aggiustamenti possono perfezionare';
+                      if (avgScore >= 2.8) return 'Progresso evidente - Focus su riduzione tempo schermo';
+                      if (avgScore >= 2.0) return 'Miglioramento in corso - Lavora su concentrazione e stress';
+                      return 'Inizia con piccoli cambiamenti - Riduci 30min di schermo al giorno';
                     })()}
                   </div>
                 </div>
 
-                {/* Grafico semplice */}
-                <div className="bg-card rounded-lg p-3 border">
-                  <div className="text-xs text-muted-foreground mb-3">Ultimi 7 giorni</div>
-                  <div className="flex justify-between items-end gap-1 h-12">
-                    {Array.from({ length: 7 }, (_, i) => {
-                      const day = Math.max(1, currentDay - 6 + i);
-                      const dayData = dailyCheckIns[day];
-                      
-                      let level = 0;
-                      if (dayData?.phoneTime) {
-                        switch (dayData.phoneTime) {
-                          case 'Meno di 1h': level = 1; break;
-                          case '1–2h': level = 2; break;
-                          case '2–3h': level = 3; break;
-                          case 'Più di 3h': level = 4; break;
+                {/* Grafici multipli */}
+                <div className="space-y-3">
+                  {/* Grafico tempo schermo */}
+                  <div className="bg-card rounded-lg p-3 border">
+                    <div className="text-xs text-muted-foreground mb-3">Tempo schermo - Ultimi 7 giorni</div>
+                    <div className="flex justify-between items-end gap-1 h-12">
+                      {Array.from({ length: 7 }, (_, i) => {
+                        const day = Math.max(1, currentDay - 6 + i);
+                        const dayData = dailyCheckIns[day];
+                        
+                        let level = 0;
+                        if (dayData?.screenTime) {
+                          switch (dayData.screenTime) {
+                            case 'Meno di 2h': level = 1; break;
+                            case '2–4h': level = 2; break;
+                            case '4–6h': level = 3; break;
+                            case '6–8h': level = 4; break;
+                            case 'Oltre 8h': level = 5; break;
+                          }
                         }
-                      }
-                      
-                      const height = ['h-1', 'h-3', 'h-6', 'h-9', 'h-12'][level];
-                      const color = ['bg-muted', 'bg-green-400', 'bg-blue-400', 'bg-yellow-400', 'bg-red-400'][level];
-                      
-                      return (
-                        <div key={i} className="flex-1 flex flex-col items-center">
-                          <div className={`w-full ${height} ${color} rounded-t mb-1`} />
-                          <div className="text-xs text-muted-foreground">{day}</div>
-                        </div>
-                      );
-                    })}
+                        
+                        const height = ['h-1', 'h-2', 'h-4', 'h-6', 'h-8', 'h-10'][level];
+                        const color = ['bg-muted', 'bg-green-400', 'bg-yellow-400', 'bg-orange-400', 'bg-red-400', 'bg-red-600'][level];
+                        
+                        return (
+                          <div key={i} className="flex-1 flex flex-col items-center">
+                            <div className={`w-full ${height} ${color} rounded-t mb-1`} />
+                            <div className="text-xs text-muted-foreground">{day}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                  <div className="text-center text-xs text-muted-foreground mt-2">
-                    Verde = Tempo ridotto • Rosso = Tempo eccessivo
+
+                  {/* Grafico qualità focus */}
+                  <div className="bg-card rounded-lg p-3 border">
+                    <div className="text-xs text-muted-foreground mb-3">Qualità focus - Ultimi 7 giorni</div>
+                    <div className="flex justify-between items-end gap-1 h-12">
+                      {Array.from({ length: 7 }, (_, i) => {
+                        const day = Math.max(1, currentDay - 6 + i);
+                        const dayData = dailyCheckIns[day];
+                        
+                        let level = 0;
+                        if (dayData?.focusQuality) {
+                          switch (dayData.focusQuality) {
+                            case 'Molto basso': level = 1; break;
+                            case 'Basso': level = 2; break;
+                            case 'Medio': level = 3; break;
+                            case 'Alto': level = 4; break;
+                            case 'Molto alto': level = 5; break;
+                          }
+                        }
+                        
+                        const height = ['h-1', 'h-2', 'h-4', 'h-6', 'h-8', 'h-10'][level];
+                        const color = ['bg-muted', 'bg-red-400', 'bg-orange-400', 'bg-yellow-400', 'bg-green-400', 'bg-green-600'][level];
+                        
+                        return (
+                          <div key={i} className="flex-1 flex flex-col items-center">
+                            <div className={`w-full ${height} ${color} rounded-t mb-1`} />
+                            <div className="text-xs text-muted-foreground">{day}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
             ) : (
               <div className="text-center py-8 text-muted-foreground">
                 <div className="text-2xl mb-2">📊</div>
-                <div className="text-sm">Completa i check-in per vedere i progressi</div>
+                <div className="text-sm">Completa i check-in per vedere analisi avanzate</div>
               </div>
             )}
           </CardContent>

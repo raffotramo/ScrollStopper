@@ -45,99 +45,97 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
     switch (blockType) {
       case 'time':
         return {
-          title: 'Tempo & Scroll Consapevole',
+          title: 'Tempo & Utilizzo Digitale',
           icon: Smartphone,
           questions: [
             {
-              id: 'phoneTime',
-              text: 'Quanto tempo hai trascorso oggi con il telefono in mano?',
-              options: ['Meno di 1h', '1–2h', '2–3h', 'Più di 3h']
+              id: 'screenTime',
+              text: 'Quanto tempo totale hai passato sui dispositivi oggi?',
+              options: ['Meno di 2h', '2–4h', '4–6h', '6–8h', 'Oltre 8h']
             },
             {
-              id: 'phoneChecks',
-              text: 'Quante volte hai preso il telefono senza sapere perché?',
-              options: ['0–2', '3–5', '6+']
+              id: 'phonePickups',
+              text: 'Quante volte hai preso il telefono oggi (approssimativo)?',
+              options: ['0–20', '21–50', '51–80', '81–120', 'Oltre 120']
             },
             {
               id: 'socialTime',
-              text: 'Quanto tempo hai passato oggi sui social (stimato)?',
-              options: ['Meno di 15 min', '15–30 min', '30–60 min', 'Oltre 1h']
+              text: 'Tempo sui social media oggi?',
+              options: ['0–15 min', '15–45 min', '45–90 min', '90–180 min', 'Oltre 3h']
             },
             {
-              id: 'ignoredNotifications',
-              text: 'Hai ignorato una notifica invece di aprirla subito?',
-              options: ['Sì', 'No']
+              id: 'deepWork',
+              text: 'Ore consecutive senza dispositivi per attività produttive?',
+              options: ['0–30 min', '30–60 min', '1–2h', '2–4h', 'Oltre 4h']
             },
             {
-              id: 'timeUsed',
-              text: 'Come hai usato il tempo che hai risparmiato evitando lo scroll?',
-              type: 'textarea',
-              placeholder: 'Esempio: ho letto, ho camminato, ho parlato con qualcuno'
+              id: 'qualityTime',
+              text: 'Tempo di qualità con persone/hobby senza dispositivi?',
+              options: ['0–30 min', '30–60 min', '1–2h', '2–4h', 'Oltre 4h']
             }
           ]
         };
       case 'control':
         return {
-          title: 'Autocontrollo & Impulsi Digitali',
+          title: 'Controllo & Comportamenti Digitali',
           icon: Shield,
           questions: [
             {
-              id: 'scrollImpulse',
-              text: 'Hai sentito l\'impulso di scrollare senza motivo oggi?',
-              options: ['Mai', 'Una volta', 'Più volte']
+              id: 'impulseControl',
+              text: 'Quante volte hai resistito all\'impulso di aprire il telefono?',
+              options: ['0 volte', '1–3 volte', '4–7 volte', '8–12 volte', 'Oltre 12']
             },
             {
-              id: 'resistedImpulse',
-              text: 'Hai resistito almeno una volta all\'impulso di aprire un social?',
-              options: ['Sì', 'No']
+              id: 'notificationResponse',
+              text: 'Tempo medio di risposta alle notifiche non urgenti?',
+              options: ['Immediato', '5–15 min', '30–60 min', '1–3h', 'Oltre 3h']
             },
             {
-              id: 'completedActivity',
-              text: 'Hai completato l\'attività anti-scroll del giorno proposta dall\'app?',
-              options: ['Sì', 'No', 'In parte']
+              id: 'mindfulUsage',
+              text: 'Percentuale di utilizzo dispositivi con intenzione specifica?',
+              options: ['0–20%', '21–40%', '41–60%', '61–80%', '81–100%']
             },
             {
-              id: 'difficulty',
-              text: 'Quanto è stato difficile non prendere il telefono nei momenti "vuoti"?',
-              options: ['Per niente', 'Un po\'', 'Molto']
+              id: 'procrastination',
+              text: 'Attività importanti rimandate a causa dei dispositivi?',
+              options: ['Nessuna', '1 attività', '2–3 attività', '4–5 attività', 'Oltre 5']
             },
             {
-              id: 'presence',
-              text: 'Ti sei sentito più presente durante la giornata rispetto a ieri?',
-              options: ['Sì', 'No', 'Non saprei']
+              id: 'digitalBreaks',
+              text: 'Pause volontarie da dispositivi durante il giorno?',
+              options: ['0 pause', '1–2 pause', '3–4 pause', '5–7 pause', 'Oltre 7']
             }
           ]
         };
       case 'emotion':
         return {
-          title: 'Emozioni & Soddisfazione Personale',
+          title: 'Benessere & Produttività',
           icon: Heart,
           questions: [
             {
-              id: 'dailyFeeling',
-              text: 'Come ti sei sentitə durante la maggior parte del tempo oggi?',
-              options: ['Calmo/a e concentrato/a', 'Neutro/a', 'Distratto/a o ansioso/a']
+              id: 'focusQuality',
+              text: 'Livello di concentrazione medio durante attività importanti?',
+              options: ['Molto basso', 'Basso', 'Medio', 'Alto', 'Molto alto']
             },
             {
-              id: 'realEnergy',
-              text: 'Hai fatto qualcosa oggi che ti ha dato energia reale (non digitale)?',
-              options: ['Sì', 'No', 'Non ricordo']
+              id: 'stressLevel',
+              text: 'Livello di stress/ansia legato ai dispositivi oggi?',
+              options: ['Nullo', 'Basso', 'Moderato', 'Alto', 'Molto alto']
             },
             {
-              id: 'timeSatisfaction',
-              text: 'Quanto sei soddisfattə di come hai usato il tuo tempo oggi?',
-              options: ['Molto', 'Abbastanza', 'Poco']
+              id: 'sleepQuality',
+              text: 'Qualità del sonno della scorsa notte (1-5)?',
+              options: ['1 - Pessima', '2 - Scarsa', '3 - Sufficiente', '4 - Buona', '5 - Ottima']
             },
             {
-              id: 'missing',
-              text: 'Cosa ti è mancato di più nel non scrollare (se qualcosa)?',
-              type: 'textarea',
-              placeholder: 'Esempio: aggiornamenti, "staccare la testa", noia...'
+              id: 'realWorldActivities',
+              text: 'Attività offline significative completate oggi?',
+              options: ['Nessuna', '1 attività', '2–3 attività', '4–5 attività', 'Oltre 5']
             },
             {
-              id: 'phoneRelationship',
-              text: 'Come definiresti oggi la tua relazione con il telefono?',
-              options: ['Equilibrata', 'In miglioramento', 'Troppo presente']
+              id: 'dopamineAwareness',
+              text: 'Consapevolezza delle ricerche di stimoli digitali istantanei?',
+              options: ['Per niente', 'Poco', 'Moderata', 'Alta', 'Molto alta']
             }
           ]
         };
