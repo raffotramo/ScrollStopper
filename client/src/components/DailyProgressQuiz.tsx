@@ -18,7 +18,20 @@ interface DailyProgressQuizProps {
 
 const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }) => {
   const [answers, setAnswers] = useState<QuizData>({});
+  const [isCompleted, setIsCompleted] = useState(false);
   const { toast } = useToast();
+
+  // Verifica se il check-in di oggi è già stato completato
+  const checkIfCompletedToday = () => {
+    const today = new Date().toDateString();
+    const completedToday = localStorage.getItem(`checkin-completed-${today}`);
+    return completedToday === 'true';
+  };
+
+  // Inizializza lo stato di completamento
+  React.useEffect(() => {
+    setIsCompleted(checkIfCompletedToday());
+  }, []);
 
   // Determina quale blocco usare in base al giorno (ciclo di 3)
   const getBlockType = (day: number): 'time' | 'control' | 'emotion' => {
@@ -148,15 +161,67 @@ const DailyProgressQuiz: React.FC<DailyProgressQuizProps> = ({ onComplete, day }
       return;
     }
 
+    // Salva il completamento di oggi
+    const today = new Date().toDateString();
+    localStorage.setItem(`checkin-completed-${today}`, 'true');
+    
+    setIsCompleted(true);
     onComplete(answers);
+    
     toast({
-      title: "Check-in completato! 🎉",
+      title: "Check-in completato!",
       description: "Il tuo progresso è stato registrato",
       variant: "default"
     });
   };
 
   const IconComponent = config.icon;
+
+  // Calcola quanto tempo manca al prossimo check-in (mezzanotte)
+  const getTimeUntilNextCheckin = () => {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    
+    const diff = tomorrow.getTime() - now.getTime();
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    
+    return { hours, minutes };
+  };
+
+  // Se già completato, mostra messaggio
+  if (isCompleted) {
+    const { hours, minutes } = getTimeUntilNextCheckin();
+    
+    return (
+      <div className="text-center py-8 space-y-4">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+          <CheckCircle className="w-8 h-8 text-green-600" />
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold text-green-800 mb-2">
+            Check-in di oggi completato!
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">
+            Hai già completato il tuo check-in quotidiano.
+          </p>
+          <div className="bg-muted/50 rounded-lg p-4">
+            <p className="text-sm font-medium text-foreground">
+              Prossimo check-in disponibile tra:
+            </p>
+            <p className="text-lg font-bold text-primary mt-1">
+              {hours}h {minutes}m
+            </p>
+            <p className="text-xs text-muted-foreground mt-2">
+              Torna domani per continuare il tuo percorso
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-5">
