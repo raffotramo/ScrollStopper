@@ -234,37 +234,7 @@ const Home: React.FC = () => {
           />
         </section>
 
-        {/* Category Progress Overview */}
-        <section className="mx-4 my-4">
-          <h2 className="text-lg font-bold text-foreground mb-4">Il Tuo Percorso</h2>
-          <div className="grid grid-cols-3 gap-3">
-            {Object.entries(CHALLENGE_CATEGORIES).map(([key, category]) => {
-              const categoryDays = key === 'MINDFULNESS' ? [1,2,3,4,5,6,7,8,9,10] : 
-                                  key === 'CREATIVITY' ? [11,12,13,14,15,16,17,18,19,20] : 
-                                  [21,22,23,24,25,26,27,28,29,30];
-              const completedInCategory = progress.filter(p => categoryDays.includes(p.day) && p.completed).length;
-              const isCurrentCategory = categoryDays.includes(currentDay);
-              
-              return (
-                <div key={key} className={`p-3 rounded-xl border ${
-                  isCurrentCategory ? 'border-primary bg-primary/5' : 'border-border bg-card'
-                }`}>
-                  <div className="text-lg mb-1">{category.icon}</div>
-                  <div className="text-xs font-bold text-foreground">{category.name}</div>
-                  <div className="text-xs text-muted-foreground">{completedInCategory}/10</div>
-                  {isCurrentCategory && (
-                    <div className="w-full bg-primary/20 rounded-full h-1 mt-2">
-                      <div 
-                        className="bg-primary h-1 rounded-full"
-                        style={{ width: `${(completedInCategory / 10) * 100}%` }}
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
+
 
         {/* Main Challenge Card - Only show if access is allowed */}
         {canAccessToday && (

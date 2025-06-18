@@ -94,7 +94,7 @@ const Achievements: React.FC = () => {
             </h1>
           </div>
           <p className="text-foreground text-sm font-bold mb-3">
-            Conquista obiettivi e sblocca achievement
+            Tutti • Mindfulness • Creatività • Connessioni
           </p>
           <div className="w-20 h-1 bg-amber-600 rounded-full mx-auto"></div>
         </div>
