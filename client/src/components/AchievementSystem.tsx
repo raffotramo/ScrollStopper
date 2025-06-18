@@ -21,21 +21,28 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
   userStats, 
   allAchievements 
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('mindfulness');
   const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null);
 
   const categories = [
-    { id: 'all', name: 'Tutti', icon: '🎯' },
     { id: 'mindfulness', name: 'Mindfulness', icon: '🧘' },
     { id: 'creativity', name: 'Creatività', icon: '🎨' },
-    { id: 'connection', name: 'Connessioni', icon: '🤝' },
-    { id: 'special', name: 'Speciali', icon: '⭐' }
+    { id: 'connection', name: 'Connessioni', icon: '🤝' }
   ];
 
-  const filteredAchievements = selectedCategory === 'all' 
-    ? allAchievements 
-    : allAchievements.filter(a => a.category === selectedCategory);
+  const filteredAchievements = allAchievements.filter(a => {
+    if (selectedCategory === 'mindfulness') {
+      return a.category === 'mindfulness' || a.category === 'special';
+    }
+    if (selectedCategory === 'creativity') {
+      return a.category === 'creativity';
+    }
+    if (selectedCategory === 'connection') {
+      return a.category === 'connection';
+    }
+    return false;
+  });
 
   const levelProgress = userStats.pointsToNextLevel > 0 
     ? ((userStats.totalStars) / (userStats.totalStars + userStats.pointsToNextLevel)) * 100
