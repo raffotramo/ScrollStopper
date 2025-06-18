@@ -469,27 +469,10 @@ const EmergencyAntiScroll: React.FC = () => {
             <Heart className="w-5 h-5 text-primary" />
             <h3 className="font-semibold text-foreground">Promemoria Motivazionale</h3>
           </div>
-          <div className="space-y-4">
-            <div className="bg-background/80 rounded-lg p-4 border border-primary/10">
-              <p className="text-sm text-foreground leading-relaxed">
-                <strong>Ricorda:</strong> Ogni volta che usi questi strumenti, stai allenando la tua forza di volontà. È come fare esercizio per la mente.
-              </p>
-            </div>
-            <div className="bg-background/80 rounded-lg p-4 border border-primary/10">
-              <p className="text-sm text-foreground leading-relaxed">
-                <strong>Sei più forte di quanto pensi:</strong> Il fatto che tu sia qui dimostra che vuoi cambiare. Questo è già il primo grande passo.
-              </p>
-            </div>
-            <div className="bg-background/80 rounded-lg p-4 border border-primary/10">
-              <p className="text-sm text-foreground leading-relaxed">
-                <strong>Progresso, non perfezione:</strong> Non importa se ieri hai scrollato troppo. Oggi è un nuovo giorno per fare meglio.
-              </p>
-            </div>
-            <div className="bg-background/80 rounded-lg p-4 border border-primary/10">
-              <p className="text-sm text-foreground leading-relaxed">
-                <strong>Tempo ritrovato:</strong> Ogni minuto che non passi scrollando è un minuto che puoi dedicare a ciò che ami davvero.
-              </p>
-            </div>
+          <div className="bg-background/80 rounded-lg p-4 border border-primary/10">
+            <p className="text-sm text-foreground leading-relaxed">
+              <strong>Ricorda:</strong> Ogni volta che usi questi strumenti, stai allenando la tua forza di volontà. È come fare esercizio per la mente.
+            </p>
           </div>
         </div>
       </main>
