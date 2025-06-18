@@ -23,13 +23,12 @@ export const CHALLENGE_CATEGORIES = {
 };
 
 export const challenges: ChallengeDay[] = [
-  // SETTIMANA 1: Mindfulness (Giorni 1-10)
   {
     day: 1,
-    title: "Disegno Libero",
-    description: "Disegna qualsiasi cosa ti venga in mente, senza giudizio. Sperimenta con forme, colori e linee.",
+    title: "Chiama un Amico",
+    description: "Telefona a un amico e raccontagli di questa sfida che stai iniziando. Condividi le tue motivazioni e chiedigli supporto nel percorso.",
     timeRequired: 15,
-    category: "CREATIVITY"
+    category: "CONNECTION"
   },
   {
     day: 2,
@@ -48,37 +47,37 @@ export const challenges: ChallengeDay[] = [
   {
     day: 4,
     title: "Lettera di Gratitudine",
-    description: "Esprimi un sentimento che non hai mai condiviso. Un gesto che potrebbe cambiare una relazione importante.",
+    description: "Esprimi un sentimento che non hai mai condiviso.",
     timeRequired: 15,
     category: "CONNECTION"
   },
   {
     day: 5,
     title: "Sfoglia & Inspira",
-    description: "Prendi un libro o una rivista e sfoglialo per il gusto di farlo. Nessuna meta, solo ispirazione.",
+    description: "Prendi un libro o una rivista e sfoglialo per il gusto di farlo.",
     timeRequired: 10,
     category: "CREATIVITY"
   },
   {
     day: 6,
     title: "Cucina un Piatto Nuovo",
-    description: "Prepara una ricetta che non hai mai provato. Segui ogni passaggio con attenzione e assapora il processo creativo.",
+    description: "Prepara una ricetta che non hai mai provato.",
     timeRequired: 20,
     category: "CREATIVITY"
   },
   {
     day: 7,
     title: "Lettera a Me",
-    description: "Scrivi una lettera al tuo io futuro o passato. Racconta come ti senti oggi.",
+    description: "Scrivi una lettera al tuo io futuro o passato.",
     timeRequired: 10,
     category: "MINDFULNESS"
   },
   {
     day: 8,
-    title: "Chiama un Vecchio Amico",
-    description: "Telefona a qualcuno che non senti da tempo. Riconnettiti con persone importanti e riscopri il piacere delle conversazioni vere.",
+    title: "Disegno Libero",
+    description: "Disegna qualsiasi cosa ti venga in mente, senza giudizio.",
     timeRequired: 15,
-    category: "CONNECTION"
+    category: "CREATIVITY"
   },
   {
     day: 9,
@@ -90,12 +89,10 @@ export const challenges: ChallengeDay[] = [
   {
     day: 10,
     title: "Racconta un Ricordo",
-    description: "Rivivi un momento speciale del passato attraverso i sensi. Un viaggio nel tempo che ti emozionerà.",
+    description: "Rivivi un momento speciale del passato attraverso i sensi.",
     timeRequired: 15,
     category: "MINDFULNESS"
   },
-
-  // SETTIMANA 2: Creatività (Giorni 11-20)
   {
     day: 11,
     title: "Passeggiata Detox",
@@ -166,8 +163,6 @@ export const challenges: ChallengeDay[] = [
     timeRequired: 15,
     category: "CREATIVITY"
   },
-
-  // SETTIMANA 3: Connessioni (Giorni 21-30)
   {
     day: 21,
     title: "Crea una Playlist Motivazionale",

@@ -240,16 +240,6 @@ const Home: React.FC = () => {
         {/* Main Challenge Card - Only show if access is allowed */}
         {canAccessToday && (
           <section className="bg-card rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] mx-4 my-4 p-6 border-2 border-primary/20 ring-1 ring-primary/10">
-            {/* Category Badge */}
-            {todayChallenge.category && (
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-lg">{CHALLENGE_CATEGORIES[todayChallenge.category as keyof typeof CHALLENGE_CATEGORIES]?.icon}</span>
-                <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
-                  {CHALLENGE_CATEGORIES[todayChallenge.category as keyof typeof CHALLENGE_CATEGORIES]?.name}
-                </span>
-              </div>
-            )}
-            
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
