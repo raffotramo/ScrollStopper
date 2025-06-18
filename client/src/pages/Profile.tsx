@@ -1,6 +1,7 @@
 import React from 'react';
 import { Clock, Award, BookOpen, CalendarDays, BarChart, User, LogOut, Store, Mail, RotateCcw, Brain, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { Link } from 'wouter';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
