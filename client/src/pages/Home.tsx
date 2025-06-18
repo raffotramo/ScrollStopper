@@ -222,19 +222,6 @@ const Home: React.FC = () => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
-        {/* Daily Access Control */}
-        <section className="mx-4 my-4">
-          <DailyAccessControl
-            canAccessToday={canAccessToday}
-            timeUntilUnlock={timeUntilUnlock}
-            currentDay={currentDay}
-            lastAccessDate={lastAccessDate}
-            isDayCompleted={isDayCompleted || isCurrentDayCompleted}
-            onReset={resetDay}
-            showResetButton={import.meta.env.DEV}
-          />
-        </section>
-
         {/* Time Saved Counter - Only show if access is allowed */}
         {canAccessToday && (
           <section className="mx-4 my-4">
@@ -258,31 +245,25 @@ const Home: React.FC = () => {
                   </div>
                   
                   {/* Right side - Enhanced countdown display */}
-                  <div className="flex items-center gap-3">
-                    <div className="relative">
-                      <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="flex items-end gap-3">
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg mb-1">
                         <span className="text-xl font-bold text-emerald-700">
                           {Math.floor(userStats.totalTimeRecovered / 60).toString().padStart(2, '0')}
                         </span>
                       </div>
-                      <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse" />
+                      <span className="text-xs text-white/80 font-medium">ORE</span>
                     </div>
-                    <div className="text-2xl font-bold text-white/80 animate-pulse">:</div>
-                    <div className="relative">
-                      <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
+                    <div className="text-2xl font-bold text-white/80 animate-pulse mb-3">:</div>
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg mb-1">
                         <span className="text-xl font-bold text-emerald-700">
                           {(userStats.totalTimeRecovered % 60).toString().padStart(2, '0')}
                         </span>
                       </div>
-                      <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+                      <span className="text-xs text-white/80 font-medium">MIN</span>
                     </div>
                   </div>
-                </div>
-                
-                {/* Labels under countdown */}
-                <div className="flex justify-end gap-7 mt-2">
-                  <span className="text-xs text-white/80 font-medium">ORE</span>
-                  <span className="text-xs text-white/80 font-medium">MIN</span>
                 </div>
                 
                 {/* Decorative elements */}
