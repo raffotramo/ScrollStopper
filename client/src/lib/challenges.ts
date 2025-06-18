@@ -26,71 +26,71 @@ export const challenges: ChallengeDay[] = [
   // SETTIMANA 1: Mindfulness (Giorni 1-10)
   {
     day: 1,
-    title: "Respirazione Consapevole",
-    description: "Fai 20 respiri lenti e profondi. Concentrati solo sul ritmo, lascia che ogni respiro porti calma e presenza.",
-    timeRequired: 10,
-    category: "MINDFULNESS"
+    title: "Disegno Libero",
+    description: "Disegna qualsiasi cosa ti venga in mente, senza giudizio. Sperimenta con forme, colori e linee.",
+    timeRequired: 15,
+    category: "CREATIVITY"
   },
   {
     day: 2,
-    title: "Passeggiata Mindful",
-    description: "Cammina per 15 minuti senza telefono. Osserva ciò che ti circonda con curiosità, come se vedessi tutto per la prima volta.",
-    timeRequired: 15,
-    category: "MINDFULNESS"
+    title: "Cassetto Zen",
+    description: "Riordina un cassetto disordinato. Trova almeno 1 cosa da eliminare o donare.",
+    timeRequired: 10,
+    category: "CONNECTION"
   },
   {
     day: 3,
-    title: "Osservazione Silenziosa",
-    description: "Siediti in silenzio per 10 minuti. Osserva pensieri ed emozioni senza giudicarli, come nuvole che passano nel cielo.",
+    title: "Flash Workout",
+    description: "Fai 5 esercizi fisici a corpo libero (squat, plank, jumping jack…) per riattivarti.",
     timeRequired: 10,
     category: "MINDFULNESS"
   },
   {
     day: 4,
-    title: "Snack Consapevole",
-    description: "Prepara uno snack e gustalo lentamente. Presta attenzione a ogni sapore, texture e sensazione. Riscopri il piacere autentico del cibo.",
+    title: "Lettera di Gratitudine",
+    description: "Esprimi un sentimento che non hai mai condiviso. Un gesto che potrebbe cambiare una relazione importante.",
     timeRequired: 15,
-    category: "MINDFULNESS"
+    category: "CONNECTION"
   },
   {
     day: 5,
-    title: "Gratitudine Quotidiana",
-    description: "Scrivi 3 cose per cui sei grato oggi, anche piccole. Descrivi perché ti fanno sentire bene e come arricchiscono la tua vita.",
+    title: "Sfoglia & Inspira",
+    description: "Prendi un libro o una rivista e sfoglialo per il gusto di farlo. Nessuna meta, solo ispirazione.",
     timeRequired: 10,
-    category: "MINDFULNESS"
+    category: "CREATIVITY"
   },
   {
     day: 6,
-    title: "Journaling Mentale",
-    description: "Svuota la mente su carta per 15 minuti. Scrivi tutto ciò che ti passa per la testa senza censurarti.",
-    timeRequired: 15,
-    category: "MINDFULNESS"
+    title: "Cucina un Piatto Nuovo",
+    description: "Prepara una ricetta che non hai mai provato. Segui ogni passaggio con attenzione e assapora il processo creativo.",
+    timeRequired: 20,
+    category: "CREATIVITY"
   },
   {
     day: 7,
-    title: "Tè e Musica",
-    description: "Prepara il tuo tè preferito e ascolta 3 canzoni rilassanti. Concentrati solo su sapori e melodie.",
-    timeRequired: 15,
+    title: "Lettera a Me",
+    description: "Scrivi una lettera al tuo io futuro o passato. Racconta come ti senti oggi.",
+    timeRequired: 10,
     category: "MINDFULNESS"
   },
   {
     day: 8,
-    title: "Osserva le Stelle",
-    description: "Esci la sera e guarda il cielo per 15 minuti. Lasciati ispirare dall'immensità e dalla bellezza dell'universo.",
+    title: "Chiama un Vecchio Amico",
+    description: "Telefona a qualcuno che non senti da tempo. Riconnettiti con persone importanti e riscopri il piacere delle conversazioni vere.",
     timeRequired: 15,
-    category: "MINDFULNESS"
+    category: "CONNECTION"
   },
   {
     day: 9,
-    title: "Movimento Energetico",
-    description: "Fai 5 esercizi a corpo libero (squat, plank, jumping jack). Riconnettiti al tuo corpo con energia positiva.",
+    title: "Pulizia Digitale",
+    description: "Cancella 10 file, foto o app inutili dal telefono o dal computer.",
     timeRequired: 10,
-    category: "MINDFULNESS"
+    category: "CONNECTION"
   },
   {
     day: 10,
-    title: "Riflessione Profonda",
-    description: "Scrivi una lettera al tuo io futuro. Racconta come ti senti oggi e i tuoi sogni per il domani.",
+    title: "Racconta un Ricordo",
+    description: "Rivivi un momento speciale del passato attraverso i sensi. Un viaggio nel tempo che ti emozionerà.",
     timeRequired: 15,
     category: "MINDFULNESS"
   },
@@ -98,145 +98,145 @@ export const challenges: ChallengeDay[] = [
   // SETTIMANA 2: Creatività (Giorni 11-20)
   {
     day: 11,
-    title: "Disegno Libero",
-    description: "Disegna qualsiasi cosa per 15 minuti senza giudicare il risultato. Lascia fluire la creatività naturalmente.",
-    timeRequired: 15,
-    category: "CREATIVITY"
+    title: "Passeggiata Detox",
+    description: "Cammina attorno a casa o all'isolato senza telefono. Solo cammino, respiro e osservazione.",
+    timeRequired: 10,
+    category: "MINDFULNESS"
   },
   {
     day: 12,
-    title: "Ricetta Nuova",
-    description: "Prepara un piatto che non hai mai cucinato. Segui ogni passaggio con curiosità e goditi il processo creativo.",
-    timeRequired: 25,
-    category: "CREATIVITY"
+    title: "Journaling Mentale",
+    description: "Svuota la mente su carta e scopri pensieri nascosti che non sapevi di avere.",
+    timeRequired: 15,
+    category: "MINDFULNESS"
   },
   {
     day: 13,
-    title: "Storia Personale",
-    description: "Racconta un ricordo speciale del passato. Rivivi quel momento attraverso tutti i sensi.",
-    timeRequired: 15,
+    title: "Impara 5 Parole Straniere",
+    description: "Scegli una lingua che ti incuriosisce e memorizza 5 parole nuove. Usale durante la giornata per fissarle nella memoria.",
+    timeRequired: 10,
     category: "CREATIVITY"
   },
   {
     day: 14,
-    title: "Playlist dell'Anima",
-    description: "Crea una playlist di 8 canzoni che rappresentano i tuoi stati d'animo. Organizzale per raccontare la tua storia.",
-    timeRequired: 20,
+    title: "Lista dei Desideri",
+    description: "Dai forma ai tuoi sogni più profondi. Alcuni ti sorprenderanno, altri ti ispireranno ad agire.",
+    timeRequired: 15,
     category: "CREATIVITY"
   },
   {
     day: 15,
-    title: "Scrittura Creativa",
-    description: "Scrivi un pensiero che ti gira in testa. Dai voce ai pensieri che ronzano nella tua mente senza censurarti.",
-    timeRequired: 15,
+    title: "Scrivi una Recensione",
+    description: "Recensisci un libro, film o prodotto che hai usato di recente. Condividi la tua esperienza in modo dettagliato e onesto.",
+    timeRequired: 20,
     category: "CREATIVITY"
   },
   {
     day: 16,
-    title: "La Tua Bio",
-    description: "Scrivi chi sei davvero in 200 parole, come se il mondo dovesse conoscerti. Un esercizio di autoconsapevolezza.",
-    timeRequired: 15,
-    category: "CREATIVITY"
+    title: "Ascolta un Podcast Educativo",
+    description: "Trova un episodio su un argomento che non conosci. Prendi appunti sui concetti più interessanti che scopri.",
+    timeRequired: 20,
+    category: "CONNECTION"
   },
   {
     day: 17,
-    title: "Esplorazione Culturale",
-    description: "Impara 5 parole di una lingua straniera che ti incuriosisce. Usale durante la giornata per memorizzarle.",
+    title: "Osserva le Stelle",
+    description: "Esci la sera e guarda il cielo per 15 minuti. Cerca di riconoscere costellazioni o semplicemente goditi l'immensità.",
     timeRequired: 15,
-    category: "CREATIVITY"
+    category: "MINDFULNESS"
   },
   {
     day: 18,
-    title: "Visione del Futuro",
-    description: "Scrivi una lista di 10 sogni e desideri. Dai forma alle tue aspirazioni più profonde senza limiti.",
-    timeRequired: 20,
-    category: "CREATIVITY"
+    title: "Prepara un Tè e Ascolta Musica",
+    description: "Scegli il tuo tè preferito, preparalo con cura e ascolta 3 canzoni che ti rilassano. Concentrati solo su sapori e melodie.",
+    timeRequired: 15,
+    category: "MINDFULNESS"
   },
   {
     day: 19,
-    title: "Recensione Autentica",
-    description: "Scrivi una recensione dettagliata di un libro, film o prodotto che hai usato di recente. Condividi la tua esperienza onesta.",
-    timeRequired: 20,
+    title: "Pensiero Libero",
+    description: "Scrivi un pensiero che ti gira in testa. Non giudicare, lascia uscire ciò che c'è.",
+    timeRequired: 10,
     category: "CREATIVITY"
   },
   {
     day: 20,
-    title: "Collage Ispirazionale",
-    description: "Crea un collage (fisico o digitale) che rappresenta la versione migliore di te stesso. Usa immagini e colori che ti ispirano.",
-    timeRequired: 25,
+    title: "Scrivi la Tua Bio",
+    description: "Racconta chi sei davvero, come se il mondo intero dovesse conoscerti. Un esercizio di autoconsapevolezza profonda.",
+    timeRequired: 15,
     category: "CREATIVITY"
   },
 
   // SETTIMANA 3: Connessioni (Giorni 21-30)
   {
     day: 21,
-    title: "Chiamata del Cuore",
-    description: "Telefona a una persona importante e condividi questa esperienza. Raccontale del tuo percorso e chiedi il suo supporto.",
+    title: "Crea una Playlist Motivazionale",
+    description: "Seleziona 10 canzoni che ti danno energia e ispirazione. Organizzale in una sequenza che ti accompagni nei momenti difficili.",
     timeRequired: 20,
-    category: "CONNECTION"
+    category: "CREATIVITY"
   },
   {
     day: 22,
-    title: "Lettera di Gratitudine",
-    description: "Scrivi una lettera di ringraziamento a qualcuno che ha fatto la differenza nella tua vita. Esprimi sentimenti autentici.",
-    timeRequired: 20,
-    category: "CONNECTION"
+    title: "Fai 20 Respiri Profondi",
+    description: "Siediti comodamente e fai 20 respiri lenti e profondi. Conta ogni inspirazione ed espirazione, concentrandoti solo sul ritmo.",
+    timeRequired: 10,
+    category: "MINDFULNESS"
   },
   {
     day: 23,
-    title: "Decluttering Zen",
-    description: "Riordina un cassetto o una zona disordinata. Trova almeno 3 oggetti da eliminare o donare. Crea spazio per il nuovo.",
-    timeRequired: 20,
-    category: "CONNECTION"
+    title: "Snack Consapevole",
+    description: "Prepara uno snack sano e gustalo lentamente, prestando attenzione a ogni sapore.",
+    timeRequired: 10,
+    category: "MINDFULNESS"
   },
   {
     day: 24,
-    title: "Pulizia Digitale",
-    description: "Elimina 20 file, foto o app inutili dal telefono. Libera spazio digitale e mentale per ciò che davvero conta.",
-    timeRequired: 15,
+    title: "Decluttering Armadio",
+    description: "Libera spazio fisico e mentale eliminando ciò che non ti rappresenta più.",
+    timeRequired: 20,
     category: "CONNECTION"
   },
   {
     day: 25,
-    title: "Spazio di Lavoro Ideale",
-    description: "Riorganizza completamente la tua scrivania o area di lavoro. Crea un ambiente che ispiri produttività e creatività.",
-    timeRequired: 25,
+    title: "Crea la Tua Routine Mattutina",
+    description: "Progetta il perfetto inizio di giornata. Una sequenza che trasformerà ogni tuo risveglio.",
+    timeRequired: 15,
     category: "CONNECTION"
   },
   {
     day: 26,
-    title: "Esplorazione Locale",
-    description: "Esplora il tuo quartiere prendendo strade nuove. Osserva dettagli architettonici e angoli nascosti della tua zona.",
-    timeRequired: 25,
+    title: "Esplora il Tuo Quartiere",
+    description: "Cammina per strade che non hai mai preso. Osserva dettagli architettonici, negozi e angoli nascosti della tua zona.",
+    timeRequired: 20,
     category: "CONNECTION"
   },
   {
     day: 27,
-    title: "Routine Perfetta",
-    description: "Progetta la tua routine mattutina ideale. Crea una sequenza di attività che trasformerà ogni tuo risveglio.",
+    title: "Riorganizza la Scrivania",
+    description: "Sistema completamente il tuo spazio di lavoro. Elimina il superfluo e organizza tutto per massimizzare produttività e ispirazione.",
     timeRequired: 20,
     category: "CONNECTION"
   },
   {
     day: 28,
-    title: "Apprendimento Attivo",
-    description: "Ascolta un podcast o leggi un articolo su un argomento nuovo. Prendi appunti sui concetti più interessanti.",
-    timeRequired: 25,
-    category: "CONNECTION"
+    title: "Scrivi 3 Cose Positive di Oggi",
+    description: "Prima di dormire, scrivi 3 eventi positivi della giornata, anche piccoli. Descrivi perché ti hanno fatto stare bene.",
+    timeRequired: 10,
+    category: "MINDFULNESS"
   },
   {
     day: 29,
-    title: "Obiettivi Concreti",
-    description: "Definisci 3 traguardi specifici per i prossimi 3 mesi. Per ognuno scrivi il primo passo concreto da compiere.",
-    timeRequired: 20,
+    title: "Scrivi Tre Obiettivi Concreti",
+    description: "Definisci 3 traguardi specifici per i prossimi 3 mesi. Per ognuno scrivi il primo passo concreto da fare domani.",
+    timeRequired: 15,
     category: "CONNECTION"
   },
   {
     day: 30,
-    title: "Celebrazione Finale",
-    description: "Rifletti sul tuo percorso e celebra i progressi fatti. Scrivi una lettera al te stesso di 30 giorni fa.",
-    timeRequired: 25,
-    category: "CONNECTION"
+    title: "Crea un Collage Ispirazionale",
+    description: "Visualizza la versione migliore di te stesso attraverso immagini e colori. Il finale perfetto per il tuo viaggio.",
+    timeRequired: 20,
+    category: "CREATIVITY"
   }
 ];
 
