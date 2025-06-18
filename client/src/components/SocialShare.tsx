@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Share2, Twitter, Facebook, Instagram, Copy, Check, Download } from 'lucide-react';
+import { Share2, Twitter, Facebook, Instagram, Copy, Check, Download, Music } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -119,13 +119,112 @@ Verso un rapporto più sano con la tecnologia! #DigitalDetox #ScrollStop #Mindfu
     window.open(url, '_blank', 'width=600,height=400');
   };
 
-  const shareOnInstagram = () => {
-    // Instagram non supporta condivisione diretta, copiamo il testo
-    copyToClipboard();
-    toast({
-      title: "Testo copiato!",
-      description: "Incolla il testo nella tua storia Instagram",
-    });
+  const shareOnInstagram = async () => {
+    const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+      try {
+        // Su mobile, prova a aprire Instagram direttamente
+        const text = encodeURIComponent(generateShareText());
+        const instagramUrl = `instagram://camera?text=${text}`;
+        
+        // Prova prima a aprire l'app Instagram
+        window.location.href = instagramUrl;
+        
+        // Fallback dopo un breve delay se l'app non si apre
+        setTimeout(() => {
+          if (navigator.share) {
+            generateShareImage().then(async (imageData) => {
+              if (imageData) {
+                const response = await fetch(imageData);
+                const blob = await response.blob();
+                const file = new File([blob], 'scrollstop-progress.png', { type: 'image/png' });
+                
+                navigator.share({
+                  title: 'I miei progressi ScrollStop',
+                  text: generateShareText(),
+                  files: [file]
+                }).catch(() => {
+                  // Se tutto fallisce, copia e scarica
+                  copyToClipboard();
+                  downloadImage();
+                });
+              }
+            });
+          }
+        }, 2000);
+        
+      } catch (error) {
+        // Fallback per dispositivi mobili
+        copyToClipboard();
+        await downloadImage();
+        toast({
+          title: "Contenuto preparato!",
+          description: "Testo copiato e immagine scaricata per Instagram",
+        });
+      }
+    } else {
+      // Su desktop, prepara il contenuto per il download
+      copyToClipboard();
+      await downloadImage();
+      toast({
+        title: "Contenuto preparato!",
+        description: "Testo copiato e immagine scaricata. Apri Instagram dal tuo telefono per condividere",
+      });
+    }
+  };
+
+  const shareOnTikTok = async () => {
+    const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+      try {
+        // Su mobile, prova a aprire TikTok direttamente
+        const text = encodeURIComponent(generateShareText());
+        const tiktokUrl = `tiktok://share?text=${text}`;
+        
+        // Prova prima a aprire l'app TikTok
+        window.location.href = tiktokUrl;
+        
+        // Fallback dopo un breve delay
+        setTimeout(() => {
+          if (navigator.share) {
+            generateShareImage().then(async (imageData) => {
+              if (imageData) {
+                const response = await fetch(imageData);
+                const blob = await response.blob();
+                const file = new File([blob], 'scrollstop-progress.png', { type: 'image/png' });
+                
+                navigator.share({
+                  title: 'I miei progressi ScrollStop',
+                  text: generateShareText(),
+                  files: [file]
+                }).catch(() => {
+                  copyToClipboard();
+                  downloadImage();
+                });
+              }
+            });
+          }
+        }, 2000);
+        
+      } catch (error) {
+        copyToClipboard();
+        await downloadImage();
+        toast({
+          title: "Contenuto preparato!",
+          description: "Testo copiato e immagine scaricata per TikTok",
+        });
+      }
+    } else {
+      // Su desktop, prepara il contenuto
+      copyToClipboard();
+      await downloadImage();
+      toast({
+        title: "Contenuto preparato!",
+        description: "Testo copiato e immagine scaricata. Apri TikTok dal tuo telefone per condividere",
+      });
+    }
   };
 
   const copyToClipboard = () => {
@@ -226,6 +325,17 @@ Verso un rapporto più sano con la tecnologia! #DigitalDetox #ScrollStop #Mindfu
               </Button>
               
               <Button
+                onClick={shareOnTikTok}
+                className="flex-1 bg-black hover:bg-gray-800 text-white"
+                size="sm"
+              >
+                <Music className="w-4 h-4 mr-2" />
+                TikTok
+              </Button>
+            </div>
+
+            <div className="flex gap-2">
+              <Button
                 onClick={copyToClipboard}
                 variant="outline"
                 className="flex-1"
@@ -238,21 +348,22 @@ Verso un rapporto più sano con la tecnologia! #DigitalDetox #ScrollStop #Mindfu
                 )}
                 {copied ? 'Copiato!' : 'Copia testo'}
               </Button>
+              
+              <Button
+                onClick={downloadImage}
+                variant="outline"
+                className="flex-1"
+                size="sm"
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Scarica immagine
+              </Button>
             </div>
-
-            <Button
-              onClick={downloadImage}
-              variant="outline"
-              className="w-full"
-              size="sm"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Scarica immagine per i social
-            </Button>
           </div>
 
-          <div className="text-xs text-gray-500 text-center">
-            💡 Per Instagram, scarica l'immagine e usa il testo copiato per la didascalia
+          <div className="text-xs text-gray-500 text-center space-y-1">
+            <div>📱 Su mobile: Instagram e TikTok si aprono direttamente</div>
+            <div>💻 Su desktop: scarica immagine e copia testo per condividere</div>
           </div>
         </div>
       </DialogContent>
