@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Star, Trophy, Lock, Sparkles, Crown } from 'lucide-react';
+import { Star, Trophy, Lock, Sparkles, Crown, Calendar, Clock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Achievement } from '../types';
+import { Achievement, DayProgress } from '../types';
 import { getLevelTitle } from '../lib/achievements';
+import { challenges } from '../lib/challenges';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface AchievementSystemProps {
   userStats: {
@@ -24,11 +26,13 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>('mindfulness');
   const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null);
+  const [viewMode, setViewMode] = useState<'achievements' | 'challenges'>('achievements');
+  const [progress] = useLocalStorage<DayProgress[]>('digital-detox-progress', []);
 
   const categories = [
-    { id: 'mindfulness', name: 'Mindfulness', icon: '🧘' },
-    { id: 'creativity', name: 'Creatività', icon: '🎨' },
-    { id: 'connection', name: 'Connessioni', icon: '🤝' }
+    { id: 'mindfulness', name: 'Mindfulness', icon: '🧘', challengeCategory: 'MINDFULNESS' },
+    { id: 'creativity', name: 'Creatività', icon: '🎨', challengeCategory: 'CREATIVITY' },
+    { id: 'connection', name: 'Connessioni', icon: '🤝', challengeCategory: 'CONNECTION' }
   ];
 
   const filteredAchievements = allAchievements.filter(a => {
@@ -43,6 +47,15 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
     }
     return false;
   });
+
+  const filteredChallenges = challenges.filter(
+    challenge => challenge.category === categories.find(c => c.id === selectedCategory)?.challengeCategory
+  );
+
+  const getChallengeStatus = (day: number) => {
+    const dayProgress = progress.find(p => p.day === day);
+    return dayProgress?.completed ? 'completed' : 'pending';
+  };
 
   const levelProgress = userStats.pointsToNextLevel > 0 
     ? ((userStats.totalStars) / (userStats.totalStars + userStats.pointsToNextLevel)) * 100
@@ -91,6 +104,28 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
         </CardHeader>
       </Card>
 
+      {/* Toggle Achievement/Challenges */}
+      <div className="flex gap-2">
+        <Button
+          variant={viewMode === 'achievements' ? "default" : "outline"}
+          onClick={() => setViewMode('achievements')}
+          className="flex-1"
+          size="sm"
+        >
+          <Trophy className="w-4 h-4 mr-1" />
+          Achievement
+        </Button>
+        <Button
+          variant={viewMode === 'challenges' ? "default" : "outline"}
+          onClick={() => setViewMode('challenges')}
+          className="flex-1"
+          size="sm"
+        >
+          <Calendar className="w-4 h-4 mr-1" />
+          Sfide
+        </Button>
+      </div>
+
       {/* Filtri categorie */}
       <div className="flex flex-wrap gap-2">
         {categories.map(category => (
@@ -107,75 +142,132 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
         ))}
       </div>
 
-      {/* Griglia achievement */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {filteredAchievements.map(achievement => (
-          <Card 
-            key={achievement.id}
-            className={`cursor-pointer transition-all hover:shadow-md ${
-              achievement.unlocked 
-                ? 'bg-green-50 border-green-200' 
-                : 'bg-gray-50 border-gray-200'
-            }`}
-            onClick={() => handleAchievementClick(achievement)}
-          >
-            <CardContent className="p-4">
-              <div className="flex items-start gap-3">
-                <div className={`text-2xl ${achievement.unlocked ? '' : 'grayscale opacity-50'}`}>
-                  {achievement.unlocked ? achievement.icon : <Lock className="w-6 h-6 text-gray-400" />}
-                </div>
-                
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className={`font-semibold text-sm ${
-                      achievement.unlocked ? 'text-green-800' : 'text-gray-600'
-                    }`}>
-                      {achievement.name}
-                    </h3>
-                    {achievement.unlocked && (
-                      <Sparkles className="w-4 h-4 text-green-600" />
-                    )}
+      {viewMode === 'achievements' ? (
+        // Griglia achievement
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {filteredAchievements.map(achievement => (
+            <Card 
+              key={achievement.id}
+              className={`cursor-pointer transition-all hover:shadow-md ${
+                achievement.unlocked 
+                  ? 'bg-green-50 border-green-200' 
+                  : 'bg-gray-50 border-gray-200'
+              }`}
+              onClick={() => handleAchievementClick(achievement)}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <div className={`text-2xl ${achievement.unlocked ? '' : 'grayscale opacity-50'}`}>
+                    {achievement.unlocked ? achievement.icon : <Lock className="w-6 h-6 text-gray-400" />}
                   </div>
                   
-                  <p className={`text-xs mb-2 ${
-                    achievement.unlocked ? 'text-green-700' : 'text-gray-500'
-                  }`}>
-                    {achievement.description}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Star className={`w-3 h-3 ${
-                        achievement.unlocked ? 'text-amber-500 fill-amber-500' : 'text-gray-400'
-                      }`} />
-                      <span className={`text-xs font-medium ${
-                        achievement.unlocked ? 'text-amber-700' : 'text-gray-500'
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className={`font-semibold text-sm ${
+                        achievement.unlocked ? 'text-green-800' : 'text-gray-600'
                       }`}>
-                        {achievement.stars}
-                      </span>
+                        {achievement.name}
+                      </h3>
+                      {achievement.unlocked && (
+                        <Sparkles className="w-4 h-4 text-green-600" />
+                      )}
                     </div>
                     
-                    <Badge 
-                      variant={achievement.unlocked ? "default" : "secondary"}
-                      className="text-xs"
-                    >
-                      {achievement.unlocked ? 'Sbloccato' : 'Bloccato'}
-                    </Badge>
-                  </div>
-                  
-                  {achievement.unlocked && achievement.unlockedAt && (
-                    <p className="text-xs text-green-600 mt-1">
-                      Sbloccato: {new Date(achievement.unlockedAt).toLocaleDateString('it-IT')}
+                    <p className={`text-xs mb-2 ${
+                      achievement.unlocked ? 'text-green-700' : 'text-gray-500'
+                    }`}>
+                      {achievement.description}
                     </p>
-                  )}
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1">
+                        <Star className={`w-3 h-3 ${
+                          achievement.unlocked ? 'text-amber-500 fill-amber-500' : 'text-gray-400'
+                        }`} />
+                        <span className={`text-xs font-medium ${
+                          achievement.unlocked ? 'text-amber-700' : 'text-gray-500'
+                        }`}>
+                          {achievement.stars}
+                        </span>
+                      </div>
+                      
+                      <Badge 
+                        variant={achievement.unlocked ? "default" : "secondary"}
+                        className="text-xs"
+                      >
+                        {achievement.unlocked ? 'Sbloccato' : 'Bloccato'}
+                      </Badge>
+                    </div>
+                    
+                    {achievement.unlocked && achievement.unlockedAt && (
+                      <p className="text-xs text-green-600 mt-1">
+                        Sbloccato: {new Date(achievement.unlockedAt).toLocaleDateString('it-IT')}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        // Lista sfide
+        <div className="space-y-3">
+          {filteredChallenges.map(challenge => {
+            const status = getChallengeStatus(challenge.day);
+            const isCompleted = status === 'completed';
+            
+            return (
+              <Card 
+                key={challenge.day}
+                className={`transition-all ${
+                  isCompleted 
+                    ? 'bg-green-50 border-green-200' 
+                    : 'bg-card border-border'
+                }`}
+              >
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${
+                      isCompleted 
+                        ? 'bg-green-100 text-green-600' 
+                        : 'bg-primary/10 text-primary'
+                    }`}>
+                      {isCompleted ? '✓' : challenge.day}
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between mb-1">
+                        <h3 className={`font-semibold text-sm ${
+                          isCompleted ? 'text-green-800' : 'text-foreground'
+                        }`}>
+                          Giorno {challenge.day}: {challenge.title}
+                        </h3>
+                        {challenge.timeRequired && (
+                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <Clock className="w-3 h-3" />
+                            {challenge.timeRequired}m
+                          </div>
+                        )}
+                      </div>
+                      
+                      <p className={`text-xs ${
+                        isCompleted ? 'text-green-700' : 'text-muted-foreground'
+                      }`}>
+                        {challenge.description}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      )}
 
-      {/* Statistiche totali */}
+      {viewMode === 'achievements' && (
+        <>
+          {/* Statistiche totali */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
@@ -243,6 +335,8 @@ const AchievementSystem: React.FC<AchievementSystemProps> = ({
           )}
         </DialogContent>
       </Dialog>
+        </>
+      )}
     </div>
   );
 };
