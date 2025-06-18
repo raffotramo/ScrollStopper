@@ -181,15 +181,15 @@ const ProgressPage: React.FC = () => {
                       </div>
                       <div className="text-2xl font-bold text-purple-600">
                         {(() => {
-                          const savedTime = Object.values(dailyCheckIns).map(day => {
+                          let savedTime = 0;
+                          Object.values(dailyCheckIns).forEach((day: any) => {
                             switch (day.phoneTime) {
-                              case 'Meno di 1h': return 120;
-                              case '1–2h': return 60;
-                              case '2–3h': return 20;
-                              case 'Più di 3h': return 0;
-                              default: return 0;
+                              case 'Meno di 1h': savedTime += 120; break;
+                              case '1–2h': savedTime += 60; break;
+                              case '2–3h': savedTime += 20; break;
+                              case 'Più di 3h': savedTime += 0; break;
                             }
-                          }).reduce((a, b) => a + b, 0);
+                          });
                           return savedTime >= 60 ? `${(savedTime / 60).toFixed(1)}h` : `${savedTime}m`;
                         })()}
                       </div>
