@@ -4,6 +4,7 @@ export interface ChallengeDay {
   description: string;
   timeRequired?: number; // in minutes
   reflection?: string;
+  category?: string;
 }
 
 export type CompletionStatus = 'yes' | 'partial' | 'no';
