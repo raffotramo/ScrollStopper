@@ -80,38 +80,174 @@ const ProgressPage: React.FC = () => {
             <CardTitle className="text-lg">Andamento Check-in</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-center mb-4">
+            <div className="text-center mb-6">
               <div className="text-3xl font-bold text-primary">{Object.keys(dailyCheckIns).length}</div>
               <div className="text-sm text-muted-foreground">Check-in completati</div>
             </div>
             
-            {/* Grafico semplice degli ultimi 7 giorni */}
-            <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground mb-3">Ultimi 7 giorni</div>
-              <div className="grid grid-cols-7 gap-1">
-                {Array.from({ length: 7 }, (_, i) => {
-                  const day = Math.max(1, currentDay - 6 + i);
-                  const hasCheckIn = dailyCheckIns[day];
-                  
-                  return (
-                    <div key={i} className="text-center">
-                      <div 
-                        className={`h-12 rounded flex items-end justify-center mb-1 ${
-                          hasCheckIn ? 'bg-primary' : 'bg-muted'
-                        }`}
-                      >
-                        <div className={`w-2 rounded-t transition-all duration-300 ${
-                          hasCheckIn ? 'h-full bg-primary-foreground/30' : 'h-2 bg-muted-foreground/30'
-                        }`} />
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {day}
-                      </div>
+            {/* Analisi delle risposte */}
+            {Object.keys(dailyCheckIns).length > 0 && (
+              <div className="space-y-6">
+                {/* Tempo medio al telefono */}
+                <div>
+                  <h4 className="text-sm font-medium text-foreground mb-3">Tempo al telefono</h4>
+                  <div className="grid grid-cols-7 gap-1">
+                    {Array.from({ length: 7 }, (_, i) => {
+                      const day = Math.max(1, currentDay - 6 + i);
+                      const dayData = dailyCheckIns[day];
+                      
+                      let height = 'h-2';
+                      let color = 'bg-muted';
+                      
+                      if (dayData?.phoneTime) {
+                        switch (dayData.phoneTime) {
+                          case 'Meno di 1h':
+                            height = 'h-3';
+                            color = 'bg-green-500';
+                            break;
+                          case '1–2h':
+                            height = 'h-6';
+                            color = 'bg-yellow-500';
+                            break;
+                          case '2–3h':
+                            height = 'h-9';
+                            color = 'bg-orange-500';
+                            break;
+                          case 'Più di 3h':
+                            height = 'h-12';
+                            color = 'bg-red-500';
+                            break;
+                        }
+                      }
+                      
+                      return (
+                        <div key={i} className="text-center">
+                          <div className="h-12 flex items-end justify-center mb-1">
+                            <div className={`w-3 rounded-t transition-all duration-300 ${height} ${color}`} />
+                          </div>
+                          <div className="text-xs text-muted-foreground">{day}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                    <span>Meno</span>
+                    <span>Più tempo</span>
+                  </div>
+                </div>
+
+                {/* Controllo degli impulsi */}
+                <div>
+                  <h4 className="text-sm font-medium text-foreground mb-3">Controllo impulsi</h4>
+                  <div className="grid grid-cols-7 gap-1">
+                    {Array.from({ length: 7 }, (_, i) => {
+                      const day = Math.max(1, currentDay - 6 + i);
+                      const dayData = dailyCheckIns[day];
+                      
+                      let height = 'h-2';
+                      let color = 'bg-muted';
+                      
+                      if (dayData?.scrollImpulse) {
+                        switch (dayData.scrollImpulse) {
+                          case 'Mai':
+                            height = 'h-12';
+                            color = 'bg-green-500';
+                            break;
+                          case 'Una volta':
+                            height = 'h-6';
+                            color = 'bg-yellow-500';
+                            break;
+                          case 'Più volte':
+                            height = 'h-3';
+                            color = 'bg-red-500';
+                            break;
+                        }
+                      }
+                      
+                      return (
+                        <div key={i} className="text-center">
+                          <div className="h-12 flex items-end justify-center mb-1">
+                            <div className={`w-3 rounded-t transition-all duration-300 ${height} ${color}`} />
+                          </div>
+                          <div className="text-xs text-muted-foreground">{day}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                    <span>Più controllo</span>
+                    <span>Meno controllo</span>
+                  </div>
+                </div>
+
+                {/* Umore generale */}
+                <div>
+                  <h4 className="text-sm font-medium text-foreground mb-3">Umore giornaliero</h4>
+                  <div className="grid grid-cols-7 gap-1">
+                    {Array.from({ length: 7 }, (_, i) => {
+                      const day = Math.max(1, currentDay - 6 + i);
+                      const dayData = dailyCheckIns[day];
+                      
+                      let height = 'h-2';
+                      let color = 'bg-muted';
+                      
+                      if (dayData?.dailyFeeling) {
+                        switch (dayData.dailyFeeling) {
+                          case 'Calmo/a e concentrato/a':
+                            height = 'h-12';
+                            color = 'bg-green-500';
+                            break;
+                          case 'Neutro/a':
+                            height = 'h-6';
+                            color = 'bg-yellow-500';
+                            break;
+                          case 'Distratto/a o ansioso/a':
+                            height = 'h-3';
+                            color = 'bg-red-500';
+                            break;
+                        }
+                      }
+                      
+                      return (
+                        <div key={i} className="text-center">
+                          <div className="h-12 flex items-end justify-center mb-1">
+                            <div className={`w-3 rounded-t transition-all duration-300 ${height} ${color}`} />
+                          </div>
+                          <div className="text-xs text-muted-foreground">{day}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                    <span>Più calmo</span>
+                    <span>Più distratto</span>
+                  </div>
+                </div>
+
+                {/* Legenda colori */}
+                <div className="bg-muted/30 rounded-lg p-3">
+                  <div className="text-xs font-medium text-foreground mb-2">Legenda:</div>
+                  <div className="flex flex-wrap gap-3 text-xs">
+                    <div className="flex items-center gap-1">
+                      <div className="w-3 h-3 bg-green-500 rounded"></div>
+                      <span>Ottimo</span>
                     </div>
-                  );
-                })}
+                    <div className="flex items-center gap-1">
+                      <div className="w-3 h-3 bg-yellow-500 rounded"></div>
+                      <span>Medio</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-3 h-3 bg-orange-500 rounded"></div>
+                      <span>Attenzione</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <div className="w-3 h-3 bg-red-500 rounded"></div>
+                      <span>Critico</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </CardContent>
         </Card>
       </main>
