@@ -222,32 +222,47 @@ const Home: React.FC = () => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto hide-scrollbar pb-24">
-        {/* Main Challenge Card */}
-        <section className="bg-card rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] mx-4 my-4 p-6 border-2 border-primary/20 ring-1 ring-primary/10">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                <Calendar className="w-5 h-5 text-primary" />
-              </div>
-              <h1 className="text-xl font-bold text-foreground">Giorno {currentDay}</h1>
-            </div>
-            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">{currentDay}</span>
-            </div>
-          </div>
-          <h2 className="text-lg font-bold text-foreground mb-3">{todayChallenge.title}</h2>
-          <p className="text-muted-foreground text-sm mb-6">{getActivityClaim(currentDay)}</p>
-          <Button 
-            className={`w-full rounded-full h-12 font-bold text-base shadow-lg transition-all duration-200 ${
-              isCurrentDayCompleted 
-                ? "bg-primary/20 text-primary border-2 border-primary hover:bg-primary/30 hover:scale-[1.02]" 
-                : "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-[1.02] hover:shadow-xl"
-            }`}
-            onClick={() => setModalOpen(true)}
-          >
-            {isCurrentDayCompleted ? "✓ Completato per Oggi" : "Inizia Oggi"}
-          </Button>
+        {/* Daily Access Control */}
+        <section className="mx-4 my-4">
+          <DailyAccessControl
+            canAccessToday={canAccessToday}
+            timeUntilUnlock={timeUntilUnlock}
+            currentDay={currentDay}
+            lastAccessDate={lastAccessDate}
+            isDayCompleted={isDayCompleted || isCurrentDayCompleted}
+            onReset={resetDay}
+            showResetButton={import.meta.env.DEV}
+          />
         </section>
+
+        {/* Main Challenge Card - Only show if access is allowed */}
+        {canAccessToday && (
+          <section className="bg-card rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] mx-4 my-4 p-6 border-2 border-primary/20 ring-1 ring-primary/10">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-primary" />
+                </div>
+                <h1 className="text-xl font-bold text-foreground">Giorno {currentDay}</h1>
+              </div>
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-sm">{currentDay}</span>
+              </div>
+            </div>
+            <h2 className="text-lg font-bold text-foreground mb-3">{todayChallenge.title}</h2>
+            <p className="text-muted-foreground text-sm mb-6">{getActivityClaim(currentDay)}</p>
+            <Button 
+              className={`w-full rounded-full h-12 font-bold text-base shadow-lg transition-all duration-200 ${
+                isCurrentDayCompleted 
+                  ? "bg-primary/20 text-primary border-2 border-primary hover:bg-primary/30 hover:scale-[1.02]" 
+                  : "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-[1.02] hover:shadow-xl"
+              }`}
+              onClick={() => setModalOpen(true)}
+            >
+              {isCurrentDayCompleted ? "✓ Completato per Oggi" : "Inizia Oggi"}
+            </Button>
+          </section>
+        )}
 
         {/* Gamification Widget */}
         <section className="mx-4 my-4">
