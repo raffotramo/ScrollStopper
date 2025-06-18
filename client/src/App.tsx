@@ -63,6 +63,7 @@ function Router() {
       <Route path="/journal" component={Journal} />
       <Route path="/progress" component={Progress} />
       <Route path="/challenges" component={Challenges} />
+      <Route path="/achievements" component={Achievements} />
       <Route path="/profile" component={Profile} />
       <Route path="/shopify" component={ShopifyIntegration} />
       <Route path="/email" component={EmailConfig} />
