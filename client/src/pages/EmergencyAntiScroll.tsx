@@ -463,30 +463,35 @@ const EmergencyAntiScroll: React.FC = () => {
 
 
 
-        {/* Log delle azioni recenti */}
-        {emergencyLogs.length > 0 && (
-          <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
-            <div className="flex items-center gap-2 mb-4">
-              <CheckCircle className="w-5 h-5 text-foreground" />
-              <h3 className="font-semibold text-foreground">Azioni Recenti</h3>
+        {/* Consigli motivazionali */}
+        <div className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-2xl p-6 border border-primary/20 shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <Heart className="w-5 h-5 text-primary" />
+            <h3 className="font-semibold text-foreground">Promemoria Motivazionale</h3>
+          </div>
+          <div className="space-y-4">
+            <div className="bg-background/80 rounded-lg p-4 border border-primary/10">
+              <p className="text-sm text-foreground leading-relaxed">
+                <strong>Ricorda:</strong> Ogni volta che usi questi strumenti, stai allenando la tua forza di volontà. È come fare esercizio per la mente.
+              </p>
             </div>
-            <div className="space-y-3">
-              {emergencyLogs.slice(0, 5).map((log, index) => (
-                <div 
-                  key={index}
-                  className="flex justify-between items-start gap-4 p-3 bg-muted rounded-lg"
-                >
-                  <span className="text-foreground text-sm leading-relaxed flex-1 pr-6">
-                    {log.action}
-                  </span>
-                  <Badge variant="outline" className="text-xs shrink-0 ml-4">
-                    {log.date}
-                  </Badge>
-                </div>
-              ))}
+            <div className="bg-background/80 rounded-lg p-4 border border-primary/10">
+              <p className="text-sm text-foreground leading-relaxed">
+                <strong>Sei più forte di quanto pensi:</strong> Il fatto che tu sia qui dimostra che vuoi cambiare. Questo è già il primo grande passo.
+              </p>
+            </div>
+            <div className="bg-background/80 rounded-lg p-4 border border-primary/10">
+              <p className="text-sm text-foreground leading-relaxed">
+                <strong>Progresso, non perfezione:</strong> Non importa se ieri hai scrollato troppo. Oggi è un nuovo giorno per fare meglio.
+              </p>
+            </div>
+            <div className="bg-background/80 rounded-lg p-4 border border-primary/10">
+              <p className="text-sm text-foreground leading-relaxed">
+                <strong>Tempo ritrovato:</strong> Ogni minuto che non passi scrollando è un minuto che puoi dedicare a ciò che ami davvero.
+              </p>
             </div>
           </div>
-        )}
+        </div>
       </main>
 
       <TabNavigation />
