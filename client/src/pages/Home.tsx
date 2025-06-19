@@ -245,6 +245,9 @@ const Home: React.FC = () => {
           </Card>
         </section>
 
+        {/* PWA Development Notice */}
+        <PWADevNotice />
+
         {/* Time Saved Counter - Only show if access is allowed */}
         {canAccessToday && (
           <section className="mx-4 my-4">
