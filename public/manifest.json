@@ -3,7 +3,7 @@
   "short_name": "ScrollStop",
   "description": "Riprendi il controllo del tuo tempo con la sfida di 30 giorni anti-scrolling",
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#6366f1",
   "orientation": "portrait",
