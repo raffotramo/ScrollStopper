@@ -16,36 +16,69 @@ const InstallPrompt: React.FC = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
   const [promptDismissed, setPromptDismissed] = useLocalStorage('install-prompt-dismissed', false);
+  const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
+    // Check if app is already installed (standalone mode)
+    const checkStandalone = () => {
+      const standalone = window.matchMedia('(display-mode: standalone)').matches ||
+                        (window.navigator as any).standalone ||
+                        document.referrer.includes('android-app://');
+      setIsStandalone(standalone);
+    };
+
+    checkStandalone();
+
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       
-      if (!promptDismissed) {
+      if (!promptDismissed && !isStandalone) {
         setShowInstallPrompt(true);
       }
     };
+
+    // Show install prompt for mobile even without beforeinstallprompt
+    const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile && !promptDismissed && !isStandalone) {
+      setShowInstallPrompt(true);
+    }
 
     window.addEventListener('beforeinstallprompt', handler);
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handler);
     };
-  }, [promptDismissed]);
+  }, [promptDismissed, isStandalone]);
 
   const handleInstall = async () => {
-    if (!deferredPrompt) return;
-
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    
-    if (outcome === 'accepted') {
-      console.log('User accepted the install prompt');
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      
+      if (outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      }
+      
+      setDeferredPrompt(null);
+      setShowInstallPrompt(false);
+    } else {
+      // Show manual instructions
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isAndroid = /Android/.test(navigator.userAgent);
+      
+      let instructions = "";
+      if (isIOS) {
+        instructions = "Tocca l'icona 'Condividi' in basso, poi 'Aggiungi alla schermata Home'";
+      } else if (isAndroid) {
+        instructions = "Tocca il menu (3 punti) e seleziona 'Aggiungi alla schermata principale'";
+      } else {
+        instructions = "Cerca l'icona di installazione nella barra degli indirizzi del browser";
+      }
+      
+      alert(`Per installare ScrollStop:\n\n${instructions}`);
     }
-    
-    setDeferredPrompt(null);
-    setShowInstallPrompt(false);
   };
 
   const handleDismiss = () => {
@@ -53,7 +86,7 @@ const InstallPrompt: React.FC = () => {
     setPromptDismissed(true);
   };
 
-  if (!showInstallPrompt || !deferredPrompt) {
+  if (!showInstallPrompt || isStandalone) {
     return null;
   }
 
