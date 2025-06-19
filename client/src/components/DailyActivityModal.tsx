@@ -16,6 +16,12 @@ interface DailyActivityModalProps {
   challenge: ChallengeDay;
   onComplete: (reflectionText: string, status: CompletionStatus, timeSpent?: number) => void;
   tip?: string;
+  isCompleted?: boolean;
+  existingData?: {
+    reflectionText: string;
+    completionStatus: CompletionStatus;
+    timeSpent?: number;
+  };
 }
 
 const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
@@ -23,12 +29,14 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
   onOpenChange,
   challenge,
   onComplete,
-  tip
+  tip,
+  isCompleted = false,
+  existingData
 }) => {
-  const [reflectionText, setReflectionText] = useState('');
-  const [completionStatus, setCompletionStatus] = useState<CompletionStatus | undefined>(undefined);
+  const [reflectionText, setReflectionText] = useState(existingData?.reflectionText || '');
+  const [completionStatus, setCompletionStatus] = useState<CompletionStatus | undefined>(existingData?.completionStatus);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [timeSpent, setTimeSpent] = useState<number>(0);
+  const [timeSpent, setTimeSpent] = useState<number>(existingData?.timeSpent || 0);
   const { toast } = useToast();
 
   const handleSubmit = () => {
@@ -109,7 +117,9 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
             className="min-h-24 bg-background border-border/50 text-foreground placeholder:text-muted-foreground/60"
             placeholder={challenge.reflection ? `Rifletti su: ${challenge.reflection}` : "Come ti sei sentito/a durante questa attività? Cosa hai imparato?"}
             value={reflectionText}
-            onChange={(e) => setReflectionText(e.target.value)}
+            onChange={(e) => !isCompleted && setReflectionText(e.target.value)}
+            disabled={isCompleted}
+            readOnly={isCompleted}
           />
         </div>
         
@@ -118,7 +128,8 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
           <h3 className="font-semibold mb-3 text-foreground">Hai completato l'attività?</h3>
           <RadioGroup 
             value={completionStatus} 
-            onValueChange={(val) => setCompletionStatus(val as CompletionStatus)}
+            onValueChange={(val) => !isCompleted && setCompletionStatus(val as CompletionStatus)}
+            disabled={isCompleted}
           >
             <div className="flex flex-col space-y-2">
               <Label className="flex items-center space-x-3 p-3 border border-border/50 rounded-xl cursor-pointer hover:border-primary/50 bg-background text-foreground transition-colors">
@@ -137,13 +148,19 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
           </RadioGroup>
         </div>
         
-        <Button 
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 text-lg rounded-full h-12 shadow-sm" 
-          onClick={handleSubmit}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? '💾 Salvataggio...' : `🎯 Completa Giorno ${challenge.day}`}
-        </Button>
+        {isCompleted ? (
+          <div className="w-full bg-green-100 border-2 border-green-200 text-green-800 font-semibold py-3 text-lg rounded-full h-12 shadow-sm flex items-center justify-center">
+            ✓ Completato il {existingData?.timeSpent ? `${Math.floor(existingData.timeSpent / 60)}h ${existingData.timeSpent % 60}m` : `Giorno ${challenge.day}`}
+          </div>
+        ) : (
+          <Button 
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 text-lg rounded-full h-12 shadow-sm" 
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? '💾 Salvataggio...' : `🎯 Completa Giorno ${challenge.day}`}
+          </Button>
+        )}
       </DialogContent>
     </Dialog>
   );

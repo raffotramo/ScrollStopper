@@ -206,6 +206,7 @@ const Home: React.FC = () => {
   };
   
   const isCurrentDayCompleted = progress.some(p => p.day === currentDay && p.completed);
+  const currentDayProgress = progress.find(p => p.day === currentDay);
   
   // Get upcoming challenges (next 2)
   const upcomingChallenges = challenges
@@ -314,7 +315,7 @@ const Home: React.FC = () => {
             <Button 
               className={`w-full rounded-full h-12 font-bold text-base shadow-lg transition-all duration-200 ${
                 isCurrentDayCompleted 
-                  ? "bg-primary/20 text-primary border-2 border-primary hover:bg-primary/30 hover:scale-[1.02]" 
+                  ? "bg-gray-100 text-gray-500 border-2 border-gray-200 hover:bg-gray-150 cursor-default" 
                   : "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-[1.02] hover:shadow-xl"
               }`}
               onClick={() => {
@@ -490,6 +491,12 @@ const Home: React.FC = () => {
         challenge={selectedChallenge || todayChallenge}
         onComplete={handleCompleteChallenge}
         tip={tip}
+        isCompleted={isCurrentDayCompleted}
+        existingData={currentDayProgress ? {
+          reflectionText: currentDayProgress.reflectionText || '',
+          completionStatus: currentDayProgress.completionStatus || 'no',
+          timeSpent: currentDayProgress.timeSpent
+        } : undefined}
       />
 
       {/* Tab Navigation */}
