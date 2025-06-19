@@ -151,7 +151,7 @@ const Home: React.FC = () => {
         achievements: updatedAchievements
       });
     }
-  }, [progress, completedDays, userStats.totalTimeRecovered, userStats.daysCompleted, userStats.currentStreak, userStats.totalReflections, userStats.totalStars, userStats.level, userStats.achievements, setUserStats, toast]);
+  }, [progress, emergencyLogs, completedDays, userStats.totalTimeRecovered, userStats.daysCompleted, userStats.currentStreak, userStats.totalReflections, userStats.totalStars, userStats.level, userStats.achievements, setUserStats, toast]);
   
   const handleCompleteChallenge = (reflectionText: string, status: CompletionStatus, timeSpent?: number) => {
     const isCompleted = status === 'yes' || status === 'partial';
