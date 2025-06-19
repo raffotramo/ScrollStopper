@@ -53,10 +53,18 @@ const Home: React.FC = () => {
   // Get today's challenge
   const todayChallenge = getTodaysChallenge(currentDay);
   
-  // Calculate stats based on actual time spent
-  const timeRecovered = progress
+  // Get emergency activities time
+  const [emergencyLogs] = useLocalStorage<Array<{date: string; action: string; timestamp: Date; timeSpent: number}>>('emergency-anti-scroll-logs', []);
+  
+  // Calculate stats based on actual time spent (challenges + emergency activities)
+  const challengeTimeRecovered = progress
     .filter(day => day.completed && day.timeSpent)
     .reduce((total, day) => total + (day.timeSpent || 0), 0);
+    
+  const emergencyTimeRecovered = emergencyLogs
+    .reduce((total, log) => total + (log.timeSpent || 0), 0);
+    
+  const timeRecovered = challengeTimeRecovered + emergencyTimeRecovered;
   
   // Determine current streak
   let currentStreak = 0;
@@ -76,9 +84,14 @@ const Home: React.FC = () => {
 
   // Update achievement stats when progress changes
   useEffect(() => {
-    const currentTimeRecovered = progress
+    const challengeTimeRecovered = progress
       .filter(day => day.completed && day.timeSpent)
       .reduce((total, day) => total + (day.timeSpent || 0), 0);
+      
+    const emergencyTimeRecovered = emergencyLogs
+      .reduce((total, log) => total + (log.timeSpent || 0), 0);
+      
+    const currentTimeRecovered = challengeTimeRecovered + emergencyTimeRecovered;
     
     let currentStreak = 0;
     const progressSorted = [...progress].sort((a, b) => b.day - a.day);

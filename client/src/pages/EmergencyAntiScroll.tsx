@@ -23,6 +23,7 @@ interface EmergencyLog {
   date: string;
   action: string;
   timestamp: Date;
+  timeSpent: number; // in minutes
 }
 
 const EmergencyAntiScroll: React.FC = () => {
@@ -215,7 +216,8 @@ const EmergencyAntiScroll: React.FC = () => {
     const newLog: EmergencyLog = {
       date: new Date().toLocaleDateString('it-IT'),
       action: currentAction.action,
-      timestamp: new Date()
+      timestamp: new Date(),
+      timeSpent: emergencyTimeSpent
     };
     
     setEmergencyLogs(prev => [newLog, ...prev.slice(0, 9)]);
