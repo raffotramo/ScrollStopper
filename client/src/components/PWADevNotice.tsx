@@ -17,13 +17,17 @@ export default function PWADevNotice() {
               Modalità Sviluppo PWA
             </div>
             <div className="text-orange-700">
-              Per testare l'esperienza fullscreen senza barre del browser:
+              <strong>Importante:</strong> Le PWA funzionano completamente solo quando pubblicate su domini reali (non .replit.dev). Per l'esperienza fullscreen:
             </div>
             <ol className="list-decimal list-inside mt-2 space-y-1 text-orange-700">
-              <li>Pubblica l'app su un dominio pubblico</li>
-              <li>Installa l'app dal banner di installazione</li>
-              <li>Apri l'app dalla home screen (non dal browser)</li>
+              <li>Pubblica su Netlify/Vercel con il comando push</li>
+              <li>Visita il sito dal dominio pubblico su mobile</li>
+              <li>Installa l'app tramite il banner</li>
+              <li>Apri solo dall'icona della home screen</li>
             </ol>
+            <div className="text-orange-600 text-xs mt-2">
+              Solo così il banner sparirà e l'app si aprirà senza barre del browser.
+            </div>
           </div>
         </div>
       </CardContent>

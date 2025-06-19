@@ -27,15 +27,18 @@ const InstallPrompt: React.FC = () => {
                         document.referrer.includes('android-app://') ||
                         window.location.search.includes('source=pwa');
       
-      console.log('PWA Status:', {
-        standalone,
-        displayMode: window.matchMedia('(display-mode: standalone)').matches,
-        fullscreen: window.matchMedia('(display-mode: fullscreen)').matches,
-        navigatorStandalone: (window.navigator as any).standalone,
-        referrer: document.referrer,
-        hostname: window.location.hostname,
-        isReplitDev: window.location.hostname.includes('replit')
-      });
+      // Debug info in console
+      if (process.env.NODE_ENV === 'development') {
+        console.log('PWA Status:', {
+          standalone,
+          displayMode: window.matchMedia('(display-mode: standalone)').matches,
+          fullscreen: window.matchMedia('(display-mode: fullscreen)').matches,
+          navigatorStandalone: (window.navigator as any).standalone,
+          referrer: document.referrer,
+          hostname: window.location.hostname,
+          searchParams: window.location.search
+        });
+      }
       
       setIsStandalone(standalone);
       
