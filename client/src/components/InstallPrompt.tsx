@@ -123,7 +123,7 @@ const InstallPrompt: React.FC = () => {
 
   return (
     <div className="fixed bottom-20 left-4 right-4 z-50">
-      <Card className="bg-primary text-primary-foreground shadow-xl border-0">
+      <Card className="bg-green-600 text-white shadow-xl border-0">
         <CardContent className="p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 flex-1">
@@ -138,7 +138,7 @@ const InstallPrompt: React.FC = () => {
               <Button
                 size="sm"
                 variant="ghost"
-                className="text-primary-foreground hover:bg-white/20 h-8 w-8 p-0"
+                className="text-white hover:bg-white/20 h-8 w-8 p-0"
                 onClick={handleDismiss}
               >
                 <X className="w-4 h-4" />
@@ -146,7 +146,7 @@ const InstallPrompt: React.FC = () => {
               <Button
                 size="sm"
                 variant="secondary"
-                className="bg-white text-primary hover:bg-white/90 text-xs px-3"
+                className="bg-white text-green-600 hover:bg-gray-100 text-xs px-3 font-semibold"
                 onClick={handleInstall}
               >
                 Installa
