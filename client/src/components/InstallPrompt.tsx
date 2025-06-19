@@ -41,7 +41,8 @@ const InstallPrompt: React.FC = () => {
     // Show install prompt for mobile even without beforeinstallprompt
     const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    if (isMobile && !promptDismissed && !isStandalone) {
+    // Force show for testing - remove this later
+    if (!promptDismissed && !isStandalone) {
       setShowInstallPrompt(true);
     }
 
@@ -101,7 +102,9 @@ const InstallPrompt: React.FC = () => {
               </div>
               <div className="flex-1">
                 <div className="font-semibold text-sm">Installa ScrollStop</div>
-                <div className="text-xs opacity-90">Aggiungi l'app alla schermata principale</div>
+                <div className="text-xs opacity-90">
+                  {deferredPrompt ? 'Pronto per installazione' : 'Aggiungi alla schermata principale'}
+                </div>
               </div>
             </div>
             <div className="flex gap-2">

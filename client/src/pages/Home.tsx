@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { ChevronRight, Info, Clock, Award, BookOpen, Star, Lightbulb, Zap, Lock as LockIcon, Calendar, Trophy, Crown } from 'lucide-react';
+import { ChevronRight, Info, Clock, Award, BookOpen, Star, Lightbulb, Zap, Lock as LockIcon, Calendar, Trophy, Crown, Download } from 'lucide-react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
