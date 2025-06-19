@@ -10,6 +10,7 @@ import DailyChallenge from '@/components/DailyChallenge';
 import TabNavigation from '@/components/TabNavigation';
 import Header from '@/components/Header';
 import SocialShare from '@/components/SocialShare';
+import PWADevNotice from '@/components/PWADevNotice';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 import { challenges, getTodaysChallenge, getDailyTip, getActivityClaim, CHALLENGE_CATEGORIES } from '@/lib/challenges';

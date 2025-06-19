@@ -22,13 +22,25 @@ const InstallPrompt: React.FC = () => {
     // Check if app is already installed (standalone mode)
     const checkStandalone = () => {
       const standalone = window.matchMedia('(display-mode: standalone)').matches ||
+                        window.matchMedia('(display-mode: fullscreen)').matches ||
                         (window.navigator as any).standalone ||
-                        document.referrer.includes('android-app://');
+                        document.referrer.includes('android-app://') ||
+                        window.location.search.includes('source=pwa');
+      
+      console.log('PWA Status:', {
+        standalone,
+        displayMode: window.matchMedia('(display-mode: standalone)').matches,
+        fullscreen: window.matchMedia('(display-mode: fullscreen)').matches,
+        navigatorStandalone: (window.navigator as any).standalone,
+        referrer: document.referrer,
+        hostname: window.location.hostname,
+        isReplitDev: window.location.hostname.includes('replit')
+      });
+      
       setIsStandalone(standalone);
       
-      // If app is standalone, automatically dismiss the prompt
+      // If app is standalone, hide the prompt
       if (standalone) {
-        setPromptDismissed(true);
         setShowInstallPrompt(false);
       }
     };
@@ -51,6 +63,11 @@ const InstallPrompt: React.FC = () => {
     // Show install prompt for mobile devices only if not already installed
     const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
+    // Don't show banner if in development mode on Replit
+    const isReplitDev = window.location.hostname.includes('replit.dev') || 
+                       window.location.hostname.includes('replit.app');
+    
+    // For testing purposes, show banner on mobile even in dev mode
     if (isMobile && !promptDismissed && !isStandalone) {
       setShowInstallPrompt(true);
     }
