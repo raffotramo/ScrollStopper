@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Clock, CheckCircle, Lightbulb, Target } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -38,6 +38,19 @@ const DailyActivityModal: React.FC<DailyActivityModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [timeSpent, setTimeSpent] = useState<number>(existingData?.timeSpent || 0);
   const { toast } = useToast();
+
+  // Update state when existingData changes
+  useEffect(() => {
+    if (existingData) {
+      setReflectionText(existingData.reflectionText || '');
+      setCompletionStatus(existingData.completionStatus);
+      setTimeSpent(existingData.timeSpent || 0);
+    } else {
+      setReflectionText('');
+      setCompletionStatus(undefined);
+      setTimeSpent(0);
+    }
+  }, [existingData, open]);
 
   const handleSubmit = () => {
     if (!completionStatus) {
