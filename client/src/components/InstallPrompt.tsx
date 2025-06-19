@@ -25,9 +25,19 @@ const InstallPrompt: React.FC = () => {
                         (window.navigator as any).standalone ||
                         document.referrer.includes('android-app://');
       setIsStandalone(standalone);
+      
+      // If app is standalone, automatically dismiss the prompt
+      if (standalone) {
+        setPromptDismissed(true);
+        setShowInstallPrompt(false);
+      }
     };
 
     checkStandalone();
+    
+    // Listen for display mode changes
+    const mediaQuery = window.matchMedia('(display-mode: standalone)');
+    mediaQuery.addEventListener('change', checkStandalone);
 
     const handler = (e: Event) => {
       e.preventDefault();
@@ -38,11 +48,10 @@ const InstallPrompt: React.FC = () => {
       }
     };
 
-    // Show install prompt for mobile even without beforeinstallprompt
+    // Show install prompt for mobile devices only if not already installed
     const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    // Force show for testing - remove this later
-    if (!promptDismissed && !isStandalone) {
+    if (isMobile && !promptDismissed && !isStandalone) {
       setShowInstallPrompt(true);
     }
 
@@ -50,6 +59,7 @@ const InstallPrompt: React.FC = () => {
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handler);
+      mediaQuery.removeEventListener('change', checkStandalone);
     };
   }, [promptDismissed, isStandalone]);
 
