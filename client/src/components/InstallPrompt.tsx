@@ -107,9 +107,6 @@ const InstallPrompt: React.FC = () => {
         <CardContent className="p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 flex-1">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <Download className="w-5 h-5" />
-              </div>
               <div className="flex-1">
                 <div className="font-semibold text-sm">Installa ScrollStop</div>
                 <div className="text-xs opacity-90">
